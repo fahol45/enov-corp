@@ -1,0 +1,279 @@
+   2: import Link from "next/link";
+   3: 
+   5:   title: "ENOV CORP | Développement Web & Mobile",
+   6:   description:
+   7:     "Applications mobiles et sites web multi-secteurs : finance, e-commerce, opérations, service client, santé et logistique.",
+   9: 
+  10: const highlights = [
+  12:     title: "Design system responsive",
+  13:     description:
+  14:       "Un seul langage UI déclinable sur desktop, tablette, mobiles rugged et kiosques.",
+  17:     title: "Offline first",
+  18:     description:
+  19:       "Synchronisation intelligente, cache local et reprises automatiques de session.",
+  22:     title: "Sécurité zero trust",
+  23:     description:
+  24:       "SSO, MFA, gestion fine des droits et audits pour protéger vos flux sensibles.",
+  26: ];
+  27: 
+  28: const appCatalog = [
+  30:     title: "Finance & paiement",
+  31:     items: [
+  32:       "Super-app finance pour operateurs",
+  33:       "Portefeuille digital et controle depenses",
+  34:       "App de gestion d'investissements",
+  35:     ],
+  38:     title: "Commerce & marketplace",
+  39:     items: [
+  40:       "Marketplace B2B avec pricing dynamique",
+  41:       "App e-commerce click & collect",
+  42:       "Catalogue vendeur + outils merchandising",
+  43:     ],
+  46:     title: "Exploitation & maintenance",
+  47:     items: [
+  48:       "GMAO terrain offline",
+  49:       "Suivi des lots de production",
+  50:       "Checklist qualite et securite",
+  51:     ],
+  54:     title: "Experience client",
+  55:     items: [
+  56:       "Portail client self-service",
+  57:       "Application visiteur pour showroom",
+  58:       "App fid elite avec gamification",
+  59:     ],
+  61: ];
+  62: 
+  63: const webSites = [
+  65:     title: "Sites corporate",
+  66:     description:
+  67:       "Positionnement marque, offres et preuves avec CMS headless pour vos equipes marketing.",
+  70:     title: "Portails data & analytics",
+  71:     description:
+  72:       "Visualisation temps reel, dashboards partages, exports et embed vers vos partenaires.",
+  75:     title: "Extranets clients",
+  76:     description:
+  77:       "Espace personnalise avec contrats, factures, support et workflows de validation.",
+  80:     title: "Landing produit / growth",
+  81:     description: "Pages campagne, formulaires, AB testing et connecteurs CRM.",
+  83: ];
+  84: 
+  85: const process = [
+  87:     title: "Discovery",
+  88:     description:
+  89:       "Immersion utilisateurs, definition KPIs, priorisation des journeys mobiles et web.",
+  92:     title: "Product design",
+  93:     description:
+  94:       "UX flows, UI kit multi devices, prototypes cliquables et guidelines dev.",
+  97:     title: "Engineering",
+  98:     description:
+  99:       "Stack React Native, Next.js, Nest et CI/CD securisee avec tests end-to-end.",
+ 102:     title: "Run & optimisation",
+ 103:     description:
+ 104:       "Monitoring, feature flags, analytics produit et roadmap partagee avec vos equipes.",
+ 106: ];
+ 107: 
+ 108: const techStack = [
+ 113: ];
+ 114: 
+ 115: const caseStudies = [
+ 117:     name: "Finovia",
+ 118:     product: "App finance + site investisseur",
+ 119:     impact: "Adoption +55%",
+ 120:     summary:
+ 121:       "Super-app budgétaire et portail investor relations avec authentification forte et analytics realtime.",
+ 124:     name: "Medisync",
+ 125:     product: "Plateforme sante + app patient",
+ 126:     impact: "-40% no-show",
+ 127:     summary:
+ 128:       "Agenda cross-cliniques, teleconsultation et app compagnon offline pour patients chroniques.",
+ 131:     name: "FlowCargo",
+ 132:     product: "Cockpit logistique + portal clients",
+ 133:     impact: "+20% satisfaction",
+ 134:     summary:
+ 135:       "Tracking colis en temps reel, alertes mobiles et extranet clients avec KPIs partagees.",
+ 137: ];
+ 138: 
+ 139: const heroStats = [
+ 143: ];
+ 144: 
+ 145: const deliveryPhases = [
+ 149: ];
+ 150: 
+ 151: const heroTags = ["Finance", "Commerce", "Ops", "Santé", "Relation client"];
+ 152: 
+ 154:   return (
+ 155:     <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+ 156:       <div className="pointer-events-none absolute inset-0 opacity-60">
+ 157:         <div className="absolute top-0 left-10 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+ 158:         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+ 159:       </div>
+ 160: 
+ 161:       <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
+ 162:         <div className="flex-1 space-y-10">
+ 163:           <div className="space-y-6">
+ 164:             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.7rem] uppercase tracking-[0.6em] text-fuchsia-200">
+ 165:               <span className="h-2 w-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-blue-500" />
+ 166:               Développement web & mobile
+ 167:             </div>
+ 168:             <h1 className="text-[2.5rem] font-semibold leading-tight text-white sm:text-[3.1rem]">
+ 169:               Des expériences web & mobile alignées sur vos opérations terrain
+ 170:             </h1>
+ 171:             <p className="text-lg text-slate-300">
+ 172:               Nous orchestrons UX, design system et delivery pour livrer des produits desktop & mobile qui boostent vos
+ 173:               opérations, vos ventes et votre relation client.
+ 174:             </p>
+ 175:             <div className="flex flex-wrap gap-2 text-[0.7rem] uppercase tracking-[0.4em] text-slate-400">
+ 179:                 </span>
+ 181:             </div>
+ 182:             <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+ 183:               <Link
+ 184:                 href="/contact"
+ 185:                 className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#a855f7] via-[#d946ef] to-[#0ea5e9] px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg shadow-purple-600/30 transition hover:scale-[1.02]"
+ 186:               >
+ 187:                 Discuter de mon app
+ 188:               </Link>
+ 189:               <a
+ 190:                 href="#catalogue"
+ 191:                 className="inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white hover:bg-white/5"
+ 192:               >
+ 193:                 Voir le catalogue
+ 194:               </a>
+ 195:             </div>
+ 196:           </div>
+ 197:           <div className="rounded-[3rem] border border-white/10 bg-gradient-to-br from-[#070812]/90 via-[#0b0f1f]/80 to-[#05060c]/70 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-10">
+ 198:             <div className="space-y-7">
+ 199:               <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-r from-[#a855f7]/25 to-[#0ea5e9]/25 p-6 text-white">
+ 200:                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+ 201:                   <div>
+ 202:                     <p className="text-[0.65rem] uppercase tracking-[0.5em] text-white/70">Command deck</p>
+ 203:                     <h3 className="text-2xl font-semibold">Studio web & mobile ENOV</h3>
+ 204:                     <p className="mt-2 text-sm text-white/80">
+ 205:                       Un seul socle pour designer, développer et opérer vos interfaces clients et terrain.
+ 206:                     </p>
+ 207:                   </div>
+ 208:                   <div className="text-right text-sm text-white/80">
+ 209:                     <p>53 KPIs en direct</p>
+ 210:                     <p>SLA 99.5%</p>
+ 211:                   </div>
+ 212:                 </div>
+ 213:               </div>
+ 214: 
+ 215:               <div className="grid gap-4 sm:grid-cols-2">
+ 220:                   </div>
+ 222:               </div>
+ 223: 
+ 224:               <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-6">
+ 225:                 <p className="text-[0.65rem] uppercase tracking-[0.5em] text-slate-300">Parcours delivery</p>
+ 226:                 <div className="mt-4 space-y-4">
+ 232:                     </div>
+ 234:                 </div>
+ 235:               </div>
+ 236: 
+ 237:               <div className="grid gap-4 sm:grid-cols-3">
+ 239:                   <div
+ 241:                     className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-4 text-center sm:text-left"
+ 242:                   >
+ 245:                   </div>
+ 247:               </div>
+ 248:             </div>
+ 249:           </div>
+ 250:         </div>
+ 251:       </section>
+ 252: 
+ 253:       <section id="catalogue" className="relative mx-auto max-w-6xl px-6 pb-16">
+ 254:         <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40">
+ 255:           <div className="space-y-4 text-center">
+ 256:             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">Applications mobiles</p>
+ 257:             <h2 className="text-3xl font-semibold">Les apps que nous livrons le plus</h2>
+ 258:             <p className="text-base text-slate-300">
+ 259:               Finance, e-commerce, exploitation, experience client : nous industrialisons vos produits mobiles.
+ 260:             </p>
+ 261:           </div>
+ 262:           <div className="mt-10 grid gap-5 md:grid-cols-2">
+ 266:                 <ul className="mt-4 space-y-2 text-sm text-slate-200">
+ 269:                       <span className="mt-1 h-2 w-2 rounded-full bg-fuchsia-400" />
+ 271:                     </li>
+ 273:                 </ul>
+ 274:               </div>
+ 276:           </div>
+ 277:         </div>
+ 278:       </section>
+ 279: 
+ 280:       <section className="relative mx-auto max-w-6xl px-6 pb-16">
+ 281:         <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40">
+ 282:           <div className="space-y-4 text-center">
+ 283:             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">Sites web & portails</p>
+ 284:             <h2 className="text-3xl font-semibold">Des experiences web pour informer, convertir, servir</h2>
+ 285:           </div>
+ 286:           <div className="mt-10 grid gap-5 md:grid-cols-2">
+ 291:               </div>
+ 293:           </div>
+ 294:         </div>
+ 295:       </section>
+ 296: 
+ 297:       <section className="relative mx-auto max-w-6xl px-6 pb-16">
+ 298:         <div className="grid gap-6 lg:grid-cols-2">
+ 299:           <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg">
+ 300:             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">Notre methode</p>
+ 301:             <h3 className="text-2xl font-semibold">Un cycle produit complet</h3>
+ 302:             <div className="mt-6 space-y-5">
+ 305:                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-sm font-bold">
+ 307:                   </div>
+ 308:                   <div>
+ 311:                   </div>
+ 312:                 </div>
+ 314:             </div>
+ 315:           </div>
+ 316:           <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg">
+ 317:             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">Stack technique</p>
+ 318:             <h3 className="text-2xl font-semibold">Technologies que nous maitrisons</h3>
+ 319:             <div className="mt-6 space-y-4">
+ 324:                 </div>
+ 326:             </div>
+ 327:           </div>
+ 328:         </div>
+ 329:       </section>
+ 330: 
+ 331:       <section className="relative mx-auto max-w-6xl px-6 pb-16">
+ 332:         <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40">
+ 333:           <div className="space-y-4 text-center">
+ 334:             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">Cas clients</p>
+ 335:             <h2 className="text-3xl font-semibold">Des produits web & mobile deja en production</h2>
+ 336:           </div>
+ 337:           <div className="mt-8 grid gap-6 md:grid-cols-3">
+ 344:               </div>
+ 346:           </div>
+ 347:         </div>
+ 348:       </section>
+ 349: 
+ 350:       <section className="relative mx-auto max-w-6xl px-6 pb-24">
+ 351:         <div className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-8 text-center shadow-2xl md:grid-cols-2">
+ 352:           <div className="space-y-4 text-left md:text-center">
+ 353:             <p className="text-sm uppercase tracking-[0.5em] text-purple-200">Pret pour votre prochain produit</p>
+ 354:             <h2 className="text-3xl font-semibold">Co-creons votre application ou site web</h2>
+ 355:             <p className="text-slate-300">
+ 356:               Finance, e-commerce, operations, relation client : dites-nous le probleme, nous livrons l'app et le site.
+ 357:             </p>
+ 358:             <Link
+ 359:               href="/contact"
+ 360:               className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+ 361:             >
+ 362:               Reserver un atelier digital
+ 363:             </Link>
+ 364:           </div>
+ 365:           <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-6 text-left">
+ 366:             <p className="text-sm uppercase tracking-[0.4em] text-slate-400">Deliverables</p>
+ 367:             <ul className="mt-4 space-y-2 text-sm text-slate-200">
+ 369:                 "Product brief, roadmap, KPIs alignes",
+ 370:                 "Design system multi-plateformes",
+ 371:                 "Apps mobiles (store / private) et sites web",
+ 372:                 "Run, monitoring et support produit",
+ 373:               ].map((deliverable) => (
+ 375:                   <span className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+ 377:                 </li>
+ 379:             </ul>
+ 380:           </div>
+ 381:         </div>
+ 382:       </section>
+ 383:     </main>
+ 384:   );
