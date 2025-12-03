@@ -6,8 +6,6 @@ import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type Channel = { label: string; value: string };
 type Step = { title: string; description: string };
-type Highlight = { label: string; value: string };
-
 type ContactCopy = {
   hero: {
     kicker: string;
@@ -16,24 +14,11 @@ type ContactCopy = {
     channels: Channel[];
     primaryCta: string;
     secondaryCta: string;
-    agenda: {
-      title: string;
-      availabilityPrefix: string;
-      availabilityValue: string;
-      modules: { label: string; detail: string }[];
-      footer: string;
-    };
   };
   steps: {
     kicker: string;
     title: string;
     items: Step[];
-  };
-  service: {
-    kicker: string;
-    title: string;
-    highlights: Highlight[];
-    note: string;
   };
   form: ContactFormCopy;
 };
@@ -51,17 +36,6 @@ const contactCopy: Record<SupportedLanguage, ContactCopy> = {
       ],
       primaryCta: "Envoyer un mail",
       secondaryCta: "Appeler",
-      agenda: {
-        title: "Agenda studio",
-        availabilityPrefix: "Dispo:",
-        availabilityValue: "+3 slots",
-        modules: [
-          { label: "Atelier immersion", detail: "90 min / remote" },
-          { label: "Visite terrain", detail: "Serres clients" },
-          { label: "Sprint blueprint", detail: "5 jours design" },
-        ],
-        footer: "Nous r\u00e9pondrons avec un kit de cadrage",
-      },
     },
     steps: {
       kicker: "Comment \u00e7a se passe ?",
@@ -81,16 +55,6 @@ const contactCopy: Record<SupportedLanguage, ContactCopy> = {
           description: "Sous 5 jours ouvrables, vous recevez parcours cible, planning et budget d\u00e9taill\u00e9.",
         },
       ],
-    },
-    service: {
-      kicker: "Disponibilit\u00e9s",
-      title: "Nos engagements de r\u00e9ponse",
-      highlights: [
-        { label: "R\u00e9ponse initiale", value: "-24h" },
-        { label: "Kickoff moyen", value: "J+5" },
-        { label: "Disponibilit\u00e9", value: "UTC+1 / UTC-5 / UTC+4" },
-      ],
-      note: "Vous pouvez aussi demander un canal d\u00e9di\u00e9 (Slack, Teams, Signal) pour suivre les chantiers en temps r\u00e9el.",
     },
     form: {
       title: "Envoyer une fiche projet",
@@ -124,17 +88,6 @@ const contactCopy: Record<SupportedLanguage, ContactCopy> = {
       ],
       primaryCta: "Send an email",
       secondaryCta: "Call us",
-      agenda: {
-        title: "Studio schedule",
-        availabilityPrefix: "Availability:",
-        availabilityValue: "+3 slots",
-        modules: [
-          { label: "Immersion workshop", detail: "90 min / remote" },
-          { label: "Site visit", detail: "Client greenhouses" },
-          { label: "Blueprint sprint", detail: "5-day design" },
-        ],
-        footer: "We reply with a scoping kit",
-      },
     },
     steps: {
       kicker: "How does it work?",
@@ -154,16 +107,6 @@ const contactCopy: Record<SupportedLanguage, ContactCopy> = {
           description: "Within five business days you get the target journey, planning and detailed budget.",
         },
       ],
-    },
-    service: {
-      kicker: "Availability",
-      title: "Our response commitments",
-      highlights: [
-        { label: "First reply", value: "-24h" },
-        { label: "Average kickoff", value: "Day +5" },
-        { label: "Coverage", value: "UTC+1 / UTC-5 / UTC+4" },
-      ],
-      note: "Ask for a dedicated channel (Slack, Teams, Signal) to follow each workstream in real time.",
     },
     form: {
       title: "Send your project brief",
@@ -197,7 +140,7 @@ export default function ContactPage() {
         <div className="absolute top-0 right-16 h-72 w-72 rounded-full bg-fuchsia-500/30 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-500/30 blur-3xl" />
       </div>
-      <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
+      <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
@@ -230,33 +173,10 @@ export default function ContactPage() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="relative h-[420px] w-full max-w-[480px]">
-            <div className="absolute inset-0 animate-pulse rounded-[3.5rem] bg-gradient-to-br from-fuchsia-500 via-emerald-500 to-indigo-500 blur-2xl" />
-            <div className="relative flex h-full flex-col justify-between rounded-[3.5rem] border border-white/10 bg-slate-950/75 p-10 backdrop-blur">
-              <div>
-                <p className="text-xs uppercase tracking-[0.4em] text-slate-400">{t.hero.agenda.title}</p>
-                <p className="text-3xl font-semibold">
-                  {t.hero.agenda.availabilityPrefix}{" "}
-                  <span className="text-emerald-300">{t.hero.agenda.availabilityValue}</span>
-                </p>
-              </div>
-              <div className="space-y-4 text-slate-200">
-                {t.hero.agenda.modules.map((module) => (
-                  <div key={module.label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">{module.label}</p>
-                    <p className="text-lg font-semibold">{module.detail}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm uppercase tracking-[0.4em] text-slate-400">{t.hero.agenda.footer}</p>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="relative mx-auto max-w-6xl px-6 pb-16">
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-6">
           <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/50">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.steps.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.steps.title}</h2>
@@ -273,19 +193,6 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/50">
-            <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.service.kicker}</p>
-            <h2 className="text-3xl font-semibold">{t.service.title}</h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {t.service.highlights.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                  <p className="text-2xl font-semibold text-white">{item.value}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.4em] text-slate-400">{item.label}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-6 text-sm text-slate-400">{t.service.note}</p>
           </div>
         </div>
       </section>
