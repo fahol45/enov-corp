@@ -20,10 +20,14 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/5 py-8 text-center text-xs uppercase tracking-[0.3em] text-slate-500">
-      <p>&copy; {year} ENOV CORP - {copy.rights}</p>
-      <p className="mt-3 text-[0.65rem] uppercase tracking-[0.35em] text-slate-600">
-        {copy.subtitle}
-      </p>
+      <div className="app-shell">
+        <p>
+          &copy; {year} ENOV CORP - {copy.rights}
+        </p>
+        <p className="mt-3 text-[0.65rem] uppercase tracking-[0.35em] text-slate-600">
+          {copy.subtitle}
+        </p>
+      </div>
     </footer>
   );
 }

@@ -301,7 +301,8 @@ export function HydroponieView() {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl" />
       </div>
 
-      <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
+      <div className="app-shell section-flow">
+        <section className="relative flex flex-col gap-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/40 sm:px-8 sm:py-12 lg:flex-row lg:items-center lg:gap-16">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
@@ -333,7 +334,7 @@ export function HydroponieView() {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="relative w-full max-w-[520px]">
+          <div className="relative w-full max-w-[520px] px-2 sm:px-0">
             <div className="absolute inset-0 animate-pulse rounded-[3.75rem] bg-gradient-to-br from-emerald-500 via-cyan-500 to-indigo-500 blur-3xl" />
             <div className="relative rounded-[3.75rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/80 p-3 shadow-[0_35px_80px_rgba(0,0,0,0.65)]">
               <div className="rounded-[3rem] border border-white/10 bg-slate-950/85 p-6 min-h-[420px]">
@@ -360,15 +361,14 @@ export function HydroponieView() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="fusion" className="relative mx-auto max-w-6xl space-y-10 px-6 pb-16">
+        </section>
+        <section id="fusion" className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.fusion.kicker}</p>
           <h2 className="text-3xl font-semibold">{t.fusion.title}</h2>
           <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400">{t.fusion.description}</p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           {t.fusion.tracks.map((track) => (
             <div
               key={track.title}
@@ -388,12 +388,11 @@ export function HydroponieView() {
             </div>
           ))}
         </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl space-y-8 px-6 pb-16">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/50">
+        </section>
+        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
+        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:p-8">
           <h2 className="text-3xl font-semibold text-white">{t.capabilities.title}</h2>
-          <ul className="mt-6 grid gap-5 md:grid-cols-2">
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
             {t.capabilities.items.map((capability) => (
               <li
                 key={capability.title}
@@ -405,15 +404,14 @@ export function HydroponieView() {
             ))}
           </ul>
         </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl space-y-10 px-6 pb-16">
+        </section>
+        <section className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.method.kicker}</p>
           <h2 className="text-3xl font-semibold">{t.method.title}</h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">{t.method.description}</p>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {t.method.steps.map((step, index) => (
             <div
               key={step.title}
@@ -427,10 +425,9 @@ export function HydroponieView() {
             </div>
           ))}
         </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-8 text-center shadow-2xl md:grid-cols-2">
+        </section>
+        <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:p-8">
+          <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4 text-left md:text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-emerald-200">{t.closing.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.closing.title}</h2>
@@ -455,8 +452,9 @@ export function HydroponieView() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

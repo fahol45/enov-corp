@@ -257,14 +257,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-4 pb-24 pt-16 md:px-6">
-        <section className="grid gap-12 rounded-3xl border border-white/10 bg-slate-950/60 p-8 shadow-2xl shadow-black/40 backdrop-blur md:grid-cols-2 md:p-12">
+      <div className="app-shell section-flow relative">
+        <section className="grid gap-10 rounded-2xl border border-white/10 bg-slate-950/60 p-6 shadow-2xl shadow-black/40 backdrop-blur md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
           <div className="space-y-6">
-            <h1 className="text-3xl font-bold leading-tight text-white md:text-5xl">
+            <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-slate-300">{t.hero.description}</p>
-            <ul className="space-y-3 text-sm text-slate-200">
+            <p className="text-base text-slate-300 sm:text-lg">{t.hero.description}</p>
+            <ul className="space-y-3 text-sm text-slate-200 sm:text-base">
               {t.hero.bullets.map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
@@ -272,22 +272,22 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="#solutions"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105"
+                className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105"
               >
                 {t.hero.primaryCta}
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10"
+                className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10"
               >
                 {t.hero.secondaryCta}
               </a>
             </div>
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center pb-10 md:pb-0">
             <DigitalTwinCard />
           </div>
         </section>
@@ -297,12 +297,12 @@ export default function Home() {
             <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
               {t.fusion.kicker}
             </p>
-            <h2 className="text-3xl font-semibold">{t.fusion.title}</h2>
+            <h2 className="text-3xl font-semibold sm:text-4xl">{t.fusion.title}</h2>
             <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400">
               {t.fusion.description}
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {t.fusion.tracks.map((track) => (
               <div
                 key={track.title}
@@ -323,9 +323,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/50">
-          <h2 className="text-3xl font-semibold">{t.reasons.title}</h2>
-          <ul className="grid gap-4 md:grid-cols-2">
+        <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:rounded-3xl sm:p-8">
+          <h2 className="text-3xl font-semibold sm:text-4xl">{t.reasons.title}</h2>
+          <ul className="grid gap-4 sm:grid-cols-2">
             {t.reasons.items.map((reason) => (
               <li
                 key={reason.title}
@@ -343,12 +343,12 @@ export default function Home() {
             <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
               {t.timeline.kicker}
             </p>
-            <h2 className="text-3xl font-semibold">{t.timeline.title}</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-base text-slate-400">
+            <h2 className="text-3xl font-semibold sm:text-4xl">{t.timeline.title}</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-slate-400 sm:text-lg">
               {t.timeline.description}
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.timeline.steps.map((step, index) => (
               <div
                 key={step.title}
@@ -366,13 +366,13 @@ export default function Home() {
 
         <section
           id="contact"
-          className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-8 text-center shadow-2xl"
+          className="rounded-2xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:rounded-3xl sm:p-8"
         >
           <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
             {t.contact.kicker}
           </p>
-          <h2 className="mt-4 text-3xl font-semibold">{t.contact.title}</h2>
-          <p className="mt-3 text-slate-300">{t.contact.description}</p>
+          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">{t.contact.title}</h2>
+          <p className="mt-3 text-base text-slate-300 sm:text-lg">{t.contact.description}</p>
           <Link
             href="/contact"
             className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"

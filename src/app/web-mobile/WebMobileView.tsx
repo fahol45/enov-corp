@@ -423,8 +423,8 @@ export function WebMobileView() {
         <div className="absolute top-0 left-10 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
-
-      <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
+      <div className="app-shell section-flow">
+        <section className="relative flex flex-col gap-12 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/50 sm:p-8 lg:flex-row lg:items-center">
         <div className="flex-1 space-y-10">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.7rem] uppercase tracking-[0.6em] text-fuchsia-200">
@@ -558,8 +558,8 @@ export function WebMobileView() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute -right-10 bottom-6 hidden w-32 sm:block md:w-44">
-                  <div className="relative rounded-[3rem] border border-white/10 bg-gradient-to-br from-[#070b18] to-[#0b0f23] p-4 text-white shadow-[0_18px_45px_rgba(4,5,18,0.8)]">
+                <div className="mt-10 flex justify-center sm:mt-0 sm:block sm:w-auto sm:absolute sm:-right-10 sm:bottom-6">
+                  <div className="relative w-32 rounded-[3rem] border border-white/10 bg-gradient-to-br from-[#070b18] to-[#0b0f23] p-4 text-white shadow-[0_18px_45px_rgba(4,5,18,0.8)] md:w-44">
                     <div className="pointer-events-none absolute inset-1 rounded-[2.6rem] border border-white/5" />
                     <Image
                       src="/mobile.png"
@@ -581,8 +581,7 @@ export function WebMobileView() {
         </div>
       </section>
 
-      <section id="catalogue" className="relative mx-auto max-w-6xl px-6 pb-16">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40">
+        <section id="catalogue" className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.catalog.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.catalog.title}</h2>
@@ -606,11 +605,8 @@ export function WebMobileView() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-16">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40">
+        </section>
+        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.webSites.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.webSites.title}</h2>
@@ -623,12 +619,9 @@ export function WebMobileView() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-16">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg">
+        </section>
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8 lg:grid-cols-2">
+          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-lg">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.process.kicker}</p>
             <h3 className="text-2xl font-semibold">{t.process.title}</h3>
             <div className="mt-6 space-y-5">
@@ -645,25 +638,21 @@ export function WebMobileView() {
               ))}
             </div>
           </div>
-          <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-lg">
+          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-lg">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.tech.kicker}</p>
             <h3 className="text-2xl font-semibold">{t.tech.title}</h3>
             <div className="mt-6 space-y-4">
-              {t.tech.stack.map((tech) => (
-                <div key={tech.label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.4em] text-fuchsia-200">{tech.label}</p>
-                  <p className="mt-2 text-sm text-slate-200">{tech.details}</p>
+              {t.tech.stack.map((techItem) => (
+                <div key={techItem.label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs uppercase tracking-[0.4em] text-fuchsia-200">{techItem.label}</p>
+                  <p className="mt-2 text-sm text-slate-200">{techItem.details}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Case studies section removed */}
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-8 text-center shadow-2xl md:grid-cols-2">
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:p-8 md:grid-cols-2">
           <div className="space-y-4 text-left md:text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-purple-200">{t.closing.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.closing.title}</h2>
@@ -686,8 +675,8 @@ export function WebMobileView() {
               ))}
             </ul>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

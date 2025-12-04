@@ -187,7 +187,8 @@ export default function AProposPage() {
         <div className="absolute -top-24 left-24 h-72 w-72 rounded-full bg-amber-400/30 blur-3xl" />
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-indigo-500/30 blur-3xl" />
       </div>
-      <section className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center">
+      <div className="app-shell section-flow">
+        <section className="relative flex flex-col gap-12 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/40 sm:p-8 lg:flex-row lg:items-center">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
@@ -232,10 +233,8 @@ export default function AProposPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-16">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/50">
+        </section>
+        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.impact.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.impact.title}</h2>
@@ -252,19 +251,16 @@ export default function AProposPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-6xl px-6 pb-24">
-        <div className="grid gap-6 lg:grid-cols-3">
+        </section>
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8 lg:grid-cols-3">
           {t.commitments.items.map((item) => (
             <div key={item.title} className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-lg">
               <p className="text-xs uppercase tracking-[0.4em] text-amber-200">{item.title}</p>
               <p className="mt-3 text-sm text-slate-300">{item.description}</p>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

@@ -61,7 +61,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="border-b border-white/10 bg-slate-950/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="app-shell flex h-16 items-center gap-4">
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo-enov.png"

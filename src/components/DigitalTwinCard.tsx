@@ -175,15 +175,15 @@ export function DigitalTwinCard() {
   ];
 
   return (
-    <div className="relative h-80 w-full max-w-sm">
+    <div className="relative w-full min-h-[18rem] max-w-md sm:h-80">
       <div className="absolute inset-0 rounded-[2.75rem] bg-gradient-to-br from-pink-500 via-purple-500 to-sky-500 opacity-50 blur-3xl" />
       <div className="relative flex h-full w-full flex-col items-stretch rounded-[2.75rem]">
-        <div className="flex-1 rounded-[2.75rem] border border-white/10 bg-slate-950/85 p-6 shadow-2xl shadow-black/40 backdrop-blur">
+        <div className="flex-1 rounded-[2.75rem] border border-white/10 bg-slate-950/85 p-5 shadow-2xl shadow-black/40 backdrop-blur sm:p-6">
           <div className="flex h-full flex-col overflow-hidden rounded-[2.25rem] border border-white/10 bg-gradient-to-b from-white/10 via-slate-950/20 to-slate-950/60 px-4 py-6">
-            <p className="text-[0.6rem] uppercase tracking-[0.5em] text-pink-300">
+            <p className="text-[0.55rem] uppercase tracking-[0.5em] text-pink-300 sm:text-[0.6rem]">
               {text.status[data.statusKey]}
             </p>
-            <p className="mt-1 text-[0.55rem] uppercase tracking-[0.3em] text-slate-400">
+            <p className="mt-1 text-[0.5rem] uppercase tracking-[0.3em] text-slate-400 sm:text-[0.55rem]">
               {text.locationLabel}: {location.city}, {location.country}
             </p>
             <div className="mt-6 space-y-4">
@@ -192,7 +192,7 @@ export function DigitalTwinCard() {
                   key={stat.label}
                   className="flex items-center justify-between rounded-full bg-slate-900/90 px-5 py-3 shadow-inner shadow-black/50"
                 >
-                  <span className="text-[0.6rem] uppercase tracking-[0.4em] text-slate-400">
+                  <span className="text-[0.55rem] uppercase tracking-[0.4em] text-slate-400 sm:text-[0.6rem]">
                     {stat.label}
                   </span>
                   <span className="text-xl font-semibold text-white">
