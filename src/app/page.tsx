@@ -258,7 +258,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="app-shell section-flow relative">
-        <section className="grid gap-10 rounded-2xl border border-white/10 bg-slate-950/60 p-6 shadow-2xl shadow-black/40 backdrop-blur md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
+        <section className="grid gap-10 rounded-2xl border border-white/10 bg-slate-950/60 p-6 pb-10 shadow-2xl shadow-black/40 backdrop-blur sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
           <div className="space-y-6">
             <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               {t.hero.title}
@@ -287,7 +287,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="flex items-center justify-center pb-10 md:pb-0">
+          <div className="flex items-center justify-center pb-6 sm:pb-10 md:pb-0">
             <DigitalTwinCard />
           </div>
         </section>

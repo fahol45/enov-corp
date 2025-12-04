@@ -302,7 +302,7 @@ export function HydroponieView() {
       </div>
 
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/40 sm:px-8 sm:py-12 lg:flex-row lg:items-center lg:gap-16">
+        <section className="relative flex flex-col gap-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/40 sm:px-8 sm:pb-16 lg:flex-row lg:items-center lg:gap-16">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
