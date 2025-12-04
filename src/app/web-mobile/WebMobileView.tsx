@@ -434,7 +434,7 @@ export function WebMobileView() {
             <h1 className="text-[2.5rem] font-semibold leading-tight text-white sm:text-[3.1rem]">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-slate-300">{t.hero.description}</p>
+            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
             <div className="flex flex-wrap gap-2 text-[0.7rem] uppercase tracking-[0.4em] text-slate-400">
               {t.hero.tags.map((tag) => (
                 <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-white/80">

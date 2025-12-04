@@ -307,14 +307,14 @@ export function HydroponieView() {
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl">{t.hero.title}</h1>
-            <p className="text-lg text-slate-300">{t.hero.description}</p>
-            <p className="text-base text-slate-400">{t.hero.secondary}</p>
+            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
+            <p className="text-base text-slate-400 text-justify">{t.hero.secondary}</p>
           </div>
           <ul className="space-y-3 text-sm text-slate-200">
             {t.hero.bullets.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
-                <span>{item}</span>
+                <span className="text-justify">{item}</span>
               </li>
             ))}
           </ul>

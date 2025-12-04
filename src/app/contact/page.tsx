@@ -146,7 +146,7 @@ export default function ContactPage() {
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t.hero.title}</h1>
-            <p className="text-base text-slate-300 sm:text-lg">{t.hero.description}</p>
+            <p className="text-base text-slate-300 text-justify sm:text-lg">{t.hero.description}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {t.hero.channels.map((channel) => (
@@ -155,7 +155,7 @@ export default function ContactPage() {
                 className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:p-6"
               >
                 <p className="text-xs uppercase tracking-[0.4em] text-fuchsia-200">{channel.label}</p>
-                <p className="mt-2 text-2xl font-semibold">{channel.value}</p>
+                <p className="mt-2 text-2xl font-semibold text-justify">{channel.value}</p>
               </div>
             ))}
           </div>

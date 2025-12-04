@@ -50,6 +50,11 @@ video {
   letter-spacing: 0.25em;
 }
 
+.text-justify {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 @media (min-width: 640px) {
   .kicker {
     letter-spacing: 0.4em;

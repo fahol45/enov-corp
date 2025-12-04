@@ -193,7 +193,7 @@ export default function AProposPage() {
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl">{t.hero.title}</h1>
-            <p className="text-lg text-slate-300">{t.hero.description}</p>
+            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
           </div>
           <div className="grid gap-4">
             {t.hero.pillars.map((item) => (
@@ -202,7 +202,7 @@ export default function AProposPage() {
                 className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
               >
                 <p className="text-sm uppercase tracking-[0.4em] text-amber-200">{item.title}</p>
-                <p className="mt-2 text-slate-200">{item.description}</p>
+                <p className="mt-2 text-slate-200 text-justify">{item.description}</p>
               </div>
             ))}
           </div>
