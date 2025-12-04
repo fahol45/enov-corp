@@ -141,7 +141,7 @@ export default function ContactPage() {
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-500/30 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative grid w-full gap-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-10 shadow-2xl shadow-black/50 sm:p-8 lg:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)] lg:gap-14">
+        <section className="relative grid w-full gap-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-10 shadow-2xl shadow-black/50 sm:p-8 lg:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)] lg:gap-14">
         <div className="space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>

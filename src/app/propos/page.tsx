@@ -188,7 +188,7 @@ export default function AProposPage() {
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-indigo-500/30 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-12 rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/40 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
+        <section className="relative flex flex-col gap-12 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/40 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>

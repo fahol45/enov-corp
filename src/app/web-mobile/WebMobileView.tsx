@@ -424,7 +424,7 @@ export function WebMobileView() {
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-12 rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/50 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
+        <section className="relative flex flex-col gap-12 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/50 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
         <div className="flex-1 space-y-10">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.7rem] uppercase tracking-[0.6em] text-fuchsia-200">
