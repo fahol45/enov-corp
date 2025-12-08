@@ -44,24 +44,26 @@ video {
   display: block;
 }
 
-.kicker {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-}
-
-.text-justify {
-  text-align: left;
-}
-
-@media (min-width: 768px) {
+@layer utilities {
   .kicker {
-    letter-spacing: 0.4em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
   }
 
   .text-justify {
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .kicker {
+      letter-spacing: 0.4em;
+    }
+
+    .text-justify {
+      text-align: justify;
+      text-justify: inter-word;
+    }
   }
 }
 
