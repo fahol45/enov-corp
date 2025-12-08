@@ -52,17 +52,13 @@ video {
   }
 
   .text-justify {
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
   }
 
   @media (min-width: 768px) {
     .kicker {
       letter-spacing: 0.4em;
-    }
-
-    .text-justify {
-      text-align: justify;
-      text-justify: inter-word;
     }
   }
 }
