@@ -260,17 +260,19 @@ export default function Home() {
       <div className="app-shell section-flow relative">
         <section className="grid gap-10 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 p-6 pb-10 shadow-2xl shadow-black/40 backdrop-blur sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
           <div className="space-y-6">
-            <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+            <h1 className="text-[2rem] font-bold leading-tight text-white text-balance sm:text-4xl md:text-5xl">
               {t.hero.title}
             </h1>
-            <p className="text-base text-slate-300 !text-left sm:text-lg md:!text-justify">
+            <p className="text-base text-slate-300 text-pretty !text-left sm:text-lg md:!text-justify">
               {t.hero.description}
             </p>
             <ul className="space-y-3 text-sm text-slate-200 sm:text-base">
               {t.hero.bullets.map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
-                  <span className="!text-left md:!text-justify">{item}</span>
+                  <span className="text-pretty !text-left md:!text-justify">
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
