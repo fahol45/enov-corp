@@ -54,7 +54,7 @@ video {
   text-align: left;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .kicker {
     letter-spacing: 0.4em;
   }

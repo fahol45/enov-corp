@@ -263,14 +263,14 @@ export default function Home() {
             <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               {t.hero.title}
             </h1>
-            <p className="text-base text-slate-300 text-left sm:text-lg sm:text-justify">
+            <p className="text-base text-slate-300 text-left sm:text-lg md:text-justify">
               {t.hero.description}
             </p>
             <ul className="space-y-3 text-sm text-slate-200 sm:text-base">
               {t.hero.bullets.map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
-                  <span className="text-left sm:text-justify">{item}</span>
+                  <span className="text-left md:text-justify">{item}</span>
                 </li>
               ))}
             </ul>
