@@ -55,7 +55,7 @@ type LandingCopy = {
 const landingCopy: Record<SupportedLanguage, LandingCopy> = {
   fr: {
     hero: {
-      title: "Enov CORP simplifie vos serres connect\u00e9es",
+      title: "inov CORP simplifie vos serres connect\u00e9es",
       description:
         "Nous combinons hydroponie, capteurs IoT et logiciels pour garantir des cultures stables faciles \u00e0 piloter.",
       bullets: [
