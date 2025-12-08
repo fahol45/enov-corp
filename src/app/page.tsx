@@ -256,7 +256,7 @@ export default function Home() {
   const t = landingCopy[language];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+    <main className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="app-shell section-flow relative">
         <section className="grid gap-10 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 p-6 pb-10 shadow-2xl shadow-black/40 backdrop-blur sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
           <div className="space-y-6">
@@ -279,7 +279,7 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="#solutions"
-                className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105"
+                className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105"
               >
                 {t.hero.primaryCta}
               </a>
@@ -358,7 +358,7 @@ export default function Home() {
                 key={step.title}
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 text-center shadow-lg"
               >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-sky-500 text-lg font-bold">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-pink-500 to-sky-500 text-lg font-bold">
                   {index + 1}
                 </div>
                 <h3 className="mt-4 text-xl font-semibold">{step.title}</h3>
@@ -370,7 +370,7 @@ export default function Home() {
 
         <section
           id="contact"
-          className="rounded-2xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:rounded-3xl sm:p-8"
+          className="rounded-2xl border border-white/10 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:rounded-3xl sm:p-8"
         >
           <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
             {t.contact.kicker}
