@@ -11,7 +11,6 @@ type ChronologieCopy = {
     label: string;
     span: string;
     details: Detail[];
-    footer: string;
   };
   mission: {
     kicker: string;
@@ -37,7 +36,6 @@ const chronologieCopy: Record<SupportedLanguage, ChronologieCopy> = {
         { title: "\u00c9quipe", value: "5 experts noyau", accent: "text-rose-200" },
         { title: "Programmes", value: "3 MVP livr\u00e9s", accent: "text-indigo-200" },
       ],
-      footer: "Pr\u00e9sence initiale Marrakech",
     },
     mission: {
       kicker: "Studio pilote",
@@ -83,7 +81,6 @@ const chronologieCopy: Record<SupportedLanguage, ChronologieCopy> = {
         { title: "Core team", value: "5 experts", accent: "text-rose-200" },
         { title: "Programs", value: "3 MVPs shipped", accent: "text-indigo-200" },
       ],
-      footer: "Initial presence in Marrakech",
     },
     mission: {
       kicker: "Pilot studio",
@@ -157,9 +154,6 @@ export default function ChronologiePage() {
                   </div>
                 ))}
               </div>
-              <p className="text-[0.6rem] uppercase tracking-[0.55em] text-slate-400">
-                {t.hero.footer}
-              </p>
             </div>
             <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/40 backdrop-blur sm:p-6">
               <div className="space-y-3">
