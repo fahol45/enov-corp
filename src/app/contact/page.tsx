@@ -155,7 +155,7 @@ export default function ContactPage() {
                 className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:p-6"
               >
                 <p className="text-xs uppercase tracking-[0.4em] text-fuchsia-200">{channel.label}</p>
-                <p className="mt-2 text-2xl font-semibold text-balance">{channel.value}</p>
+                <p className="mt-2 text-2xl font-semibold text-balance break-all">{channel.value}</p>
               </div>
             ))}
           </div>
