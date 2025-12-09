@@ -13,15 +13,20 @@ body {
 
 :root {
   --shell-max-width: 1200px;
-  --shell-padding: clamp(1.25rem, 5vw, 3.5rem);
-  --section-gap: clamp(2.5rem, 6vw, 4.25rem);
+  --shell-padding: clamp(1rem, 4vw, 3.5rem);
+  --section-gap: clamp(2rem, 6vw, 4.25rem);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --shell-padding: max(0.85rem, 5vw);
+    --section-gap: clamp(1.6rem, 10vw, 3rem);
+  }
 }
 
 .app-shell {
-  width: min(
-    var(--shell-max-width),
-    calc(100% - (var(--shell-padding) * 2))
-  );
+  width: 100%;
+  max-width: var(--shell-max-width);
   margin-inline: auto;
   padding-inline: var(--shell-padding);
 }
@@ -31,6 +36,13 @@ body {
   flex-direction: column;
   gap: var(--section-gap);
   padding-block: var(--section-gap);
+}
+
+@media (max-width: 600px) {
+  .section-flow {
+    gap: calc(var(--section-gap) * 0.9);
+    padding-block: calc(var(--section-gap) * 0.9);
+  }
 }
 
 *,

@@ -258,19 +258,19 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="app-shell section-flow relative">
-        <section className="grid gap-10 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 p-6 pb-10 shadow-2xl shadow-black/40 backdrop-blur sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
+        <section className="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 p-4 pb-8 shadow-2xl shadow-black/40 backdrop-blur sm:gap-10 sm:p-6 sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
           <div className="space-y-6">
             <h1 className="text-[2rem] font-bold leading-tight text-white text-balance sm:text-4xl md:text-5xl">
               {t.hero.title}
             </h1>
-            <p className="text-base text-slate-300 text-pretty text-left! sm:text-lg md:text-justify!">
+            <p className="text-base text-slate-300 text-pretty text-left sm:text-lg md:text-justify">
               {t.hero.description}
             </p>
             <ul className="space-y-3 text-sm text-slate-200 sm:text-base">
               {t.hero.bullets.map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
-                  <span className="text-pretty text-left! md:text-justify!">
+                  <span className="text-pretty text-left md:text-justify">
                     {item}
                   </span>
                 </li>
@@ -279,13 +279,13 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="#solutions"
-                className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105"
+                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105 sm:w-auto"
               >
                 {t.hero.primaryCta}
               </a>
               <a
                 href="#contact"
-                className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10"
+                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10 sm:w-auto"
               >
                 {t.hero.secondaryCta}
               </a>
@@ -327,7 +327,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:rounded-3xl sm:p-8">
+        <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:rounded-3xl sm:p-6 md:p-8">
           <h2 className="text-3xl font-semibold sm:text-4xl">{t.reasons.title}</h2>
           <ul className="grid gap-4 sm:grid-cols-2">
             {t.reasons.items.map((reason) => (
@@ -370,7 +370,7 @@ export default function Home() {
 
         <section
           id="contact"
-          className="rounded-2xl border border-white/10 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:rounded-3xl sm:p-8"
+          className="rounded-2xl border border-white/10 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:rounded-3xl sm:p-6 md:p-8"
         >
           <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
             {t.contact.kicker}
