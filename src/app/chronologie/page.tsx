@@ -129,7 +129,7 @@ export default function ChronologiePage() {
   return (
     <main className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="app-shell section-flow relative">
-        <section className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-950/80 p-6 shadow-2xl shadow-black/40 sm:p-10">
+        <section className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-950/80 p-4 shadow-2xl shadow-black/40 sm:p-6 md:p-10">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-500/20 via-rose-500/25 to-indigo-500/20 opacity-90 blur-3xl"
@@ -161,7 +161,7 @@ export default function ChronologiePage() {
                 {t.hero.footer}
               </p>
             </div>
-            <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/40 backdrop-blur">
+            <div className="rounded-[2.5rem] border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/40 backdrop-blur sm:p-6">
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-[0.45em] text-amber-200">
                   {t.mission.kicker}
@@ -186,7 +186,7 @@ export default function ChronologiePage() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 text-center shadow-inner shadow-black/40 sm:p-8">
+        <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-4 text-center shadow-inner shadow-black/40 sm:p-6 md:p-8">
           <div className="space-y-3">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">
               {t.focus.kicker}

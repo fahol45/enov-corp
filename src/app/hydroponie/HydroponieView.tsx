@@ -302,32 +302,32 @@ export function HydroponieView() {
       </div>
 
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/40 sm:px-8 sm:pb-16 lg:flex-row lg:items-center lg:gap-16">
+        <section className="relative flex flex-col gap-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-4 pb-10 shadow-2xl shadow-black/40 sm:p-6 sm:pb-14 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-16">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl">{t.hero.title}</h1>
-            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
-            <p className="text-base text-slate-400 text-justify">{t.hero.secondary}</p>
+            <p className="text-lg text-slate-300 text-pretty text-left sm:text-justify">{t.hero.description}</p>
+            <p className="text-base text-slate-400 text-pretty text-left sm:text-justify">{t.hero.secondary}</p>
           </div>
           <ul className="space-y-3 text-sm text-slate-200">
             {t.hero.bullets.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-justify">{item}</span>
+                <span className="text-pretty text-left sm:text-justify">{item}</span>
               </li>
             ))}
           </ul>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/30 transition hover:scale-105"
+              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/30 transition hover:scale-105 sm:w-auto"
             >
               {t.hero.primaryCta}
             </Link>
             <a
               href="#fusion"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white sm:w-auto"
             >
               {t.hero.secondaryCta}
             </a>
@@ -362,11 +362,11 @@ export function HydroponieView() {
           </div>
         </div>
         </section>
-        <section id="fusion" className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
+        <section id="fusion" className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.fusion.kicker}</p>
           <h2 className="text-3xl font-semibold">{t.fusion.title}</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400">{t.fusion.description}</p>
+          <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400 text-pretty">{t.fusion.description}</p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {t.fusion.tracks.map((track) => (
@@ -389,8 +389,8 @@ export function HydroponieView() {
           ))}
         </div>
         </section>
-        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:p-8">
+        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
+        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:p-6 md:p-8">
           <h2 className="text-3xl font-semibold text-white">{t.capabilities.title}</h2>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2">
             {t.capabilities.items.map((capability) => (
@@ -405,7 +405,7 @@ export function HydroponieView() {
           </ul>
         </div>
         </section>
-        <section className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
+        <section className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.method.kicker}</p>
           <h2 className="text-3xl font-semibold">{t.method.title}</h2>
@@ -426,7 +426,7 @@ export function HydroponieView() {
           ))}
         </div>
         </section>
-        <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:p-8">
+        <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4 text-left md:text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-emerald-200">{t.closing.kicker}</p>
@@ -434,12 +434,12 @@ export function HydroponieView() {
             <p className="text-slate-300">{t.closing.description}</p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+              className="inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105 sm:w-auto"
             >
               {t.closing.cta}
             </Link>
           </div>
-          <div className="grid gap-4 rounded-2xl border border-white/10 bg-slate-950/70 p-6">
+          <div className="grid gap-4 rounded-2xl border border-white/10 bg-slate-950/70 p-4 sm:p-6">
             {t.closing.stats.map((stat) => (
               <div
                 key={stat.label}

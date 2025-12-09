@@ -424,7 +424,7 @@ export function WebMobileView() {
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-12 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/50 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
+        <section className="relative flex flex-col gap-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-4 pb-10 shadow-2xl shadow-black/50 sm:p-6 sm:pb-14 lg:flex-row lg:items-center lg:p-10 lg:pb-16">
         <div className="flex-1 space-y-10">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[0.7rem] uppercase tracking-[0.6em] text-fuchsia-200">
@@ -434,7 +434,7 @@ export function WebMobileView() {
             <h1 className="text-[2.5rem] font-semibold leading-tight text-white sm:text-[3.1rem]">
               {t.hero.title}
             </h1>
-            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
+            <p className="text-lg text-slate-300 text-pretty text-left sm:text-justify">{t.hero.description}</p>
             <div className="flex flex-wrap gap-2 text-[0.7rem] uppercase tracking-[0.4em] text-slate-400">
               {t.hero.tags.map((tag) => (
                 <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-white/80">
@@ -451,7 +451,7 @@ export function WebMobileView() {
               </Link>
               <a
                 href="#catalogue"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white hover:bg-white/5"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white hover:bg-white/5 sm:w-auto"
               >
                 {t.hero.secondaryCta}
               </a>
@@ -581,7 +581,7 @@ export function WebMobileView() {
         </div>
       </section>
 
-        <section id="catalogue" className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
+        <section id="catalogue" className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.catalog.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.catalog.title}</h2>
@@ -606,7 +606,7 @@ export function WebMobileView() {
             ))}
           </div>
         </section>
-        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8">
+        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.webSites.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.webSites.title}</h2>
@@ -620,8 +620,8 @@ export function WebMobileView() {
             ))}
           </div>
         </section>
-        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-lg">
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8 lg:grid-cols-2">
+          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-5 shadow-lg sm:p-6">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.process.kicker}</p>
             <h3 className="text-2xl font-semibold">{t.process.title}</h3>
             <div className="mt-6 space-y-5">
@@ -638,7 +638,7 @@ export function WebMobileView() {
               ))}
             </div>
           </div>
-          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-lg">
+          <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-5 shadow-lg sm:p-6">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.tech.kicker}</p>
             <h3 className="text-2xl font-semibold">{t.tech.title}</h3>
             <div className="mt-6 space-y-4">
@@ -652,14 +652,14 @@ export function WebMobileView() {
           </div>
         </section>
 
-        <section className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 text-center shadow-2xl sm:p-8 md:grid-cols-2">
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:p-6 md:p-8 md:grid-cols-2">
           <div className="space-y-4 text-left md:text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-purple-200">{t.closing.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.closing.title}</h2>
             <p className="text-slate-300">{t.closing.description}</p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+              className="inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105 sm:w-auto"
             >
               {t.closing.cta}
             </Link>
@@ -680,4 +680,3 @@ export function WebMobileView() {
     </main>
   );
 }
-

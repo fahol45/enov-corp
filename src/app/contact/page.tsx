@@ -141,12 +141,12 @@ export default function ContactPage() {
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-500/30 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative grid w-full gap-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-10 shadow-2xl shadow-black/50 sm:p-8 lg:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)] lg:gap-14">
+        <section className="relative grid w-full gap-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-4 pb-8 shadow-2xl shadow-black/50 sm:gap-10 sm:p-6 sm:pb-12 lg:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)] lg:gap-14 lg:p-8">
         <div className="space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t.hero.title}</h1>
-            <p className="text-base text-slate-300 text-justify sm:text-lg">{t.hero.description}</p>
+            <p className="text-base text-slate-300 text-pretty text-left sm:text-lg sm:text-justify">{t.hero.description}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {t.hero.channels.map((channel) => (
@@ -155,26 +155,26 @@ export default function ContactPage() {
                 className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:p-6"
               >
                 <p className="text-xs uppercase tracking-[0.4em] text-fuchsia-200">{channel.label}</p>
-                <p className="mt-2 text-2xl font-semibold text-justify">{channel.value}</p>
+                <p className="mt-2 text-2xl font-semibold text-balance">{channel.value}</p>
               </div>
             ))}
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="mailto:enovcorporation@gmail.com"
-              className="inline-flex min-w-[200px] items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105"
+              className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105 sm:w-auto"
             >
               {t.hero.primaryCta}
             </Link>
             <Link
               href="tel:+212645410864"
-              className="inline-flex min-w-[200px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:border-white hover:bg-white/5"
+              className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:border-white hover:bg-white/5 sm:w-auto"
             >
               {t.hero.secondaryCta}
             </Link>
           </div>
         </div>
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:p-8">
+        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:p-6 md:p-8">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.steps.kicker}</p>
           <h2 className="text-3xl font-semibold">{t.steps.title}</h2>
           <div className="mt-6 space-y-4">
@@ -192,7 +192,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 shadow-inner shadow-black/40 sm:p-8">
+      <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
         <ContactForm copy={t.form} />
       </section>
     </div>

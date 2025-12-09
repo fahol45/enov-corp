@@ -188,12 +188,12 @@ export default function AProposPage() {
         <div className="absolute bottom-0 right-10 h-96 w-96 rounded-full bg-indigo-500/30 blur-3xl" />
       </div>
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-12 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 pb-12 shadow-2xl shadow-black/40 sm:p-8 sm:pb-16 lg:flex-row lg:items-center">
+        <section className="relative flex flex-col gap-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-4 pb-10 shadow-2xl shadow-black/40 sm:p-6 sm:pb-14 lg:flex-row lg:items-center lg:p-10 lg:pb-16">
         <div className="flex-1 space-y-8">
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl">{t.hero.title}</h1>
-            <p className="text-lg text-slate-300 text-justify">{t.hero.description}</p>
+            <p className="text-lg text-slate-300 text-pretty text-left sm:text-justify">{t.hero.description}</p>
           </div>
           <div className="grid gap-4">
             {t.hero.pillars.map((item) => (
@@ -202,7 +202,7 @@ export default function AProposPage() {
                 className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
               >
                 <p className="text-sm uppercase tracking-[0.4em] text-amber-200">{item.title}</p>
-                <p className="mt-2 text-slate-200 text-justify">{item.description}</p>
+                <p className="mt-2 text-slate-200 text-pretty text-left sm:text-justify">{item.description}</p>
               </div>
             ))}
           </div>
@@ -234,7 +234,7 @@ export default function AProposPage() {
           </div>
         </div>
         </section>
-        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/50 sm:p-8">
+        <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:p-6 md:p-8">
           <div className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.impact.kicker}</p>
             <h2 className="text-3xl font-semibold">{t.impact.title}</h2>
@@ -252,7 +252,7 @@ export default function AProposPage() {
             ))}
           </div>
         </section>
-        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-inner shadow-black/40 sm:p-8 lg:grid-cols-3">
+        <section className="grid gap-6 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8 lg:grid-cols-3">
           {t.commitments.items.map((item) => (
             <div key={item.title} className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-lg">
               <p className="text-xs uppercase tracking-[0.4em] text-amber-200">{item.title}</p>
