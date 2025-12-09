@@ -14,12 +14,6 @@ type AboutCopy = {
     description: string;
     pillars: Pillar[];
     cta: string;
-    timeline: {
-      label: string;
-      span: string;
-      blocks: { title: string; value: string; accent: string }[];
-      footer: string;
-    };
   };
   impact: {
     kicker: string;
@@ -62,16 +56,6 @@ const aboutCopy: Record<SupportedLanguage, AboutCopy> = {
         },
       ],
       cta: "\u00c9changer avec nous",
-      timeline: {
-        label: "Chronologie",
-        span: "2024 - Aujourd'hui",
-        blocks: [
-          { title: "Studio pilote", value: "Marrakech", accent: "text-amber-200" },
-          { title: "\u00c9quipe", value: "5 experts noyau", accent: "text-rose-200" },
-          { title: "Programmes", value: "3 MVP livr\u00e9s", accent: "text-indigo-200" },
-        ],
-        footer: "Pr\u00e9sence initiale Marrakech",
-      },
     },
     impact: {
       kicker: "\u00c9tapes",
@@ -133,16 +117,6 @@ const aboutCopy: Record<SupportedLanguage, AboutCopy> = {
         },
       ],
       cta: "Talk with us",
-      timeline: {
-        label: "Timeline",
-        span: "2024 - Today",
-        blocks: [
-          { title: "Pilot studio", value: "Marrakech", accent: "text-amber-200" },
-          { title: "Core team", value: "5 experts", accent: "text-rose-200" },
-          { title: "Programs", value: "3 MVPs shipped", accent: "text-indigo-200" },
-        ],
-        footer: "Initial presence in Marrakech",
-      },
     },
     impact: {
       kicker: "Milestones",
@@ -212,26 +186,6 @@ export default function AProposPage() {
           >
             {t.hero.cta}
           </Link>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="relative h-[420px] w-full max-w-[480px]">
-            <div className="absolute inset-0 animate-pulse rounded-[3.5rem] bg-gradient-to-br from-amber-400 via-rose-500 to-indigo-500 blur-2xl" />
-            <div className="relative flex h-full w-full flex-col justify-between rounded-[3.5rem] border border-white/10 bg-slate-950/75 p-10 backdrop-blur">
-              <div className="space-y-2">
-                <p className="text-xs uppercase tracking-[0.4em] text-slate-400">{t.hero.timeline.label}</p>
-                <p className="text-3xl font-semibold">{t.hero.timeline.span}</p>
-              </div>
-              <div className="space-y-4 text-slate-200">
-                {t.hero.timeline.blocks.map((block) => (
-                  <div key={block.title} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className={`text-xs uppercase tracking-[0.4em] ${block.accent}`}>{block.title}</p>
-                    <p className="text-lg font-semibold">{block.value}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm uppercase tracking-[0.4em] text-slate-400">{t.hero.timeline.footer}</p>
-            </div>
-          </div>
         </div>
         </section>
         <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:p-6 md:p-8">
