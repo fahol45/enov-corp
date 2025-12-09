@@ -12,6 +12,13 @@ const navLinks: {
   labels: Record<SupportedLanguage, string>;
 }[] = [
   {
+    href: "/chronologie",
+    labels: {
+      fr: "Chronologie",
+      en: "Timeline",
+    },
+  },
+  {
     href: "/hydroponie",
     labels: {
       fr: "Hydroponie x IoT",
