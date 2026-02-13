@@ -13,17 +13,20 @@ const routes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  const staticEntries = routes.map((route) => ({
+  const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] =
+    "monthly";
+
+  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: absoluteUrl(route.path),
     lastModified,
-    changeFrequency: "monthly",
+    changeFrequency,
     priority: route.priority,
   }));
 
-  const academyEntries = trainings.map((training) => ({
+  const academyEntries: MetadataRoute.Sitemap = trainings.map((training) => ({
     url: absoluteUrl(`/academy/${training.slug}`),
     lastModified,
-    changeFrequency: "monthly",
+    changeFrequency,
     priority: 0.7,
   }));
 
