@@ -159,7 +159,7 @@ export const trainings: Training[] = [
     slug: "data-automation-power",
     title: "Data Automation Power",
     category: "Data & automatisation",
-    status: "available",
+    status: "closed",
     summary:
       "Construire des pipelines d'automatisation avec dashboards premium.",
     description:
