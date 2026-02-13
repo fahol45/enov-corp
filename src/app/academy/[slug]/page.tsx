@@ -1,14 +1,67 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TrainingMedia } from "@/components/academy/TrainingMedia";
 import { TrainingStatusBadge } from "@/components/academy/TrainingStatusBadge";
 import { NotifyForm } from "@/components/academy/NotifyForm";
 import { RegisterForm } from "@/components/academy/RegisterForm";
-import { academyRegistrationUrl, getTraining } from "@/lib/trainings";
+import { academyRegistrationUrl, getTraining, trainings } from "@/lib/trainings";
+import { absoluteUrl, ogImage, siteName, siteUrl } from "@/lib/seo";
 
 type AcademyDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return trainings.map((training) => ({
+    slug: training.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: AcademyDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const training = getTraining(slug);
+
+  if (!training) {
+    return {
+      title: "Formation introuvable",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = training.title;
+  const description = training.summary;
+  const image = training.coverImage || ogImage;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/academy/${training.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/academy/${training.slug}`,
+      images: [
+        {
+          url: image,
+          alt: siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export default async function AcademyDetailPage({
   params,
@@ -30,8 +83,38 @@ export default async function AcademyDetailPage({
         ? { href: "#notification", label: "Être notifié à l'ouverture" }
         : { href: "/contact", label: "Contacter l'équipe" };
 
+  const courseJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: training.title,
+    description: training.summary,
+    provider: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+      logo: absoluteUrl(ogImage),
+    },
+    inLanguage: "fr",
+    educationalLevel: training.details.level,
+    courseMode: training.details.format,
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      name: training.title,
+      location: {
+        "@type": "Place",
+        name: training.details.location,
+      },
+    },
+  };
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(courseJsonLd),
+        }}
+      />
       <div className="pointer-events-none absolute inset-0 opacity-70">
         <div className="absolute -top-24 right-10 h-72 w-72 rounded-full bg-[#ec008c]/25 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#00a3ff]/20 blur-3xl" />

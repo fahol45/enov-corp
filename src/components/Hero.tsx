@@ -36,7 +36,7 @@ export function Hero() {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
             <Link
-              href="/solutions"
+              href="/hydroponie"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-violet-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105"
             >
               Decouvrir nos solutions

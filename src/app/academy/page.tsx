@@ -2,11 +2,35 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { TrainingFilters } from "@/components/academy/TrainingFilters";
 import { academyRegistrationUrl, categories, trainings } from "@/lib/trainings";
+import { ogImage, siteName } from "@/lib/seo";
+
+const title = "Enov Academy";
+const description =
+  "Enov Academy, pôle formation d'ENOV CORP, développe les compétences en technologies innovantes.";
 
 export const metadata: Metadata = {
-  title: "ENOV CORP | Enov Academy",
-  description:
-    "Enov Academy, pôle formation d'ENOV CORP, développe les compétences en technologies innovantes.",
+  title,
+  description,
+  alternates: {
+    canonical: "/academy",
+  },
+  openGraph: {
+    title,
+    description,
+    url: "/academy",
+    images: [
+      {
+        url: ogImage,
+        alt: siteName,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [ogImage],
+  },
 };
 
 export default function AcademyPage() {

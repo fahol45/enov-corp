@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { WebMobileView } from "./WebMobileView";
 import { ogImage, siteName } from "@/lib/seo";
 
-const title = "Développement Web & Mobile";
+const title = "Contact";
 const description =
-  "Applications mobiles et sites web multi-secteurs : finance, e-commerce, opérations, service client, santé et logistique.";
+  "Parlez-nous de votre projet. Enov CORP réunit solutions connectées, produits digitaux et formation pour des résultats concrets.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: {
-    canonical: "/web-mobile",
+    canonical: "/contact",
   },
   openGraph: {
     title,
     description,
-    url: "/web-mobile",
+    url: "/contact",
     images: [
       {
         url: ogImage,
@@ -31,6 +30,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WebMobilePage() {
-  return <WebMobileView />;
+export default function ContactLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
 }
