@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   description:
     "Plateforme ENOV CORP : IoT, Edge Computing et applications premium pour l'hydroponie autonome.",
   icons: {
-    icon: "/icon-enov.png",
-    shortcut: "/icon-enov.png",
-    apple: "/icon-enov.png",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
@@ -34,9 +34,9 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="/icon-enov.png" />
-        <link rel="apple-touch-icon" href="/icon-enov.png" />
-        <link rel="shortcut icon" href="/icon-enov.png" />
+        <link rel="icon" href="/icon.png" />
+        <link rel="apple-touch-icon" href="/icon.png" />
+        <link rel="shortcut icon" href="/icon.png" />
       </head>
       <body className={inter.className}>
         <LanguageProvider>

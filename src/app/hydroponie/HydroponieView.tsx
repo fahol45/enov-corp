@@ -14,6 +14,16 @@ type Capability = {
   description: string;
 };
 
+type Audience = {
+  title: string;
+  description: string;
+};
+
+type Deliverable = {
+  title: string;
+  description: string;
+};
+
 type Step = {
   title: string;
   description: string;
@@ -42,6 +52,14 @@ type HydroponieCopy = {
     description: string;
     tracks: Track[];
   };
+  audiences: {
+    title: string;
+    items: Audience[];
+  };
+  deliverables: {
+    title: string;
+    items: Deliverable[];
+  };
   capabilities: {
     title: string;
     items: Capability[];
@@ -65,16 +83,16 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
   fr: {
     hero: {
       kicker: "Hydroponie x IoT & Edge",
-      title: "Hydroponie et IoT r\u00e9unies pour piloter vos serres",
+      title: "La serre connect\u00e9e, simple et rentable",
       description:
-        "Nous combinons nos solutions hydroponiques et notre technologie IoT/Edge pour surveiller l'eau, les nutriments et l'\u00e9nergie en continu et prendre chaque d\u00e9cision critique au bon moment.",
+        "Nous aidons les exploitations \u00e0 produire plus, avec moins d'eau et moins de risques gr\u00e2ce \u00e0 l'hydroponie connect\u00e9e.",
       secondary:
-        "Toutes les donn\u00e9es s'affichent dans une application web et mobile unique afin que vos \u00e9quipes puissent contr\u00f4ler chaque site en temps r\u00e9el.",
+        "Tout se pilote depuis une seule application web & mobile.",
       bullets: [
-        "Capteurs IoT mesurent d\u00e9bit, EC, pH, lumi\u00e8re et stress hydrique plante par plante.",
-        "Algorithmes edge modulent irrigation et nutriments pour supprimer le gaspillage d'eau.",
-        "Alertes pr\u00e9dictives sur les fuites, colmatages et d\u00e9rives de production.",
-        "Tableaux de bord partag\u00e9s entre agronomes, op\u00e9rations et direction pour agir vite.",
+        "Mesures automatiques et alertes en temps r\u00e9el.",
+        "D\u00e9cisions locales, m\u00eame hors connexion.",
+        "Tableaux de bord clairs pour tous.",
+        "Accompagnement de bout en bout.",
       ],
       primaryCta: "Parler \u00e0 un architecte",
       secondaryCta: "Explorer la fusion",
@@ -84,81 +102,136 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
         { label: "Edge", value: "12ms" },
         { label: "\u00c9nergie", value: "-18%" },
       ],
-      cardCaption: "Tableau de bord IoT + hydroponie pour visualiser climat, solution et edge en temps r\u00e9el.",
+      cardCaption: "Tableau de bord simple pour suivre la production en temps r\u00e9el.",
     },
     fusion: {
       kicker: "Hydroponie x IoT & Edge",
-      title: "Piloter production et eau dans une boucle ferm\u00e9e",
+      title: "Automatiser l'eau et la production",
       description:
-        "Les capteurs remontent leurs mesures vers l'edge qui ajuste imm\u00e9diatement l'arrosage, les nutriments et la ventilation. R\u00e9sultat : jusqu'\u00e0 90 % d'eau \u00e9conomis\u00e9e vs pleine terre.",
+        "Les capteurs pilotent l'arrosage et les nutriments en continu pour gagner en qualit\u00e9 et en efficacit\u00e9.",
       tracks: [
         {
           title: "Hydroponie intelligente",
           description:
-            "Solutions hydroponiques \u00e9quip\u00e9es de capteurs IoT natifs pour ajuster eau, nutriments et lumi\u00e8re selon la culture.",
+            "Des serres optimis\u00e9es pour mieux nourrir les plantes et r\u00e9duire le gaspillage.",
           highlights: [
-            "Boucles nutritives pilot\u00e9es par IA pour maximiser la biomasse et \u00e9viter le sur-arrosage.",
-            "Ultrasons, d\u00e9bitm\u00e8tres et sondes EC d\u00e9tectent la moindre fuite en temps r\u00e9el.",
-            "Recirculation automatis\u00e9e qui recycle jusqu'\u00e0 90 % de l'eau et garde vos bassins propres.",
+            "Dosage automatique des nutriments selon la culture.",
+            "D\u00e9tection rapide des anomalies et fuites.",
+            "Recyclage de l'eau pour r\u00e9duire les co\u00fbts.",
           ],
         },
         {
           title: "IoT & Edge computing",
           description:
-            "Infrastructure IoT s\u00e9curis\u00e9e qui collecte les signaux terrain, traite en edge et active les r\u00e9actions agronomiques critiques.",
+            "Une couche digitale fiable pour suivre, alerter et d\u00e9cider vite.",
           highlights: [
-            "Capteurs multi-param\u00e8tres, cam\u00e9ras et actionneurs plug-and-play sur bus priv\u00e9.",
-            "Noyau edge qui nettoie les donn\u00e9es, applique les mod\u00e8les agronomiques et ordonne les actionneurs.",
-            "Data fabric temps r\u00e9el pour alimenter jumeau num\u00e9rique, rapports ESG et API partenaires.",
+            "Capteurs et actionneurs connect\u00e9s, simples \u00e0 exploiter.",
+            "Traitement local pour r\u00e9agir sans attendre.",
+            "Donn\u00e9es pr\u00eates pour le reporting et la d\u00e9cision.",
           ],
         },
       ],
     },
-    capabilities: {
-      title: "Pourquoi choisir ENOV CORP ?",
+    audiences: {
+      title: "Pour qui ?",
       items: [
         {
-          title: "Vision syst\u00e8me",
+          title: "Exploitants",
           description:
-            "Hydroponie, IoT, edge et apps con\u00e7us comme un seul produit data-driven pour \u00e9viter les pertes d'eau et homog\u00e9n\u00e9iser la production.",
+            "Moins de pertes, plus de r\u00e9gularit\u00e9.",
         },
         {
-          title: "Automatisation op\u00e9rationnelle",
+          title: "Direction",
           description:
-            "Mod\u00e8les IA, r\u00e8gles agronomiques et workflows low-code pour ajuster d\u00e9bit eau/nutriments et industrialiser les routines.",
+            "KPI simples pour d\u00e9cider vite.",
         },
         {
-          title: "Confiance & s\u00e9curit\u00e9",
+          title: "\u00c9quipes techniques",
           description:
-            "Monitoring temps r\u00e9el, mises \u00e0 jour OTA supervis\u00e9es et contr\u00f4les d'acc\u00e8s stricts pour prot\u00e9ger vos serres critiques.",
+            "Installation claire, maintenance facilit\u00e9e.",
+        },
+      ],
+    },
+    deliverables: {
+      title: "Ce que vous obtenez, concr\u00e8tement",
+      items: [
+        {
+          title: "Installation connect\u00e9e",
+          description: "Serres, capteurs et automatisations.",
         },
         {
-          title: "Accompagnement continu",
-          description:
-            "Co-design, transfert de comp\u00e9tences, support 24/7 et documentation vivante pour vos agronomes et \u00e9quipes data.",
+          title: "Suivi en temps r\u00e9el",
+          description: "Donn\u00e9es claires et alertes utiles.",
+        },
+        {
+          title: "D\u00e9cisions locales",
+          description: "Fonctionne m\u00eame sans internet.",
+        },
+        {
+          title: "App web & mobile",
+          description: "Piloter, surveiller, comparer.",
+        },
+        {
+          title: "Reporting simple",
+          description: "Eau, rendement, co\u00fbts.",
+        },
+        {
+          title: "Formation",
+          description: "Vos \u00e9quipes deviennent autonomes.",
+        },
+      ],
+    },
+    capabilities: {
+      title: "B\u00e9n\u00e9fices clairs",
+      items: [
+        {
+          title: "Moins d'eau",
+          description: "Irrigation pr\u00e9cise et automatis\u00e9e.",
+        },
+        {
+          title: "Production stable",
+          description: "Moins d'al\u00e9as, plus de r\u00e9gularit\u00e9.",
+        },
+        {
+          title: "R\u00e9action rapide",
+          description: "Alertes et actions imm\u00e9diates.",
+        },
+        {
+          title: "\u00c9quipes autonomes",
+          description: "Formation et support continu.",
         },
       ],
     },
     method: {
       kicker: "Parcours Hydroponie + IoT",
-      title: "Notre m\u00e9thode d'int\u00e9gration",
+      title: "Un parcours simple, de A \u00e0 Z",
       description:
-        "Un chemin ma\u00eetris\u00e9 depuis l'audit des flux d'eau jusqu'\u00e0 l'industrialisation des automatisations IoT/Edge.",
+        "Nous vous accompagnons \u00e0 chaque \u00e9tape, sans complexit\u00e9 inutile.",
       steps: [
         {
-          title: "Diagnostic conjoint",
-          description:
-            "Cartographie de vos serres, mesures des flux d'eau/nutriments et identification des quick wins IoT.",
+          title: "\u00c9tude terrain",
+          description: "Objectifs, contraintes, budget.",
         },
         {
-          title: "Int\u00e9gration unifi\u00e9e",
-          description:
-            "Installation synchronis\u00e9e des circuits hydroponiques, du maillage IoT, des passerelles edge et de la couche logicielle.",
+          title: "Conception",
+          description: "Architecture et dimensionnement.",
         },
         {
-          title: "Pilotage et scalabilit\u00e9",
+          title: "Maquettes 3D",
           description:
-            "Optimisation continue, cr\u00e9ation de nouveaux sc\u00e9narios edge et pilotage des KPI rendement + \u00e9conomie d'eau.",
+            "Visualiser le projet avant d'investir.",
+        },
+        {
+          title: "Installation",
+          description: "Mise en place et tests.",
+        },
+        {
+          title: "Formation \u00e0 l'usage",
+          description: "Prise en main rapide.",
+        },
+        {
+          title: "Suivi continu",
+          description: "KPI, optimisation, support.",
         },
       ],
     },
@@ -166,7 +239,7 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
       kicker: "R\u00e9sultats concrets",
       title: "Mesurez l'impact de la fusion Hydroponie + IoT",
       description:
-        "Nous monitorons vos indicateurs op\u00e9rationnels, ESG et business pour prouver la valeur de chaque it\u00e9ration et objectiver les gains d'eau.",
+        "Nous suivons vos r\u00e9sultats pour prouver les gains d'eau, de rendement et de stabilit\u00e9.",
       cta: "Planifier un diagnostic",
       stats: [
         { value: "90%", label: "Eau \u00e9conomis\u00e9e vs r\u00e9f\u00e9rence plein champ" },
@@ -178,16 +251,16 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
   en: {
     hero: {
       kicker: "Hydroponics x IoT & Edge",
-      title: "Hydroponics and IoT united to steer your greenhouses",
+      title: "Connected hydroponics, simple and profitable",
       description:
-        "We combine our hydroponic solutions with IoT/Edge technology to monitor water, nutrients and energy continuously and take every critical action on time.",
+        "We help farms produce more with less water and less risk through connected hydroponics.",
       secondary:
-        "All data lives inside one web and mobile app so your teams can supervise every site in real time.",
+        "Everything is managed from one web & mobile app.",
       bullets: [
-        "IoT sensors track flow, EC, pH, light and plant stress, plant by plant.",
-        "Edge algorithms modulate irrigation and nutrients to remove water waste.",
-        "Predictive alerts on leaks, clogging and production drifts.",
-        "Shared dashboards for agronomists, operations and leadership to react faster.",
+        "Automatic measurements and real-time alerts.",
+        "Local decisions, even offline.",
+        "Clear dashboards for everyone.",
+        "End-to-end support.",
       ],
       primaryCta: "Talk to an architect",
       secondaryCta: "Explore the fusion",
@@ -197,81 +270,132 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
         { label: "Edge", value: "12ms" },
         { label: "Energy", value: "-18%" },
       ],
-      cardCaption: "Hydroponics + IoT stack for smooth real-time decisions.",
+      cardCaption: "Simple dashboard to track production in real time.",
     },
     fusion: {
       kicker: "Hydroponics x IoT & Edge",
-      title: "Close the loop between production and water",
+      title: "Automate water and production",
       description:
-        "Sensors feed the edge layer that instantly adjusts watering, nutrients and ventilation. Result: up to 90% water savings compared with open-field crops.",
+        "Sensors adjust irrigation and nutrients continuously for better quality and efficiency.",
       tracks: [
         {
           title: "Intelligent hydroponics",
           description:
-            "Hydroponic solutions with native IoT sensors to adjust water, nutrients and light for each crop.",
+            "Optimized greenhouses that feed plants better and reduce waste.",
           highlights: [
-            "AI-driven nutrient loops that maximize biomass and prevent overwatering.",
-            "Ultrasound, flowmeters and EC probes detect any leak in real time.",
-            "Automated recirculation recycling up to 90% of the water and keeping tanks clean.",
+            "Automatic nutrient dosing per crop.",
+            "Fast detection of anomalies and leaks.",
+            "Water recycling to cut costs.",
           ],
         },
         {
           title: "IoT & Edge computing",
           description:
-            "Secure IoT infrastructure collecting field signals, processing them on the edge and triggering agronomic reactions.",
+            "A reliable digital layer to monitor, alert, and decide fast.",
           highlights: [
-            "Multi-parameter sensors, cameras and plug-and-play actuators on a private bus.",
-            "Edge core cleans data, applies agronomic models and instructs actuators.",
-            "Real-time data fabric feeding the digital twin, ESG reports and partner APIs.",
+            "Connected sensors and actuators that are easy to use.",
+            "Local processing to react instantly.",
+            "Data ready for reporting and decisions.",
           ],
         },
       ],
     },
-    capabilities: {
-      title: "Why choose ENOV CORP?",
+    audiences: {
+      title: "Who is it for?",
       items: [
         {
-          title: "System mindset",
-          description:
-            "Hydroponics, IoT, edge and apps designed as one data-driven product to avoid water losses and align production.",
+          title: "Operators",
+          description: "Less loss, more consistency.",
         },
         {
-          title: "Operational automation",
-          description:
-            "AI models, agronomic rules and low-code workflows to tune water/nutrient flow and industrialize routines.",
+          title: "Leadership",
+          description: "Simple KPIs for fast decisions.",
         },
         {
-          title: "Trust & security",
-          description:
-            "Real-time monitoring, supervised OTA updates and strict access controls to protect critical greenhouses.",
+          title: "Technical teams",
+          description: "Clear setup, easier maintenance.",
+        },
+      ],
+    },
+    deliverables: {
+      title: "What you get, clearly",
+      items: [
+        {
+          title: "Connected installation",
+          description: "Greenhouse, sensors, and automations.",
         },
         {
-          title: "Continuous support",
-          description:
-            "Co-design, knowledge transfer, 24/7 support and living documentation for agronomists and data teams.",
+          title: "Real-time monitoring",
+          description: "Clear data and useful alerts.",
+        },
+        {
+          title: "Local decisions",
+          description: "Works even when offline.",
+        },
+        {
+          title: "Web & mobile app",
+          description: "Control, monitor, compare.",
+        },
+        {
+          title: "Simple reporting",
+          description: "Water, yield, costs.",
+        },
+        {
+          title: "Training",
+          description: "Teams become autonomous.",
+        },
+      ],
+    },
+    capabilities: {
+      title: "Clear benefits",
+      items: [
+        {
+          title: "Less water",
+          description: "Precise, automated irrigation.",
+        },
+        {
+          title: "Stable production",
+          description: "Fewer disruptions, more consistency.",
+        },
+        {
+          title: "Faster decisions",
+          description: "Alerts and immediate actions.",
+        },
+        {
+          title: "Autonomous teams",
+          description: "Training and ongoing support.",
         },
       ],
     },
     method: {
       kicker: "Hydroponics + IoT journey",
-      title: "Our integration method",
+      title: "A simple A-to-Z journey",
       description:
-        "A controlled path from water-flow audit to the industrialization of IoT/Edge automation.",
+        "We guide you step by step, without unnecessary complexity.",
       steps: [
         {
-          title: "Joint diagnostic",
-          description:
-            "Mapping your greenhouses, measuring water/nutrient flows and spotting IoT quick wins.",
+          title: "Field study",
+          description: "Goals, constraints, budget.",
         },
         {
-          title: "Unified integration",
-          description:
-            "Synchronized installation of hydroponic circuits, IoT mesh, edge gateways and the software layer.",
+          title: "Design",
+          description: "Architecture and sizing.",
         },
         {
-          title: "Steering & scale",
-          description:
-            "Continuous optimization, new edge scenarios and KPI governance for yield plus water savings.",
+          title: "3D mockups",
+          description: "Visualize the project before investing.",
+        },
+        {
+          title: "Installation",
+          description: "Setup and testing.",
+        },
+        {
+          title: "Usage training",
+          description: "Fast onboarding.",
+        },
+        {
+          title: "Ongoing support",
+          description: "KPIs, optimization, support.",
         },
       ],
     },
@@ -279,7 +403,7 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
       kicker: "Concrete outcomes",
       title: "Measure the impact of Hydroponics + IoT",
       description:
-        "We monitor your operational, ESG and business indicators to prove the value of every iteration and objectify water savings.",
+        "We track results to prove gains in water, yield, and stability.",
       cta: "Schedule a diagnostic",
       stats: [
         { value: "90%", label: "Water saved vs open-field reference" },
@@ -321,13 +445,13 @@ export function HydroponieView() {
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/30 transition hover:scale-105 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/30 transition hover:scale-105 sm:w-auto"
             >
               {t.hero.primaryCta}
             </Link>
             <a
               href="#fusion"
-              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-8 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white sm:w-auto"
             >
               {t.hero.secondaryCta}
             </a>
@@ -362,6 +486,22 @@ export function HydroponieView() {
           </div>
         </div>
         </section>
+        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
+          <h2 className="text-3xl font-semibold text-white">{t.audiences.title}</h2>
+          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+            {t.audiences.items.map((audience) => (
+              <div
+                key={audience.title}
+                className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
+              >
+                <p className="text-sm uppercase tracking-[0.4em] text-emerald-200">
+                  {audience.title}
+                </p>
+                <p className="mt-2 text-sm text-slate-300">{audience.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
         <section id="fusion" className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
         <div className="text-center">
           <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.fusion.kicker}</p>
@@ -390,20 +530,20 @@ export function HydroponieView() {
         </div>
         </section>
         <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold text-white">{t.capabilities.title}</h2>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
-            {t.capabilities.items.map((capability) => (
-              <li
-                key={capability.title}
+          <h2 className="text-3xl font-semibold text-white">{t.deliverables.title}</h2>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {t.deliverables.items.map((deliverable) => (
+              <div
+                key={deliverable.title}
                 className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
               >
-                <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">{capability.title}</p>
-                <p className="mt-2 text-sm text-slate-300">{capability.description}</p>
-              </li>
+                <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">
+                  {deliverable.title}
+                </p>
+                <p className="mt-2 text-sm text-slate-300">{deliverable.description}</p>
+              </div>
             ))}
-          </ul>
-        </div>
+          </div>
         </section>
         <section className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
         <div className="text-center">
@@ -425,6 +565,22 @@ export function HydroponieView() {
             </div>
           ))}
         </div>
+        </section>
+        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
+          <h2 className="text-3xl font-semibold text-white">{t.capabilities.title}</h2>
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+            {t.capabilities.items.map((capability) => (
+              <li
+                key={capability.title}
+                className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
+              >
+                <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">
+                  {capability.title}
+                </p>
+                <p className="mt-2 text-sm text-slate-300">{capability.description}</p>
+              </li>
+            ))}
+          </ul>
         </section>
         <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-2">

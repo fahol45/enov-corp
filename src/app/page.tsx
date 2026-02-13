@@ -4,10 +4,12 @@ import Link from "next/link";
 import { DigitalTwinCard } from "@/components/DigitalTwinCard";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
-type Track = {
+type Pillar = {
   title: string;
   description: string;
   highlights: string[];
+  cta: string;
+  href: string;
 };
 
 type Reason = {
@@ -28,21 +30,29 @@ type LandingCopy = {
     primaryCta: string;
     secondaryCta: string;
   };
-  fusion: {
+  pillars: {
     kicker: string;
     title: string;
     description: string;
-    tracks: Track[];
+    items: Pillar[];
   };
-  reasons: {
+  capabilities: {
     title: string;
     items: Reason[];
   };
-  timeline: {
+  approach: {
     kicker: string;
     title: string;
     description: string;
     steps: Step[];
+  };
+  academy: {
+    kicker: string;
+    title: string;
+    description: string;
+    tracks: string[];
+    primaryCta: string;
+    secondaryCta: string;
   };
   contact: {
     kicker: string;
@@ -55,197 +65,265 @@ type LandingCopy = {
 const landingCopy: Record<SupportedLanguage, LandingCopy> = {
   fr: {
     hero: {
-      title: "Enov CORP simplifie vos serres connect\u00e9es",
+      title: "Enov CORP, la technologie au service de vos projets.",
       description:
-        "Nous combinons hydroponie, capteurs IoT et logiciels pour garantir des cultures stables faciles \u00e0 piloter.",
+        "Nous combinons solutions connectées, développement digital et formation pour transformer vos idées en résultats concrets.",
       bullets: [
-        "Capteurs et actionneurs reli\u00e9s \u00e0 une m\u00eame couche de contr\u00f4le coordonnent l'irrigation.",
-        "Recettes eau + nutriments se recalculent automatiquement selon les signaux terrain et les mod\u00e8les IA.",
-        "Edge computing d\u00e9cide en local m\u00eame hors connexion avant de synchroniser le cloud.",
-        "Applications web et mobiles permettent de superviser, diagnostiquer et guider vos \u00e9quipes.",
+        "Systèmes intelligents pour piloter vos opérations.",
+        "Applications web et mobiles simples à utiliser.",
+        "Formations pratiques pour rendre vos équipes autonomes.",
+        "Accompagnement complet, de l'étude au support.",
       ],
-      primaryCta: "Voir nos solutions",
-      secondaryCta: "Parler \u00e0 un architecte",
+      primaryCta: "Découvrir nos pôles",
+      secondaryCta: "Parler à un conseiller",
     },
-    fusion: {
-      kicker: "Hydroponie x IoT & Edge",
-      title: "Une seule stack pour piloter vos cultures",
+    pillars: {
+      kicker: "Nos 3 pôles",
+      title: "Une offre claire, complète et orientée résultats",
       description:
-        "Nous combinons la pr\u00e9cision agronomique des syst\u00e8mes hydroponiques et la puissance d'une infrastructure IoT & Edge pour offrir une exp\u00e9rience continue, de la culture au cloud.",
-      tracks: [
-        {
-          title: "Hydroponie intelligente",
-          description:
-            "Architecture hydroponique modulaire pilot\u00e9e par la donn\u00e9e pour garder la plante dans sa zone de confort.",
-          highlights: [
-            "Recettes eau + nutriments ajust\u00e9es automatiquement selon la g\u00e9n\u00e9tique et le cycle cultural.",
-            "Surveillance continue du climat, de la conductivit\u00e9 et des flux \u00e0 chaque \u00e9tage nutritif.",
-            "Actionneurs, pompes et lignes d'irrigation synchronis\u00e9s avec les sc\u00e9narios Edge.",
-          ],
-        },
-        {
-          title: "IoT & Edge computing",
-          description:
-            "Infrastructure IoT con\u00e7ue pour absorber les signaux terrain, les traiter en local et remonter des informations actionnables.",
-          highlights: [
-            "Capteurs plug-and-play, passerelles r\u00e9silientes et r\u00e9seau priv\u00e9 s\u00e9curis\u00e9.",
-            "Edge computing pour agr\u00e9ger, nettoyer et agir sans latence m\u00eame hors connexion.",
-            "Data lake cloud, API et connecteurs vers vos applications et partenaires.",
-          ],
-        },
-      ],
-    },
-    reasons: {
-      title: "Pourquoi confier la convergence Hydroponie + IoT \u00e0 Enov CORP ?",
+        "Trois expertises qui se complètent pour accélérer vos projets et vos équipes.",
       items: [
         {
-          title: "Approche syst\u00e8me unique",
+          title: "Hydroponie intelligente & IoT",
           description:
-            "Nous alignons architecture hydroponique, IoT, edge et logiciels sur les m\u00eames objectifs business.",
+            "Automatisez, mesurez et pilotez vos systèmes avec des solutions connectées fiables.",
+          highlights: [
+            "Capteurs et automatisation des processus.",
+            "Suivi en temps réel et alertes claires.",
+            "Décision locale (edge) + synchronisation cloud.",
+          ],
+          cta: "Voir l'hydroponie",
+          href: "/hydroponie",
         },
         {
-          title: "Data & IA op\u00e9rationnelles",
+          title: "Développement Web & Mobile",
           description:
-            "Chaque mesure devient une recommandation concr\u00e8te gr\u00e2ce \u00e0 nos mod\u00e8les, r\u00e8gles m\u00e9tiers et boucles d'automatisation.",
+            "Des outils digitaux modernes pour visualiser, décider et agir vite.",
+          highlights: [
+            "Dashboards simples et performants.",
+            "Apps Android/iOS pour vos équipes terrain.",
+            "Intégrations avec vos données et systèmes.",
+          ],
+          cta: "Voir le digital",
+          href: "/web-mobile",
         },
         {
-          title: "Industrialisation ma\u00eetris\u00e9e",
+          title: "Enov Academy",
           description:
-            "M\u00e9thodologie de d\u00e9ploiement s\u00e9curis\u00e9e, tests de redondance et observabilit\u00e9 bout en bout.",
-        },
-        {
-          title: "Support des \u00e9quipes en continu",
-          description:
-            "Formation, documentation vivante et assistance 24/7 pour faire monter vos \u00e9quipes en autonomie.",
+            "Formations techniques pour étudiants et professionnels, orientées projets réels.",
+          highlights: [
+            "Parcours courts et pratiques.",
+            "Technologies clés du marché.",
+            "Transfert de compétences concret.",
+          ],
+          cta: "Découvrir l'Academy",
+          href: "/academy",
         },
       ],
     },
-    timeline: {
-      kicker: "Parcours Hydroponie + IoT",
-      title: "Notre trajectoire d'int\u00e9gration unifi\u00e9e",
+    capabilities: {
+      title: "Ce que vous gagnez",
+      items: [
+        {
+          title: "Clarté",
+          description:
+            "Une vision simple de votre projet et des décisions plus rapides.",
+        },
+        {
+          title: "Performance",
+          description:
+            "Des systèmes fiables et des outils qui font gagner du temps.",
+        },
+        {
+          title: "Autonomie",
+          description:
+            "Vos équipes montent en compétence et deviennent opérationnelles.",
+        },
+        {
+          title: "Partenariat",
+          description:
+            "Un accompagnement durable avec support et optimisation continue.",
+        },
+      ],
+    },
+    approach: {
+      kicker: "Accompagnement A à Z",
+      title: "Un parcours simple, maîtrisé, efficace",
       description:
-        "Une m\u00e9thode \u00e9prouv\u00e9e pour passer de la vision \u00e0 l'op\u00e9rationnel tout en gardant vos cultures sous contr\u00f4le.",
+        "Nous vous guidons à chaque étape pour un projet livré et utilisable.",
       steps: [
         {
-          title: "Co-design agronomique & IoT",
-          description:
-            "Diagnostic de vos serres, cartographie des flux physiques et data, d\u00e9finition des sc\u00e9narios d'automatisation.",
+          title: "Étude & cadrage",
+          description: "Comprendre vos objectifs et définir le bon plan d'action.",
         },
         {
-          title: "Int\u00e9gration unifi\u00e9e",
+          title: "Conception & prototypage",
           description:
-            "Installation synchronis\u00e9e des circuits hydroponiques, capteurs IoT, passerelles edge et jumeau num\u00e9rique.",
+            "Architecture technique, maquette 3D et validation rapide.",
         },
         {
-          title: "Pilotage continu",
+          title: "Déploiement",
           description:
-            "Optimisation des param\u00e8tres, am\u00e9lioration des mod\u00e8les, support op\u00e9rateur et reporting de vos KPI.",
+            "Installation, intégration et mise en service des solutions.",
+        },
+        {
+          title: "Formation & support",
+          description:
+            "Montée en compétence, suivi et amélioration continue.",
         },
       ],
     },
-    contact: {
-      kicker: "Pr\u00eat \u00e0 synchroniser vos cultures ?",
-      title: "Parlons convergence Hydroponie + IoT & Edge",
+    academy: {
+      kicker: "Enov Academy",
+      title: "Former pour aller plus vite",
       description:
-        "Discutons de vos objectifs, de la maturit\u00e9 de vos serres et des leviers technologiques \u00e0 activer pour vous rapprocher d'une exploitation autonome.",
-      cta: "Contactez Enov CORP",
+        "Nos formations transforment les compétences en résultats concrets, pour les équipes et les étudiants.",
+      tracks: [
+        "Hydroponie intelligente",
+        "IoT & edge computing",
+        "Développement web",
+        "Développement mobile",
+        "Robotique & embarqué",
+        "Infographie & design",
+        "Design 3D",
+      ],
+      primaryCta: "Voir les formations",
+      secondaryCta: "Planifier une session",
+    },
+    contact: {
+      kicker: "Prêt à avancer ?",
+      title: "Parlons de votre projet",
+      description:
+        "Expliquez-nous votre besoin et nous construirons une solution claire, réaliste et efficace.",
+      cta: "Contacter Enov CORP",
     },
   },
   en: {
     hero: {
-      title: "Enov CORP unifies hydroponics with IoT & Edge.",
+      title: "Enov CORP, technology built for real results.",
       description:
-        "We bring together automatic watering, smart sensors and software so your greenhouses stay resilient and run on their own.",
+        "We combine connected solutions, digital products, and training to turn ideas into measurable outcomes.",
       bullets: [
-        "Sensors, actuators and irrigation lines steered by a single control layer.",
-        "Nutrient recipes recalibrated from field signals and AI models.",
-        "Edge computing to decide locally while staying synchronized with the cloud.",
-        "Mobile and web apps to supervise, diagnose and guide your teams.",
+        "Smart systems to run your operations with confidence.",
+        "Web and mobile apps that are simple to use.",
+        "Practical training to make teams autonomous.",
+        "End-to-end support from study to ongoing help.",
       ],
-      primaryCta: "Explore the convergence",
-      secondaryCta: "Talk to an architect",
+      primaryCta: "Explore our pillars",
+      secondaryCta: "Talk to an advisor",
     },
-    fusion: {
-      kicker: "Hydroponics x IoT & Edge",
-      title: "One stack to run your crops",
+    pillars: {
+      kicker: "Our 3 pillars",
+      title: "A clear, complete offer focused on impact",
       description:
-        "We blend agronomic precision and IoT & Edge power to deliver a seamless experience from the crop to the cloud.",
-      tracks: [
-        {
-          title: "Intelligent hydroponics",
-          description:
-            "Modular hydroponic architecture driven by data to keep every plant in its comfort zone.",
-          highlights: [
-            "Water + nutrient recipes auto-adjusted to genetics and crop stages.",
-            "Continuous monitoring of climate, conductivity and flows at every nutritive layer.",
-            "Actuators, pumps and irrigation lines synchronized with edge scenarios.",
-          ],
-        },
-        {
-          title: "IoT & Edge computing",
-          description:
-            "IoT infrastructure built to capture field signals, process them locally and push actionable insights.",
-          highlights: [
-            "Plug-and-play sensors, resilient gateways and a secure private network.",
-            "Edge computing aggregates, cleans and acts with zero latency even offline.",
-            "Cloud data lake, APIs and connectors to your apps and partners.",
-          ],
-        },
-      ],
-    },
-    reasons: {
-      title: "Why trust Enov CORP for the Hydroponics + IoT convergence?",
+        "Three complementary areas that accelerate your projects and your teams.",
       items: [
         {
-          title: "Unified system mindset",
+          title: "Smart Hydroponics & IoT",
           description:
-            "We align hydroponic architecture, IoT, edge and software with the same business goals.",
+            "Automate, measure and control your systems with reliable connectivity.",
+          highlights: [
+            "Sensors and process automation.",
+            "Real-time monitoring and clear alerts.",
+            "Local edge decisions + cloud sync.",
+          ],
+          cta: "Explore hydroponics",
+          href: "/hydroponie",
         },
         {
-          title: "Operational data & AI",
+          title: "Web & Mobile Development",
           description:
-            "Each measurement becomes an actionable recommendation powered by our models, rules and automation loops.",
+            "Modern digital tools to visualize, decide and act fast.",
+          highlights: [
+            "Simple, high-performance dashboards.",
+            "Android/iOS apps for field teams.",
+            "Integration with your data and systems.",
+          ],
+          cta: "See digital products",
+          href: "/web-mobile",
         },
         {
-          title: "Controlled industrialization",
+          title: "Enov Academy",
           description:
-            "Secured deployment methodology, redundancy tests and end-to-end observability.",
-        },
-        {
-          title: "Continuous enablement",
-          description:
-            "Training, living documentation and 24/7 assistance to ramp up your teams.",
+            "Hands-on training for students and professionals, built around real projects.",
+          highlights: [
+            "Short, practical learning paths.",
+            "Key market technologies.",
+            "Concrete skills transfer.",
+          ],
+          cta: "Discover the Academy",
+          href: "/academy",
         },
       ],
     },
-    timeline: {
-      kicker: "Hydroponics + IoT journey",
-      title: "Our unified integration path",
+    capabilities: {
+      title: "What you gain",
+      items: [
+        {
+          title: "Clarity",
+          description:
+            "A simple view of your project and faster decision-making.",
+        },
+        {
+          title: "Performance",
+          description: "Reliable systems and tools that save time.",
+        },
+        {
+          title: "Autonomy",
+          description: "Teams that grow skills and operate independently.",
+        },
+        {
+          title: "Partnership",
+          description: "Long-term support and continuous optimization.",
+        },
+      ],
+    },
+    approach: {
+      kicker: "A to Z delivery",
+      title: "A simple, controlled, effective journey",
       description:
-        "A proven method to move from vision to operations while keeping your crops under control.",
+        "We guide you at every step to deliver a usable, reliable solution.",
       steps: [
         {
-          title: "Agronomic & IoT co-design",
-          description:
-            "Greenhouse diagnostics, mapping of physical & data flows, definition of automation scenarios.",
+          title: "Study & alignment",
+          description: "Understand goals and define the right roadmap.",
         },
         {
-          title: "Unified integration",
-          description:
-            "Synchronized installation of hydroponic circuits, IoT sensors, edge gateways and the digital twin.",
+          title: "Design & prototyping",
+          description: "Architecture, 3D mockups and fast validation.",
         },
         {
-          title: "Continuous steering",
-          description:
-            "Parameter optimization, model improvements, operator support and KPI reporting.",
+          title: "Deployment",
+          description: "Installation, integration and go-live.",
+        },
+        {
+          title: "Training & support",
+          description: "Upskilling, follow-up and continuous improvement.",
         },
       ],
     },
-    contact: {
-      kicker: "Ready to synchronize your crops?",
-      title: "Let's connect Hydroponics + IoT & Edge",
+    academy: {
+      kicker: "Enov Academy",
+      title: "Training that moves projects forward",
       description:
-        "Share your goals, greenhouse maturity and the levers we should activate to bring you closer to autonomous operations.",
+        "Our programs turn skills into tangible results for teams and students.",
+      tracks: [
+        "Smart hydroponics",
+        "IoT & edge computing",
+        "Web development",
+        "Mobile development",
+        "Robotics & embedded systems",
+        "Infographics & design",
+        "3D design",
+      ],
+      primaryCta: "Explore programs",
+      secondaryCta: "Plan a session",
+    },
+    contact: {
+      kicker: "Ready to move forward?",
+      title: "Let\'s talk about your project",
+      description:
+        "Share your needs and we will build a clear, realistic and efficient solution.",
       cta: "Contact Enov CORP",
     },
   },
@@ -278,7 +356,7 @@ export default function Home() {
             </ul>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
-                href="#solutions"
+                href="#poles"
                 className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105 sm:w-auto"
               >
                 {t.hero.primaryCta}
@@ -296,64 +374,86 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="space-y-10">
+        <section id="poles" className="space-y-10">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
-              {t.fusion.kicker}
+              {t.pillars.kicker}
             </p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">{t.fusion.title}</h2>
+            <h2 className="text-3xl font-semibold sm:text-4xl">
+              {t.pillars.title}
+            </h2>
             <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400">
-              {t.fusion.description}
+              {t.pillars.description}
             </p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {t.fusion.tracks.map((track) => (
+          <div className="grid gap-6 lg:grid-cols-3">
+            {t.pillars.items.map((pillar) => (
               <div
-                key={track.title}
-                className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-black/30"
+                key={pillar.title}
+                className="flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-black/30"
               >
-                <h3 className="text-xl font-semibold text-white">{track.title}</h3>
-                <p className="mt-3 text-sm text-slate-300">{track.description}</p>
+                <div className="space-y-3">
+                  <h3 className="text-xl font-semibold text-white">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-sm text-slate-300">
+                    {pillar.description}
+                  </p>
+                </div>
                 <ul className="mt-5 space-y-2 text-sm text-slate-300">
-                  {track.highlights.map((highlight) => (
+                  {pillar.highlights.map((highlight) => (
                     <li key={highlight} className="flex items-start gap-2">
                       <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
                       <span>{highlight}</span>
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href={pillar.href}
+                  className="mt-6 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white/60 hover:bg-white/10"
+                >
+                  {pillar.cta}
+                </Link>
               </div>
             ))}
           </div>
         </section>
 
         <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:rounded-3xl sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{t.reasons.title}</h2>
+          <h2 className="text-3xl font-semibold sm:text-4xl">
+            {t.capabilities.title}
+          </h2>
           <ul className="grid gap-4 sm:grid-cols-2">
-            {t.reasons.items.map((reason) => (
+            {t.capabilities.items.map((reason) => (
               <li
                 key={reason.title}
                 className="flex flex-col gap-2 rounded-2xl border border-slate-800 bg-slate-900/70 p-5"
               >
-                <span className="text-base font-semibold text-white">{reason.title}</span>
-                <span className="text-sm text-slate-300">{reason.description}</span>
+                <span className="text-base font-semibold text-white">
+                  {reason.title}
+                </span>
+                <span className="text-sm text-slate-300">
+                  {reason.description}
+                </span>
               </li>
             ))}
           </ul>
         </section>
 
-        <section id="solutions" className="space-y-8">
+        <section id="approach" className="space-y-8">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
-              {t.timeline.kicker}
+              {t.approach.kicker}
             </p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">{t.timeline.title}</h2>
+            <h2 className="text-3xl font-semibold sm:text-4xl">
+              {t.approach.title}
+            </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base text-slate-400 sm:text-lg">
-              {t.timeline.description}
+              {t.approach.description}
             </p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {t.timeline.steps.map((step, index) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {t.approach.steps.map((step, index) => (
               <div
                 key={step.title}
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 text-center shadow-lg"
@@ -362,10 +462,48 @@ export default function Home() {
                   {index + 1}
                 </div>
                 <h3 className="mt-4 text-xl font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm text-slate-300">{step.description}</p>
+                <p className="mt-2 text-sm text-slate-300">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
+        </section>
+
+        <section className="grid gap-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-2xl shadow-black/40 sm:rounded-3xl sm:p-6 md:grid-cols-[1.2fr_0.8fr] md:items-center md:p-8">
+          <div className="space-y-4">
+            <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
+              {t.academy.kicker}
+            </p>
+            <h2 className="text-3xl font-semibold sm:text-4xl">
+              {t.academy.title}
+            </h2>
+            <p className="text-base text-slate-300 sm:text-lg">
+              {t.academy.description}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/academy"
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+              >
+                {t.academy.primaryCta}
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition hover:border-white hover:bg-white/10"
+              >
+                {t.academy.secondaryCta}
+              </Link>
+            </div>
+          </div>
+          <ul className="grid gap-3 text-sm text-slate-300">
+            {t.academy.tracks.map((track) => (
+              <li key={track} className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-sky-400" />
+                <span>{track}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section
@@ -375,8 +513,12 @@ export default function Home() {
           <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
             {t.contact.kicker}
           </p>
-          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">{t.contact.title}</h2>
-          <p className="mt-3 text-base text-slate-300 sm:text-lg">{t.contact.description}</p>
+          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
+            {t.contact.title}
+          </h2>
+          <p className="mt-3 text-base text-slate-300 sm:text-lg">
+            {t.contact.description}
+          </p>
           <Link
             href="/contact"
             className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"

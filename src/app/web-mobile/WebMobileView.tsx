@@ -84,39 +84,39 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
   fr: {
     hero: {
       badge: "D\u00e9veloppement web & mobile",
-      title: "Des apps web & mobile simples pour vos besoins quotidiens",
+      title: "Des apps web & mobile claires, utiles et rentables",
       description:
-        "Nous orchestrons UX, design system et delivery pour livrer des produits desktop & mobile qui boostent vos op\u00e9rations, vos ventes et votre relation client.",
+        "Nous cr\u00e9ons des apps et sites qui am\u00e9liorent vos ventes, vos op\u00e9rations et votre relation client.",
       tags: ["Finance", "Commerce", "Op\u00e9rations", "Sant\u00e9", "Relation client", "Etc."],
       primaryCta: "Discuter de mon app",
       secondaryCta: "Voir le catalogue",
       offer: {
         kicker: "Offre web & mobile",
-        title: "ENOV con\u00e7oit, code et monitore vos produits",
+        title: "ENOV con\u00e7oit et livre vos produits digitaux",
         description:
-          "Nous prenons en charge le design UX/UI, le d\u00e9veloppement front/back et l'op\u00e9ration continue de vos interfaces clients et terrain.",
+          "UX/UI, d\u00e9veloppement et suivi continu, avec un seul interlocuteur.",
         metrics: [],
       },
       highlights: [
         {
-          title: "Design system responsive",
-          description: "Un seul langage UI d\u00e9clinable sur desktop, tablette, mobiles rugged et kiosques.",
+          title: "Design clair",
+          description: "Une exp\u00e9rience coh\u00e9rente sur tous les \u00e9crans.",
         },
         {
           title: "Offline first",
-          description: "Synchronisation intelligente, cache local et reprises automatiques de session.",
+          description: "Vos \u00e9quipes travaillent m\u00eame hors connexion.",
         },
         {
-          title: "S\u00e9curit\u00e9 zero trust",
-          description: "SSO, MFA, gestion fine des droits et audits pour prot\u00e9ger vos flux sensibles.",
+          title: "S\u00e9curit\u00e9 int\u00e9gr\u00e9e",
+          description: "Acc\u00e8s ma\u00eetris\u00e9s et donn\u00e9es prot\u00e9g\u00e9es.",
         },
       ],
       delivery: {
-        title: "Parcours delivery",
+        title: "Parcours simple",
         phases: [
-          { title: "Cadrage express", detail: "3 ateliers UX, KPIs align\u00e9s et backlog valid\u00e9 avec vos m\u00e9tiers." },
-          { title: "Design & build", detail: "UI kit multi devices, front/back simultan\u00e9 et QA automatis\u00e9e." },
-          { title: "Run & expansion", detail: "Monitoring, SLA partag\u00e9s et coaching produit pour vos \u00e9quipes." },
+          { title: "Cadrage express", detail: "Besoins clairs, KPIs d\u00e9finis et plan valid\u00e9." },
+          { title: "Design & build", detail: "Design valid\u00e9, d\u00e9veloppement rapide, tests inclus." },
+          { title: "Run & \u00e9volution", detail: "Suivi, support et am\u00e9liorations continues." },
         ],
       },
       heroStats: [
@@ -137,93 +137,93 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
     },
     catalog: {
       kicker: "Applications mobiles",
-      title: "Les apps que nous livrons le plus",
+      title: "Les apps les plus demand\u00e9es",
       description:
-        "Finance, e-commerce, exploitation, exp\u00e9rience client : nous industrialisons vos produits mobiles.",
+        "Des applications utiles pour chaque m\u00e9tier, pr\u00eates \u00e0 l'usage.",
       apps: [
         {
           title: "Finance & paiement",
           items: [
-            "Super-app finance pour op\u00e9rateurs",
-            "Portefeuille digital et contr\u00f4le d\u00e9penses",
-            "App de gestion d'investissements",
+            "App finance pour op\u00e9rateurs",
+            "Portefeuille digital et d\u00e9penses",
+            "Suivi d'investissements",
           ],
         },
         {
           title: "Commerce & marketplace",
           items: [
-            "Marketplace B2B avec pricing dynamique",
+            "Marketplace B2B",
             "App e-commerce click & collect",
-            "Catalogue vendeur + outils merchandising",
+            "Catalogue vendeur",
           ],
         },
         {
           title: "Exploitation & maintenance",
-          items: ["GMAO terrain offline", "Suivi des lots de production", "Checklist qualit\u00e9 et s\u00e9curit\u00e9"],
+          items: ["GMAO terrain offline", "Suivi de production", "Checklist qualit\u00e9"],
         },
         {
           title: "Exp\u00e9rience client",
           items: [
-            "Portail client self-service",
-            "Application visiteur pour showroom",
-            "App fid\u00e9lit\u00e9 \u00e9lite avec gamification",
+            "Portail client",
+            "App visiteur showroom",
+            "App fid\u00e9lit\u00e9",
           ],
         },
       ],
     },
     webSites: {
       kicker: "Sites web & portails",
-      title: "Des exp\u00e9riences web pour informer, convertir, servir",
+      title: "Des sites clairs pour informer, vendre, servir",
       sites: [
         {
           title: "Sites corporate",
-          description: "Positionnement marque, offres et preuves avec CMS headless pour vos \u00e9quipes marketing.",
+          description: "Image de marque, offres, preuves et CMS simple.",
         },
         {
           title: "Portails data & analytics",
           description:
-            "Visualisation temps r\u00e9el, dashboards partag\u00e9s, exports et modules embarqu\u00e9s pour vos partenaires.",
+            "Dashboards temps r\u00e9el, exports et partage des donn\u00e9es.",
         },
         {
           title: "Extranets clients",
-          description: "Espace personnalis\u00e9 avec contrats, factures, support et workflows de validation.",
+          description: "Espace client avec contrats, factures et support.",
         },
         {
           title: "Landing produit / growth",
-          description: "Pages campagne, formulaires, A/B testing et connecteurs CRM.",
+          description: "Pages campagne et formulaires connect\u00e9s.",
         },
       ],
     },
     process: {
       kicker: "Notre m\u00e9thode",
-      title: "Un cycle produit complet",
+      title: "Un parcours simple",
       steps: [
         {
           title: "Discovery",
-          description: "Immersion utilisateurs, d\u00e9finition KPIs, priorisation des journeys mobiles et web.",
+          description: "Comprendre vos besoins et vos priorit\u00e9s.",
         },
         {
           title: "Product design",
-          description: "UX flows, UI kit multi devices, prototypes cliquables et guidelines dev.",
+          description: "Maquettes claires et design valid\u00e9.",
         },
         {
           title: "Engineering",
-          description: "Stack React Native, Next.js, Nest et CI/CD s\u00e9curis\u00e9e avec tests end-to-end.",
+          description: "D\u00e9veloppement rapide et fiable.",
         },
         {
           title: "Run & optimisation",
-          description: "Monitoring, feature flags, analytics produit et roadmap partag\u00e9e avec vos \u00e9quipes.",
+          description: "Suivi, am\u00e9lioration continue et support.",
         },
       ],
     },
     tech: {
       kicker: "Stack technique",
-      title: "Technologies que nous ma\u00eetrisons",
+      title: "Technologies fiables",
       stack: [
-        { label: "Mobile", details: "React Native, Expo, Capacitor, Kotlin, Swift" },
-        { label: "Web", details: "Next.js, Remix, Astro, Tailwind, Storybook" },
-        { label: "Backend", details: "NestJS, Supabase, Firebase, Hasura, FastAPI" },
-        { label: "Qualit\u00e9", details: "Playwright, Detox, Cypress, Sentry" },
+        { label: "Mobile", details: "iOS, Android, React Native" },
+        { label: "Web", details: "Next.js, React, interfaces rapides" },
+        { label: "Backend", details: "APIs, bases de donn\u00e9es, s\u00e9curit\u00e9" },
+        { label: "Qualit\u00e9", details: "Tests, monitoring, fiabilit\u00e9" },
       ],
     },
     cases: {
@@ -235,13 +235,13 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
       kicker: "Pr\u00eat pour votre prochain produit",
       title: "Co-cr\u00e9ons votre application ou site web",
       description:
-        "Finance, e-commerce, op\u00e9rations, relation client : dites-nous le probl\u00e8me, nous livrons l'app et le site.",
+        "Dites-nous votre besoin, nous livrons l'app et le site.",
       cta: "R\u00e9server un atelier digital",
       deliverables: [
-        "Product brief, roadmap, KPIs align\u00e9s",
-        "Design system multi-plateformes",
-        "Apps mobiles (store / private) et sites web",
-        "Run, monitoring et support produit",
+        "Brief clair et plan d'action",
+        "Design valid\u00e9 multi-\u00e9crans",
+        "App mobile et site web",
+        "Support et \u00e9volution",
       ],
       deliverableLabel: "Livrables",
     },
@@ -249,39 +249,39 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
   en: {
     hero: {
       badge: "Web & mobile development",
-      title: "Web & mobile experiences aligned with your field operations",
+      title: "Web & mobile apps that are clear and profitable",
       description:
-        "We orchestrate UX, design systems and delivery to ship desktop + mobile products that boost operations, sales and customer care.",
+        "We build apps and websites that improve sales, operations, and customer care.",
       tags: ["Finance", "Commerce", "Ops", "Health", "Customer service"],
       primaryCta: "Discuss my app",
       secondaryCta: "See the catalog",
       offer: {
         kicker: "Web & mobile offer",
-        title: "ENOV designs, builds and monitors your products",
+        title: "ENOV designs and delivers your digital products",
         description:
-          "We handle UX/UI design, front/back development and the continuous run of your customer and field interfaces.",
+          "UX/UI, development, and ongoing support with one team.",
         metrics: [],
       },
       highlights: [
         {
-          title: "Responsive design system",
-          description: "One UI language rolled out on desktop, tablet, rugged mobiles and kiosks.",
+          title: "Clear design",
+          description: "One consistent experience on every screen.",
         },
         {
           title: "Offline first",
-          description: "Smart sync, local cache and automatic session resume.",
+          description: "Teams work even when offline.",
         },
         {
-          title: "Zero-trust security",
-          description: "SSO, MFA, granular permissions and audits to protect sensitive flows.",
+          title: "Built-in security",
+          description: "Controlled access and protected data.",
         },
       ],
       delivery: {
-        title: "Delivery journey",
+        title: "Simple journey",
         phases: [
-          { title: "Express discovery", detail: "3 UX workshops, aligned KPIs and backlog approved with your teams." },
-          { title: "Design & build", detail: "Multi-device UI kit, parallel front/back and automated QA." },
-          { title: "Run & expansion", detail: "Monitoring, shared SLAs and product coaching for your teams." },
+          { title: "Express discovery", detail: "Clear needs, defined KPIs, approved plan." },
+          { title: "Design & build", detail: "Validated design, fast build, testing included." },
+          { title: "Run & growth", detail: "Monitoring, support, continuous improvements." },
         ],
       },
       heroStats: [
@@ -302,93 +302,93 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
     },
     catalog: {
       kicker: "Mobile applications",
-      title: "Apps we ship the most",
+      title: "Most requested apps",
       description:
-        "Finance, commerce, operations, customer experience: we industrialize your mobile products.",
+        "Useful apps for every team, ready for real use.",
       apps: [
         {
           title: "Finance & payment",
           items: [
-            "Finance super-app for operators",
-            "Digital wallet and spend control",
-            "Investment management app",
+            "Finance app for operators",
+            "Digital wallet and spending",
+            "Investment tracking",
           ],
         },
         {
           title: "Commerce & marketplaces",
           items: [
-            "B2B marketplace with dynamic pricing",
-            "Click & collect e-commerce app",
-            "Seller catalog + merchandising tools",
+            "B2B marketplace",
+            "Click & collect app",
+            "Seller catalog",
           ],
         },
         {
           title: "Operations & maintenance",
-          items: ["Offline CMMS", "Production lot tracking", "Quality and safety checklist"],
+          items: ["Offline CMMS", "Production tracking", "Quality checklist"],
         },
         {
           title: "Customer experience",
           items: [
-            "Self-service customer portal",
-            "Visitor app for showrooms",
-            "Elite loyalty app with gamification",
+            "Customer portal",
+            "Showroom visitor app",
+            "Loyalty app",
           ],
         },
       ],
     },
     webSites: {
       kicker: "Websites & portals",
-      title: "Web experiences to inform, convert and serve",
+      title: "Clear sites to inform, sell, and serve",
       sites: [
         {
           title: "Corporate sites",
-          description: "Brand positioning, offers and proof with headless CMS for marketing teams.",
+          description: "Brand, offers, proof, and easy updates.",
         },
         {
           title: "Data & analytics portals",
           description:
-            "Real-time visualizations, shared dashboards, exports and embedded modules for partners.",
+            "Real-time dashboards, exports, and data sharing.",
         },
         {
           title: "Customer extranets",
-          description: "Personalized space with contracts, invoices, support and approval workflows.",
+          description: "Customer space with contracts, invoices, and support.",
         },
         {
           title: "Product landing / growth",
-          description: "Campaign pages, forms, AB testing and CRM connectors.",
+          description: "Campaign pages and connected forms.",
         },
       ],
     },
     process: {
       kicker: "Our method",
-      title: "A complete product cycle",
+      title: "A simple journey",
       steps: [
         {
           title: "Discovery",
-          description: "User immersion, KPI definition, prioritization of mobile and web journeys.",
+          description: "Understand your needs and priorities.",
         },
         {
           title: "Product design",
-          description: "UX flows, multi-device UI kit, clickable prototypes and dev guidelines.",
+          description: "Clear mockups and validated design.",
         },
         {
           title: "Engineering",
-          description: "React Native, Next.js, Nest stack with secure CI/CD and end-to-end tests.",
+          description: "Fast, reliable development.",
         },
         {
           title: "Run & optimization",
-          description: "Monitoring, feature flags, product analytics and shared roadmap.",
+          description: "Monitoring, improvements, and support.",
         },
       ],
     },
     tech: {
       kicker: "Tech stack",
-      title: "Technologies we master",
+      title: "Reliable technologies",
       stack: [
-        { label: "Mobile", details: "React Native, Expo, Capacitor, Kotlin, Swift" },
-        { label: "Web", details: "Next.js, Remix, Astro, Tailwind, Storybook" },
-        { label: "Backend", details: "NestJS, Supabase, Firebase, Hasura, FastAPI" },
-        { label: "Quality", details: "Playwright, Detox, Cypress, Sentry" },
+        { label: "Mobile", details: "iOS, Android, React Native" },
+        { label: "Web", details: "Next.js, React, fast interfaces" },
+        { label: "Backend", details: "APIs, databases, security" },
+        { label: "Quality", details: "Testing, monitoring, reliability" },
       ],
     },
     cases: {
@@ -400,13 +400,13 @@ const webMobileCopy: Record<SupportedLanguage, WebMobileCopy> = {
       kicker: "Ready for your next product",
       title: "Co-create your app or website",
       description:
-        "Finance, commerce, operations, customer care: state the challenge and we deliver the app plus the site.",
+        "Tell us your need, we deliver the app and the website.",
       cta: "Book a digital workshop",
       deliverables: [
-        "Product brief, roadmap, aligned KPIs",
-        "Multi-platform design system",
-        "Mobile apps (store/private) and websites",
-        "Run, monitoring and product support",
+        "Clear brief and action plan",
+        "Validated multi-screen design",
+        "Mobile app and website",
+        "Support and evolution",
       ],
       deliverableLabel: "Deliverables",
     },

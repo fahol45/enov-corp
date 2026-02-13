@@ -26,6 +26,13 @@ const navLinks: {
     },
   },
   {
+    href: "/academy",
+    labels: {
+      fr: "Enov Academy",
+      en: "Enov Academy",
+    },
+  },
+  {
     href: "/propos",
     labels: {
       fr: "\u00c0 propos",
