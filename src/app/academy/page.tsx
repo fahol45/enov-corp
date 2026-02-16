@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TrainingFilters } from "@/components/academy/TrainingFilters";
-import { academyRegistrationUrl, categories, trainings } from "@/lib/trainings";
+import { academyRegistrationUrl } from "@/lib/trainings";
+import { fetchAcademyTrainings } from "@/lib/academy-data";
 import { ogImage, siteName } from "@/lib/seo";
 
 const title = "Enov Academy";
@@ -33,7 +34,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AcademyPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AcademyPage() {
+  const trainings = await fetchAcademyTrainings();
+  const categories = Array.from(
+    new Set(trainings.map((training) => training.category))
+  );
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
       <div className="pointer-events-none absolute inset-0 opacity-70">

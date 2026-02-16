@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
-import { trainings } from "@/lib/trainings";
+import { fetchAcademyTrainings } from "@/lib/academy-data";
 
 const routes = [
   { path: "/", priority: 1 },
@@ -11,7 +11,7 @@ const routes = [
   { path: "/contact", priority: 0.6 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   const changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] =
     "monthly";
@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }));
 
+  const trainings = await fetchAcademyTrainings();
   const academyEntries: MetadataRoute.Sitemap = trainings.map((training) => ({
     url: absoluteUrl(`/academy/${training.slug}`),
     lastModified,

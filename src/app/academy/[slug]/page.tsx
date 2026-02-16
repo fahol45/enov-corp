@@ -5,26 +5,21 @@ import { TrainingMedia } from "@/components/academy/TrainingMedia";
 import { TrainingStatusBadge } from "@/components/academy/TrainingStatusBadge";
 import { NotifyForm } from "@/components/academy/NotifyForm";
 import { RegisterForm } from "@/components/academy/RegisterForm";
-import { academyRegistrationUrl, getTraining, trainings } from "@/lib/trainings";
+import { academyRegistrationUrl } from "@/lib/trainings";
+import { fetchAcademyTraining } from "@/lib/academy-data";
 import { absoluteUrl, ogImage, siteName, siteUrl } from "@/lib/seo";
 
 type AcademyDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  return trainings.map((training) => ({
-    slug: training.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: AcademyDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const training = getTraining(slug);
+  const training = await fetchAcademyTraining(slug);
 
   if (!training) {
     return {
@@ -67,7 +62,7 @@ export default async function AcademyDetailPage({
   params,
 }: AcademyDetailPageProps) {
   const { slug } = await params;
-  const training = getTraining(slug);
+  const training = await fetchAcademyTraining(slug);
 
   if (!training) {
     notFound();

@@ -8,7 +8,9 @@
     "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "academy:update": "node scripts/update-trainings.js",
+    "academy:sync": "node scripts/update-trainings.js --from-supabase"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
