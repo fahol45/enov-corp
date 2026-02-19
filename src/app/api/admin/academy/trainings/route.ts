@@ -20,6 +20,7 @@ type TrainingRow = {
 };
 
 const allowedStatuses: TrainingStatus[] = ["available", "soon", "closed"];
+const bucketName = "academy-media";
 
 const normalizeText = (value: unknown) =>
   typeof value === "string" ? value.trim() : "";
@@ -109,6 +110,34 @@ const getPayloadTrainings = (payload: unknown) => {
   return null;
 };
 
+const extractStoragePath = (value: string | null) => {
+  const text = normalizeText(value);
+  if (!text) return null;
+
+  const prefixPublic = `/storage/v1/object/public/${bucketName}/`;
+  const prefixSigned = `/storage/v1/object/sign/${bucketName}/`;
+
+  try {
+    const parsed = new URL(text);
+    const path = parsed.pathname;
+    if (path.includes(prefixPublic)) {
+      return decodeURIComponent(path.split(prefixPublic)[1] ?? "");
+    }
+    if (path.includes(prefixSigned)) {
+      return decodeURIComponent(path.split(prefixSigned)[1] ?? "");
+    }
+    return null;
+  } catch {
+    if (text.includes(prefixPublic)) {
+      return text.split(prefixPublic)[1]?.split("?")[0] ?? null;
+    }
+    if (text.includes(prefixSigned)) {
+      return text.split(prefixSigned)[1]?.split("?")[0] ?? null;
+    }
+    return null;
+  }
+};
+
 export async function GET(request: NextRequest) {
   const authError = requireAdmin(request);
   if (authError) return authError;
@@ -165,7 +194,7 @@ export async function PUT(request: NextRequest) {
 
   const { data: existing, error: fetchError } = await supabaseServer
     .from("academy_trainings")
-    .select("slug");
+    .select("slug, cover_image, pdf_program");
   if (fetchError) {
     return NextResponse.json(
       { ok: false, message: "Erreur Supabase." },
@@ -178,6 +207,30 @@ export async function PUT(request: NextRequest) {
     existing?.filter((row) => !incomingSlugs.has(row.slug)) ?? [];
 
   if (toDelete.length > 0) {
+    const paths = new Set<string>();
+    toDelete.forEach((row) => {
+      const coverPath = extractStoragePath(
+        (row as { cover_image?: string | null }).cover_image ?? null
+      );
+      const pdfPath = extractStoragePath(
+        (row as { pdf_program?: string | null }).pdf_program ?? null
+      );
+      if (coverPath) paths.add(coverPath);
+      if (pdfPath) paths.add(pdfPath);
+    });
+
+    if (paths.size > 0) {
+      const { error: storageError } = await supabaseServer.storage
+        .from(bucketName)
+        .remove(Array.from(paths));
+      if (storageError) {
+        return NextResponse.json(
+          { ok: false, message: "Suppression medias impossible." },
+          { status: 500 }
+        );
+      }
+    }
+
     const { error: deleteError } = await supabaseServer
       .from("academy_trainings")
       .delete()
