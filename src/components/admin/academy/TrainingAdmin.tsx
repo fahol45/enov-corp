@@ -137,6 +137,7 @@ export function TrainingAdmin() {
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [autoPublish, setAutoPublish] = useState(true);
   const [feedback, setFeedback] = useState<string | null>(null);
   const feedbackTimer = useRef<number | null>(null);
 
@@ -413,6 +414,15 @@ export function TrainingAdmin() {
     }
   };
 
+  const updateSelectedDraft = (patch: Partial<Training>) => {
+    if (!selected) return null;
+    const next = drafts.map((item) =>
+      item._id === selected._id ? { ...item, ...patch } : item
+    );
+    setDrafts(next);
+    return next;
+  };
+
   const uploadMedia = async (file: File, kind: "image" | "pdf") => {
     const key = adminKey.trim();
     if (!key) {
@@ -451,14 +461,26 @@ export function TrainingAdmin() {
         return;
       }
 
+      const nextDrafts =
+        kind === "image"
+          ? updateSelectedDraft({ coverImage: payload.url })
+          : updateSelectedDraft({ pdfProgram: payload.url });
       if (kind === "image") {
-        updateSelected({ coverImage: payload.url });
         setImageFile(null);
       } else {
-        updateSelected({ pdfProgram: payload.url });
         setPdfFile(null);
       }
-      showFeedback("Fichier uploade.");
+
+      if (autoPublish && nextDrafts) {
+        const result = await callAdminApi("PUT", {
+          trainings: stripDrafts(nextDrafts),
+        });
+        if (result !== null) {
+          showFeedback("Fichier uploade et publie.");
+        }
+      } else {
+        showFeedback("Fichier uploade.");
+      }
     } catch {
       showFeedback("Upload impossible.");
     } finally {
@@ -608,6 +630,15 @@ export function TrainingAdmin() {
                 placeholder="Saisir la cle admin"
                 className={inputClass}
               />
+            </label>
+            <label className="flex items-center gap-2 text-xs text-slate-400">
+              <input
+                type="checkbox"
+                checked={autoPublish}
+                onChange={(event) => setAutoPublish(event.target.checked)}
+                className="h-4 w-4 rounded border border-white/20 bg-slate-950/70 accent-[#00a3ff]"
+              />
+              Publier automatiquement apres upload
             </label>
             <div className="flex flex-wrap gap-2">
               <button
