@@ -292,6 +292,12 @@ export function TrainingAdmin() {
 
   const handleRemove = () => {
     if (!selected) return;
+    const name = selected.title?.trim() || selected.slug || "cette formation";
+    const confirmed =
+      typeof window === "undefined"
+        ? false
+        : window.confirm(`Confirmer la suppression de "${name}" ?`);
+    if (!confirmed) return;
     const next = drafts.filter((item) => item._id !== selected._id);
     if (next.length === 0) {
       const created = createBlankDraft(1);
