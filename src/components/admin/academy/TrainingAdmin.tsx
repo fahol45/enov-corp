@@ -139,6 +139,8 @@ export function TrainingAdmin() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [autoPublish, setAutoPublish] = useState(true);
   const [confirmTarget, setConfirmTarget] = useState<TrainingDraft | null>(null);
+  const [useCustomCategory, setUseCustomCategory] = useState(false);
+  const [customCategory, setCustomCategory] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const feedbackTimer = useRef<number | null>(null);
 
@@ -214,6 +216,14 @@ export function TrainingAdmin() {
     });
     return Array.from(set);
   }, [drafts]);
+
+  const categoryOptions = useMemo(() => {
+    const set = new Set(categories);
+    if (selected?.category.trim()) {
+      set.add(selected.category.trim());
+    }
+    return Array.from(set).sort((a, b) => a.localeCompare(b, "fr"));
+  }, [categories, selected]);
 
   const slugCounts = useMemo(() => {
     return drafts.reduce<Record<string, number>>((acc, item) => {
@@ -836,19 +846,44 @@ export function TrainingAdmin() {
                   </label>
                   <label className="flex flex-col gap-2 text-sm text-slate-300">
                     Categorie
-                    <input
-                      value={selected.category}
-                      onChange={(event) =>
-                        updateSelected({ category: event.target.value })
+                    <select
+                      value={
+                        useCustomCategory ? "__custom__" : selected.category
                       }
-                      list="academy-categories"
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        if (value === "__custom__") {
+                          setUseCustomCategory(true);
+                          setCustomCategory("");
+                          updateSelected({ category: "" });
+                        } else {
+                          setUseCustomCategory(false);
+                          setCustomCategory("");
+                          updateSelected({ category: value });
+                        }
+                      }}
                       className={inputClass}
-                    />
-                    <datalist id="academy-categories">
-                      {categories.map((item) => (
-                        <option key={item} value={item} />
+                    >
+                      <option value="">Choisir une categorie</option>
+                      {categoryOptions.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
                       ))}
-                    </datalist>
+                      <option value="__custom__">Nouvelle categorie...</option>
+                    </select>
+                    {useCustomCategory ? (
+                      <input
+                        value={customCategory}
+                        onChange={(event) => {
+                          const value = event.target.value;
+                          setCustomCategory(value);
+                          updateSelected({ category: value });
+                        }}
+                        placeholder="Saisir la categorie"
+                        className={inputClass}
+                      />
+                    ) : null}
                   </label>
                   <label className="flex flex-col gap-2 text-sm text-slate-300">
                     Statut
