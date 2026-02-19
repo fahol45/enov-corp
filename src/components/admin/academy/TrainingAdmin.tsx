@@ -138,6 +138,7 @@ export function TrainingAdmin() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [autoPublish, setAutoPublish] = useState(true);
+  const [confirmTarget, setConfirmTarget] = useState<TrainingDraft | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const feedbackTimer = useRef<number | null>(null);
 
@@ -292,13 +293,15 @@ export function TrainingAdmin() {
 
   const handleRemove = () => {
     if (!selected) return;
-    const name = selected.title?.trim() || selected.slug || "cette formation";
-    const confirmed =
-      typeof window === "undefined"
-        ? false
-        : window.confirm(`Confirmer la suppression de "${name}" ?`);
-    if (!confirmed) return;
-    const next = drafts.filter((item) => item._id !== selected._id);
+    setConfirmTarget(selected);
+  };
+
+  const handleConfirmRemove = () => {
+    if (!confirmTarget) return;
+    const targetId = confirmTarget._id;
+    setConfirmTarget(null);
+    if (!selected) return;
+    const next = drafts.filter((item) => item._id !== targetId);
     if (next.length === 0) {
       const created = createBlankDraft(1);
       setDrafts([created]);
@@ -1123,6 +1126,46 @@ export function TrainingAdmin() {
           )}
         </section>
       </div>
+
+      {confirmTarget ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur"
+            onClick={() => setConfirmTarget(null)}
+          />
+          <div className="relative w-full max-w-lg rounded-3xl border border-white/10 bg-slate-950/95 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+            <div className="space-y-3">
+              <p className="kicker text-slate-400">CONFIRMATION</p>
+              <h3 className="text-2xl font-semibold text-white">
+                Supprimer cette formation ?
+              </h3>
+              <p className="text-sm text-slate-300">
+                Vous allez supprimer{" "}
+                <span className="font-semibold text-white">
+                  {confirmTarget.title || confirmTarget.slug}
+                </span>
+                . Cette action est definitive.
+              </p>
+            </div>
+            <div className="mt-6 flex flex-wrap justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmTarget(null)}
+                className="rounded-full border border-white/20 bg-white/5 px-5 py-2 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10"
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmRemove}
+                className="rounded-full border border-[#ec008c]/60 bg-[#ec008c]/20 px-5 py-2 text-sm font-semibold text-white transition hover:border-[#ec008c]/90 hover:bg-[#ec008c]/30"
+              >
+                Oui, supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
