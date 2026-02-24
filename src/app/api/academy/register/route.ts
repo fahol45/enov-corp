@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
     const firstName = body.firstName;
     const lastName = body.lastName;
     const email = body.email;
+    const studyField = body.studyField;
 
     if (
       !isNonEmptyString(slug) ||
@@ -25,20 +26,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { error } = await supabaseServer
+    const basePayload = {
+      training_slug: slug.trim(),
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
+      email: email.trim(),
+      phone: isNonEmptyString(body.phone) ? body.phone.trim() : null,
+      city: isNonEmptyString(body.city) ? body.city.trim() : null,
+      profile: isNonEmptyString(body.profile) ? body.profile.trim() : null,
+      message: isNonEmptyString(body.message) ? body.message.trim() : null,
+    };
+
+    const studyValue = isNonEmptyString(studyField)
+      ? studyField.trim()
+      : null;
+
+    let { error } = await supabaseServer
       .from("academy_registrations")
       .insert([
         {
-          training_slug: slug.trim(),
-          first_name: firstName.trim(),
-          last_name: lastName.trim(),
-          email: email.trim(),
-          phone: isNonEmptyString(body.phone) ? body.phone.trim() : null,
-          city: isNonEmptyString(body.city) ? body.city.trim() : null,
-          profile: isNonEmptyString(body.profile) ? body.profile.trim() : null,
-          message: isNonEmptyString(body.message) ? body.message.trim() : null,
+          ...basePayload,
+          field_of_study: studyValue,
         },
       ]);
+
+    if (
+      error &&
+      studyValue &&
+      typeof error.message === "string" &&
+      error.message.includes("field_of_study")
+    ) {
+      const mergedMessage = basePayload.message
+        ? `${basePayload.message}\nFilière: ${studyValue}`
+        : `Filière: ${studyValue}`;
+      const retry = await supabaseServer
+        .from("academy_registrations")
+        .insert([
+          {
+            ...basePayload,
+            message: mergedMessage,
+          },
+        ]);
+      error = retry.error;
+    }
 
     if (error) {
       const debugMessage =

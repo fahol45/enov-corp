@@ -25,14 +25,23 @@ export function RegisterForm({ slug }: RegisterFormProps) {
     phone: "",
     city: "",
     profile: "",
+    studyField: "",
     message: "",
   });
+
+  const studentProfileValue = "Ã‰tudiant";
+  const isStudent = form.profile === studentProfileValue;
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => {
+      if (name === "profile" && value !== studentProfileValue) {
+        return { ...prev, [name]: value, studyField: "" };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,6 +78,7 @@ export function RegisterForm({ slug }: RegisterFormProps) {
         phone: "",
         city: "",
         profile: "",
+        studyField: "",
         message: "",
       });
     } catch {
@@ -164,13 +174,27 @@ export function RegisterForm({ slug }: RegisterFormProps) {
             className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-[#00a3ff]/60"
           >
             <option value="">Sélectionner</option>
-            <option value="Étudiant">Étudiant</option>
+            <option value={studentProfileValue}>Étudiant</option>
             <option value="Professionnel">Professionnel</option>
             <option value="Entreprise">Entreprise</option>
             <option value="Autre">Autre</option>
           </select>
         </label>
       </div>
+
+      {isStudent ? (
+        <label className="flex flex-col gap-2 text-sm text-slate-300">
+          Filière *
+          <input
+            name="studyField"
+            value={form.studyField}
+            onChange={onChange}
+            required={isStudent}
+            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-[#00a3ff]/60"
+            placeholder="Ex: Informatique, Data, Marketing..."
+          />
+        </label>
+      ) : null}
 
       <label className="flex flex-col gap-2 text-sm text-slate-300">
         Message
