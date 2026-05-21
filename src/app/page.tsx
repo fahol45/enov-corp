@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { DigitalTwinCard } from "@/components/DigitalTwinCard";
+import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type Pillar = {
@@ -321,7 +323,7 @@ const landingCopy: Record<SupportedLanguage, LandingCopy> = {
     },
     contact: {
       kicker: "Ready to move forward?",
-      title: "Let\'s talk about your project",
+      title: "Let's talk about your project",
       description:
         "Share your needs and we will build a clear, realistic and efficient solution.",
       cta: "Contact Enov CORP",
@@ -329,203 +331,294 @@ const landingCopy: Record<SupportedLanguage, LandingCopy> = {
   },
 };
 
+const PILLAR_COLORS = [
+  { bar: "from-emerald-400 to-cyan-400", dot: "bg-emerald-400" },
+  { bar: "from-fuchsia-400 to-purple-500", dot: "bg-fuchsia-400" },
+  { bar: "from-sky-400 to-indigo-500", dot: "bg-sky-400" },
+];
+
 export default function Home() {
   const { language } = useLanguage();
   const t = landingCopy[language];
 
+  const heroRest = t.hero.title.replace("Enov CORP, ", "");
+
   return (
-    <main className="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-      <div className="app-shell section-flow relative">
-        <section className="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 p-4 pb-8 shadow-2xl shadow-black/40 backdrop-blur sm:gap-10 sm:p-6 sm:pb-12 md:grid-cols-2 md:gap-12 md:rounded-3xl md:p-10 lg:p-12">
-          <div className="space-y-6">
-            <h1 className="text-[2rem] font-bold leading-tight text-white text-balance sm:text-4xl md:text-5xl">
-              {t.hero.title}
+    <main className="min-h-screen bg-slate-950 text-white">
+      <div className="app-shell section-flow">
+
+        {/* ── HERO ───────────────────────────────────────────────── */}
+        <section className="relative grid gap-12 pt-4 pb-6 md:grid-cols-2 md:items-center md:gap-16 lg:pt-10">
+          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+            <div className="absolute -left-10 top-0 h-[500px] w-[500px] rounded-full bg-pink-500/10 blur-[100px]" />
+            <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-sky-500/8 blur-[80px]" />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
+            className="space-y-8"
+          >
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-emerald-300">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              Enov CORP
+            </div>
+
+            <h1 className="text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-[4.5rem]">
+              <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">
+                Enov CORP,
+              </span>
+              <br />
+              {heroRest}
             </h1>
-            <p className="text-base text-slate-300 text-pretty text-left sm:text-lg md:text-justify">
+
+            <p className="max-w-lg text-lg text-slate-300 text-pretty">
               {t.hero.description}
             </p>
-            <ul className="space-y-3 text-sm text-slate-200 sm:text-base">
-              {t.hero.bullets.map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
-                  <span className="text-pretty text-left md:text-justify">
-                    {item}
-                  </span>
-                </li>
+
+            <ul className="space-y-3 text-sm text-slate-300">
+              {t.hero.bullets.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+                  className="flex items-start gap-3"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-pink-400" />
+                  {item}
+                </motion.li>
               ))}
             </ul>
+
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="#poles"
-                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/40 transition hover:scale-105 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/25 transition hover:scale-105 hover:shadow-pink-500/40 sm:w-auto"
               >
                 {t.hero.primaryCta}
               </a>
               <a
                 href="#contact"
-                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/10 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/30 hover:bg-white/10 sm:w-auto"
               >
                 {t.hero.secondaryCta}
               </a>
             </div>
-          </div>
-          <div className="flex items-center justify-center pb-6 sm:pb-10 md:pb-0">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+            className="flex justify-center pb-4 md:pb-0"
+          >
             <DigitalTwinCard />
-          </div>
+          </motion.div>
         </section>
 
-        <section id="poles" className="space-y-10">
-          <div className="text-center">
-            <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
-              {t.pillars.kicker}
-            </p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">
-              {t.pillars.title}
+        {/* ── PILLARS ─────────────────────────────────────────────── */}
+        <FadeUp>
+          <section id="poles" className="space-y-10">
+            <div className="space-y-3 text-center">
+              <p className="text-xs uppercase tracking-[0.5em] text-slate-500">
+                {t.pillars.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                {t.pillars.title}
+              </h2>
+              <p className="mx-auto max-w-2xl text-slate-400">
+                {t.pillars.description}
+              </p>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {t.pillars.items.map((pillar, index) => {
+                const colors = PILLAR_COLORS[index];
+                return (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.45, delay: index * 0.1 }}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/8 bg-slate-900/50 p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:shadow-2xl"
+                  >
+                    <div
+                      className={`absolute left-0 right-0 top-0 h-px bg-linear-to-r ${colors.bar} opacity-70`}
+                    />
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold text-white">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-sm text-slate-400">{pillar.description}</p>
+                    </div>
+                    <ul className="mt-5 flex-1 space-y-2 text-sm text-slate-400">
+                      {pillar.highlights.map((highlight) => (
+                        <li key={highlight} className="flex items-start gap-2">
+                          <span
+                            className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${colors.dot}`}
+                          />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={pillar.href}
+                      className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-white/8"
+                    >
+                      {pillar.cta}
+                      <span className="text-slate-400 transition group-hover:translate-x-1">
+                        →
+                      </span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── CAPABILITIES ────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              {t.capabilities.title}
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400">
-              {t.pillars.description}
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {t.pillars.items.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-black/30"
-              >
-                <div className="space-y-3">
-                  <h3 className="text-xl font-semibold text-white">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-sm text-slate-300">
-                    {pillar.description}
-                  </p>
-                </div>
-                <ul className="mt-5 space-y-2 text-sm text-slate-300">
-                  {pillar.highlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-2">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-pink-500" />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={pillar.href}
-                  className="mt-6 inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-white/60 hover:bg-white/10"
+            <div className="grid gap-4 sm:grid-cols-2">
+              {t.capabilities.items.map((reason, index) => (
+                <motion.div
+                  key={reason.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  className="group relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/40 p-6 transition hover:border-white/15"
                 >
-                  {pillar.cta}
+                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[6rem] font-black leading-none text-white/[0.03] transition-all duration-500 group-hover:text-white/[0.06]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-lg font-semibold text-white">{reason.title}</p>
+                  <p className="mt-2 text-sm text-slate-400">{reason.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── APPROACH ────────────────────────────────────────────── */}
+        <FadeUp>
+          <section id="approach" className="space-y-12">
+            <div className="space-y-3 text-center">
+              <p className="text-xs uppercase tracking-[0.5em] text-slate-500">
+                {t.approach.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                {t.approach.title}
+              </h2>
+              <p className="mx-auto max-w-2xl text-slate-400">
+                {t.approach.description}
+              </p>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-linear-to-r from-transparent via-white/15 to-transparent lg:block" />
+              <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                {t.approach.steps.map((step, index) => (
+                  <motion.div
+                    key={step.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: index * 0.1 }}
+                    className="flex flex-col items-center text-center lg:items-start lg:text-left"
+                  >
+                    <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-slate-950">
+                      <span className="bg-linear-to-br from-pink-400 to-sky-400 bg-clip-text text-2xl font-black text-transparent">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 text-base font-semibold text-white">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-400">{step.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── ACADEMY ─────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="grid gap-8 rounded-3xl border border-white/8 bg-linear-to-br from-slate-900/60 to-slate-950/60 p-6 sm:p-8 md:grid-cols-[1.3fr_0.7fr] md:items-start">
+            <div className="space-y-5">
+              <p className="text-xs uppercase tracking-[0.5em] text-sky-400">
+                {t.academy.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                {t.academy.title}
+              </h2>
+              <p className="text-slate-300">{t.academy.description}</p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/academy"
+                  className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+                >
+                  {t.academy.primaryCta}
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition hover:border-white/30 hover:bg-white/5"
+                >
+                  {t.academy.secondaryCta}
                 </Link>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/50 sm:rounded-3xl sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold sm:text-4xl">
-            {t.capabilities.title}
-          </h2>
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {t.capabilities.items.map((reason) => (
-              <li
-                key={reason.title}
-                className="flex flex-col gap-2 rounded-2xl border border-slate-800 bg-slate-900/70 p-5"
-              >
-                <span className="text-base font-semibold text-white">
-                  {reason.title}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {t.academy.tracks.map((track) => (
+                <span
+                  key={track}
+                  className="rounded-full border border-sky-500/25 bg-sky-500/8 px-3 py-1.5 text-xs uppercase tracking-[0.3em] text-sky-300"
+                >
+                  {track}
                 </span>
-                <span className="text-sm text-slate-300">
-                  {reason.description}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
 
-        <section id="approach" className="space-y-8">
-          <div className="text-center">
-            <p className="text-sm uppercase tracking-[0.4em] text-slate-400">
-              {t.approach.kicker}
-            </p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">
-              {t.approach.title}
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-base text-slate-400 sm:text-lg">
-              {t.approach.description}
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {t.approach.steps.map((step, index) => (
-              <div
-                key={step.title}
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 text-center shadow-lg"
-              >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-pink-500 to-sky-500 text-lg font-bold">
-                  {index + 1}
-                </div>
-                <h3 className="mt-4 text-xl font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm text-slate-300">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-2xl shadow-black/40 sm:rounded-3xl sm:p-6 md:grid-cols-[1.2fr_0.8fr] md:items-center md:p-8">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
-              {t.academy.kicker}
-            </p>
-            <h2 className="text-3xl font-semibold sm:text-4xl">
-              {t.academy.title}
-            </h2>
-            <p className="text-base text-slate-300 sm:text-lg">
-              {t.academy.description}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/academy"
-                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
-              >
-                {t.academy.primaryCta}
-              </Link>
+        {/* ── CONTACT CTA ─────────────────────────────────────────── */}
+        <FadeUp>
+          <section
+            id="contact"
+            className="relative overflow-hidden rounded-3xl p-8 text-center sm:p-12 md:p-16"
+          >
+            <div className="absolute inset-0 bg-linear-to-br from-pink-500/15 via-purple-500/10 to-sky-500/15" />
+            <div className="absolute inset-0 rounded-3xl border border-white/10" />
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-pink-500/20 blur-3xl" />
+              <div className="absolute -bottom-20 -right-10 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" />
+            </div>
+            <div className="relative space-y-6">
+              <p className="text-xs uppercase tracking-[0.5em] text-pink-300">
+                {t.contact.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-5xl">
+                {t.contact.title}
+              </h2>
+              <p className="mx-auto max-w-xl text-slate-300">{t.contact.description}</p>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition hover:border-white hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl shadow-white/15 transition hover:scale-105"
               >
-                {t.academy.secondaryCta}
+                {t.contact.cta}
               </Link>
             </div>
-          </div>
-          <ul className="grid gap-3 text-sm text-slate-300">
-            {t.academy.tracks.map((track) => (
-              <li key={track} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-sky-400" />
-                <span>{track}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          </section>
+        </FadeUp>
 
-        <section
-          id="contact"
-          className="rounded-2xl border border-white/10 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:rounded-3xl sm:p-6 md:p-8"
-        >
-          <p className="text-sm uppercase tracking-[0.4em] text-pink-300">
-            {t.contact.kicker}
-          </p>
-          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-            {t.contact.title}
-          </h2>
-          <p className="mt-3 text-base text-slate-300 sm:text-lg">
-            {t.contact.description}
-          </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
-          >
-            {t.contact.cta}
-          </Link>
-        </section>
       </div>
     </main>
   );
