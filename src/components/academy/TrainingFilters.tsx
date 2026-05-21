@@ -3,18 +3,61 @@
 import { useMemo, useState } from "react";
 import type { Training, TrainingStatus } from "@/lib/trainings";
 import { TrainingCard } from "./TrainingCard";
+import { useLanguage } from "@/context/LanguageContext";
 
 type TrainingFiltersProps = {
   trainings: Training[];
   categories: string[];
 };
 
-const statusOptions: { value: TrainingStatus | "all"; label: string }[] = [
-  { value: "all", label: "Tous les statuts" },
-  { value: "available", label: "Disponible" },
-  { value: "soon", label: "Bientôt" },
-  { value: "closed", label: "Fermée" },
-];
+const filterCopy = {
+  fr: {
+    searchLabel: "Recherche",
+    searchPlaceholder: "Rechercher une formation, un domaine...",
+    categoryLabel: "Catégorie",
+    categoryAll: "Toutes les catégories",
+    statusLabel: "Statut",
+    statusOptions: [
+      { value: "all" as const, label: "Tous les statuts" },
+      { value: "available" as const, label: "Disponible" },
+      { value: "soon" as const, label: "Bientôt" },
+      { value: "closed" as const, label: "Fermée" },
+    ],
+    results: (total: number, formations: number, webinars: number) =>
+      `${total} résultat${total > 1 ? "s" : ""} · ${formations} formation${formations > 1 ? "s" : ""} · ${webinars} webinaire${webinars > 1 ? "s" : ""}`,
+    premium: "Sélection premium Enov Academy",
+    noResults: "Aucune formation ne correspond à votre recherche.",
+    formationsTitle: "Formations",
+    formationsDesc: "Parcours complets, accompagnement et montée en compétence.",
+    formationsBadge: "Priorité",
+    webinarsTitle: "Webinaires",
+    webinarsDesc: "Sessions live courtes pour explorer un sujet précis.",
+    webinarsBadge: "Live",
+  },
+  en: {
+    searchLabel: "Search",
+    searchPlaceholder: "Search a program, a domain...",
+    categoryLabel: "Category",
+    categoryAll: "All categories",
+    statusLabel: "Status",
+    statusOptions: [
+      { value: "all" as const, label: "All statuses" },
+      { value: "available" as const, label: "Available" },
+      { value: "soon" as const, label: "Coming soon" },
+      { value: "closed" as const, label: "Closed" },
+    ],
+    results: (total: number, formations: number, webinars: number) =>
+      `${total} result${total > 1 ? "s" : ""} · ${formations} program${formations > 1 ? "s" : ""} · ${webinars} webinar${webinars > 1 ? "s" : ""}`,
+    premium: "Enov Academy premium selection",
+    noResults: "No program matches your search.",
+    formationsTitle: "Programs",
+    formationsDesc: "Full courses with mentoring and skill development.",
+    formationsBadge: "Priority",
+    webinarsTitle: "Webinars",
+    webinarsDesc: "Short live sessions to explore a specific topic.",
+    webinarsBadge: "Live",
+  },
+};
 
 const statusPriority: Record<TrainingStatus, number> = {
   available: 0,
@@ -23,6 +66,9 @@ const statusPriority: Record<TrainingStatus, number> = {
 };
 
 export function TrainingFilters({ trainings, categories }: TrainingFiltersProps) {
+  const { language } = useLanguage();
+  const t = filterCopy[language];
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [status, setStatus] = useState<TrainingStatus | "all">("all");
@@ -62,22 +108,22 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
     <div className="space-y-8">
       <div className="grid gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] lg:grid-cols-[1.4fr_1fr_1fr]">
         <label className="flex flex-col gap-2 text-sm text-slate-300">
-          Recherche
+          {t.searchLabel}
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Rechercher une formation, un domaine..."
+            placeholder={t.searchPlaceholder}
             className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition focus:border-[#00a3ff]/60"
           />
         </label>
         <label className="flex flex-col gap-2 text-sm text-slate-300">
-          Catégorie
+          {t.categoryLabel}
           <select
             value={category}
             onChange={(event) => setCategory(event.target.value)}
             className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition focus:border-[#00a3ff]/60"
           >
-            <option value="all">Toutes les catégories</option>
+            <option value="all">{t.categoryAll}</option>
             {categories.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -86,7 +132,7 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
           </select>
         </label>
         <label className="flex flex-col gap-2 text-sm text-slate-300">
-          Statut
+          {t.statusLabel}
           <select
             value={status}
             onChange={(event) =>
@@ -94,7 +140,7 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
             }
             className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition focus:border-[#ec008c]/60"
           >
-            {statusOptions.map((option) => (
+            {t.statusOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -104,17 +150,13 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
-        <span>
-          {filtered.length} résultat{filtered.length > 1 ? "s" : ""} ·{" "}
-          {formations.length} formation{formations.length > 1 ? "s" : ""} ·{" "}
-          {webinars.length} webinaire{webinars.length > 1 ? "s" : ""}
-        </span>
-        <span className="text-[#00a3ff]">Sélection premium Enov Academy</span>
+        <span>{t.results(filtered.length, formations.length, webinars.length)}</span>
+        <span className="text-[#00a3ff]">{t.premium}</span>
       </div>
 
       {filtered.length === 0 ? (
         <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center text-slate-300">
-          Aucune formation ne correspond à votre recherche.
+          {t.noResults}
         </div>
       ) : null}
 
@@ -123,14 +165,12 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-semibold text-white">
-                Formations
+                {t.formationsTitle}
               </h2>
-              <p className="text-sm text-slate-400">
-                Parcours complets, accompagnement et montée en compétence.
-              </p>
+              <p className="text-sm text-slate-400">{t.formationsDesc}</p>
             </div>
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.25em] text-slate-400">
-              Priorité
+              {t.formationsBadge}
             </span>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -145,13 +185,11 @@ export function TrainingFilters({ trainings, categories }: TrainingFiltersProps)
         <section className="space-y-5">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-semibold text-white">Webinaires</h2>
-              <p className="text-sm text-slate-400">
-                Sessions live courtes pour explorer un sujet précis.
-              </p>
+              <h2 className="text-2xl font-semibold text-white">{t.webinarsTitle}</h2>
+              <p className="text-sm text-slate-400">{t.webinarsDesc}</p>
             </div>
             <span className="rounded-full border border-[#00a3ff]/30 bg-[#00a3ff]/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#9ad9ff]">
-              Live
+              {t.webinarsBadge}
             </span>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

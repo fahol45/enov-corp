@@ -86,7 +86,7 @@ export function ContactForm({ copy }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 shadow-inner shadow-black/40"
+      className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-8"
     >
       <div className="space-y-3">
         <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{copy.title}</p>

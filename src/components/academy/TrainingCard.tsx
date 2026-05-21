@@ -4,6 +4,26 @@ import { useState } from "react";
 import Link from "next/link";
 import { academyRegistrationUrl, type Training } from "@/lib/trainings";
 import { TrainingStatusBadge } from "./TrainingStatusBadge";
+import { useLanguage } from "@/context/LanguageContext";
+
+const cardCopy = {
+  fr: {
+    duration: "Durée",
+    format: "Format",
+    nextSession: "Prochaine session",
+    discover: "Découvrir la formation",
+    register: "S'inscrire",
+    ariaDiscover: (title: string) => `Voir la formation ${title}`,
+  },
+  en: {
+    duration: "Duration",
+    format: "Format",
+    nextSession: "Next session",
+    discover: "Discover the program",
+    register: "Register",
+    ariaDiscover: (title: string) => `View program ${title}`,
+  },
+};
 
 type TrainingCardProps = {
   training: Training;
@@ -12,6 +32,8 @@ type TrainingCardProps = {
 const resolveMedia = (value?: string) => (value ? value : undefined);
 
 export function TrainingCard({ training }: TrainingCardProps) {
+  const { language } = useLanguage();
+  const t = cardCopy[language];
   const coverImage = resolveMedia(training.coverImage);
   const [imageError, setImageError] = useState(false);
   const showImage = Boolean(coverImage) && !imageError;
@@ -30,12 +52,12 @@ export function TrainingCard({ training }: TrainingCardProps) {
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
+          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-slate-900 via-slate-950 to-slate-900">
             <div className="h-16 w-16 rounded-full bg-[#00a3ff]/20 blur-2xl" />
             <div className="absolute right-6 top-6 h-10 w-10 rounded-full bg-[#ec008c]/25 blur-xl" />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
         <div className="absolute left-4 top-4">
           <TrainingStatusBadge status={training.status} />
         </div>
@@ -52,15 +74,15 @@ export function TrainingCard({ training }: TrainingCardProps) {
 
         <div className="mt-auto grid gap-2 text-xs text-slate-400">
           <div className="flex items-center justify-between">
-            <span>Durée</span>
+            <span>{t.duration}</span>
             <span className="text-slate-200">{training.details.duration}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>Format</span>
+            <span>{t.format}</span>
             <span className="text-slate-200">{training.details.format}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>Prochaine session</span>
+            <span>{t.nextSession}</span>
             <span className="text-slate-200">
               {training.details.nextSession}
             </span>
@@ -69,7 +91,7 @@ export function TrainingCard({ training }: TrainingCardProps) {
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm font-semibold text-white">
           <span className="inline-flex items-center gap-2 text-white transition">
-            <span>Découvrir la formation</span>
+            <span>{t.discover}</span>
             <span className="text-[#00a3ff] transition group-hover:translate-x-1">
               →
             </span>
@@ -81,7 +103,7 @@ export function TrainingCard({ training }: TrainingCardProps) {
               rel="noreferrer"
               className="relative z-20 inline-flex items-center gap-2 rounded-full border border-[#ec008c]/50 bg-[#ec008c]/15 px-4 py-2 text-xs font-semibold text-white transition hover:border-[#ec008c]/70 hover:bg-[#ec008c]/25"
             >
-              S'inscrire
+              {t.register}
               <span className="text-[#ec008c]">→</span>
             </a>
           ) : null}
@@ -91,7 +113,7 @@ export function TrainingCard({ training }: TrainingCardProps) {
       <Link
         href={`/academy/${training.slug}`}
         className="absolute inset-0 z-10"
-        aria-label={`Voir la formation ${training.title}`}
+        aria-label={t.ariaDiscover(training.title)}
       />
     </article>
   );

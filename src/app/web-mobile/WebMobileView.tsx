@@ -445,7 +445,7 @@ export function WebMobileView() {
             <div className="flex flex-col gap-3 pt-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#a855f7] via-[#d946ef] to-[#0ea5e9] px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg shadow-purple-600/30 transition hover:scale-[1.02]"
+                className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#a855f7] via-[#d946ef] to-[#0ea5e9] px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg shadow-purple-600/30 transition hover:scale-[1.02] sm:w-auto"
               >
                 {t.hero.primaryCta}
               </Link>

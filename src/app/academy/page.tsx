@@ -54,7 +54,7 @@ export default async function AcademyPage() {
           <div className="absolute -right-16 top-0 h-40 w-40 rounded-full bg-[#00a3ff]/20 blur-3xl" />
           <div className="space-y-5">
             <p className="kicker text-slate-400">ENOV ACADEMY</p>
-            <h1 className="text-4xl font-bold leading-tight sm:text-4xl">
+            <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
               Des formations à la pointe de la technologie
             </h1>
             <p className="text-lg text-slate-300 text-pretty">

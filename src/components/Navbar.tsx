@@ -122,26 +122,34 @@ export function Navbar() {
           </div>
         </div>
       </div>
-      {menuOpen && (
-        <div className="border-b border-white/10 bg-slate-950/95 px-4 py-4 backdrop-blur md:hidden">
-          <div className="flex flex-col gap-4 text-base font-medium text-slate-200">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`rounded-md px-2 py-2 transition hover:bg-white/5 ${
-                  pathname === link.href
-                    ? "text-fuchsia-300"
-                    : "text-slate-200"
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.labels[language]}
-              </Link>
-            ))}
+      <div
+        className={`grid transition-all duration-200 ease-out md:hidden ${
+          menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="overflow-hidden">
+          <div className="border-b border-white/10 bg-slate-950/95 px-4 py-4 backdrop-blur">
+            <div className="flex flex-col gap-4 text-base font-medium text-slate-200">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`rounded-md px-2 py-2 transition hover:bg-white/5 ${
+                    pathname === link.href
+                      ? "text-fuchsia-300"
+                      : "text-slate-200"
+                  }`}
+                  onClick={() => setMenuOpen(false)}
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  {link.labels[language]}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

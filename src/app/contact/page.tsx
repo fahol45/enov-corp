@@ -148,7 +148,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="mailto:enovcorporation@gmail.com"
-                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-6 py-3 text-xs font-semibold uppercase tracking-wide text-white transition hover:scale-105 sm:w-auto"
+                className="inline-flex w-full min-w-[180px] items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-6 py-3 text-xs font-semibold uppercase tracking-wide text-white transition hover:scale-105 sm:w-auto"
               >
                 {t.hero.primaryCta}
               </Link>
@@ -174,7 +174,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-6 shadow-inner shadow-black/40">
+        <section className="rounded-3xl border border-white/10 bg-slate-950/80 p-3 shadow-inner shadow-black/40 sm:p-6">
           <ContactForm copy={t.form} />
         </section>
       </div>
