@@ -4,22 +4,14 @@ import { supabaseServer } from "@/lib/supabase/server";
 
 const bucketName = "academy-media";
 
-const requireAdmin = (request: NextRequest) => {
-  const adminKey = process.env.ACADEMY_ADMIN_KEY;
-  if (!adminKey) {
-    return NextResponse.json(
-      { ok: false, message: "ACADEMY_ADMIN_KEY manquant." },
-      { status: 500 }
-    );
-  }
-  const provided = request.headers.get("x-admin-key") ?? "";
-  if (provided !== adminKey) {
-    return NextResponse.json(
-      { ok: false, message: "Acces refuse." },
-      { status: 401 }
-    );
-  }
-  return null;
+const IMAGE_TYPES: Record<string, string> = {
+  "image/jpeg": ".jpg",
+  "image/jpg": ".jpg",
+  "image/png": ".png",
+  "image/webp": ".webp",
+  "image/gif": ".gif",
+  "image/avif": ".avif",
+  "image/svg+xml": ".svg",
 };
 
 const sanitize = (value: string) =>
@@ -35,15 +27,7 @@ const isFile = (value: unknown): value is File =>
   "arrayBuffer" in value &&
   "name" in value;
 
-const getExtension = (filename: string) => {
-  const match = filename.toLowerCase().match(/\.[a-z0-9]+$/);
-  return match ? match[0] : "";
-};
-
 export async function POST(request: NextRequest) {
-  const authError = requireAdmin(request);
-  if (authError) return authError;
-
   let formData: FormData;
   try {
     formData = await request.formData();
@@ -78,15 +62,12 @@ export async function POST(request: NextRequest) {
   }
 
   const contentType = file.type || "";
-  const isImage =
-    contentType === "image/jpeg" ||
-    contentType === "image/jpg" ||
-    contentType === "image/png";
   const isPdf = contentType === "application/pdf";
+  const imageExt = IMAGE_TYPES[contentType];
 
-  if (kind === "image" && !isImage) {
+  if (kind === "image" && !imageExt) {
     return NextResponse.json(
-      { ok: false, message: "Format image invalide. Utiliser JPG ou PNG." },
+      { ok: false, message: "Format image invalide (JPG, PNG, WebP, GIF, AVIF acceptés)." },
       { status: 400 }
     );
   }
@@ -100,12 +81,7 @@ export async function POST(request: NextRequest) {
   const safeSlug = sanitize(slug);
   const safeName = sanitize(file.name || "upload");
   const baseName = safeName.replace(/\.[a-z0-9]+$/, "") || "media";
-  const extension =
-    kind === "image"
-      ? contentType === "image/png"
-        ? ".png"
-        : ".jpg"
-      : ".pdf";
+  const extension = kind === "image" ? (imageExt ?? ".jpg") : ".pdf";
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
   const filePath = `${safeSlug || "academy"}/${timestamp}-${baseName}${extension}`;
 

@@ -118,7 +118,7 @@ export function PortfolioAdmin() {
         <textarea value={form.description} onChange={(e) => field("description", e.target.value)} placeholder="Description courte" className={`${inputClass} min-h-20 resize-y`} />
         <input value={form.image_url} onChange={(e) => field("image_url", e.target.value)} placeholder="URL de l'image (ou charger un fichier)" className={inputClass} />
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input ref={fileRef} type="file" accept="image/*" className="text-sm text-slate-400 file:mr-3 file:rounded-full file:border-0 file:bg-fuchsia-500/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-fuchsia-300" />
+          <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/svg+xml" className="text-sm text-slate-400 file:mr-3 file:rounded-full file:border-0 file:bg-fuchsia-500/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-fuchsia-300" />
         </div>
         <input value={form.external_url} onChange={(e) => field("external_url", e.target.value)} placeholder="Lien vers le projet (optionnel)" className={inputClass} />
         <div className="flex gap-3">

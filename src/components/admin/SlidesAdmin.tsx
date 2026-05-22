@@ -97,7 +97,7 @@ export function SlidesAdmin() {
         <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Titre (optionnel)" className={inputClass} />
         <input value={newUrl} onChange={(e) => setNewUrl(e.target.value)} placeholder="URL de l'image (ou charger un fichier ci-dessous)" className={inputClass} />
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input ref={fileRef} type="file" accept="image/*" className="text-sm text-slate-400 file:mr-3 file:rounded-full file:border-0 file:bg-sky-500/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-sky-300" />
+          <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/svg+xml" className="text-sm text-slate-400 file:mr-3 file:rounded-full file:border-0 file:bg-sky-500/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-sky-300" />
           <button
             onClick={handleAdd}
             disabled={uploading}
