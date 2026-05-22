@@ -80,7 +80,7 @@ export default function Home() {
       <div className="app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative flex min-h-[90vh] flex-col items-center justify-center pt-10 pb-0 text-center">
+        <section className="relative flex min-h-[90vh] flex-col items-center justify-center pt-10 pb-16 text-center">
           {/* Ambient glows */}
           <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
             <div className="absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-pink-500/8 blur-[120px]" />

@@ -176,10 +176,10 @@ export function DigitalTwinCard() {
 
   return (
     <div className="relative w-full min-h-[18rem] max-w-md sm:h-80">
-      <div className="absolute inset-0 rounded-[2.75rem] bg-gradient-to-br from-pink-500 via-purple-500 to-sky-500 opacity-50 blur-3xl" />
+      <div className="absolute inset-0 rounded-[2.75rem] bg-linear-to-br from-pink-500 via-purple-500 to-sky-500 opacity-50 blur-3xl" />
       <div className="relative flex h-full w-full flex-col items-stretch rounded-[2.75rem]">
         <div className="flex-1 rounded-[2.75rem] border border-white/10 bg-slate-950/85 p-5 shadow-2xl shadow-black/40 backdrop-blur sm:p-6">
-          <div className="flex h-full flex-col overflow-hidden rounded-[2.25rem] border border-white/10 bg-gradient-to-b from-white/10 via-slate-950/20 to-slate-950/60 px-4 py-6">
+          <div className="flex h-full flex-col overflow-hidden rounded-[2.25rem] border border-white/10 bg-linear-to-b from-white/10 via-slate-950/20 to-slate-950/60 px-4 py-6">
             <p className="text-[0.65rem] uppercase tracking-[0.45em] text-pink-300 sm:text-[0.6rem]">
               {text.status[data.statusKey]}
             </p>
