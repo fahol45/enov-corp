@@ -27,7 +27,7 @@ export function HeroSlideshow() {
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         const urls: string[] = data?.slides?.map((s: { image_url: string }) => s.image_url) ?? [];
-        if (urls.length >= 2) setSlides(urls);
+        if (urls.length >= 1) setSlides(urls);
       })
       .catch(() => {});
   }, []);
@@ -68,7 +68,7 @@ export function HeroSlideshow() {
   };
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-full overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
       {/* Slides */}
       <AnimatePresence mode="sync" custom={direction}>
         <motion.div
@@ -94,8 +94,8 @@ export function HeroSlideshow() {
       </AnimatePresence>
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-slate-950/75" />
-      <div className="absolute inset-0 bg-linear-to-b from-slate-950/50 via-transparent to-slate-950/70" />
+      <div className="absolute inset-0 bg-slate-950/55" />
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950/60 via-transparent to-slate-950/70" />
 
       {/* Scan line effect */}
       <motion.div
