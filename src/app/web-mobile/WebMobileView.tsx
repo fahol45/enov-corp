@@ -38,6 +38,7 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
       { num: "03", title: "Portail client", tags: "Accès dédié, contrats, factures, suivi de commande en temps réel." },
       { num: "04", title: "Site vitrine et landing page", tags: "Présentation, formulaires, SEO, hébergement inclus." },
       { num: "05", title: "Tableau de bord", tags: "Données en direct, graphiques, exports PDF ou Excel automatiques." },
+      { num: "06", title: "Intégration IA & LLM", tags: "Chatbot sur vos données, analyse de documents, automatisation intelligente. OpenAI, Claude, Gemini." },
     ],
     processTitle: "Quatre étapes. Une app en production.",
     process: [{ title: "On écoute" }, { title: "On dessine" }, { title: "On code" }, { title: "On met en ligne" }],
@@ -68,6 +69,7 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
       { num: "03", title: "Client portal", tags: "Dedicated access, contracts, invoices, live order tracking." },
       { num: "04", title: "Website & landing page", tags: "Presentation, forms, SEO, hosting included." },
       { num: "05", title: "Dashboard", tags: "Live data, charts, automatic PDF or Excel exports." },
+      { num: "06", title: "AI & LLM Integration", tags: "Chatbot on your data, document analysis, intelligent automation. OpenAI, Claude, Gemini." },
     ],
     processTitle: "Four steps. One app in production.",
     process: [{ title: "We listen" }, { title: "We sketch" }, { title: "We code" }, { title: "We go live" }],
@@ -85,6 +87,7 @@ const CATALOG_ACCENT = [
   "from-blue-300 to-sky-300",
   "from-sky-300 to-cyan-300",
   "from-cyan-300 to-indigo-300",
+  "from-emerald-300 to-teal-300",
 ];
 
 export function WebMobileView() {

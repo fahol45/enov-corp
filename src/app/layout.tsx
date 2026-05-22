@@ -78,9 +78,9 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="/icon.png" />
-        <link rel="apple-touch-icon" href="/icon.png" />
-        <link rel="shortcut icon" href="/icon.png" />
+        <link rel="icon" href="/icon-enov.png" />
+        <link rel="apple-touch-icon" href="/icon-enov.png" />
+        <link rel="shortcut icon" href="/icon-enov.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

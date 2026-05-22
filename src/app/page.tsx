@@ -90,9 +90,21 @@ export default function Home() {
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[90vh] flex-col items-center justify-center pt-10 pb-16 text-center">
           <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
-            <div className="absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-pink-500/8 blur-[120px]" />
-            <div className="absolute left-1/4 bottom-0 h-64 w-64 rounded-full bg-sky-500/8 blur-[80px]" />
-            <div className="absolute right-1/4 bottom-10 h-64 w-64 rounded-full bg-purple-500/8 blur-[80px]" />
+            <motion.div
+              className="absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-pink-500/10 blur-[120px]"
+              animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute left-1/4 bottom-0 h-72 w-72 rounded-full bg-sky-500/10 blur-[80px]"
+              animate={{ x: [-24, 24, -24], y: [0, -20, 0] }}
+              transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute right-1/4 bottom-10 h-72 w-72 rounded-full bg-purple-500/10 blur-[80px]"
+              animate={{ x: [24, -24, 24], y: [0, 20, 0] }}
+              transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+            />
           </div>
 
           <motion.div
