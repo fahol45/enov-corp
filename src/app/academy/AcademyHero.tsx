@@ -48,7 +48,7 @@ export function AcademyHero({ registrationUrl }: Props) {
           {t.kicker}
         </div>
 
-        <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
+        <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
           {t.title}
           <br />
           <span className="bg-linear-to-r from-[#ec008c] via-fuchsia-400 to-[#00a3ff] bg-clip-text text-transparent">

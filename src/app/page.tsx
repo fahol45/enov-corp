@@ -106,7 +106,7 @@ export default function Home() {
               Enov CORP
             </div>
 
-            <h1 className="text-[3.2rem] font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6rem]">
+            <h1 className="text-[2.4rem] font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-[4rem]">
               {t.hero.title}
               <br />
               <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">

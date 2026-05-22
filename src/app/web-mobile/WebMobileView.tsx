@@ -107,7 +107,7 @@ export function WebMobileView() {
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
               {t.hero.kicker}
             </div>
-            <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
+            <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
               {t.hero.title}
               <br />
               <span className="bg-linear-to-r from-fuchsia-400 via-purple-400 to-sky-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
