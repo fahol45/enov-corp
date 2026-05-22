@@ -42,7 +42,7 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
     processTitle: "Quatre étapes. Une app en production.",
     process: [{ title: "On écoute" }, { title: "On dessine" }, { title: "On code" }, { title: "On met en ligne" }],
     cta: {
-      eyebrow: "Rabat. Livraison dans tout le Maroc.",
+      eyebrow: "Devis sous 48h. Sans engagement.",
       title: "Décrivez l'app. On vous dit ce que ça coûte et combien de temps ça prend.",
       button: "Parler du projet",
     },
@@ -72,7 +72,7 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
     processTitle: "Four steps. One app in production.",
     process: [{ title: "We listen" }, { title: "We sketch" }, { title: "We code" }, { title: "We go live" }],
     cta: {
-      eyebrow: "Rabat. Delivered across Morocco.",
+      eyebrow: "Quote within 48h. No commitment.",
       title: "Tell us about the app. We'll tell you the cost and how long it takes.",
       button: "Talk about the project",
     },

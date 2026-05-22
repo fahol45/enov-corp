@@ -18,7 +18,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       kicker: "Contact",
       title: "Décrivez ce que vous voulez.",
       highlight: "On vous répond en 24h.",
-      sub: "Remplissez le formulaire ou appelez directement. On lit chaque message, on analyse votre besoin, on vous rappelle avec une piste concrète — sans engagement.",
+      sub: "Envoyez le formulaire ou appelez. On lit, on analyse, on vous rappelle — pas un commercial, la personne qui fera le travail.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
@@ -45,7 +45,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       kicker: "Contact",
       title: "Tell us what you need.",
       highlight: "We reply in 24 hours.",
-      sub: "Fill in the form or call us directly. We read every message, analyze your need, and get back to you with a concrete direction — no commitment.",
+      sub: "Send the form or call. We read, we assess, we call back — not a salesperson, the person who will do the work.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },

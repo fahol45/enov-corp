@@ -18,9 +18,9 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
   fr: {
     hero: {
       kicker: "À propos",
-      title: "Enov CORP.",
-      highlight: "Trois métiers. Une équipe. Rabat.",
-      sub: "On connecte des serres, on développe des apps, on forme des équipes. Basés à Rabat, on travaille sur tout le Maroc.",
+      title: "Serres, apps",
+      highlight: "et formations.",
+      sub: "On prend en charge le projet de A à Z — sans sous-traitance. Un seul interlocuteur du premier appel jusqu'à la mise en service.",
       cta: "Nous contacter",
     },
     pillarsTitle: "Ce qu'on fait concrètement.",
@@ -31,18 +31,18 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
     ],
     valuesTitle: "La façon dont on travaille.",
     values: [
-      { num: "01", title: "On livre ce qu'on promet" },
-      { num: "02", title: "On explique chaque étape" },
-      { num: "03", title: "On reste après la livraison" },
+      { num: "01", title: "On accepte un projet, on le livre" },
+      { num: "02", title: "Vous parlez à la personne qui fait le travail" },
+      { num: "03", title: "On reste disponible après la livraison" },
     ],
-    cta: { title: "Un projet au Maroc. On vous répond en 24h.", button: "Nous contacter" },
+    cta: { title: "Un projet en tête. On vous répond en 24h.", button: "Nous contacter" },
   },
   en: {
     hero: {
       kicker: "About",
-      title: "Enov CORP.",
-      highlight: "Three crafts. One team. Rabat.",
-      sub: "We connect greenhouses, build apps, and train teams. Based in Rabat, we work across Morocco.",
+      title: "Greenhouses, apps",
+      highlight: "and training.",
+      sub: "We own the project end to end — no subcontracting. One contact from first call to deployment.",
       cta: "Contact us",
     },
     pillarsTitle: "What we concretely do.",
@@ -53,11 +53,11 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
     ],
     valuesTitle: "How we work.",
     values: [
-      { num: "01", title: "We deliver what we promise" },
-      { num: "02", title: "We explain every step" },
-      { num: "03", title: "We stay after delivery" },
+      { num: "01", title: "We accept a project, we deliver it" },
+      { num: "02", title: "You talk to the person doing the work" },
+      { num: "03", title: "We stay available after delivery" },
     ],
-    cta: { title: "A project in Morocco. We reply within 24h.", button: "Contact us" },
+    cta: { title: "A project in mind. We reply within 24h.", button: "Contact us" },
   },
 };
 

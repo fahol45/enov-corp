@@ -19,56 +19,56 @@ type LandingCopy = {
 const copy: Record<SupportedLanguage, LandingCopy> = {
   fr: {
     hero: {
-      title: "Trois métiers.",
-      highlight: "Une équipe qui livre.",
-      sub: "Enov CORP conçoit des serres connectées, crée des applications et forme vos équipes. Tout ce dont vous avez besoin, au même endroit.",
-      cta1: "Découvrir nos pôles",
-      cta2: "Nous contacter",
+      title: "Serres connectées,",
+      highlight: "apps et formations.",
+      sub: "Vous avez besoin d'une serre automatisée, d'une app ou d'une équipe à former. Enov CORP fait les trois.",
+      cta1: "Voir ce qu'on fait",
+      cta2: "Nous écrire",
     },
     stats: [
-      { value: "3", label: "Expertises maîtrisées" },
-      { value: "Rabat", label: "Basés au Maroc" },
-      { value: "< 3 mois", label: "Délai de livraison" },
+      { value: "90%", label: "D'eau économisée en hydroponie" },
+      { value: "< 3 mois", label: "De l'idée à l'app en production" },
+      { value: "8 max", label: "Participants par formation" },
     ],
-    pillarsTitle: "Ce qu'on maîtrise.",
+    pillarsTitle: "Trois choses qu'on sait faire.",
     pillars: [
-      { num: "01", title: "Serres connectées", tags: "Récoltez plus. Arrosez moins. Dormez mieux.", href: "/hydroponie" },
-      { num: "02", title: "Apps & Sites web", tags: "Interface claire. Code solide. Livraison garantie.", href: "/web-mobile" },
-      { num: "03", title: "Formation terrain", tags: "Apprenez en faisant. Repartez avec un certificat.", href: "/academy" },
+      { num: "01", title: "Serres connectées", tags: "Capteurs installés. Arrosage automatisé. Alertes immédiates.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Sites web", tags: "Android, iOS, web. Un interlocuteur. Livraison en 3 mois.", href: "/web-mobile" },
+      { num: "03", title: "Formation", tags: "8 participants max. Projets réels. Certificat Enov à la clé.", href: "/academy" },
     ],
-    processTitle: "Simple. Rapide. Efficace.",
+    processTitle: "Ce qui se passe quand vous nous contactez.",
     process: [{ title: "On écoute" }, { title: "On conçoit" }, { title: "On livre" }, { title: "On reste" }],
     cta: {
-      eyebrow: "Prêt à démarrer ?",
-      title: "Votre projet mérite mieux qu'une agence ordinaire.",
-      button: "Parlons-en",
+      eyebrow: "Sans engagement. Réponse en 24h.",
+      title: "Décrivez votre besoin. On vous répond en 24h.",
+      button: "Nous contacter",
     },
   },
   en: {
     hero: {
-      title: "Three crafts.",
-      highlight: "One team that delivers.",
-      sub: "Enov CORP designs connected greenhouses, builds applications and trains your teams. Everything you need, in one place.",
-      cta1: "Explore our pillars",
-      cta2: "Contact us",
+      title: "Connected greenhouses,",
+      highlight: "apps and training.",
+      sub: "You need an automated greenhouse, an app, or a team to train. Enov CORP does all three.",
+      cta1: "See what we do",
+      cta2: "Write to us",
     },
     stats: [
-      { value: "3", label: "Core expertises" },
-      { value: "Rabat", label: "Based in Morocco" },
-      { value: "< 3 mo.", label: "Delivery timeline" },
+      { value: "90%", label: "Water saved in hydroponics" },
+      { value: "< 3 mo.", label: "From idea to live app" },
+      { value: "8 max", label: "Participants per training" },
     ],
-    pillarsTitle: "What we master.",
+    pillarsTitle: "Three things we know how to do.",
     pillars: [
-      { num: "01", title: "Connected greenhouses", tags: "Harvest more. Water less. Sleep better.", href: "/hydroponie" },
-      { num: "02", title: "Apps & Websites", tags: "Clean interface. Solid code. Guaranteed delivery.", href: "/web-mobile" },
-      { num: "03", title: "Hands-on training", tags: "Learn by doing. Leave with a certificate.", href: "/academy" },
+      { num: "01", title: "Connected greenhouses", tags: "Sensors installed. Watering automated. Instant alerts.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Websites", tags: "Android, iOS, web. One contact. Delivered in 3 months.", href: "/web-mobile" },
+      { num: "03", title: "Training", tags: "Max 8 participants. Real projects. Enov Certificate included.", href: "/academy" },
     ],
-    processTitle: "Simple. Fast. Effective.",
+    processTitle: "What happens when you contact us.",
     process: [{ title: "We listen" }, { title: "We design" }, { title: "We deliver" }, { title: "We stay" }],
     cta: {
-      eyebrow: "Ready to start?",
-      title: "Your project deserves more than an ordinary agency.",
-      button: "Let's talk",
+      eyebrow: "No commitment. Reply within 24h.",
+      title: "Describe your need. We reply within 24h.",
+      button: "Contact us",
     },
   },
 };
@@ -103,7 +103,7 @@ export default function Home() {
           >
             <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-emerald-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              Enov CORP — Rabat
+              Enov CORP
             </div>
 
             <h1 className="text-[3.2rem] font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6rem]">
@@ -151,7 +151,7 @@ export default function Home() {
                 <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-3xl font-black text-transparent sm:text-5xl">
                   {stat.value}
                 </span>
-                <span className="text-[0.65rem] uppercase tracking-[0.4em] text-slate-500">{stat.label}</span>
+                <span className="mt-1 text-[0.6rem] uppercase tracking-[0.35em] text-slate-500">{stat.label}</span>
               </div>
             ))}
           </section>
@@ -181,7 +181,7 @@ export default function Home() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <p className="text-lg font-bold text-white sm:text-xl">{pillar.title}</p>
-                        <p className="mt-1 text-sm italic text-slate-400">{pillar.tags}</p>
+                        <p className="mt-1 text-sm text-slate-400">{pillar.tags}</p>
                       </div>
                       <span className="shrink-0 text-xl text-slate-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">→</span>
                     </Link>

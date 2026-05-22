@@ -44,7 +44,7 @@ const copy: Record<SupportedLanguage, HydroponieCopy> = {
     processTitle: "Ce qui se passe entre le premier appel et la serre opérationnelle.",
     process: [{ title: "Visite terrain" }, { title: "Plan technique" }, { title: "Vue 3D" }, { title: "Installation" }, { title: "Formation" }, { title: "Suivi continu" }],
     cta: {
-      eyebrow: "On se déplace à Rabat et dans les environs.",
+      eyebrow: "Déplacement sur rendez-vous.",
       title: "Vous avez une serre ou un projet de serre. On vient voir.",
       button: "Demander une visite",
     },
@@ -77,7 +77,7 @@ const copy: Record<SupportedLanguage, HydroponieCopy> = {
     processTitle: "What happens between the first call and a running greenhouse.",
     process: [{ title: "Site visit" }, { title: "Technical plan" }, { title: "3D view" }, { title: "Installation" }, { title: "Training" }, { title: "Ongoing support" }],
     cta: {
-      eyebrow: "We travel to Rabat and the surrounding area.",
+      eyebrow: "On-site visits by appointment.",
       title: "You have a greenhouse or a greenhouse project. We come see it.",
       button: "Book a visit",
     },
