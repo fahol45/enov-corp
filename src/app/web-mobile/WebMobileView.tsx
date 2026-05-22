@@ -11,6 +11,10 @@ type WebMobileCopy = {
   stats: Array<{ value: string; label: string }>;
   catalogTitle: string;
   catalog: Array<{ num: string; title: string; tags: string }>;
+  aiTitle: string;
+  aiSub: string;
+  aiItems: string[];
+  aiCta: string;
   processTitle: string;
   process: Array<{ title: string }>;
   cta: { eyebrow: string; title: string; button: string };
@@ -38,8 +42,16 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
       { num: "03", title: "Portail client", tags: "Accès dédié, contrats, factures, suivi de commande en temps réel." },
       { num: "04", title: "Site vitrine et landing page", tags: "Présentation, formulaires, SEO, hébergement inclus." },
       { num: "05", title: "Tableau de bord", tags: "Données en direct, graphiques, exports PDF ou Excel automatiques." },
-      { num: "06", title: "Intégration IA & LLM", tags: "Chatbot sur vos données, analyse de documents, automatisation intelligente. OpenAI, Claude, Gemini." },
     ],
+    aiTitle: "Intégration IA & LLM",
+    aiSub: "On connecte vos outils à des modèles d'intelligence artificielle — OpenAI, Claude, Gemini. Résultat : votre app répond, analyse, génère ou automatise à partir de vos propres données.",
+    aiItems: [
+      "Chatbot entraîné sur vos documents internes",
+      "Analyse et résumé automatique de fichiers PDF, contrats, rapports",
+      "Génération de contenu ou de réponses à partir de vos données",
+      "Automatisation de tâches répétitives via agents IA",
+    ],
+    aiCta: "Discuter d'une intégration IA",
     processTitle: "Quatre étapes. Une app en production.",
     process: [{ title: "On écoute" }, { title: "On dessine" }, { title: "On code" }, { title: "On met en ligne" }],
     cta: {
@@ -69,8 +81,16 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
       { num: "03", title: "Client portal", tags: "Dedicated access, contracts, invoices, live order tracking." },
       { num: "04", title: "Website & landing page", tags: "Presentation, forms, SEO, hosting included." },
       { num: "05", title: "Dashboard", tags: "Live data, charts, automatic PDF or Excel exports." },
-      { num: "06", title: "AI & LLM Integration", tags: "Chatbot on your data, document analysis, intelligent automation. OpenAI, Claude, Gemini." },
     ],
+    aiTitle: "AI & LLM Integration",
+    aiSub: "We connect your tools to AI models — OpenAI, Claude, Gemini. Your app can respond, analyze, generate or automate using your own data.",
+    aiItems: [
+      "Chatbot trained on your internal documents",
+      "Automatic analysis and summary of PDFs, contracts, reports",
+      "Content or response generation from your own data",
+      "Repetitive task automation via AI agents",
+    ],
+    aiCta: "Discuss an AI integration",
     processTitle: "Four steps. One app in production.",
     process: [{ title: "We listen" }, { title: "We sketch" }, { title: "We code" }, { title: "We go live" }],
     cta: {
@@ -163,6 +183,40 @@ export function WebMobileView() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── IA & LLM ─────────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="relative overflow-hidden rounded-3xl border border-emerald-500/20 bg-linear-to-br from-emerald-500/8 via-slate-900/60 to-teal-500/8 p-8 sm:p-10">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/15 blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 h-48 w-48 rounded-full bg-teal-500/15 blur-3xl" />
+            </div>
+            <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+              <div className="space-y-5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-[0.65rem] uppercase tracking-[0.5em] text-emerald-300">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  Nouveau
+                </div>
+                <h2 className="text-3xl font-black sm:text-4xl">{t.aiTitle}</h2>
+                <p className="text-slate-300">{t.aiSub}</p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-emerald-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:scale-105"
+                >
+                  {t.aiCta} →
+                </Link>
+              </div>
+              <ul className="space-y-3">
+                {t.aiItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3 rounded-2xl border border-white/6 bg-slate-900/50 px-5 py-4">
+                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-emerald-500/20 text-center text-[0.7rem] font-bold leading-5 text-emerald-400">✓</span>
+                    <span className="text-sm text-slate-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         </FadeUp>
