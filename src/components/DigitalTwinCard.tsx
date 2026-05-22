@@ -203,9 +203,6 @@ export function DigitalTwinCard() {
             </div>
           </div>
         </div>
-        <div className="mt-4 rounded-full border border-white/10 bg-slate-900/60 px-6 py-2 text-center text-[0.65rem] uppercase tracking-[0.5em] text-slate-300">
-          {text.footer}
-        </div>
       </div>
     </div>
   );
