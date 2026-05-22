@@ -16,9 +16,9 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
   fr: {
     hero: {
       kicker: "Contact",
-      title: "On répond",
-      highlight: "en moins de 24h.",
-      sub: "Dites-nous ce que vous voulez construire. On revient avec une proposition claire, sans engagement.",
+      title: "Votre projet mérite",
+      highlight: "une vraie conversation.",
+      sub: "Décrivez ce que vous voulez construire. On vous répond en moins de 24h avec une piste concrète — sans engagement.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
@@ -32,20 +32,20 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
         email: { label: "Votre email", placeholder: "vous@exemple.com" },
         phone: { label: "Téléphone (optionnel)", placeholder: "+212 6 00 00 00 00" },
         company: { label: "Entreprise ou site", placeholder: "Mon entreprise" },
-        message: { label: "Votre besoin", placeholder: "Ex. : je veux une app de gestion pour mes équipes terrain..." },
+        message: { label: "Votre besoin", placeholder: "Ex. : je cherche une app de suivi pour mes équipes terrain, ou je veux connecter ma serre..." },
       },
       submitLabel: "Envoyer",
       successMessage: "Message reçu ! On revient vers vous très vite.",
-      errorMessage: "Impossible d'envoyer. Écrivez-nous directement à enovcorporation@gmail.com",
+      errorMessage: "Impossible d'envoyer. Écrivez-nous à enovcorporation@gmail.com",
       requiredLabel: "*",
     },
   },
   en: {
     hero: {
       kicker: "Contact",
-      title: "We reply",
-      highlight: "within 24 hours.",
-      sub: "Tell us what you want to build. We'll get back with a clear proposal, no commitment needed.",
+      title: "Your project deserves",
+      highlight: "a real conversation.",
+      sub: "Tell us what you want to build. We'll reply in under 24h with a concrete direction — no commitment needed.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
@@ -59,11 +59,11 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
         email: { label: "Your email", placeholder: "you@example.com" },
         phone: { label: "Phone (optional)", placeholder: "+212 6 00 00 00 00" },
         company: { label: "Company or site", placeholder: "My company" },
-        message: { label: "Your need", placeholder: "E.g.: I want a field team management app..." },
+        message: { label: "Your need", placeholder: "E.g.: I need a field team tracking app, or I want to connect my greenhouse..." },
       },
       submitLabel: "Send",
       successMessage: "Message received! We'll get back to you very soon.",
-      errorMessage: "Couldn't send. Email us directly at enovcorporation@gmail.com",
+      errorMessage: "Couldn't send. Email us at enovcorporation@gmail.com",
       requiredLabel: "*",
     },
   },
@@ -79,7 +79,7 @@ export default function ContactPage() {
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative pt-4 pb-6 lg:pt-10">
-          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+          <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
             <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-fuchsia-500/8 blur-[100px]" />
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-emerald-500/8 blur-[80px]" />
           </div>
@@ -105,7 +105,6 @@ export default function ContactPage() {
 
             <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
 
-            {/* Contact channels */}
             <div className="flex flex-col gap-3 sm:flex-row">
               {t.channels.map((c) => (
                 <Link

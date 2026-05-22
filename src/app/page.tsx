@@ -19,49 +19,57 @@ type LandingCopy = {
 const copy: Record<SupportedLanguage, LandingCopy> = {
   fr: {
     hero: {
-      title: "La technologie,",
-      highlight: "concrète et utile.",
-      sub: "On installe des serres connectées, on crée des apps et on forme vos équipes. Depuis Rabat.",
-      cta1: "Voir nos pôles",
+      title: "Trois métiers.",
+      highlight: "Une équipe qui livre.",
+      sub: "Enov CORP conçoit des serres connectées, crée des applications et forme vos équipes. Tout ce dont vous avez besoin, au même endroit.",
+      cta1: "Découvrir nos pôles",
       cta2: "Nous contacter",
     },
     stats: [
-      { value: "3", label: "Pôles d'activité" },
+      { value: "3", label: "Expertises maîtrisées" },
       { value: "Rabat", label: "Basés au Maroc" },
-      { value: "<3 mois", label: "De l'idée à l'app" },
+      { value: "< 3 mois", label: "Délai de livraison" },
     ],
-    pillarsTitle: "Ce qu'on fait, concrètement.",
+    pillarsTitle: "Ce qu'on maîtrise.",
     pillars: [
-      { num: "01", title: "Serres & IoT", tags: "Arrosage automatique · Capteurs · Alertes en temps réel", href: "/hydroponie" },
-      { num: "02", title: "Apps & Sites web", tags: "Android · iOS · Web · Tableaux de bord", href: "/web-mobile" },
-      { num: "03", title: "Formation terrain", tags: "Petits groupes · Projets réels · Certificat Enov", href: "/academy" },
+      { num: "01", title: "Serres connectées", tags: "Récoltez plus. Arrosez moins. Dormez mieux.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Sites web", tags: "Interface claire. Code solide. Livraison garantie.", href: "/web-mobile" },
+      { num: "03", title: "Formation terrain", tags: "Apprenez en faisant. Repartez avec un certificat.", href: "/academy" },
     ],
-    processTitle: "Comment ça se passe.",
+    processTitle: "Simple. Rapide. Efficace.",
     process: [{ title: "On écoute" }, { title: "On conçoit" }, { title: "On livre" }, { title: "On reste" }],
-    cta: { eyebrow: "Un projet en tête ?", title: "Parlons-en", button: "Nous contacter" },
+    cta: {
+      eyebrow: "Prêt à démarrer ?",
+      title: "Votre projet mérite mieux qu'une agence ordinaire.",
+      button: "Parlons-en",
+    },
   },
   en: {
     hero: {
-      title: "Technology that",
-      highlight: "actually gets done.",
-      sub: "We install connected greenhouses, build apps and train your teams. Based in Rabat.",
-      cta1: "See what we do",
+      title: "Three crafts.",
+      highlight: "One team that delivers.",
+      sub: "Enov CORP designs connected greenhouses, builds applications and trains your teams. Everything you need, in one place.",
+      cta1: "Explore our pillars",
       cta2: "Contact us",
     },
     stats: [
-      { value: "3", label: "Activity areas" },
+      { value: "3", label: "Core expertises" },
       { value: "Rabat", label: "Based in Morocco" },
-      { value: "<3 mo.", label: "From idea to app" },
+      { value: "< 3 mo.", label: "Delivery timeline" },
     ],
-    pillarsTitle: "What we actually do.",
+    pillarsTitle: "What we master.",
     pillars: [
-      { num: "01", title: "Greenhouses & IoT", tags: "Automated watering · Sensors · Real-time alerts", href: "/hydroponie" },
-      { num: "02", title: "Apps & Websites", tags: "Android · iOS · Web · Dashboards", href: "/web-mobile" },
-      { num: "03", title: "Hands-on training", tags: "Small groups · Real projects · Enov Certificate", href: "/academy" },
+      { num: "01", title: "Connected greenhouses", tags: "Harvest more. Water less. Sleep better.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Websites", tags: "Clean interface. Solid code. Guaranteed delivery.", href: "/web-mobile" },
+      { num: "03", title: "Hands-on training", tags: "Learn by doing. Leave with a certificate.", href: "/academy" },
     ],
-    processTitle: "How it works.",
+    processTitle: "Simple. Fast. Effective.",
     process: [{ title: "We listen" }, { title: "We design" }, { title: "We deliver" }, { title: "We stay" }],
-    cta: { eyebrow: "Got a project?", title: "Let's talk", button: "Contact us" },
+    cta: {
+      eyebrow: "Ready to start?",
+      title: "Your project deserves more than an ordinary agency.",
+      button: "Let's talk",
+    },
   },
 };
 
@@ -95,7 +103,7 @@ export default function Home() {
           >
             <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-emerald-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              Enov CORP
+              Enov CORP — Rabat
             </div>
 
             <h1 className="text-[3.2rem] font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6rem]">
@@ -106,7 +114,7 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="max-w-md text-base text-slate-400 sm:text-lg">{t.hero.sub}</p>
+            <p className="max-w-lg text-base text-slate-400 sm:text-lg">{t.hero.sub}</p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
@@ -173,7 +181,7 @@ export default function Home() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <p className="text-lg font-bold text-white sm:text-xl">{pillar.title}</p>
-                        <p className="mt-0.5 text-xs text-slate-500 tracking-wide">{pillar.tags}</p>
+                        <p className="mt-1 text-sm italic text-slate-400">{pillar.tags}</p>
                       </div>
                       <span className="shrink-0 text-xl text-slate-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">→</span>
                     </Link>

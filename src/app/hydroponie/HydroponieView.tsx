@@ -19,9 +19,9 @@ const copy: Record<SupportedLanguage, HydroponieCopy> = {
   fr: {
     hero: {
       kicker: "Hydroponie & IoT",
-      title: "Une serre qui se pilote",
-      highlight: "depuis votre téléphone.",
-      sub: "On installe les capteurs, on connecte tout, on vous forme. Vous regardez vos données où que vous soyez — même hors connexion.",
+      title: "Votre serre ne devrait pas",
+      highlight: "vous demander d'être là.",
+      sub: "On installe les capteurs, on automatise l'arrosage, on vous forme. Vous pilotez depuis votre téléphone — même le weekend.",
       cta1: "Demander une visite",
       cta2: "Voir comment ça marche",
       metrics: [
@@ -36,28 +36,25 @@ const copy: Record<SupportedLanguage, HydroponieCopy> = {
       { value: "+28%", label: "De récolte en plus" },
       { value: "12ms", label: "Temps de réaction" },
     ],
-    fusionTitle: "Deux choses ensemble. Une serre qui tourne.",
+    fusionTitle: "Deux technologies. Une serre qui se gère seule.",
     fusion: [
-      { num: "01", title: "Hydroponie", tags: "Arrosage automatique · Dosage des nutriments · Recyclage de l'eau" },
-      { num: "02", title: "Capteurs & alertes", tags: "Température · pH · Humidité · Surveillance continue" },
+      { num: "01", title: "Hydroponie", tags: "Plus de récolte, moins d'eau, moins d'aléas." },
+      { num: "02", title: "Capteurs & alertes", tags: "Sachez tout, tout le temps. Sans être sur place." },
     ],
-    processTitle: "Ce qui se passe, de A à Z.",
-    process: [
-      { title: "Visite terrain" },
-      { title: "Plan technique" },
-      { title: "Vue 3D" },
-      { title: "Installation" },
-      { title: "Formation" },
-      { title: "Suivi" },
-    ],
-    cta: { eyebrow: "On se déplace à Rabat et environs.", title: "Demandez une visite de diagnostic", button: "Contacter Enov CORP" },
+    processTitle: "De l'idée à la serre qui tourne.",
+    process: [{ title: "Visite terrain" }, { title: "Plan technique" }, { title: "Vue 3D" }, { title: "Installation" }, { title: "Formation" }, { title: "Suivi continu" }],
+    cta: {
+      eyebrow: "On se déplace à Rabat et environs.",
+      title: "Planifions votre premier diagnostic.",
+      button: "Demander une visite",
+    },
   },
   en: {
     hero: {
       kicker: "Hydroponics & IoT",
-      title: "A greenhouse you control",
-      highlight: "from your phone.",
-      sub: "We install the sensors, connect everything, and train your team. Check your data from anywhere — even offline.",
+      title: "Your greenhouse shouldn't",
+      highlight: "need you to be there.",
+      sub: "We install the sensors, automate the watering, and train your team. You monitor everything from your phone — even on weekends.",
       cta1: "Book a site visit",
       cta2: "See how it works",
       metrics: [
@@ -72,21 +69,18 @@ const copy: Record<SupportedLanguage, HydroponieCopy> = {
       { value: "+28%", label: "More harvest" },
       { value: "12ms", label: "Response time" },
     ],
-    fusionTitle: "Two things together. One greenhouse that runs itself.",
+    fusionTitle: "Two technologies. One greenhouse that runs itself.",
     fusion: [
-      { num: "01", title: "Hydroponics", tags: "Automatic watering · Nutrient dosing · Water recycling" },
-      { num: "02", title: "Sensors & alerts", tags: "Temperature · pH · Humidity · Continuous monitoring" },
+      { num: "01", title: "Hydroponics", tags: "More yield, less water, fewer surprises." },
+      { num: "02", title: "Sensors & alerts", tags: "Know everything, all the time. Without being there." },
     ],
-    processTitle: "What happens, A to Z.",
-    process: [
-      { title: "Site visit" },
-      { title: "Technical plan" },
-      { title: "3D view" },
-      { title: "Installation" },
-      { title: "Training" },
-      { title: "Follow-up" },
-    ],
-    cta: { eyebrow: "We travel across Morocco.", title: "Book a diagnostic visit", button: "Contact Enov CORP" },
+    processTitle: "From idea to a greenhouse that runs.",
+    process: [{ title: "Site visit" }, { title: "Technical plan" }, { title: "3D view" }, { title: "Installation" }, { title: "Training" }, { title: "Ongoing support" }],
+    cta: {
+      eyebrow: "We travel across Morocco.",
+      title: "Let's plan your first diagnostic.",
+      button: "Book a visit",
+    },
   },
 };
 
@@ -105,49 +99,28 @@ export function HydroponieView() {
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-cyan-500/8 blur-[80px]" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
-            className="space-y-8"
-          >
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }} className="space-y-8">
             <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-emerald-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
               {t.hero.kicker}
             </div>
-
             <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
               {t.hero.title}
               <br />
-              <span className="bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-                {t.hero.highlight}
-              </span>
+              <span className="bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
             </h1>
-
             <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
-
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/20 transition hover:scale-105 sm:w-auto"
-              >
+              <Link href="/contact" className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/20 transition hover:scale-105 sm:w-auto">
                 {t.hero.cta1}
               </Link>
-              <a
-                href="#comment"
-                className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
-              >
+              <a href="#comment" className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto">
                 {t.hero.cta2}
               </a>
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-            className="flex justify-center"
-          >
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }} className="flex justify-center">
             <div className="relative w-full max-w-sm">
               <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-emerald-500/15 blur-3xl" />
               <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 p-6">
@@ -169,9 +142,7 @@ export function HydroponieView() {
           <section className="grid grid-cols-3 divide-x divide-white/8 border-y border-white/8 py-10">
             {t.stats.map((s) => (
               <div key={s.label} className="flex flex-col items-center gap-1 px-4 text-center">
-                <span className="bg-linear-to-r from-emerald-300 via-cyan-300 to-indigo-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">
-                  {s.value}
-                </span>
+                <span className="bg-linear-to-r from-emerald-300 via-cyan-300 to-indigo-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">{s.value}</span>
                 <span className="text-[0.65rem] uppercase tracking-[0.4em] text-slate-500">{s.label}</span>
               </div>
             ))}
@@ -184,20 +155,11 @@ export function HydroponieView() {
             <h2 className="text-3xl font-black sm:text-4xl">{t.fusionTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.fusion.map((item, i) => (
-                <motion.div
-                  key={item.num}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.12 }}
-                  className="flex items-center gap-6 rounded-2xl border border-white/8 bg-slate-900/40 p-6 sm:gap-10 sm:p-8"
-                >
-                  <span className="shrink-0 bg-linear-to-br from-emerald-300 to-cyan-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">
-                    {item.num}
-                  </span>
+                <motion.div key={item.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.12 }} className="flex items-center gap-6 rounded-2xl border border-white/8 bg-slate-900/40 p-6 sm:gap-10 sm:p-8">
+                  <span className="shrink-0 bg-linear-to-br from-emerald-300 to-cyan-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">{item.num}</span>
                   <div>
                     <p className="text-lg font-bold text-white sm:text-xl">{item.title}</p>
-                    <p className="mt-0.5 text-xs tracking-wide text-slate-500">{item.tags}</p>
+                    <p className="mt-1 text-sm italic text-slate-400">{item.tags}</p>
                   </div>
                 </motion.div>
               ))}
@@ -211,18 +173,9 @@ export function HydroponieView() {
             <h2 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl">{t.processTitle}</h2>
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
               {t.process.map((step, i) => (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className="flex flex-col items-center gap-4 text-center"
-                >
+                <motion.div key={step.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }} className="flex flex-col items-center gap-4 text-center">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-slate-950">
-                    <span className="bg-linear-to-br from-emerald-400 to-cyan-400 bg-clip-text text-lg font-black text-transparent">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <span className="bg-linear-to-br from-emerald-400 to-cyan-400 bg-clip-text text-lg font-black text-transparent">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <p className="text-sm font-semibold text-white">{step.title}</p>
                 </motion.div>
@@ -243,10 +196,7 @@ export function HydroponieView() {
             <div className="relative space-y-6">
               <p className="text-xs uppercase tracking-[0.5em] text-emerald-300">{t.cta.eyebrow}</p>
               <h2 className="text-4xl font-black text-balance sm:text-5xl">{t.cta.title}</h2>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105"
-              >
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105">
                 {t.cta.button}
               </Link>
             </div>

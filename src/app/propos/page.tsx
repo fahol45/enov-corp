@@ -18,46 +18,46 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
   fr: {
     hero: {
       kicker: "À propos",
-      title: "On construit ce",
-      highlight: "qui sert vraiment.",
-      sub: "Enov CORP, c'est une équipe basée à Rabat. On installe des serres connectées, on crée des apps et on forme des équipes. Pas de jargon, pas de promesses vides.",
+      title: "On ne fait pas tout.",
+      highlight: "On fait bien.",
+      sub: "Trois spécialités pointues. Une équipe soudée. Des projets livrés. Enov CORP, c'est votre partenaire technique à Rabat — sans les discours creux.",
       cta: "Parler à l'équipe",
     },
-    pillarsTitle: "Trois activités. Un seul endroit.",
+    pillarsTitle: "Nos trois métiers.",
     pillars: [
-      { num: "01", title: "Serres & IoT", tags: "Arrosage automatique · Capteurs · Alertes en temps réel", href: "/hydroponie" },
-      { num: "02", title: "Apps & Sites web", tags: "Android · iOS · Web · Tableaux de bord", href: "/web-mobile" },
-      { num: "03", title: "Formation terrain", tags: "Petits groupes · Projets réels · Certificat Enov", href: "/academy" },
+      { num: "01", title: "Serres connectées", tags: "Récoltez plus. Arrosez moins. Dormez mieux.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Sites web", tags: "Interface claire. Code solide. Livraison garantie.", href: "/web-mobile" },
+      { num: "03", title: "Formation terrain", tags: "Apprenez en faisant. Repartez avec un certificat.", href: "/academy" },
     ],
-    valuesTitle: "Comment on travaille.",
+    valuesTitle: "Notre engagement, en trois mots.",
     values: [
       { num: "01", title: "On livre" },
       { num: "02", title: "On explique" },
       { num: "03", title: "On reste" },
     ],
-    cta: { title: "Un projet ? Une question ?", button: "Contacter l'équipe" },
+    cta: { title: "Une question ? Un projet ?", button: "Parlez à l'équipe" },
   },
   en: {
     hero: {
       kicker: "About",
-      title: "We build what",
-      highlight: "actually works.",
-      sub: "Enov CORP is a team based in Rabat. We install connected greenhouses, build apps and train teams. No jargon, no empty promises.",
+      title: "We don't do everything.",
+      highlight: "We do it well.",
+      sub: "Three sharp specialities. One tight-knit team. Projects delivered. Enov CORP is your technical partner in Rabat — without the empty talk.",
       cta: "Talk to the team",
     },
-    pillarsTitle: "Three activities. One place.",
+    pillarsTitle: "Our three crafts.",
     pillars: [
-      { num: "01", title: "Greenhouses & IoT", tags: "Automated watering · Sensors · Real-time alerts", href: "/hydroponie" },
-      { num: "02", title: "Apps & Websites", tags: "Android · iOS · Web · Dashboards", href: "/web-mobile" },
-      { num: "03", title: "Hands-on training", tags: "Small groups · Real projects · Enov Certificate", href: "/academy" },
+      { num: "01", title: "Connected greenhouses", tags: "Harvest more. Water less. Sleep better.", href: "/hydroponie" },
+      { num: "02", title: "Apps & Websites", tags: "Clean interface. Solid code. Guaranteed delivery.", href: "/web-mobile" },
+      { num: "03", title: "Hands-on training", tags: "Learn by doing. Leave with a certificate.", href: "/academy" },
     ],
-    valuesTitle: "How we work.",
+    valuesTitle: "Our commitment, in three words.",
     values: [
       { num: "01", title: "We deliver" },
       { num: "02", title: "We explain" },
       { num: "03", title: "We stay" },
     ],
-    cta: { title: "A project? A question?", button: "Contact the team" },
+    cta: { title: "A question? A project?", button: "Talk to the team" },
   },
 };
 
@@ -79,7 +79,7 @@ export default function AProposPage() {
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative pt-4 pb-6 lg:pt-10">
-          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+          <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
             <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-amber-500/8 blur-[100px]" />
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-rose-500/8 blur-[80px]" />
           </div>
@@ -127,7 +127,7 @@ export default function AProposPage() {
                       <span className={`shrink-0 bg-linear-to-br ${accent.num} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}>{pillar.num}</span>
                       <div className="flex-1 min-w-0">
                         <p className="text-lg font-bold text-white sm:text-xl">{pillar.title}</p>
-                        <p className="mt-0.5 text-xs tracking-wide text-slate-500">{pillar.tags}</p>
+                        <p className="mt-1 text-sm italic text-slate-400">{pillar.tags}</p>
                       </div>
                       <span className="shrink-0 text-xl text-slate-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">→</span>
                     </Link>
