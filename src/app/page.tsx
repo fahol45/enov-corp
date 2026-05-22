@@ -85,9 +85,9 @@ export default function Home() {
   const t = copy[language];
 
   return (
-    <main className="relative min-h-screen text-white overflow-x-hidden">
+    <main className="min-h-screen text-white">
       <HeroSlideshow />
-      <div className="app-shell section-flow">
+      <div className="relative z-10 app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[90vh] flex-col items-center justify-center pt-10 pb-16 text-center">
