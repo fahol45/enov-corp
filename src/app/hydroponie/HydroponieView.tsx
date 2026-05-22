@@ -94,7 +94,7 @@ export function HydroponieView() {
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative grid gap-12 pt-4 pb-6 md:grid-cols-2 md:items-center md:gap-16 lg:pt-10">
-          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+          <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
             <div className="absolute -left-10 top-0 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[100px]" />
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-cyan-500/8 blur-[80px]" />
           </div>

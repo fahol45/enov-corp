@@ -161,11 +161,11 @@ export function ContactForm({ copy }: Props) {
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {disabled ? `${copy.submitLabel}...` : copy.submitLabel}
         </button>
-        <div className="min-h-[1.25rem] text-sm" aria-live="polite">
+        <div className="min-h-5 text-sm" aria-live="polite">
           {status === "success" && (
             <span className="text-emerald-300">{copy.successMessage}</span>
           )}

@@ -175,7 +175,7 @@ export function DigitalTwinCard() {
   ];
 
   return (
-    <div className="relative w-full min-h-[18rem] max-w-md sm:h-80">
+    <div className="relative w-full min-h-72 max-w-md sm:h-80">
       <div className="absolute inset-0 rounded-[2.75rem] bg-linear-to-br from-pink-500 via-purple-500 to-sky-500 opacity-50 blur-3xl" />
       <div className="relative flex h-full w-full flex-col items-stretch rounded-[2.75rem]">
         <div className="flex-1 rounded-[2.75rem] border border-white/10 bg-slate-950/85 p-5 shadow-2xl shadow-black/40 backdrop-blur sm:p-6">

@@ -16,7 +16,7 @@ export function Hero() {
     : "opacity-0 translate-y-6";
 
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
+    <section className="relative isolate overflow-hidden bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="absolute -left-32 top-8 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl" />
       <div className="absolute right-0 -bottom-20 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl" />
 
@@ -37,7 +37,7 @@ export function Hero() {
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
             <Link
               href="/hydroponie"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 via-violet-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105"
+              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-violet-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105"
             >
               Decouvrir nos solutions
             </Link>
@@ -53,10 +53,10 @@ export function Hero() {
         <div
           className={`flex flex-1 items-center justify-center ${motionBase} transition-all duration-700 ease-out delay-150`}
         >
-          <div className="relative h-[320px] w-[320px] max-w-full">
-            <div className="absolute inset-0 animate-pulse rounded-[2.5rem] bg-gradient-to-br from-fuchsia-500 via-violet-500 to-indigo-500 blur-xl" />
+          <div className="relative h-80 w-80 max-w-full">
+            <div className="absolute inset-0 animate-pulse rounded-[2.5rem] bg-linear-to-br from-fuchsia-500 via-violet-500 to-indigo-500 blur-xl" />
             <div className="relative flex h-full w-full flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-slate-950/70 p-10 backdrop-blur">
-              <div className="mb-6 h-24 w-24 rounded-full bg-gradient-to-br from-fuchsia-400 via-violet-400 to-indigo-400 opacity-80 shadow-2xl shadow-fuchsia-600/30" />
+              <div className="mb-6 h-24 w-24 rounded-full bg-linear-to-br from-fuchsia-400 via-violet-400 to-indigo-400 opacity-80 shadow-2xl shadow-fuchsia-600/30" />
               <span className="text-sm uppercase tracking-[0.5em] text-slate-400">
                 ENOV
               </span>

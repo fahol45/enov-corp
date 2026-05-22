@@ -91,7 +91,7 @@ export default function Home() {
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[90vh] flex-col items-center justify-center pt-10 pb-16 text-center">
           <HeroSlideshow />
-          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+          <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
             <motion.div
               className="absolute left-1/2 top-0 h-[600px] w-[700px] -translate-x-1/2 rounded-full bg-pink-500/10 blur-[120px]"
               animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}

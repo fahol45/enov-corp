@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { TrainingAdmin } from "@/components/admin/academy/TrainingAdmin";
+import { AdminTabs } from "@/components/admin/AdminTabs";
 
 export const metadata: Metadata = {
-  title: "Admin Academy",
-  description:
-    "Interface admin pour gerer les contenus Enov Academy.",
-  alternates: {
-    canonical: "/admin/academy",
-  },
+  title: "Admin Enov",
+  description: "Interface administration Enov CORP.",
+  alternates: { canonical: "/admin/academy" },
 };
 
 export default function AdminAcademyPage() {
@@ -21,21 +18,14 @@ export default function AdminAcademyPage() {
       <div className="app-shell section-flow relative">
         <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_25px_60px_rgba(0,0,0,0.4)] sm:p-10">
           <div className="absolute -right-16 top-0 h-40 w-40 rounded-full bg-[#00a3ff]/20 blur-3xl" />
-          <div className="space-y-4">
-            <p className="kicker text-slate-400">ENOV ACADEMY ADMIN</p>
-            <h1 className="text-4xl font-bold leading-tight sm:text-4xl">
-              Gestion des contenus Enov Academy
-            </h1>
-            <p className="text-lg text-slate-300 text-pretty">
-              Mettez a jour les formations, webinaires, statuts, medias,
-              documents PDF et liens d'inscription. Cette interface conserve
-              les brouillons en local et vous permet d'exporter la nouvelle
-              base.
-            </p>
+          <div className="space-y-2">
+            <p className="kicker text-slate-400">ENOV CORP ADMIN</p>
+            <h1 className="text-3xl font-bold">Tableau de bord</h1>
+            <p className="text-slate-300">Gérez les formations, le portfolio et les slides d'accueil depuis cette interface.</p>
           </div>
         </section>
 
-        <TrainingAdmin />
+        <AdminTabs />
       </div>
     </main>
   );

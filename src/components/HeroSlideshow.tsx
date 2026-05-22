@@ -19,10 +19,10 @@ export function HeroSlideshow() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    fetch("/api/admin/slides")
+    fetch("/api/slides")
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
-        const urls: string[] = data?.slides?.filter((s: { active: boolean; image_url: string }) => s.active).map((s: { image_url: string }) => s.image_url) ?? [];
+        const urls: string[] = data?.slides?.map((s: { image_url: string }) => s.image_url) ?? [];
         if (urls.length >= 2) setSlides(urls);
       })
       .catch(() => {});
@@ -48,6 +48,7 @@ export function HeroSlideshow() {
             src={slides[index]}
             alt=""
             fill
+            unoptimized
             className="object-cover"
             priority={index === 0}
             sizes="100vw"

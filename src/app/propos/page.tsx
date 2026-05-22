@@ -152,7 +152,7 @@ export default function AProposPage() {
                   transition={{ duration: 0.45, delay: i * 0.1 }}
                   className="group relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/40 p-8 transition hover:border-white/15"
                 >
-                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[7rem] font-black leading-none text-white/[0.025] transition-all duration-500 group-hover:text-white/[0.05]">
+                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[7rem] font-black leading-none text-white/2.5 transition-all duration-500 group-hover:text-white/5">
                     {v.num}
                   </span>
                   <p className={`bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-2xl font-black text-transparent`}>{v.title}</p>
