@@ -16,9 +16,9 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
   fr: {
     hero: {
       kicker: "Contact",
-      title: "Votre projet mérite",
-      highlight: "une vraie conversation.",
-      sub: "Décrivez ce que vous voulez construire. On vous répond en moins de 24h avec une piste concrète — sans engagement.",
+      title: "Décrivez ce que vous voulez.",
+      highlight: "On vous répond en 24h.",
+      sub: "Remplissez le formulaire ou appelez directement. On lit chaque message, on analyse votre besoin, on vous rappelle avec une piste concrète — sans engagement.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
@@ -43,9 +43,9 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
   en: {
     hero: {
       kicker: "Contact",
-      title: "Your project deserves",
-      highlight: "a real conversation.",
-      sub: "Tell us what you want to build. We'll reply in under 24h with a concrete direction — no commitment needed.",
+      title: "Tell us what you need.",
+      highlight: "We reply in 24 hours.",
+      sub: "Fill in the form or call us directly. We read every message, analyze your need, and get back to you with a concrete direction — no commitment.",
     },
     channels: [
       { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
