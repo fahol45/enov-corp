@@ -68,7 +68,7 @@ export function HeroSlideshow() {
   };
 
   return (
-    <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+    <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-screen overflow-hidden">
       {/* Slides */}
       <AnimatePresence mode="sync" custom={direction}>
         <motion.div
