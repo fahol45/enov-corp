@@ -5,173 +5,83 @@ import { motion } from "framer-motion";
 import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
-type Pillar = { title: string; description: string };
-type Value = { title: string; description: string };
-
 type AboutCopy = {
-  hero: {
-    kicker: string;
-    title: string;
-    description: string;
-    bullets: string[];
-    cta: string;
-  };
-  pillars: {
-    title: string;
-    description: string;
-    items: Pillar[];
-  };
-  values: {
-    title: string;
-    items: Value[];
-  };
-  contact: {
-    title: string;
-    description: string;
-    cta: string;
-  };
+  hero: { kicker: string; title: string; highlight: string; sub: string; cta: string };
+  pillarsTitle: string;
+  pillars: Array<{ num: string; title: string; tags: string; href: string }>;
+  valuesTitle: string;
+  values: Array<{ num: string; title: string }>;
+  cta: { title: string; button: string };
 };
 
-const aboutCopy: Record<SupportedLanguage, AboutCopy> = {
+const copy: Record<SupportedLanguage, AboutCopy> = {
   fr: {
     hero: {
-      kicker: "À PROPOS",
-      title: "Enov CORP, partenaire technologique de bout en bout",
-      description:
-        "Nous aidons les organisations à transformer leurs besoins en solutions utiles. Trois pôles complémentaires : hydroponie connectée, développement web & mobile, et formation via Enov Academy.",
-      bullets: [
-        "Solutions connectées simples à exploiter.",
-        "Produits digitaux clairs et fiables.",
-        "Compétences transférées à vos équipes.",
-      ],
+      kicker: "À propos",
+      title: "Enov CORP,",
+      highlight: "partenaire technologique de bout en bout.",
+      sub: "Hydroponie connectée, développement digital et formation. Trois pôles. Une seule mission : transformer vos besoins en résultats.",
       cta: "Parler avec nous",
     },
-    pillars: {
-      title: "Nos pôles",
-      description: "Une offre claire pour avancer vite et bien.",
-      items: [
-        {
-          title: "Hydroponie intelligente & IoT",
-          description:
-            "Automatisation, capteurs et pilotage en temps réel pour vos systèmes agricoles.",
-        },
-        {
-          title: "Développement Web & Mobile",
-          description:
-            "Applications et dashboards modernes pour décider et agir simplement.",
-        },
-        {
-          title: "Enov Academy",
-          description:
-            "Formations pratiques pour étudiants et professionnels, orientées projets.",
-        },
-      ],
-    },
-    values: {
-      title: "Notre manière de travailler",
-      items: [
-        {
-          title: "Clarté",
-          description:
-            "Un discours simple, des choix compréhensibles, des livrables utiles.",
-        },
-        {
-          title: "Pragmatisme",
-          description:
-            "Des solutions réalistes, testées et adaptées à votre terrain.",
-        },
-        {
-          title: "Engagement",
-          description:
-            "Nous restons présents après la livraison pour optimiser et former.",
-        },
-      ],
-    },
-    contact: {
-      title: "Un projet en tête ?",
-      description:
-        "Parlons de vos objectifs et construisons une solution claire et efficace.",
-      cta: "Contacter Enov CORP",
-    },
+    pillarsTitle: "Trois pôles. Un partenaire.",
+    pillars: [
+      { num: "01", title: "Hydroponie & IoT", tags: "Automatisation · Capteurs · Edge AI", href: "/hydroponie" },
+      { num: "02", title: "Web & Mobile", tags: "Apps · Dashboards · Intégrations", href: "/web-mobile" },
+      { num: "03", title: "Enov Academy", tags: "Formation · Certification · Projets réels", href: "/academy" },
+    ],
+    valuesTitle: "Notre manière de travailler.",
+    values: [
+      { num: "01", title: "Clarté" },
+      { num: "02", title: "Pragmatisme" },
+      { num: "03", title: "Engagement" },
+    ],
+    cta: { title: "Un projet en tête ?", button: "Contacter Enov CORP" },
   },
   en: {
     hero: {
-      kicker: "ABOUT",
-      title: "Enov CORP, your end-to-end technology partner",
-      description:
-        "We help organizations turn needs into useful solutions. Three complementary pillars: smart hydroponics, web & mobile development, and training through Enov Academy.",
-      bullets: [
-        "Connected systems that are easy to run.",
-        "Clear, reliable digital products.",
-        "Skills transferred to your teams.",
-      ],
+      kicker: "About",
+      title: "Enov CORP,",
+      highlight: "your end-to-end technology partner.",
+      sub: "Smart hydroponics, digital development and training. Three pillars. One mission: turn your needs into results.",
       cta: "Talk with us",
     },
-    pillars: {
-      title: "Our pillars",
-      description: "A clear offer to move fast and confidently.",
-      items: [
-        {
-          title: "Smart Hydroponics & IoT",
-          description:
-            "Automation, sensors and real-time control for agricultural systems.",
-        },
-        {
-          title: "Web & Mobile Development",
-          description:
-            "Modern apps and dashboards to decide and act simply.",
-        },
-        {
-          title: "Enov Academy",
-          description:
-            "Hands-on training for students and professionals, project-driven.",
-        },
-      ],
-    },
-    values: {
-      title: "How we work",
-      items: [
-        {
-          title: "Clarity",
-          description:
-            "Simple language, understandable choices, useful deliverables.",
-        },
-        {
-          title: "Pragmatism",
-          description:
-            "Realistic solutions, tested and adapted to your field.",
-        },
-        {
-          title: "Commitment",
-          description:
-            "We stay after delivery to optimize and train your teams.",
-        },
-      ],
-    },
-    contact: {
-      title: "Have a project in mind?",
-      description:
-        "Tell us your goals and we will build a clear and efficient solution.",
-      cta: "Contact Enov CORP",
-    },
+    pillarsTitle: "Three pillars. One partner.",
+    pillars: [
+      { num: "01", title: "Hydroponics & IoT", tags: "Automation · Sensors · Edge AI", href: "/hydroponie" },
+      { num: "02", title: "Web & Mobile", tags: "Apps · Dashboards · Integrations", href: "/web-mobile" },
+      { num: "03", title: "Enov Academy", tags: "Training · Certification · Real projects", href: "/academy" },
+    ],
+    valuesTitle: "How we work.",
+    values: [
+      { num: "01", title: "Clarity" },
+      { num: "02", title: "Pragmatism" },
+      { num: "03", title: "Commitment" },
+    ],
+    cta: { title: "Have a project in mind?", button: "Contact Enov CORP" },
   },
 };
 
-const PILLAR_BARS = [
-  "from-emerald-400 to-cyan-400",
-  "from-fuchsia-400 to-purple-500",
-  "from-sky-400 to-indigo-500",
+const PILLAR_ACCENT = [
+  { num: "from-emerald-300 to-cyan-300", border: "group-hover:border-emerald-500/30" },
+  { num: "from-fuchsia-300 to-purple-300", border: "group-hover:border-fuchsia-500/30" },
+  { num: "from-sky-300 to-indigo-300", border: "group-hover:border-sky-500/30" },
+];
+
+const VALUE_COLORS = [
+  "from-amber-300 to-rose-300",
+  "from-rose-300 to-fuchsia-300",
+  "from-fuchsia-300 to-indigo-300",
 ];
 
 export default function AProposPage() {
   const { language } = useLanguage();
-  const t = aboutCopy[language];
+  const t = copy[language];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <div className="app-shell section-flow">
 
-        {/* ── HERO ────────────────────────────────────────────────── */}
+        {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative pt-4 pb-6 lg:pt-10">
           <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
             <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-amber-500/8 blur-[100px]" />
@@ -189,110 +99,102 @@ export default function AProposPage() {
               {t.hero.kicker}
             </div>
 
-            <h1 className="text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-[4rem]">
+            <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
               {t.hero.title}
+              <br />
+              <span className="bg-linear-to-r from-amber-400 via-rose-400 to-indigo-400 bg-clip-text text-transparent">
+                {t.hero.highlight}
+              </span>
             </h1>
 
-            <p className="text-lg text-slate-300 text-pretty">
-              {t.hero.description}
-            </p>
-
-            <ul className="space-y-3 text-sm text-slate-300">
-              {t.hero.bullets.map((item, i) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-                  className="flex items-start gap-3"
-                >
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-400" />
-                  {item}
-                </motion.li>
-              ))}
-            </ul>
+            <p className="max-w-lg text-lg text-slate-400">{t.hero.sub}</p>
 
             <Link
               href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-amber-400 via-rose-500 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-amber-500/20 transition hover:scale-105 sm:w-auto"
+              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-amber-400 via-rose-500 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-amber-500/20 transition hover:scale-105"
             >
               {t.hero.cta}
             </Link>
           </motion.div>
         </section>
 
-        {/* ── PILLARS ─────────────────────────────────────────────── */}
+        {/* ── PILLARS ──────────────────────────────────────────────────── */}
         <FadeUp>
           <section className="space-y-10">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold sm:text-4xl">{t.pillars.title}</h2>
-              <p className="text-slate-400">{t.pillars.description}</p>
+            <h2 className="text-3xl font-black sm:text-4xl">{t.pillarsTitle}</h2>
+            <div className="flex flex-col gap-3">
+              {t.pillars.map((pillar, i) => {
+                const accent = PILLAR_ACCENT[i];
+                return (
+                  <motion.div
+                    key={pillar.num}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: i * 0.1 }}
+                  >
+                    <Link
+                      href={pillar.href}
+                      className={`group flex items-center gap-5 rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition-all duration-300 hover:bg-slate-900/70 sm:gap-8 sm:p-7 ${accent.border}`}
+                    >
+                      <span className={`shrink-0 bg-linear-to-br ${accent.num} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}>
+                        {pillar.num}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-lg font-bold text-white sm:text-xl">{pillar.title}</p>
+                        <p className="mt-0.5 text-xs tracking-wide text-slate-500">{pillar.tags}</p>
+                      </div>
+                      <span className="shrink-0 text-xl text-slate-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">→</span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
-            <div className="grid gap-5 md:grid-cols-3">
-              {t.pillars.items.map((item, i) => (
+          </section>
+        </FadeUp>
+
+        {/* ── VALUES ───────────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-10">
+            <h2 className="text-3xl font-black sm:text-4xl">{t.valuesTitle}</h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {t.values.map((v, i) => (
                 <motion.div
-                  key={item.title}
+                  key={v.num}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.1 }}
-                  className="relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/50 p-6 transition hover:border-white/15"
+                  className="group relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/40 p-8 transition hover:border-white/15"
                 >
-                  <div className={`absolute left-0 right-0 top-0 h-px bg-linear-to-r ${PILLAR_BARS[i]} opacity-70`} />
-                  <p className="text-xs uppercase tracking-[0.3em] text-amber-300">
-                    {item.title}
-                  </p>
-                  <p className="mt-3 text-sm text-slate-400">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        </FadeUp>
-
-        {/* ── VALUES ──────────────────────────────────────────────── */}
-        <FadeUp>
-          <section className="space-y-8">
-            <h2 className="text-3xl font-bold sm:text-4xl">{t.values.title}</h2>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {t.values.items.map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="group relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/40 p-6 transition hover:border-white/15"
-                >
-                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[5rem] font-black leading-none text-white/[0.03] transition-all duration-500 group-hover:text-white/[0.06]">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[7rem] font-black leading-none text-white/[0.025] transition-all duration-500 group-hover:text-white/[0.05]">
+                    {v.num}
                   </span>
-                  <p className="text-lg font-semibold text-white">{item.title}</p>
-                  <p className="mt-2 text-sm text-slate-400">{item.description}</p>
+                  <p className={`bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-2xl font-black text-transparent`}>
+                    {v.title}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </section>
         </FadeUp>
 
-        {/* ── CONTACT CTA ─────────────────────────────────────────── */}
+        {/* ── CTA ──────────────────────────────────────────────────────── */}
         <FadeUp>
-          <section className="relative overflow-hidden rounded-3xl p-8 text-center sm:p-12">
+          <section className="relative overflow-hidden rounded-3xl p-10 text-center sm:p-16">
             <div className="absolute inset-0 bg-linear-to-br from-amber-500/12 via-rose-500/8 to-indigo-500/12" />
             <div className="absolute inset-0 rounded-3xl border border-white/10" />
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-amber-500/15 blur-3xl" />
               <div className="absolute -bottom-20 -right-10 h-80 w-80 rounded-full bg-rose-500/15 blur-3xl" />
             </div>
-            <div className="relative space-y-5">
-              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
-                {t.contact.title}
-              </h2>
-              <p className="mx-auto max-w-xl text-slate-300">{t.contact.description}</p>
+            <div className="relative space-y-6">
+              <h2 className="text-4xl font-black text-balance sm:text-5xl">{t.cta.title}</h2>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl shadow-white/15 transition hover:scale-105"
+                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105"
               >
-                {t.contact.cta}
+                {t.cta.button}
               </Link>
             </div>
           </section>

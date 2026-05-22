@@ -7,22 +7,22 @@ type Props = { registrationUrl: string | null };
 
 const heroCopy = {
   fr: {
-    kicker: "ENOV ACADEMY",
-    title: "Des formations à la pointe de la technologie",
-    description:
-      "Enov Academy développe les compétences en technologies innovantes pour étudiants et professionnels. Cohortes limitées, accompagnement personnalisé, projets réels.",
-    badges: ["Cohortes limitées", "Mentoring personnalisé", "Certification Enov"],
+    kicker: "Enov Academy",
+    title: "Des formations",
+    highlight: "à la pointe de la technologie.",
+    sub: "Cohortes limitées, mentoring personnalisé, projets réels. Pour étudiants et professionnels.",
+    badges: ["Cohortes limitées", "Certification Enov", "Projets réels"],
     cta: "S'inscrire",
-    ctaExternal: "Formulaire d'inscription",
+    ctaExternal: "Formulaire externe",
   },
   en: {
-    kicker: "ENOV ACADEMY",
-    title: "Training at the cutting edge of technology",
-    description:
-      "Enov Academy builds skills in innovative technologies for students and professionals. Limited cohorts, personalized mentoring, real-world projects.",
-    badges: ["Limited cohorts", "Personalized mentoring", "Enov Certification"],
+    kicker: "Enov Academy",
+    title: "Training at",
+    highlight: "the cutting edge of technology.",
+    sub: "Limited cohorts, personalized mentoring, real projects. For students and professionals.",
+    badges: ["Limited cohorts", "Enov Certification", "Real projects"],
     cta: "Register",
-    ctaExternal: "Registration form",
+    ctaExternal: "External form",
   },
 };
 
@@ -32,9 +32,9 @@ export function AcademyHero({ registrationUrl }: Props) {
 
   return (
     <section className="relative pt-4 pb-6 lg:pt-10">
-      <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-[#ec008c]/10 blur-[100px]" />
-        <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-[#00a3ff]/10 blur-[80px]" />
+      <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
+        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-[#ec008c]/8 blur-[100px]" />
+        <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-[#00a3ff]/8 blur-[80px]" />
       </div>
 
       <motion.div
@@ -48,11 +48,15 @@ export function AcademyHero({ registrationUrl }: Props) {
           {t.kicker}
         </div>
 
-        <h1 className="text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-[4rem]">
+        <h1 className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
           {t.title}
+          <br />
+          <span className="bg-linear-to-r from-[#ec008c] via-fuchsia-400 to-[#00a3ff] bg-clip-text text-transparent">
+            {t.highlight}
+          </span>
         </h1>
 
-        <p className="text-lg text-slate-300 text-pretty">{t.description}</p>
+        <p className="max-w-md text-lg text-slate-400">{t.sub}</p>
 
         <div className="flex flex-wrap gap-2">
           {t.badges.map((badge) => (
@@ -68,7 +72,7 @@ export function AcademyHero({ registrationUrl }: Props) {
         <div className="flex flex-wrap gap-3">
           <a
             href="#inscription"
-            className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-[#ec008c] to-[#00a3ff] px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-[#ec008c]/20 transition hover:scale-105 sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-[#ec008c] to-[#00a3ff] px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-[#ec008c]/20 transition hover:scale-105 sm:w-auto"
           >
             {t.cta}
           </a>
@@ -77,7 +81,7 @@ export function AcademyHero({ registrationUrl }: Props) {
               href={registrationUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
             >
               {t.ctaExternal}
             </a>
