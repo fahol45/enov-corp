@@ -20,9 +20,9 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
   fr: {
     hero: {
       kicker: "Apps & Sites web",
-      title: "Android, iOS",
-      highlight: "ou web.",
-      sub: "On conçoit les maquettes, on code l'application, on la déploie sur les stores ou votre serveur. Vous testez chaque version avant qu'elle parte en production.",
+      title: "On développe l'app",
+      highlight: "dont vous avez besoin.",
+      sub: "Android, iOS ou web. Gestion d'équipe, boutique en ligne, portail client, tableau de bord ou intégration IA — on code ce que vous décrivez.",
       cta1: "Décrire mon projet",
       cta2: "Voir ce qu'on crée",
     },
@@ -51,9 +51,9 @@ const copy: Record<SupportedLanguage, WebMobileCopy> = {
   en: {
     hero: {
       kicker: "Apps & Websites",
-      title: "Android, iOS",
-      highlight: "or web.",
-      sub: "We design the screens, write the code, and deploy to stores or your server. You test every version before it goes live.",
+      title: "We build the app",
+      highlight: "you actually need.",
+      sub: "Android, iOS or web. Team management, online store, client portal, dashboard or AI integration — we code what you describe.",
       cta1: "Describe my project",
       cta2: "See what we build",
     },
