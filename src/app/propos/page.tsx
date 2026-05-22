@@ -18,46 +18,46 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
   fr: {
     hero: {
       kicker: "À propos",
-      title: "Enov CORP,",
-      highlight: "partenaire technologique de bout en bout.",
-      sub: "Hydroponie connectée, développement digital et formation. Trois pôles. Une seule mission : transformer vos besoins en résultats.",
-      cta: "Parler avec nous",
+      title: "On construit ce",
+      highlight: "qui sert vraiment.",
+      sub: "Enov CORP, c'est une équipe basée à Rabat. On installe des serres connectées, on crée des apps et on forme des équipes. Pas de jargon, pas de promesses vides.",
+      cta: "Parler à l'équipe",
     },
-    pillarsTitle: "Trois pôles. Un partenaire.",
+    pillarsTitle: "Trois activités. Un seul endroit.",
     pillars: [
-      { num: "01", title: "Hydroponie & IoT", tags: "Automatisation · Capteurs · Edge AI", href: "/hydroponie" },
-      { num: "02", title: "Web & Mobile", tags: "Apps · Dashboards · Intégrations", href: "/web-mobile" },
-      { num: "03", title: "Enov Academy", tags: "Formation · Certification · Projets réels", href: "/academy" },
+      { num: "01", title: "Serres & IoT", tags: "Arrosage automatique · Capteurs · Alertes en temps réel", href: "/hydroponie" },
+      { num: "02", title: "Apps & Sites web", tags: "Android · iOS · Web · Tableaux de bord", href: "/web-mobile" },
+      { num: "03", title: "Formation terrain", tags: "Petits groupes · Projets réels · Certificat Enov", href: "/academy" },
     ],
-    valuesTitle: "Notre manière de travailler.",
+    valuesTitle: "Comment on travaille.",
     values: [
-      { num: "01", title: "Clarté" },
-      { num: "02", title: "Pragmatisme" },
-      { num: "03", title: "Engagement" },
+      { num: "01", title: "On livre" },
+      { num: "02", title: "On explique" },
+      { num: "03", title: "On reste" },
     ],
-    cta: { title: "Un projet en tête ?", button: "Contacter Enov CORP" },
+    cta: { title: "Un projet ? Une question ?", button: "Contacter l'équipe" },
   },
   en: {
     hero: {
       kicker: "About",
-      title: "Enov CORP,",
-      highlight: "your end-to-end technology partner.",
-      sub: "Smart hydroponics, digital development and training. Three pillars. One mission: turn your needs into results.",
-      cta: "Talk with us",
+      title: "We build what",
+      highlight: "actually works.",
+      sub: "Enov CORP is a team based in Rabat. We install connected greenhouses, build apps and train teams. No jargon, no empty promises.",
+      cta: "Talk to the team",
     },
-    pillarsTitle: "Three pillars. One partner.",
+    pillarsTitle: "Three activities. One place.",
     pillars: [
-      { num: "01", title: "Hydroponics & IoT", tags: "Automation · Sensors · Edge AI", href: "/hydroponie" },
-      { num: "02", title: "Web & Mobile", tags: "Apps · Dashboards · Integrations", href: "/web-mobile" },
-      { num: "03", title: "Enov Academy", tags: "Training · Certification · Real projects", href: "/academy" },
+      { num: "01", title: "Greenhouses & IoT", tags: "Automated watering · Sensors · Real-time alerts", href: "/hydroponie" },
+      { num: "02", title: "Apps & Websites", tags: "Android · iOS · Web · Dashboards", href: "/web-mobile" },
+      { num: "03", title: "Hands-on training", tags: "Small groups · Real projects · Enov Certificate", href: "/academy" },
     ],
     valuesTitle: "How we work.",
     values: [
-      { num: "01", title: "Clarity" },
-      { num: "02", title: "Pragmatism" },
-      { num: "03", title: "Commitment" },
+      { num: "01", title: "We deliver" },
+      { num: "02", title: "We explain" },
+      { num: "03", title: "We stay" },
     ],
-    cta: { title: "Have a project in mind?", button: "Contact Enov CORP" },
+    cta: { title: "A project? A question?", button: "Contact the team" },
   },
 };
 
@@ -67,11 +67,7 @@ const PILLAR_ACCENT = [
   { num: "from-sky-300 to-indigo-300", border: "group-hover:border-sky-500/30" },
 ];
 
-const VALUE_COLORS = [
-  "from-amber-300 to-rose-300",
-  "from-rose-300 to-fuchsia-300",
-  "from-fuchsia-300 to-indigo-300",
-];
+const VALUE_COLORS = ["from-amber-300 to-rose-300", "from-rose-300 to-fuchsia-300", "from-fuchsia-300 to-indigo-300"];
 
 export default function AProposPage() {
   const { language } = useLanguage();
@@ -126,20 +122,9 @@ export default function AProposPage() {
               {t.pillars.map((pillar, i) => {
                 const accent = PILLAR_ACCENT[i];
                 return (
-                  <motion.div
-                    key={pillar.num}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: i * 0.1 }}
-                  >
-                    <Link
-                      href={pillar.href}
-                      className={`group flex items-center gap-5 rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition-all duration-300 hover:bg-slate-900/70 sm:gap-8 sm:p-7 ${accent.border}`}
-                    >
-                      <span className={`shrink-0 bg-linear-to-br ${accent.num} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}>
-                        {pillar.num}
-                      </span>
+                  <motion.div key={pillar.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.1 }}>
+                    <Link href={pillar.href} className={`group flex items-center gap-5 rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition-all duration-300 hover:bg-slate-900/70 sm:gap-8 sm:p-7 ${accent.border}`}>
+                      <span className={`shrink-0 bg-linear-to-br ${accent.num} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}>{pillar.num}</span>
                       <div className="flex-1 min-w-0">
                         <p className="text-lg font-bold text-white sm:text-xl">{pillar.title}</p>
                         <p className="mt-0.5 text-xs tracking-wide text-slate-500">{pillar.tags}</p>
@@ -170,9 +155,7 @@ export default function AProposPage() {
                   <span className="pointer-events-none absolute right-4 top-0 select-none text-[7rem] font-black leading-none text-white/[0.025] transition-all duration-500 group-hover:text-white/[0.05]">
                     {v.num}
                   </span>
-                  <p className={`bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-2xl font-black text-transparent`}>
-                    {v.title}
-                  </p>
+                  <p className={`bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-2xl font-black text-transparent`}>{v.title}</p>
                 </motion.div>
               ))}
             </div>
@@ -190,10 +173,7 @@ export default function AProposPage() {
             </div>
             <div className="relative space-y-6">
               <h2 className="text-4xl font-black text-balance sm:text-5xl">{t.cta.title}</h2>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105"
-              >
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105">
                 {t.cta.button}
               </Link>
             </div>

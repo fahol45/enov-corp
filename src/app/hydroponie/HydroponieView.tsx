@@ -6,18 +6,10 @@ import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type HydroponieCopy = {
-  hero: {
-    kicker: string;
-    title: string;
-    highlight: string;
-    sub: string;
-    cta1: string;
-    cta2: string;
-    metrics: { label: string; value: string }[];
-  };
+  hero: { kicker: string; title: string; highlight: string; sub: string; cta1: string; cta2: string; metrics: { label: string; value: string }[] };
   stats: Array<{ value: string; label: string }>;
   fusionTitle: string;
-  fusion: Array<{ num: string; title: string; tag: string }>;
+  fusion: Array<{ num: string; title: string; tags: string }>;
   processTitle: string;
   process: Array<{ title: string }>;
   cta: { eyebrow: string; title: string; button: string };
@@ -26,75 +18,75 @@ type HydroponieCopy = {
 const copy: Record<SupportedLanguage, HydroponieCopy> = {
   fr: {
     hero: {
-      kicker: "Hydroponie x IoT & Edge",
-      title: "La serre connectée,",
-      highlight: "simple et rentable.",
-      sub: "Capteurs, automatisation et pilotage en temps réel — depuis une seule application.",
-      cta1: "Parler à un architecte",
-      cta2: "Voir la solution",
+      kicker: "Hydroponie & IoT",
+      title: "Une serre qui se pilote",
+      highlight: "depuis votre téléphone.",
+      sub: "On installe les capteurs, on connecte tout, on vous forme. Vous regardez vos données où que vous soyez — même hors connexion.",
+      cta1: "Demander une visite",
+      cta2: "Voir comment ça marche",
       metrics: [
-        { label: "Climat", value: "22.4°C" },
-        { label: "Solution", value: "EC 2.0" },
-        { label: "Edge", value: "12ms" },
+        { label: "Température", value: "22.4°C" },
+        { label: "EC solution", value: "2.0" },
+        { label: "Réaction", value: "12ms" },
         { label: "Énergie", value: "-18%" },
       ],
     },
     stats: [
       { value: "90%", label: "Eau économisée" },
-      { value: "+28%", label: "Biomasse vendable" },
-      { value: "12ms", label: "Latence edge" },
+      { value: "+28%", label: "De récolte en plus" },
+      { value: "12ms", label: "Temps de réaction" },
     ],
-    fusionTitle: "Deux technologies. Une solution.",
+    fusionTitle: "Deux choses ensemble. Une serre qui tourne.",
     fusion: [
-      { num: "01", title: "Hydroponie intelligente", tag: "Dosage · Recyclage · Rendement" },
-      { num: "02", title: "IoT & Edge computing", tag: "Capteurs · Alertes · Décision locale" },
+      { num: "01", title: "Hydroponie", tags: "Arrosage automatique · Dosage des nutriments · Recyclage de l'eau" },
+      { num: "02", title: "Capteurs & alertes", tags: "Température · pH · Humidité · Surveillance continue" },
     ],
-    processTitle: "De la serre à la data.",
+    processTitle: "Ce qui se passe, de A à Z.",
     process: [
-      { title: "Diagnostic" },
-      { title: "Conception" },
-      { title: "Maquettes 3D" },
+      { title: "Visite terrain" },
+      { title: "Plan technique" },
+      { title: "Vue 3D" },
       { title: "Installation" },
       { title: "Formation" },
-      { title: "Support" },
+      { title: "Suivi" },
     ],
-    cta: { eyebrow: "Résultats mesurés.", title: "Planifions votre diagnostic", button: "Contacter Enov CORP" },
+    cta: { eyebrow: "On se déplace à Rabat et environs.", title: "Demandez une visite de diagnostic", button: "Contacter Enov CORP" },
   },
   en: {
     hero: {
-      kicker: "Hydroponics x IoT & Edge",
-      title: "Connected hydroponics,",
-      highlight: "simple and profitable.",
-      sub: "Sensors, automation and real-time control — from one single application.",
-      cta1: "Talk to an architect",
-      cta2: "See the solution",
+      kicker: "Hydroponics & IoT",
+      title: "A greenhouse you control",
+      highlight: "from your phone.",
+      sub: "We install the sensors, connect everything, and train your team. Check your data from anywhere — even offline.",
+      cta1: "Book a site visit",
+      cta2: "See how it works",
       metrics: [
-        { label: "Climate", value: "22.4°C" },
-        { label: "Solution", value: "EC 2.0" },
-        { label: "Edge", value: "12ms" },
+        { label: "Temperature", value: "22.4°C" },
+        { label: "EC solution", value: "2.0" },
+        { label: "Response", value: "12ms" },
         { label: "Energy", value: "-18%" },
       ],
     },
     stats: [
       { value: "90%", label: "Water saved" },
-      { value: "+28%", label: "Sellable biomass" },
-      { value: "12ms", label: "Edge latency" },
+      { value: "+28%", label: "More harvest" },
+      { value: "12ms", label: "Response time" },
     ],
-    fusionTitle: "Two technologies. One solution.",
+    fusionTitle: "Two things together. One greenhouse that runs itself.",
     fusion: [
-      { num: "01", title: "Smart hydroponics", tag: "Dosing · Recycling · Yield" },
-      { num: "02", title: "IoT & Edge computing", tag: "Sensors · Alerts · Local decisions" },
+      { num: "01", title: "Hydroponics", tags: "Automatic watering · Nutrient dosing · Water recycling" },
+      { num: "02", title: "Sensors & alerts", tags: "Temperature · pH · Humidity · Continuous monitoring" },
     ],
-    processTitle: "From greenhouse to data.",
+    processTitle: "What happens, A to Z.",
     process: [
-      { title: "Diagnostic" },
-      { title: "Design" },
-      { title: "3D mockups" },
+      { title: "Site visit" },
+      { title: "Technical plan" },
+      { title: "3D view" },
       { title: "Installation" },
       { title: "Training" },
-      { title: "Support" },
+      { title: "Follow-up" },
     ],
-    cta: { eyebrow: "Measured results.", title: "Plan your diagnostic", button: "Contact Enov CORP" },
+    cta: { eyebrow: "We travel across Morocco.", title: "Book a diagnostic visit", button: "Contact Enov CORP" },
   },
 };
 
@@ -142,7 +134,7 @@ export function HydroponieView() {
                 {t.hero.cta1}
               </Link>
               <a
-                href="#solution"
+                href="#comment"
                 className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
               >
                 {t.hero.cta2}
@@ -150,7 +142,6 @@ export function HydroponieView() {
             </div>
           </motion.div>
 
-          {/* Metrics card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -189,7 +180,7 @@ export function HydroponieView() {
 
         {/* ── FUSION ───────────────────────────────────────────────────── */}
         <FadeUp>
-          <section id="solution" className="space-y-10">
+          <section id="comment" className="space-y-10">
             <h2 className="text-3xl font-black sm:text-4xl">{t.fusionTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.fusion.map((item, i) => (
@@ -206,7 +197,7 @@ export function HydroponieView() {
                   </span>
                   <div>
                     <p className="text-lg font-bold text-white sm:text-xl">{item.title}</p>
-                    <p className="mt-0.5 text-xs tracking-wide text-slate-500">{item.tag}</p>
+                    <p className="mt-0.5 text-xs tracking-wide text-slate-500">{item.tags}</p>
                   </div>
                 </motion.div>
               ))}
@@ -217,9 +208,7 @@ export function HydroponieView() {
         {/* ── PROCESS ──────────────────────────────────────────────────── */}
         <FadeUp>
           <section className="space-y-14">
-            <h2 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl">
-              {t.processTitle}
-            </h2>
+            <h2 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl">{t.processTitle}</h2>
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
               {t.process.map((step, i) => (
                 <motion.div

@@ -8,21 +8,21 @@ type Props = { registrationUrl: string | null };
 const heroCopy = {
   fr: {
     kicker: "Enov Academy",
-    title: "Des formations",
-    highlight: "à la pointe de la technologie.",
-    sub: "Cohortes limitées, mentoring personnalisé, projets réels. Pour étudiants et professionnels.",
-    badges: ["Cohortes limitées", "Certification Enov", "Projets réels"],
+    title: "Apprenez",
+    highlight: "sur de vrais projets.",
+    sub: "Des formations courtes, en petits groupes (8 max), avec un projet concret à rendre. Pas de théorie sans pratique.",
+    badges: ["8 personnes max", "Projets réels", "Certificat Enov"],
     cta: "S'inscrire",
-    ctaExternal: "Formulaire externe",
+    ctaExternal: "Formulaire d'inscription",
   },
   en: {
     kicker: "Enov Academy",
-    title: "Training at",
-    highlight: "the cutting edge of technology.",
-    sub: "Limited cohorts, personalized mentoring, real projects. For students and professionals.",
-    badges: ["Limited cohorts", "Enov Certification", "Real projects"],
+    title: "Learn by",
+    highlight: "building real things.",
+    sub: "Short trainings, small groups (max 8), with a real project to deliver. No theory without practice.",
+    badges: ["Max 8 people", "Real projects", "Enov Certificate"],
     cta: "Register",
-    ctaExternal: "External form",
+    ctaExternal: "Registration form",
   },
 };
 
@@ -60,10 +60,7 @@ export function AcademyHero({ registrationUrl }: Props) {
 
         <div className="flex flex-wrap gap-2">
           {t.badges.map((badge) => (
-            <span
-              key={badge}
-              className="rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-3 py-1 text-xs text-pink-300"
-            >
+            <span key={badge} className="rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-3 py-1 text-xs text-pink-300">
               {badge}
             </span>
           ))}

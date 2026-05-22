@@ -7,14 +7,7 @@ import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type WebMobileCopy = {
-  hero: {
-    kicker: string;
-    title: string;
-    highlight: string;
-    sub: string;
-    cta1: string;
-    cta2: string;
-  };
+  hero: { kicker: string; title: string; highlight: string; sub: string; cta1: string; cta2: string };
   stats: Array<{ value: string; label: string }>;
   catalogTitle: string;
   catalog: Array<{ num: string; title: string; tags: string }>;
@@ -26,55 +19,55 @@ type WebMobileCopy = {
 const copy: Record<SupportedLanguage, WebMobileCopy> = {
   fr: {
     hero: {
-      kicker: "Développement web & mobile",
-      title: "Des apps claires,",
-      highlight: "utiles et rentables.",
-      sub: "Web, mobile, dashboards et portails — UX soignée, livraison rapide, un seul partenaire.",
-      cta1: "Discuter de mon projet",
-      cta2: "Voir le catalogue",
+      kicker: "Apps & Sites web",
+      title: "Votre app livrée",
+      highlight: "en moins de 3 mois.",
+      sub: "On conçoit et on développe des applications Android, iOS et des sites web. Interface claire, données bien organisées, un seul interlocuteur.",
+      cta1: "Décrire mon projet",
+      cta2: "Voir les types d'apps",
     },
     stats: [
-      { value: "45+", label: "Apps en production" },
+      { value: "45+", label: "Apps livrées" },
       { value: "3 mois", label: "Délai moyen" },
-      { value: "4.9/5", label: "Satisfaction clients" },
+      { value: "1", label: "Interlocuteur unique" },
     ],
-    catalogTitle: "Ce qu'on conçoit.",
+    catalogTitle: "Ce qu'on crée.",
     catalog: [
-      { num: "01", title: "Finance & paiement", tags: "Wallet · Investissements · Suivi" },
-      { num: "02", title: "Commerce & marketplace", tags: "B2B · E-commerce · Catalogue" },
-      { num: "03", title: "Opérations & maintenance", tags: "GMAO · Production · Qualité" },
-      { num: "04", title: "Expérience client", tags: "Portail · Fidélité · Showroom" },
-      { num: "05", title: "Sites corporate & portails", tags: "Vitrine · Data · Extranet" },
+      { num: "01", title: "Gestion & suivi", tags: "Stocks · Équipes · Production · Rapports" },
+      { num: "02", title: "Commerce en ligne", tags: "Vente · Commandes · Paiement · Catalogue produit" },
+      { num: "03", title: "Espace client", tags: "Contrats · Factures · Suivi · Support" },
+      { num: "04", title: "Sites web", tags: "Vitrine · Landing page · Blog · Formulaires" },
+      { num: "05", title: "Tableaux de bord", tags: "Données en temps réel · Graphiques · Exports" },
     ],
-    processTitle: "De l'idée au produit.",
-    process: [{ title: "Discovery" }, { title: "Design" }, { title: "Build" }, { title: "Run" }],
-    cta: { eyebrow: "Prêt pour votre prochain produit ?", title: "Co-créons votre app", button: "Réserver un atelier digital" },
+    processTitle: "De l'idée à l'app.",
+    process: [{ title: "On écoute" }, { title: "On dessine" }, { title: "On code" }, { title: "On met en ligne" }],
+    cta: { eyebrow: "Pas de devis sans échange.", title: "Décrivez-nous votre projet", button: "Nous contacter" },
   },
   en: {
     hero: {
-      kicker: "Web & mobile development",
-      title: "Apps that are clear,",
-      highlight: "useful and profitable.",
-      sub: "Web, mobile, dashboards and portals — polished UX, fast delivery, one partner.",
-      cta1: "Discuss my project",
-      cta2: "See the catalog",
+      kicker: "Apps & Websites",
+      title: "Your app delivered",
+      highlight: "in under 3 months.",
+      sub: "We design and build Android, iOS apps and websites. Clean interfaces, well-organized data, one point of contact.",
+      cta1: "Describe my project",
+      cta2: "See what we build",
     },
     stats: [
-      { value: "45+", label: "Apps in production" },
-      { value: "3 months", label: "Average delivery" },
-      { value: "4.9/5", label: "Client rating" },
+      { value: "45+", label: "Apps delivered" },
+      { value: "3 months", label: "Average time" },
+      { value: "1", label: "Point of contact" },
     ],
     catalogTitle: "What we build.",
     catalog: [
-      { num: "01", title: "Finance & payment", tags: "Wallet · Investments · Tracking" },
-      { num: "02", title: "Commerce & marketplace", tags: "B2B · E-commerce · Catalog" },
-      { num: "03", title: "Operations & maintenance", tags: "CMMS · Production · Quality" },
-      { num: "04", title: "Customer experience", tags: "Portal · Loyalty · Showroom" },
-      { num: "05", title: "Corporate sites & portals", tags: "Brand · Data · Extranet" },
+      { num: "01", title: "Management & tracking", tags: "Inventory · Teams · Production · Reports" },
+      { num: "02", title: "E-commerce", tags: "Sales · Orders · Payments · Product catalog" },
+      { num: "03", title: "Customer portal", tags: "Contracts · Invoices · Tracking · Support" },
+      { num: "04", title: "Websites", tags: "Brand · Landing page · Blog · Contact forms" },
+      { num: "05", title: "Dashboards", tags: "Live data · Charts · Exports" },
     ],
-    processTitle: "From idea to product.",
-    process: [{ title: "Discovery" }, { title: "Design" }, { title: "Build" }, { title: "Run" }],
-    cta: { eyebrow: "Ready for your next product?", title: "Let's build your app", button: "Book a digital workshop" },
+    processTitle: "From idea to app.",
+    process: [{ title: "We listen" }, { title: "We sketch" }, { title: "We code" }, { title: "We go live" }],
+    cta: { eyebrow: "No quote without a conversation.", title: "Tell us about your project", button: "Contact us" },
   },
 };
 
@@ -130,7 +123,7 @@ export function WebMobileView() {
                 {t.hero.cta1}
               </Link>
               <a
-                href="#catalogue"
+                href="#apps"
                 className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
               >
                 {t.hero.cta2}
@@ -138,7 +131,7 @@ export function WebMobileView() {
             </div>
           </motion.div>
 
-          {/* Visual — laptop + phone */}
+          {/* Visual */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,17 +142,16 @@ export function WebMobileView() {
             <div className="relative w-full max-w-2xl rounded-[2.5rem] border border-white/10 bg-linear-to-br from-slate-900/90 to-slate-950/80 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-8">
               <Image
                 src="/pc-portable.png"
-                alt={language === "fr" ? "Interface web ENOV" : "ENOV web interface"}
+                alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"}
                 width={1536}
                 height={1024}
                 priority
                 className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]"
               />
-              {/* Phone badge */}
               <div className="absolute -bottom-4 -right-2 w-20 rounded-[1.5rem] border border-white/10 bg-slate-900 p-2 shadow-xl sm:-right-6 sm:w-28">
                 <Image
                   src="/mobile.png"
-                  alt={language === "fr" ? "App mobile ENOV" : "ENOV mobile app"}
+                  alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"}
                   width={1024}
                   height={1536}
                   className="w-full rounded-[1rem]"
@@ -185,7 +177,7 @@ export function WebMobileView() {
 
         {/* ── CATALOG ──────────────────────────────────────────────────── */}
         <FadeUp>
-          <section id="catalogue" className="space-y-10">
+          <section id="apps" className="space-y-10">
             <h2 className="text-3xl font-black sm:text-4xl">{t.catalogTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.catalog.map((item, i) => (
@@ -213,9 +205,7 @@ export function WebMobileView() {
         {/* ── PROCESS ──────────────────────────────────────────────────── */}
         <FadeUp>
           <section className="space-y-14">
-            <h2 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl">
-              {t.processTitle}
-            </h2>
+            <h2 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl">{t.processTitle}</h2>
             <div className="relative">
               <div className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-linear-to-r from-transparent via-white/10 to-transparent lg:block" />
               <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
