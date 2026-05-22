@@ -85,7 +85,7 @@ export default function Home() {
   const t = copy[language];
 
   return (
-    <main className="relative min-h-screen bg-slate-950 text-white overflow-x-hidden">
+    <main className="relative min-h-screen text-white overflow-x-hidden">
       <HeroSlideshow />
       <div className="app-shell section-flow">
 
