@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type Track = {
@@ -83,51 +85,51 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
   fr: {
     hero: {
       kicker: "Hydroponie x IoT & Edge",
-      title: "La serre connect\u00e9e, simple et rentable",
+      title: "La serre connectée, simple et rentable",
       description:
-        "Nous aidons les exploitations \u00e0 produire plus, avec moins d'eau et moins de risques gr\u00e2ce \u00e0 l'hydroponie connect\u00e9e.",
+        "Nous aidons les exploitations à produire plus, avec moins d'eau et moins de risques grâce à l'hydroponie connectée.",
       secondary:
         "Tout se pilote depuis une seule application web & mobile.",
       bullets: [
-        "Mesures automatiques et alertes en temps r\u00e9el.",
-        "D\u00e9cisions locales, m\u00eame hors connexion.",
+        "Mesures automatiques et alertes en temps réel.",
+        "Décisions locales, même hors connexion.",
         "Tableaux de bord clairs pour tous.",
         "Accompagnement de bout en bout.",
       ],
-      primaryCta: "Parler \u00e0 un architecte",
+      primaryCta: "Parler à un architecte",
       secondaryCta: "Explorer la fusion",
       cardMetrics: [
-        { label: "Climat", value: "22.4C" },
+        { label: "Climat", value: "22.4°C" },
         { label: "Solution", value: "EC 2.0" },
         { label: "Edge", value: "12ms" },
-        { label: "\u00c9nergie", value: "-18%" },
+        { label: "Énergie", value: "-18%" },
       ],
-      cardCaption: "Tableau de bord simple pour suivre la production en temps r\u00e9el.",
+      cardCaption: "Tableau de bord simple pour suivre la production en temps réel.",
     },
     fusion: {
       kicker: "Hydroponie x IoT & Edge",
       title: "Automatiser l'eau et la production",
       description:
-        "Les capteurs pilotent l'arrosage et les nutriments en continu pour gagner en qualit\u00e9 et en efficacit\u00e9.",
+        "Les capteurs pilotent l'arrosage et les nutriments en continu pour gagner en qualité et en efficacité.",
       tracks: [
         {
           title: "Hydroponie intelligente",
           description:
-            "Des serres optimis\u00e9es pour mieux nourrir les plantes et r\u00e9duire le gaspillage.",
+            "Des serres optimisées pour mieux nourrir les plantes et réduire le gaspillage.",
           highlights: [
             "Dosage automatique des nutriments selon la culture.",
-            "D\u00e9tection rapide des anomalies et fuites.",
-            "Recyclage de l'eau pour r\u00e9duire les co\u00fbts.",
+            "Détection rapide des anomalies et fuites.",
+            "Recyclage de l'eau pour réduire les coûts.",
           ],
         },
         {
           title: "IoT & Edge computing",
           description:
-            "Une couche digitale fiable pour suivre, alerter et d\u00e9cider vite.",
+            "Une couche digitale fiable pour suivre, alerter et décider vite.",
           highlights: [
-            "Capteurs et actionneurs connect\u00e9s, simples \u00e0 exploiter.",
-            "Traitement local pour r\u00e9agir sans attendre.",
-            "Donn\u00e9es pr\u00eates pour le reporting et la d\u00e9cision.",
+            "Capteurs et actionneurs connectés, simples à exploiter.",
+            "Traitement local pour réagir sans attendre.",
+            "Données prêtes pour le reporting et la décision.",
           ],
         },
       ],
@@ -137,35 +139,32 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
       items: [
         {
           title: "Exploitants",
-          description:
-            "Moins de pertes, plus de r\u00e9gularit\u00e9.",
+          description: "Moins de pertes, plus de régularité.",
         },
         {
           title: "Direction",
-          description:
-            "KPI simples pour d\u00e9cider vite.",
+          description: "KPI simples pour décider vite.",
         },
         {
-          title: "\u00c9quipes techniques",
-          description:
-            "Installation claire, maintenance facilit\u00e9e.",
+          title: "Équipes techniques",
+          description: "Installation claire, maintenance facilitée.",
         },
       ],
     },
     deliverables: {
-      title: "Ce que vous obtenez, concr\u00e8tement",
+      title: "Ce que vous obtenez, concrètement",
       items: [
         {
-          title: "Installation connect\u00e9e",
+          title: "Installation connectée",
           description: "Serres, capteurs et automatisations.",
         },
         {
-          title: "Suivi en temps r\u00e9el",
-          description: "Donn\u00e9es claires et alertes utiles.",
+          title: "Suivi en temps réel",
+          description: "Données claires et alertes utiles.",
         },
         {
-          title: "D\u00e9cisions locales",
-          description: "Fonctionne m\u00eame sans internet.",
+          title: "Décisions locales",
+          description: "Fonctionne même sans internet.",
         },
         {
           title: "App web & mobile",
@@ -173,43 +172,43 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
         },
         {
           title: "Reporting simple",
-          description: "Eau, rendement, co\u00fbts.",
+          description: "Eau, rendement, coûts.",
         },
         {
           title: "Formation",
-          description: "Vos \u00e9quipes deviennent autonomes.",
+          description: "Vos équipes deviennent autonomes.",
         },
       ],
     },
     capabilities: {
-      title: "B\u00e9n\u00e9fices clairs",
+      title: "Bénéfices clairs",
       items: [
         {
           title: "Moins d'eau",
-          description: "Irrigation pr\u00e9cise et automatis\u00e9e.",
+          description: "Irrigation précise et automatisée.",
         },
         {
           title: "Production stable",
-          description: "Moins d'al\u00e9as, plus de r\u00e9gularit\u00e9.",
+          description: "Moins d'aléas, plus de régularité.",
         },
         {
-          title: "R\u00e9action rapide",
-          description: "Alertes et actions imm\u00e9diates.",
+          title: "Réaction rapide",
+          description: "Alertes et actions immédiates.",
         },
         {
-          title: "\u00c9quipes autonomes",
+          title: "Équipes autonomes",
           description: "Formation et support continu.",
         },
       ],
     },
     method: {
       kicker: "Parcours Hydroponie + IoT",
-      title: "Un parcours simple, de A \u00e0 Z",
+      title: "Un parcours simple, de A à Z",
       description:
-        "Nous vous accompagnons \u00e0 chaque \u00e9tape, sans complexit\u00e9 inutile.",
+        "Nous vous accompagnons à chaque étape, sans complexité inutile.",
       steps: [
         {
-          title: "\u00c9tude terrain",
+          title: "Étude terrain",
           description: "Objectifs, contraintes, budget.",
         },
         {
@@ -218,15 +217,14 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
         },
         {
           title: "Maquettes 3D",
-          description:
-            "Visualiser le projet avant d'investir.",
+          description: "Visualiser le projet avant d'investir.",
         },
         {
           title: "Installation",
           description: "Mise en place et tests.",
         },
         {
-          title: "Formation \u00e0 l'usage",
+          title: "Formation à l'usage",
           description: "Prise en main rapide.",
         },
         {
@@ -236,15 +234,15 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
       ],
     },
     closing: {
-      kicker: "R\u00e9sultats concrets",
+      kicker: "Résultats concrets",
       title: "Mesurez l'impact de la fusion Hydroponie + IoT",
       description:
-        "Nous suivons vos r\u00e9sultats pour prouver les gains d'eau, de rendement et de stabilit\u00e9.",
+        "Nous suivons vos résultats pour prouver les gains d'eau, de rendement et de stabilité.",
       cta: "Planifier un diagnostic",
       stats: [
-        { value: "90%", label: "Eau \u00e9conomis\u00e9e vs r\u00e9f\u00e9rence plein champ" },
+        { value: "90%", label: "Eau économisée vs référence plein champ" },
         { value: "+28%", label: "Gain moyen sur la biomasse vendable" },
-        { value: "12ms", label: "Latence edge pour d\u00e9cision critique" },
+        { value: "12ms", label: "Latence edge pour décision critique" },
       ],
     },
   },
@@ -265,7 +263,7 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
       primaryCta: "Talk to an architect",
       secondaryCta: "Explore the fusion",
       cardMetrics: [
-        { label: "Climate", value: "22.4C" },
+        { label: "Climate", value: "22.4°C" },
         { label: "Solution", value: "EC 2.0" },
         { label: "Edge", value: "12ms" },
         { label: "Energy", value: "-18%" },
@@ -414,202 +412,313 @@ const hydroponieCopy: Record<SupportedLanguage, HydroponieCopy> = {
   },
 };
 
+const TRACK_BARS = [
+  "from-emerald-400 to-cyan-400",
+  "from-cyan-400 to-indigo-400",
+];
+
 export function HydroponieView() {
   const { language } = useLanguage();
   const t = hydroponieCopy[language];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <div className="absolute -top-20 left-4 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl" />
-      </div>
-
+    <main className="min-h-screen bg-slate-950 text-white">
       <div className="app-shell section-flow">
-        <section className="relative flex flex-col gap-8 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 p-4 pb-10 shadow-2xl shadow-black/40 sm:p-6 sm:pb-14 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-16">
-        <div className="flex-1 space-y-8">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.hero.kicker}</p>
-            <h1 className="text-4xl font-bold leading-tight sm:text-5xl">{t.hero.title}</h1>
-            <p className="text-lg text-slate-300 text-pretty text-left sm:text-justify">{t.hero.description}</p>
-            <p className="text-base text-slate-400 text-pretty text-left sm:text-justify">{t.hero.secondary}</p>
+
+        {/* ── HERO ────────────────────────────────────────────────── */}
+        <section className="relative flex flex-col gap-12 pt-4 pb-6 lg:flex-row lg:items-center lg:gap-16 lg:pt-10">
+          <div className="pointer-events-none absolute -inset-x-[var(--shell-padding)] inset-y-0 -z-10 overflow-hidden">
+            <div className="absolute -left-10 top-0 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[100px]" />
+            <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-cyan-500/8 blur-[80px]" />
           </div>
-          <ul className="space-y-3 text-sm text-slate-200">
-            {t.hero.bullets.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-pretty text-left sm:text-justify">{item}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/30 transition hover:scale-105 sm:w-auto"
-            >
-              {t.hero.primaryCta}
-            </Link>
-            <a
-              href="#fusion"
-              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-8 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white sm:w-auto"
-            >
-              {t.hero.secondaryCta}
-            </a>
-          </div>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="relative w-full max-w-[520px] px-2 sm:px-0">
-            <div className="absolute inset-0 animate-pulse rounded-[3.75rem] bg-gradient-to-br from-emerald-500 via-cyan-500 to-indigo-500 blur-3xl" />
-            <div className="relative rounded-[3.75rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/80 p-3 shadow-[0_35px_80px_rgba(0,0,0,0.65)]">
-              <div className="rounded-[3rem] border border-white/10 bg-slate-950/85 p-6 min-h-[420px]">
-                <div className="mx-auto mb-6 flex items-center justify-center">
-                  <div className="h-1.5 w-24 rounded-full bg-white/15" />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {t.hero.cardMetrics.map((metric) => (
-                    <div
-                      key={metric.label}
-                      className="flex flex-col rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-4 text-slate-200 shadow-inner shadow-black/30"
-                    >
-                      <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
-                        {metric.label}
-                      </p>
-                      <p className="mt-2 text-2xl font-bold">{metric.value}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/70 p-4 text-center text-sm text-slate-300">
-                  {t.hero.cardCaption}
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
+            className="flex-1 space-y-8"
+          >
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-emerald-300">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              {t.hero.kicker}
+            </div>
+
+            <h1 className="text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-[4rem]">
+              {t.hero.title}
+            </h1>
+
+            <p className="max-w-lg text-lg text-slate-300 text-pretty">
+              {t.hero.description}
+            </p>
+            <p className="max-w-lg text-base text-slate-400">
+              {t.hero.secondary}
+            </p>
+
+            <ul className="space-y-3 text-sm text-slate-300">
+              {t.hero.bullets.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+                  className="flex items-start gap-3"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/25 transition hover:scale-105 hover:shadow-emerald-400/40 sm:w-auto"
+              >
+                {t.hero.primaryCta}
+              </Link>
+              <a
+                href="#fusion"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/30 hover:bg-white/10 sm:w-auto"
+              >
+                {t.hero.secondaryCta}
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+            className="flex flex-1 items-center justify-center"
+          >
+            <div className="relative w-full max-w-[480px]">
+              <div className="absolute inset-0 animate-pulse rounded-[3.5rem] bg-linear-to-br from-emerald-500 via-cyan-500 to-indigo-500 blur-3xl opacity-50" />
+              <div className="relative rounded-[3.5rem] border border-white/10 bg-linear-to-br from-slate-950/95 to-slate-900/80 p-3 shadow-[0_35px_80px_rgba(0,0,0,0.65)]">
+                <div className="rounded-[2.75rem] border border-white/10 bg-slate-950/85 p-6">
+                  <div className="mx-auto mb-6 flex items-center justify-center">
+                    <div className="h-1.5 w-20 rounded-full bg-white/15" />
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {t.hero.cardMetrics.map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="flex flex-col rounded-[1.5rem] border border-white/10 bg-white/5 p-4 text-slate-200"
+                      >
+                        <p className="text-[0.6rem] uppercase tracking-[0.4em] text-emerald-300">
+                          {metric.label}
+                        </p>
+                        <p className="mt-2 text-2xl font-bold">{metric.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/60 p-4 text-center text-sm text-slate-400">
+                    {t.hero.cardCaption}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
         </section>
-        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold text-white">{t.audiences.title}</h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {t.audiences.items.map((audience) => (
-              <div
-                key={audience.title}
-                className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
-              >
-                <p className="text-sm uppercase tracking-[0.4em] text-emerald-200">
-                  {audience.title}
+
+        {/* ── AUDIENCES ───────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold sm:text-4xl">{t.audiences.title}</h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {t.audiences.items.map((audience, i) => (
+                <motion.div
+                  key={audience.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="rounded-2xl border border-white/8 bg-slate-900/40 p-6 transition hover:border-white/15"
+                >
+                  <p className="text-xs uppercase tracking-[0.4em] text-emerald-300">
+                    {audience.title}
+                  </p>
+                  <p className="mt-3 text-sm text-slate-300">{audience.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── FUSION ──────────────────────────────────────────────── */}
+        <FadeUp>
+          <section id="fusion" className="space-y-10">
+            <div className="space-y-3 text-center">
+              <p className="text-xs uppercase tracking-[0.5em] text-slate-500">
+                {t.fusion.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                {t.fusion.title}
+              </h2>
+              <p className="mx-auto max-w-2xl text-slate-400 text-pretty">
+                {t.fusion.description}
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {t.fusion.tracks.map((track, i) => (
+                <motion.div
+                  key={track.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: i * 0.12 }}
+                  className="relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/50 p-6"
+                >
+                  <div className={`absolute left-0 right-0 top-0 h-px bg-linear-to-r ${TRACK_BARS[i]} opacity-70`} />
+                  <p className="text-xs uppercase tracking-[0.5em] text-emerald-300">
+                    {track.title}
+                  </p>
+                  <p className="mt-3 text-sm text-slate-300">{track.description}</p>
+                  <ul className="mt-5 space-y-2 text-sm text-slate-400">
+                    {track.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-400" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── DELIVERABLES ────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold sm:text-4xl">{t.deliverables.title}</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {t.deliverables.items.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.07 }}
+                  className="rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition hover:border-white/15"
+                >
+                  <p className="text-xs uppercase tracking-[0.4em] text-cyan-300">
+                    {item.title}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-400">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── METHOD ──────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-12">
+            <div className="space-y-3 text-center">
+              <p className="text-xs uppercase tracking-[0.5em] text-slate-500">
+                {t.method.kicker}
+              </p>
+              <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                {t.method.title}
+              </h2>
+              <p className="mx-auto max-w-2xl text-slate-400">{t.method.description}</p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {t.method.steps.map((step, i) => (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="flex flex-col gap-4"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-slate-950">
+                    <span className="bg-linear-to-br from-emerald-400 to-cyan-400 bg-clip-text text-xl font-black text-transparent">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white">{step.title}</h3>
+                    <p className="mt-1 text-sm text-slate-400">{step.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── BENEFITS ────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold sm:text-4xl">{t.capabilities.title}</h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {t.capabilities.items.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="group relative overflow-hidden rounded-3xl border border-white/8 bg-slate-900/40 p-6 transition hover:border-white/15"
+                >
+                  <span className="pointer-events-none absolute right-4 top-0 select-none text-[6rem] font-black leading-none text-white/[0.03] transition-all duration-500 group-hover:text-white/[0.06]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-lg font-semibold text-white">{item.title}</p>
+                  <p className="mt-2 text-sm text-slate-400">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── CLOSING ─────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="relative overflow-hidden rounded-3xl p-8 sm:p-12">
+            <div className="absolute inset-0 bg-linear-to-br from-emerald-500/15 via-cyan-500/8 to-indigo-500/15" />
+            <div className="absolute inset-0 rounded-3xl border border-white/10" />
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-emerald-500/20 blur-3xl" />
+              <div className="absolute -bottom-20 -right-10 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+            </div>
+            <div className="relative grid gap-10 md:grid-cols-2 md:items-center">
+              <div className="space-y-5">
+                <p className="text-xs uppercase tracking-[0.5em] text-emerald-300">
+                  {t.closing.kicker}
                 </p>
-                <p className="mt-2 text-sm text-slate-300">{audience.description}</p>
+                <h2 className="text-3xl font-bold text-balance sm:text-4xl">
+                  {t.closing.title}
+                </h2>
+                <p className="text-slate-300">{t.closing.description}</p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105"
+                >
+                  {t.closing.cta}
+                </Link>
               </div>
-            ))}
-          </div>
-        </section>
-        <section id="fusion" className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-        <div className="text-center">
-          <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.fusion.kicker}</p>
-          <h2 className="text-3xl font-semibold">{t.fusion.title}</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base text-slate-400 text-pretty">{t.fusion.description}</p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {t.fusion.tracks.map((track) => (
-            <div
-              key={track.title}
-              className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-lg shadow-black/30"
-            >
-              <p className="text-xs uppercase tracking-[0.5em] text-emerald-200">{track.title}</p>
-              <h3 className="mt-2 text-xl font-semibold text-white">{track.title}</h3>
-              <p className="mt-3 text-sm text-slate-300">{track.description}</p>
-              <ul className="mt-5 space-y-2 text-sm text-slate-300">
-                {track.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-cyan-400" />
-                    <span>{highlight}</span>
-                  </li>
+              <div className="grid gap-4">
+                {t.closing.stats.map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="rounded-2xl border border-white/10 bg-slate-950/50 p-5 text-center"
+                  >
+                    <p className="text-4xl font-bold text-white">{stat.value}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.4em] text-slate-400">
+                      {stat.label}
+                    </p>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </div>
-          ))}
-        </div>
-        </section>
-        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold text-white">{t.deliverables.title}</h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {t.deliverables.items.map((deliverable) => (
-              <div
-                key={deliverable.title}
-                className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
-              >
-                <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">
-                  {deliverable.title}
-                </p>
-                <p className="mt-2 text-sm text-slate-300">{deliverable.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="space-y-10 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-        <div className="text-center">
-          <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{t.method.kicker}</p>
-          <h2 className="text-3xl font-semibold">{t.method.title}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">{t.method.description}</p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {t.method.steps.map((step, index) => (
-            <div
-              key={step.title}
-              className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 text-center shadow-lg"
-            >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 text-lg font-bold">
-                {index + 1}
-              </div>
-              <h3 className="mt-4 text-xl font-semibold">{step.title}</h3>
-              <p className="mt-2 text-sm text-slate-300">{step.description}</p>
-            </div>
-          ))}
-        </div>
-        </section>
-        <section className="space-y-8 rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-6 md:p-8">
-          <h2 className="text-3xl font-semibold text-white">{t.capabilities.title}</h2>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2">
-            {t.capabilities.items.map((capability) => (
-              <li
-                key={capability.title}
-                className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-lg"
-              >
-                <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">
-                  {capability.title}
-                </p>
-                <p className="mt-2 text-sm text-slate-300">{capability.description}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 text-center shadow-2xl sm:p-6 md:p-8">
-          <div className="grid gap-6 md:grid-cols-2">
-          <div className="space-y-4 text-left md:text-center">
-            <p className="text-sm uppercase tracking-[0.5em] text-emerald-200">{t.closing.kicker}</p>
-            <h2 className="text-3xl font-semibold">{t.closing.title}</h2>
-            <p className="text-slate-300">{t.closing.description}</p>
-            <Link
-              href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-lg transition hover:scale-105 sm:w-auto"
-            >
-              {t.closing.cta}
-            </Link>
-          </div>
-          <div className="grid gap-4 rounded-2xl border border-white/10 bg-slate-950/70 p-4 sm:p-6">
-            {t.closing.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-white/10 bg-slate-900/80 p-4 text-center"
-              >
-                <p className="text-4xl font-bold text-white">{stat.value}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.4em] text-slate-400">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-          </div>
-        </section>
+          </section>
+        </FadeUp>
+
       </div>
     </main>
   );
