@@ -39,55 +39,54 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/5 bg-slate-950">
-      <div className="app-shell py-12 sm:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto]">
+      <div className="app-shell py-8">
+        <div className="flex flex-wrap items-start justify-between gap-8">
 
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <Link href="/" className="inline-block">
-              <span className="text-xl font-black tracking-tight text-white">ENOV<span className="text-fuchsia-400">.</span></span>
+              <span className="text-lg font-black tracking-tight text-white">ENOV<span className="text-fuchsia-400">.</span></span>
             </Link>
-            <p className="max-w-[220px] text-sm leading-relaxed text-slate-500">{t.tagline}</p>
+            <p className="text-xs text-slate-500">{t.tagline}</p>
           </div>
 
-          {/* Navigation */}
-          <div className="space-y-4">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Pages</p>
-            <ul className="space-y-2.5">
-              {t.nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-slate-400 transition hover:text-white">
-                    {item.label}
-                  </Link>
+          <div className="flex flex-wrap gap-10">
+            {/* Navigation */}
+            <div className="space-y-3">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Pages</p>
+              <ul className="space-y-2">
+                {t.nav.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="text-xs text-slate-400 transition hover:text-white">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="space-y-3">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
+              <ul className="space-y-2">
+                <li>
+                  <a href="mailto:enovcorporation@gmail.com" className="text-xs text-slate-400 transition hover:text-white">
+                    enovcorporation@gmail.com
+                  </a>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="space-y-4">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
-            <ul className="space-y-2.5">
-              <li>
-                <a href="mailto:enovcorporation@gmail.com" className="text-sm text-slate-400 transition hover:text-white">
-                  enovcorporation@gmail.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+212645410864" className="text-sm text-slate-400 transition hover:text-white">
-                  +212 6 45 41 08 64
-                </a>
-              </li>
-            </ul>
+                <li>
+                  <a href="tel:+212645410864" className="text-xs text-slate-400 transition hover:text-white">
+                    +212 6 45 41 08 64
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-start gap-2 border-t border-white/5 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-600">
-            &copy; {year} ENOV CORP — {t.rights}
-          </p>
-        </div>
+        <p className="mt-8 border-t border-white/5 pt-5 text-xs text-slate-600">
+          &copy; {year} ENOV CORP — {t.rights}
+        </p>
       </div>
     </footer>
   );
