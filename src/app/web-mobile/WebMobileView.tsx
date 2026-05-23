@@ -159,11 +159,11 @@ export function WebMobileView() {
 
         {/* ── STATS ────────────────────────────────────────────────────── */}
         <FadeUp>
-          <section className="grid grid-cols-3 divide-x divide-white/8 border-y border-white/8 py-10">
+          <section className="grid grid-cols-3 divide-x divide-white/8 border-y border-white/8 py-6 sm:py-10">
             {t.stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-1 px-4 text-center">
-                <span className="bg-linear-to-r from-fuchsia-300 via-purple-300 to-sky-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">{s.value}</span>
-                <span className="text-[0.65rem] uppercase tracking-[0.4em] text-slate-500">{s.label}</span>
+              <div key={s.label} className="flex flex-col items-center gap-1 px-2 text-center sm:px-4">
+                <span className="bg-linear-to-r from-fuchsia-300 via-purple-300 to-sky-300 bg-clip-text text-xl font-black text-transparent sm:text-4xl lg:text-5xl">{s.value}</span>
+                <span className="mt-1 text-[0.55rem] uppercase leading-tight tracking-normal text-slate-500 sm:text-[0.65rem] sm:tracking-[0.3em]">{s.label}</span>
               </div>
             ))}
           </section>
@@ -175,7 +175,7 @@ export function WebMobileView() {
             <h2 className="text-3xl font-black sm:text-4xl">{t.catalogTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.catalog.map((item, i) => (
-                <motion.div key={item.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.08 }} className="flex items-center gap-5 rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition hover:border-white/20 hover:bg-slate-900/70 sm:gap-8 sm:p-7">
+                <motion.div key={item.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.08 }} className="flex items-start gap-5 rounded-2xl border border-white/8 bg-slate-900/40 p-5 transition hover:border-white/20 hover:bg-slate-900/70 sm:gap-8 sm:p-7">
                   <span className={`shrink-0 bg-linear-to-br ${CATALOG_ACCENT[i]} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}>{item.num}</span>
                   <div>
                     <p className="text-lg font-bold text-white sm:text-xl">{item.title}</p>
@@ -204,7 +204,7 @@ export function WebMobileView() {
                 <p className="text-slate-300">{t.aiSub}</p>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-emerald-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:scale-105"
+                  className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-linear-to-r from-emerald-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:scale-105 sm:w-auto"
                 >
                   {t.aiCta} →
                 </Link>
