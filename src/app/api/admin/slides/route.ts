@@ -72,7 +72,17 @@ export async function DELETE(request: NextRequest) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ ok: false, message: "id requis." }, { status: 400 });
 
+  // Fetch image_url before deleting so we can remove from storage
+  const { data: row } = await supabaseServer.from("hero_slides").select("image_url").eq("id", id).single();
+
   const { error } = await supabaseServer.from("hero_slides").delete().eq("id", id);
   if (error) return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
+
+  // Delete file from Supabase Storage if it belongs to our bucket
+  if (row?.image_url) {
+    const match = row.image_url.split("/academy-media/")[1];
+    if (match) await supabaseServer.storage.from("academy-media").remove([match]);
+  }
+
   return NextResponse.json({ ok: true });
 }

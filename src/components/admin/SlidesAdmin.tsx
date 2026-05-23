@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type Slide = { id: string; image_url: string; title: string; sort_order: number; active: boolean };
@@ -115,8 +114,9 @@ export function SlidesAdmin() {
         {!loading && slides.length === 0 && <p className="text-slate-400">Aucun slide. Ajoutez-en ci-dessus ou créez la table Supabase.</p>}
         {slides.map((slide) => (
           <div key={slide.id} className="flex items-center gap-4 rounded-2xl border border-white/8 bg-slate-900/40 p-4">
-            <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-xl">
-              <Image src={slide.image_url} alt={slide.title || "slide"} fill className="object-cover" sizes="96px" />
+            <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl bg-slate-800">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={slide.image_url} alt={slide.title || "slide"} className="h-full w-full object-cover" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="truncate text-sm font-semibold text-white">{slide.title || <span className="text-slate-500">Sans titre</span>}</p>

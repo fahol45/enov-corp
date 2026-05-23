@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type Category = "hydro" | "web" | "training";
@@ -139,8 +138,9 @@ export function PortfolioAdmin() {
         {items.map((item) => (
           <div key={item.id} className={`flex items-center gap-4 rounded-2xl border bg-slate-900/40 p-4 transition ${item.active ? "border-white/8" : "border-white/4 opacity-60"}`}>
             {item.image_url && (
-              <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-xl">
-                <Image src={item.image_url} alt={item.title} fill className="object-cover" sizes="80px" />
+              <div className="h-14 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-800">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.image_url} alt={item.title} className="h-full w-full object-cover" />
               </div>
             )}
             <div className="flex-1 min-w-0">
