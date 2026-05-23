@@ -15,16 +15,14 @@ export type PortfolioItem = {
 };
 
 export async function GET() {
-  try {
-    const { data, error } = await supabaseServer
-      .from("portfolio_items")
-      .select("*")
-      .order("sort_order", { ascending: true });
-    if (error) throw error;
-    return NextResponse.json({ ok: true, items: data ?? [] });
-  } catch {
-    return NextResponse.json({ ok: true, items: [] });
+  const { data, error } = await supabaseServer
+    .from("portfolio_items")
+    .select("*")
+    .order("sort_order", { ascending: true });
+  if (error) {
+    return NextResponse.json({ ok: false, message: error.message, items: [] });
   }
+  return NextResponse.json({ ok: true, items: data ?? [] });
 }
 
 export async function POST(request: NextRequest) {

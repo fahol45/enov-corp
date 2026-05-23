@@ -3,85 +3,44 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
-type PortfolioCopy = {
-  hero: { kicker: string; title: string; highlight: string; sub: string };
-  hydroTitle: string;
-  hydroProjects: Array<{ title: string; tags: string; img: string }>;
-  webTitle: string;
-  webProjects: Array<{ title: string; tags: string; img: string; href?: string }>;
-  trainingTitle: string;
-  trainingProjects: Array<{ title: string; tags: string; img: string }>;
-  cta: { title: string; button: string };
+type DbItem = { id: string; title: string; description: string; image_url: string; category: "hydro" | "web" | "training"; tags: string; external_url: string; sort_order: number; active: boolean };
+
+type HeroCopy = { kicker: string; title: string; highlight: string; sub: string };
+type CtaCopy = { title: string; button: string };
+
+const heroCopy: Record<SupportedLanguage, HeroCopy> = {
+  fr: { kicker: "Portfolio", title: "Projets livrés.", highlight: "Résultats mesurables.", sub: "Serres connectées, applications sur mesure, formations terrain. Voici ce qu'on a concrètement réalisé." },
+  en: { kicker: "Portfolio", title: "Projects delivered.", highlight: "Measurable results.", sub: "Connected greenhouses, custom applications, hands-on training. Here's what we've actually built." },
 };
 
-const copy: Record<SupportedLanguage, PortfolioCopy> = {
-  fr: {
-    hero: {
-      kicker: "Portfolio",
-      title: "Projets livrés.",
-      highlight: "Résultats mesurables.",
-      sub: "Serres connectées, applications sur mesure, formations terrain. Voici ce qu'on a concrètement réalisé.",
-    },
-    hydroTitle: "Hydroponie & IoT",
-    hydroProjects: [
-      { title: "Serre hydroponique intelligente", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", img: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg" },
-      { title: "Digital Twin industriel", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", img: "/Academy_images/Digital%20Twin%20Industrie.webp" },
-      { title: "Lab IoT & Robotique", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", img: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp" },
-    ],
-    webTitle: "Applications & Sites web",
-    webProjects: [
-      { title: "Interface de gestion web", tags: "Next.js · Dashboard · Exports automatiques", img: "/pc-portable.png" },
-      { title: "Application mobile terrain", tags: "React Native · Android & iOS · Mode hors ligne", img: "/mobile.png" },
-      { title: "Automatisation & Data", tags: "Pipelines de données · Reporting · Intégration API", img: "/Academy_images/Data_Automation_Power.jpg" },
-    ],
-    trainingTitle: "Formations Enov Academy",
-    trainingProjects: [
-      { title: "Web Fullstack", tags: "React · Node.js · Déploiement · Projet à rendre", img: "/Academy_images/Web%20Fullstack.jpg" },
-      { title: "AI Product Roadmap", tags: "LLM · Prompting · Intégration IA dans produit", img: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp" },
-      { title: "UX/UI & Design Ops", tags: "Figma · Parcours utilisateur · Systèmes de design", img: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp" },
-    ],
-    cta: {
-      title: "Un projet similaire en tête. On vous répond en 24h.",
-      button: "Nous contacter",
-    },
-  },
-  en: {
-    hero: {
-      kicker: "Portfolio",
-      title: "Projects delivered.",
-      highlight: "Measurable results.",
-      sub: "Connected greenhouses, custom applications, hands-on training. Here's what we've actually built.",
-    },
-    hydroTitle: "Hydroponics & IoT",
-    hydroProjects: [
-      { title: "Smart hydroponic greenhouse", tags: "pH & EC sensors · Auto watering · Mobile dashboard", img: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg" },
-      { title: "Industrial digital twin", tags: "Digital twinning · Real-time monitoring · SMS alerts", img: "/Academy_images/Digital%20Twin%20Industrie.webp" },
-      { title: "IoT & Robotics Lab", tags: "Automation · Embedded sensors · Control interface", img: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp" },
-    ],
-    webTitle: "Apps & Websites",
-    webProjects: [
-      { title: "Web management interface", tags: "Next.js · Dashboard · Automatic exports", img: "/pc-portable.png" },
-      { title: "Field mobile app", tags: "React Native · Android & iOS · Offline mode", img: "/mobile.png" },
-      { title: "Automation & Data", tags: "Data pipelines · Reporting · API integration", img: "/Academy_images/Data_Automation_Power.jpg" },
-    ],
-    trainingTitle: "Enov Academy Training",
-    trainingProjects: [
-      { title: "Web Fullstack", tags: "React · Node.js · Deployment · Project to complete", img: "/Academy_images/Web%20Fullstack.jpg" },
-      { title: "AI Product Roadmap", tags: "LLM · Prompting · AI integration in products", img: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp" },
-      { title: "UX/UI & Design Ops", tags: "Figma · User journeys · Design systems", img: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp" },
-    ],
-    cta: {
-      title: "A similar project in mind. We reply within 24h.",
-      button: "Contact us",
-    },
-  },
+const sectionTitles: Record<SupportedLanguage, { hydro: string; web: string; training: string }> = {
+  fr: { hydro: "Hydroponie & IoT", web: "Applications & Sites web", training: "Formations Enov Academy" },
+  en: { hydro: "Hydroponics & IoT", web: "Apps & Websites", training: "Enov Academy Training" },
 };
 
-function ProjectCard({ title, tags, img, index }: { title: string; tags: string; img: string; index: number }) {
-  return (
+const ctaCopy: Record<SupportedLanguage, CtaCopy> = {
+  fr: { title: "Un projet similaire en tête. On vous répond en 24h.", button: "Nous contacter" },
+  en: { title: "A similar project in mind. We reply within 24h.", button: "Contact us" },
+};
+
+const FALLBACK_ITEMS: DbItem[] = [
+  { id: "f1", title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true },
+  { id: "f2", title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true },
+  { id: "f3", title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true },
+  { id: "f4", title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true },
+  { id: "f5", title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true },
+  { id: "f6", title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true },
+  { id: "f7", title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true },
+  { id: "f8", title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true },
+  { id: "f9", title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true },
+];
+
+function ProjectCard({ item, index }: { item: DbItem; index: number }) {
+  const card = (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -90,26 +49,50 @@ function ProjectCard({ title, tags, img, index }: { title: string; tags: string;
       className="group relative overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70"
     >
       <div className="relative h-48 w-full overflow-hidden">
-        <Image
-          src={img}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 33vw"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.image_url}
+          alt={item.title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
       </div>
       <div className="p-5">
-        <p className="text-base font-bold text-white">{title}</p>
-        <p className="mt-1.5 text-xs tracking-wide text-slate-500">{tags}</p>
+        <p className="text-base font-bold text-white">{item.title}</p>
+        {item.description && <p className="mt-1 text-sm text-slate-400">{item.description}</p>}
+        <p className="mt-1.5 text-xs tracking-wide text-slate-500">{item.tags}</p>
       </div>
     </motion.div>
   );
+
+  if (item.external_url) {
+    return (
+      <Link href={item.external_url} target="_blank" rel="noopener noreferrer">
+        {card}
+      </Link>
+    );
+  }
+  return card;
 }
 
 export default function PortfolioPage() {
   const { language } = useLanguage();
-  const t = copy[language];
+  const [items, setItems] = useState<DbItem[]>(FALLBACK_ITEMS);
+
+  useEffect(() => {
+    fetch("/api/portfolio")
+      .then((r) => r.json())
+      .then((d) => { if (d.ok && d.items.length > 0) setItems(d.items); })
+      .catch(() => {});
+  }, []);
+
+  const hero = heroCopy[language];
+  const titles = sectionTitles[language];
+  const cta = ctaCopy[language];
+
+  const hydroItems = items.filter((i) => i.category === "hydro");
+  const webItems = items.filter((i) => i.category === "web");
+  const trainingItems = items.filter((i) => i.category === "training");
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -130,56 +113,56 @@ export default function PortfolioPage() {
           >
             <div className="inline-flex items-center gap-2.5 rounded-full border border-sky-500/25 bg-sky-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-sky-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-400" />
-              {t.hero.kicker}
+              {hero.kicker}
             </div>
 
             <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              {t.hero.title}
+              {hero.title}
               <br />
               <span className="bg-linear-to-r from-sky-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent">
-                {t.hero.highlight}
+                {hero.highlight}
               </span>
             </h1>
 
-            <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
+            <p className="max-w-md text-lg text-slate-400">{hero.sub}</p>
           </motion.div>
         </section>
 
         {/* ── HYDROPONIE & IoT ─────────────────────────────────────────── */}
-        <FadeUp>
-          <section className="space-y-8">
-            <h2 className="text-2xl font-black sm:text-3xl">{t.hydroTitle}</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {t.hydroProjects.map((p, i) => (
-                <ProjectCard key={p.title} {...p} index={i} />
-              ))}
-            </div>
-          </section>
-        </FadeUp>
+        {hydroItems.length > 0 && (
+          <FadeUp>
+            <section className="space-y-8">
+              <h2 className="text-2xl font-black sm:text-3xl">{titles.hydro}</h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {hydroItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
+              </div>
+            </section>
+          </FadeUp>
+        )}
 
         {/* ── WEB & MOBILE ─────────────────────────────────────────────── */}
-        <FadeUp>
-          <section className="space-y-8">
-            <h2 className="text-2xl font-black sm:text-3xl">{t.webTitle}</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {t.webProjects.map((p, i) => (
-                <ProjectCard key={p.title} {...p} index={i} />
-              ))}
-            </div>
-          </section>
-        </FadeUp>
+        {webItems.length > 0 && (
+          <FadeUp>
+            <section className="space-y-8">
+              <h2 className="text-2xl font-black sm:text-3xl">{titles.web}</h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {webItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
+              </div>
+            </section>
+          </FadeUp>
+        )}
 
         {/* ── FORMATIONS ───────────────────────────────────────────────── */}
-        <FadeUp>
-          <section className="space-y-8">
-            <h2 className="text-2xl font-black sm:text-3xl">{t.trainingTitle}</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {t.trainingProjects.map((p, i) => (
-                <ProjectCard key={p.title} {...p} index={i} />
-              ))}
-            </div>
-          </section>
-        </FadeUp>
+        {trainingItems.length > 0 && (
+          <FadeUp>
+            <section className="space-y-8">
+              <h2 className="text-2xl font-black sm:text-3xl">{titles.training}</h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {trainingItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
+              </div>
+            </section>
+          </FadeUp>
+        )}
 
         {/* ── CTA ──────────────────────────────────────────────────────── */}
         <FadeUp>
@@ -191,12 +174,12 @@ export default function PortfolioPage() {
               <div className="absolute -bottom-20 -right-10 h-80 w-80 rounded-full bg-fuchsia-500/15 blur-3xl" />
             </div>
             <div className="relative space-y-6">
-              <h2 className="text-3xl font-black text-balance sm:text-4xl">{t.cta.title}</h2>
+              <h2 className="text-3xl font-black text-balance sm:text-4xl">{cta.title}</h2>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105"
               >
-                {t.cta.button}
+                {cta.button}
               </Link>
             </div>
           </section>

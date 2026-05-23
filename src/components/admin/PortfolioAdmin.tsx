@@ -10,6 +10,18 @@ const inputClass = "rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3
 const CATEGORY_LABELS: Record<Category, string> = { hydro: "Hydroponie & IoT", web: "Web & Mobile", training: "Formation" };
 const CATEGORY_COLOR: Record<Category, string> = { hydro: "text-emerald-300", web: "text-fuchsia-300", training: "text-sky-300" };
 
+const DEFAULT_ITEMS: Omit<PortfolioItem, "id">[] = [
+  { title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true },
+  { title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true },
+  { title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true },
+  { title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true },
+  { title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true },
+  { title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true },
+  { title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true },
+  { title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true },
+  { title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true },
+];
+
 export function PortfolioAdmin() {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,6 +29,7 @@ export function PortfolioAdmin() {
   const [editing, setEditing] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [seeding, setSeeding] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
@@ -25,7 +38,10 @@ export function PortfolioAdmin() {
     setLoading(true);
     fetch("/api/admin/portfolio")
       .then((r) => r.json())
-      .then((d) => setItems(d.items ?? []))
+      .then((d) => {
+        if (!d.ok) setError(d.message ?? "Erreur Supabase.");
+        setItems(d.items ?? []);
+      })
       .catch(() => setError("Impossible de charger les projets."))
       .finally(() => setLoading(false));
   };
@@ -72,6 +88,28 @@ export function PortfolioAdmin() {
     } else setError(d.message ?? "Erreur.");
   };
 
+  const handleSeedDefaults = async () => {
+    if (!confirm(`Importer les ${DEFAULT_ITEMS.length} projets par défaut dans la base de données ?`)) return;
+    setSeeding(true);
+    setError("");
+    try {
+      for (const item of DEFAULT_ITEMS) {
+        await fetch("/api/admin/portfolio", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+      }
+      setSuccess(`${DEFAULT_ITEMS.length} projets importés !`);
+      setTimeout(() => setSuccess(""), 4000);
+      load();
+    } catch {
+      setError("Erreur lors de l'import.");
+    } finally {
+      setSeeding(false);
+    }
+  };
+
   const startEdit = (item: PortfolioItem) => {
     setEditing(item.id);
     setAdding(false);
@@ -113,10 +151,26 @@ export function PortfolioAdmin() {
         </div>
 
         {loading && <p className="text-sm text-slate-500">Chargement…</p>}
-        {!loading && items.length === 0 && (
-          <p className="rounded-2xl border border-white/8 bg-slate-900/40 p-4 text-sm text-slate-500">
-            Aucun projet. Cliquez sur &quot;+ Ajouter&quot; pour commencer.
-          </p>
+
+        {error && !loading && (
+          <p className="rounded-2xl border border-red-500/20 bg-red-500/8 p-3 text-xs text-red-400">{error}</p>
+        )}
+
+        {success && (
+          <p className="rounded-2xl border border-emerald-500/20 bg-emerald-500/8 p-3 text-xs text-emerald-400">{success}</p>
+        )}
+
+        {!loading && items.length === 0 && !error && (
+          <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-4 space-y-3">
+            <p className="text-sm text-slate-500">Aucun projet dans la base de données.</p>
+            <button
+              onClick={handleSeedDefaults}
+              disabled={seeding}
+              className="w-full rounded-full bg-fuchsia-500/15 border border-fuchsia-500/30 px-3 py-2 text-xs font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/25 disabled:opacity-50"
+            >
+              {seeding ? "Import en cours…" : `↓ Importer les ${DEFAULT_ITEMS.length} projets existants`}
+            </button>
+          </div>
         )}
 
         {items.map((item) => {
@@ -197,9 +251,6 @@ export function PortfolioAdmin() {
                 Visible sur le site
               </label>
             </div>
-
-            {error && <p className="text-sm text-red-400">{error}</p>}
-            {success && <p className="text-sm text-emerald-400">{success}</p>}
 
             <div className="flex gap-3">
               <button onClick={handleSave} disabled={uploading}
