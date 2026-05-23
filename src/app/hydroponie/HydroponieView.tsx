@@ -110,7 +110,7 @@ export function HydroponieView() {
               <span className="bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
             </h1>
             <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="flex flex-wrap gap-3">
               <Link href="/contact" className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/20 transition hover:scale-105">
                 {t.hero.cta1}
               </Link>
