@@ -22,7 +22,7 @@ const copy: Record<SupportedLanguage, LandingCopy> = {
     hero: {
       title: "Serres connectées,",
       highlight: "apps et formations.",
-      sub: "Vous avez besoin d'une serre automatisée, d'une app ou d'une équipe à former. Enov CORP fait les trois.",
+      sub: "Capteurs IoT, apps Android et iOS, intégration IA et LLM, formations terrain — on conçoit et on livre.",
       cta1: "Voir ce qu'on fait",
       cta2: "Nous écrire",
     },
@@ -49,7 +49,7 @@ const copy: Record<SupportedLanguage, LandingCopy> = {
     hero: {
       title: "Connected greenhouses,",
       highlight: "apps and training.",
-      sub: "You need an automated greenhouse, an app, or a team to train. Enov CORP does all three.",
+      sub: "IoT sensors, Android and iOS apps, AI and LLM integration, hands-on training — we design and deliver.",
       cta1: "See what we do",
       cta2: "Write to us",
     },
