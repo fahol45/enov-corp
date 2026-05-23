@@ -84,34 +84,50 @@ export default function AProposPage() {
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-rose-500/8 blur-[80px]" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
-            className="max-w-3xl space-y-8"
-          >
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-amber-500/25 bg-amber-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-amber-300">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
-              {t.hero.kicker}
-            </div>
-
-            <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              {t.hero.title}
-              <br />
-              <span className="bg-linear-to-r from-amber-400 via-rose-400 to-indigo-400 bg-clip-text text-transparent">
-                {t.hero.highlight}
-              </span>
-            </h1>
-
-            <p className="max-w-lg text-lg text-slate-400">{t.hero.sub}</p>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-amber-400 via-rose-500 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-amber-500/20 transition hover:scale-105"
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
+              className="flex-1 space-y-8"
             >
-              {t.hero.cta}
-            </Link>
-          </motion.div>
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-amber-500/25 bg-amber-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-amber-300">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+                {t.hero.kicker}
+              </div>
+
+              <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+                {t.hero.title}
+                <br />
+                <span className="bg-linear-to-r from-amber-400 via-rose-400 to-indigo-400 bg-clip-text text-transparent">
+                  {t.hero.highlight}
+                </span>
+              </h1>
+
+              <p className="max-w-lg text-lg text-slate-400">{t.hero.sub}</p>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-amber-400 via-rose-500 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-amber-500/20 transition hover:scale-105"
+              >
+                {t.hero.cta}
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+              className="flex flex-row gap-4 lg:w-64 lg:shrink-0 lg:flex-col"
+            >
+              {t.values.map((v, i) => (
+                <div key={v.num} className="flex-1 rounded-2xl border border-white/8 bg-slate-900/50 p-5 lg:flex-none">
+                  <p className={`text-xl font-black bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-transparent`}>{v.num}</p>
+                  <p className="mt-1 text-xs text-slate-500 leading-relaxed">{v.title}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </section>
 
         {/* ── PILLARS ──────────────────────────────────────────────────── */}
