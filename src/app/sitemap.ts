@@ -7,6 +7,7 @@ const routes = [
   { path: "/hydroponie", priority: 0.9 },
   { path: "/web-mobile", priority: 0.9 },
   { path: "/academy", priority: 0.9 },
+  { path: "/portfolio", priority: 0.8 },
   { path: "/propos", priority: 0.7 },
   { path: "/contact", priority: 0.6 },
 ];

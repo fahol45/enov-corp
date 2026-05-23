@@ -1,28 +1,25 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
-type DbItem = { id: string; title: string; description: string; image_url: string; category: "hydro" | "web" | "training"; tags: string; external_url: string; sort_order: number; active: boolean };
+type Category = "hydro" | "web" | "training";
+type DbItem = { id: string; title: string; description: string; image_url: string; category: Category; tags: string; external_url: string; sort_order: number; active: boolean };
 
-type HeroCopy = { kicker: string; title: string; highlight: string; sub: string };
-type CtaCopy = { title: string; button: string };
-
-const heroCopy: Record<SupportedLanguage, HeroCopy> = {
+const heroCopy: Record<SupportedLanguage, { kicker: string; title: string; highlight: string; sub: string }> = {
   fr: { kicker: "Portfolio", title: "Projets livrés.", highlight: "Résultats mesurables.", sub: "Serres connectées, applications sur mesure, formations terrain. Voici ce qu'on a concrètement réalisé." },
   en: { kicker: "Portfolio", title: "Projects delivered.", highlight: "Measurable results.", sub: "Connected greenhouses, custom applications, hands-on training. Here's what we've actually built." },
 };
 
-const sectionTitles: Record<SupportedLanguage, { hydro: string; web: string; training: string }> = {
-  fr: { hydro: "Hydroponie & IoT", web: "Applications & Sites web", training: "Formations Enov Academy" },
-  en: { hydro: "Hydroponics & IoT", web: "Apps & Websites", training: "Enov Academy Training" },
+const filterCopy: Record<SupportedLanguage, { all: string; hydro: string; web: string; training: string }> = {
+  fr: { all: "Tous", hydro: "Hydroponie & IoT", web: "Web & Mobile", training: "Formations" },
+  en: { all: "All", hydro: "Hydroponics & IoT", web: "Web & Mobile", training: "Training" },
 };
 
-const ctaCopy: Record<SupportedLanguage, CtaCopy> = {
+const ctaCopy: Record<SupportedLanguage, { title: string; button: string }> = {
   fr: { title: "Un projet similaire en tête. On vous répond en 24h.", button: "Nous contacter" },
   en: { title: "A similar project in mind. We reply within 24h.", button: "Contact us" },
 };
@@ -39,28 +36,39 @@ const FALLBACK_ITEMS: DbItem[] = [
   { id: "f9", title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true },
 ];
 
+const CATEGORY_COLOR: Record<Category, string> = {
+  hydro: "text-emerald-400",
+  web: "text-fuchsia-400",
+  training: "text-sky-400",
+};
+
 function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const card = (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: index * 0.08 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.35, delay: index * 0.05 }}
       className="group relative overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70"
     >
-      <div className="relative h-48 w-full overflow-hidden">
+      <div className="relative h-48 w-full overflow-hidden bg-slate-800">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={item.image_url}
           alt={item.title}
+          loading="lazy"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
       </div>
       <div className="p-5">
+        <p className={`mb-1 text-[0.6rem] font-semibold uppercase tracking-[0.35em] ${CATEGORY_COLOR[item.category]}`}>
+          {item.category === "hydro" ? "Hydroponie & IoT" : item.category === "web" ? "Web & Mobile" : "Formation"}
+        </p>
         <p className="text-base font-bold text-white">{item.title}</p>
         {item.description && <p className="mt-1 text-sm text-slate-400">{item.description}</p>}
-        <p className="mt-1.5 text-xs tracking-wide text-slate-500">{item.tags}</p>
+        <p className="mt-1.5 text-xs leading-relaxed text-slate-500">{item.tags}</p>
       </div>
     </motion.div>
   );
@@ -75,9 +83,12 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   return card;
 }
 
+type FilterValue = "all" | Category;
+
 export default function PortfolioPage() {
   const { language } = useLanguage();
   const [items, setItems] = useState<DbItem[]>(FALLBACK_ITEMS);
+  const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -87,12 +98,17 @@ export default function PortfolioPage() {
   }, []);
 
   const hero = heroCopy[language];
-  const titles = sectionTitles[language];
+  const filters = filterCopy[language];
   const cta = ctaCopy[language];
 
-  const hydroItems = items.filter((i) => i.category === "hydro");
-  const webItems = items.filter((i) => i.category === "web");
-  const trainingItems = items.filter((i) => i.category === "training");
+  const filtered = activeFilter === "all" ? items : items.filter((i) => i.category === activeFilter);
+
+  const filterTabs: { value: FilterValue; label: string }[] = [
+    { value: "all", label: filters.all },
+    { value: "hydro", label: filters.hydro },
+    { value: "web", label: filters.web },
+    { value: "training", label: filters.training },
+  ];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -115,7 +131,6 @@ export default function PortfolioPage() {
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-400" />
               {hero.kicker}
             </div>
-
             <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
               {hero.title}
               <br />
@@ -123,46 +138,50 @@ export default function PortfolioPage() {
                 {hero.highlight}
               </span>
             </h1>
-
             <p className="max-w-md text-lg text-slate-400">{hero.sub}</p>
           </motion.div>
         </section>
 
-        {/* ── HYDROPONIE & IoT ─────────────────────────────────────────── */}
-        {hydroItems.length > 0 && (
-          <FadeUp>
-            <section className="space-y-8">
-              <h2 className="text-2xl font-black sm:text-3xl">{titles.hydro}</h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {hydroItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
-              </div>
-            </section>
-          </FadeUp>
-        )}
+        {/* ── FILTERS ──────────────────────────────────────────────────── */}
+        <FadeUp>
+          <div className="flex flex-wrap gap-2">
+            {filterTabs.map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveFilter(tab.value)}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                  activeFilter === tab.value
+                    ? "border-fuchsia-500/50 bg-fuchsia-500/15 text-fuchsia-300"
+                    : "border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-white"
+                }`}
+              >
+                {tab.label}
+                {tab.value !== "all" && (
+                  <span className="ml-1.5 text-xs opacity-50">
+                    {items.filter((i) => i.category === tab.value).length}
+                  </span>
+                )}
+                {tab.value === "all" && (
+                  <span className="ml-1.5 text-xs opacity-50">{items.length}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        </FadeUp>
 
-        {/* ── WEB & MOBILE ─────────────────────────────────────────────── */}
-        {webItems.length > 0 && (
-          <FadeUp>
-            <section className="space-y-8">
-              <h2 className="text-2xl font-black sm:text-3xl">{titles.web}</h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {webItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
-              </div>
-            </section>
-          </FadeUp>
-        )}
-
-        {/* ── FORMATIONS ───────────────────────────────────────────────── */}
-        {trainingItems.length > 0 && (
-          <FadeUp>
-            <section className="space-y-8">
-              <h2 className="text-2xl font-black sm:text-3xl">{titles.training}</h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {trainingItems.map((item, i) => <ProjectCard key={item.id} item={item} index={i} />)}
-              </div>
-            </section>
-          </FadeUp>
-        )}
+        {/* ── GRID ─────────────────────────────────────────────────────── */}
+        <section>
+          <AnimatePresence mode="popLayout">
+            <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((item, i) => (
+                <ProjectCard key={item.id} item={item} index={i} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+          {filtered.length === 0 && (
+            <p className="py-16 text-center text-slate-500">Aucun projet dans cette catégorie.</p>
+          )}
+        </section>
 
         {/* ── CTA ──────────────────────────────────────────────────────── */}
         <FadeUp>
