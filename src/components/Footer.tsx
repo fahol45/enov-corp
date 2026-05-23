@@ -87,9 +87,6 @@ export function Footer() {
           <p className="text-xs text-slate-600">
             &copy; {year} ENOV CORP — {t.rights}
           </p>
-          <p className="text-[0.65rem] uppercase tracking-[0.3em] text-slate-700">
-            Abidjan, Côte d&apos;Ivoire
-          </p>
         </div>
       </div>
     </footer>
