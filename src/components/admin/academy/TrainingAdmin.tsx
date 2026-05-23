@@ -144,13 +144,46 @@ export function TrainingAdmin() {
   const feedbackTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    const stored = safeParseDrafts(
-      typeof window === "undefined" ? null : window.localStorage.getItem(storageKey)
-    );
-    if (stored && stored.length > 0) {
-      setDrafts(stored);
-      setSelectedId(stored[0]._id);
-    }
+    let cancelled = false;
+    const autoLoad = async () => {
+      setRemoteBusy(true);
+      try {
+        const r = await fetch("/api/admin/academy/trainings", { method: "GET", credentials: "include" });
+        if (!r.ok || cancelled) return;
+        const d = (await r.json()) as { trainings?: Training[] };
+
+        if (!d.trainings || d.trainings.length === 0) {
+          const seeded = typeof window !== "undefined" && !!window.localStorage.getItem("enov_trainings_seeded");
+          if (seeded || cancelled) return;
+          await fetch("/api/admin/academy/trainings", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ trainings: defaultTrainings }),
+          });
+          if (typeof window !== "undefined") window.localStorage.setItem("enov_trainings_seeded", "1");
+          if (cancelled) return;
+          const r2 = await fetch("/api/admin/academy/trainings", { credentials: "include" });
+          if (!r2.ok || cancelled) return;
+          const d2 = (await r2.json()) as { trainings?: Training[] };
+          if (d2.trainings && d2.trainings.length > 0 && !cancelled) {
+            const loaded = withIds(d2.trainings);
+            setDrafts(loaded);
+            setSelectedId(loaded[0]._id);
+          }
+          return;
+        }
+
+        if (cancelled) return;
+        const loaded = withIds(d.trainings);
+        setDrafts(loaded);
+        setSelectedId(loaded[0]._id);
+      } catch { /* silent fallback to defaultTrainings */ } finally {
+        if (!cancelled) setRemoteBusy(false);
+      }
+    };
+    autoLoad();
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
@@ -526,6 +559,11 @@ export function TrainingAdmin() {
           <span className="rounded-full border border-white/8 bg-white/5 px-2.5 py-0.5 text-xs text-slate-400">
             {statusCounts.available} dispo · {statusCounts.soon} bientôt · {statusCounts.closed} fermées
           </span>
+          {remoteBusy && !feedback && (
+            <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-slate-500">
+              Chargement…
+            </span>
+          )}
           {feedback && (
             <span className="rounded-full border border-[#00a3ff]/40 bg-[#00a3ff]/10 px-2.5 py-0.5 text-xs text-[#9ad9ff]">
               {feedback}
@@ -543,19 +581,6 @@ export function TrainingAdmin() {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {/* Supabase sync */}
-          <button
-            type="button"
-            onClick={handleLoadSupabase}
-            disabled={remoteDisabled}
-            className={`rounded-full border px-4 py-2 text-sm font-semibold text-white transition ${
-              remoteDisabled
-                ? "border-white/10 bg-white/5 text-slate-500"
-                : "border-[#00a3ff]/40 bg-[#00a3ff]/10 hover:bg-[#00a3ff]/20"
-            }`}
-          >
-            {remoteBusy ? "…" : "Charger"}
-          </button>
           <button
             type="button"
             onClick={handlePushSupabase}
