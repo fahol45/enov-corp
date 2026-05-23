@@ -71,15 +71,15 @@ export function HeroSlideshow() {
       <div className="absolute left-4 top-16 h-6 w-6 border-l-2 border-t-2 border-white/20 sm:left-6 sm:h-8 sm:w-8" />
       <div className="absolute right-4 top-16 h-6 w-6 border-r-2 border-t-2 border-white/20 sm:right-6 sm:h-8 sm:w-8" />
 
-      {/* Dot indicators — pointer-events enabled for clicks */}
-      <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center gap-2">
+      {/* Dot indicators */}
+      <div className="pointer-events-auto absolute inset-x-0 bottom-4 flex justify-center gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
             aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
-              i === index ? "h-1.5 w-6 bg-white/80" : "h-1.5 w-1.5 bg-white/30 hover:bg-white/50"
+              i === index ? "h-1 w-5 bg-white/70" : "h-1 w-1 bg-white/25 hover:bg-white/45"
             }`}
           />
         ))}
