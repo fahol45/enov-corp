@@ -34,19 +34,45 @@ export function PortfolioAdmin() {
   const [success, setSuccess] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const load = () => {
+  const seedDefaults = async () => {
+    setSeeding(true);
+    try {
+      for (const item of DEFAULT_ITEMS) {
+        await fetch("/api/admin/portfolio", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+      }
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("enov_portfolio_seeded", "1");
+      }
+    } catch { /* silent */ } finally {
+      setSeeding(false);
+    }
+  };
+
+  const load = (autoSeed = false) => {
     setLoading(true);
     fetch("/api/admin/portfolio")
       .then((r) => r.json())
-      .then((d) => {
-        if (!d.ok) setError(d.message ?? "Erreur Supabase.");
-        setItems(d.items ?? []);
+      .then(async (d) => {
+        if (!d.ok) { setError(d.message ?? "Erreur Supabase."); return; }
+        if (autoSeed && d.items.length === 0) {
+          await seedDefaults();
+          const r2 = await fetch("/api/admin/portfolio");
+          const d2 = await r2.json();
+          setItems(d2.items ?? []);
+        } else {
+          setItems(d.items ?? []);
+        }
       })
       .catch(() => setError("Impossible de charger les projets."))
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { load(); }, []);
+  const alreadySeeded = typeof window !== "undefined" && !!window.localStorage.getItem("enov_portfolio_seeded");
+  useEffect(() => { load(!alreadySeeded); }, []);
 
   const uploadFile = async (file: File): Promise<string | null> => {
     const fd = new FormData();
@@ -86,28 +112,6 @@ export function PortfolioAdmin() {
       setTimeout(() => setSuccess(""), 3000);
       load();
     } else setError(d.message ?? "Erreur.");
-  };
-
-  const handleSeedDefaults = async () => {
-    if (!confirm(`Importer les ${DEFAULT_ITEMS.length} projets par défaut dans la base de données ?`)) return;
-    setSeeding(true);
-    setError("");
-    try {
-      for (const item of DEFAULT_ITEMS) {
-        await fetch("/api/admin/portfolio", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(item),
-        });
-      }
-      setSuccess(`${DEFAULT_ITEMS.length} projets importés !`);
-      setTimeout(() => setSuccess(""), 4000);
-      load();
-    } catch {
-      setError("Erreur lors de l'import.");
-    } finally {
-      setSeeding(false);
-    }
   };
 
   const startEdit = (item: PortfolioItem) => {
@@ -160,17 +164,10 @@ export function PortfolioAdmin() {
           <p className="rounded-2xl border border-emerald-500/20 bg-emerald-500/8 p-3 text-xs text-emerald-400">{success}</p>
         )}
 
-        {!loading && items.length === 0 && !error && (
-          <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-4 space-y-3">
-            <p className="text-sm text-slate-500">Aucun projet dans la base de données.</p>
-            <button
-              onClick={handleSeedDefaults}
-              disabled={seeding}
-              className="w-full rounded-full bg-fuchsia-500/15 border border-fuchsia-500/30 px-3 py-2 text-xs font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/25 disabled:opacity-50"
-            >
-              {seeding ? "Import en cours…" : `↓ Importer les ${DEFAULT_ITEMS.length} projets existants`}
-            </button>
-          </div>
+        {!loading && !seeding && items.length === 0 && !error && (
+          <p className="rounded-2xl border border-white/8 bg-slate-900/40 p-4 text-sm text-slate-500">
+            Aucun projet. Cliquez sur &quot;+ Ajouter&quot; pour commencer.
+          </p>
         )}
 
         {items.map((item) => {
