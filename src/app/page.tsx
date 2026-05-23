@@ -22,7 +22,7 @@ const copy: Record<SupportedLanguage, LandingCopy> = {
     hero: {
       title: "Serres connectées,",
       highlight: "apps et formations.",
-      sub: "Hydroponie intelligente, apps Android et iOS, intégration IA et LLM, formations terrain — on conçoit et on livre.",
+      sub: "Hydroponie intelligente, apps web et mobile, intégration IA et LLM, formations terrain — on conçoit et on livre.",
       cta1: "Voir ce qu'on fait",
       cta2: "Nous écrire",
     },
@@ -49,7 +49,7 @@ const copy: Record<SupportedLanguage, LandingCopy> = {
     hero: {
       title: "Connected greenhouses,",
       highlight: "apps and training.",
-      sub: "Smart hydroponics, Android and iOS apps, AI and LLM integration, hands-on training — we design and deliver.",
+      sub: "Smart hydroponics, web and mobile apps, AI and LLM integration, hands-on training — we design and deliver.",
       cta1: "See what we do",
       cta2: "Write to us",
     },
