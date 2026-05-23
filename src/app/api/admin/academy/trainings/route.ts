@@ -80,23 +80,6 @@ const toRow = (training: Training): TrainingRow => ({
   registration_url: normalizeText(training.registrationUrl) || null,
 });
 
-const requireAdmin = (request: NextRequest) => {
-  const adminKey = process.env.ACADEMY_ADMIN_KEY;
-  if (!adminKey) {
-    return NextResponse.json(
-      { ok: false, message: "ACADEMY_ADMIN_KEY manquant." },
-      { status: 500 }
-    );
-  }
-  const provided = request.headers.get("x-admin-key") ?? "";
-  if (provided !== adminKey) {
-    return NextResponse.json(
-      { ok: false, message: "Acces refuse." },
-      { status: 401 }
-    );
-  }
-  return null;
-};
 
 const getPayloadTrainings = (payload: unknown) => {
   if (Array.isArray(payload)) return payload as Training[];
@@ -138,10 +121,7 @@ const extractStoragePath = (value: string | null) => {
   }
 };
 
-export async function GET(request: NextRequest) {
-  const authError = requireAdmin(request);
-  if (authError) return authError;
-
+export async function GET(_request: NextRequest) {
   const { data, error } = await supabaseServer
     .from("academy_trainings")
     .select("*")
@@ -160,9 +140,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const authError = requireAdmin(request);
-  if (authError) return authError;
-
   let payload: unknown;
   try {
     payload = await request.json();

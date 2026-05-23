@@ -132,7 +132,6 @@ export function TrainingAdmin() {
   const [search, setSearch] = useState("");
   const [showImport, setShowImport] = useState(false);
   const [importText, setImportText] = useState("");
-  const [adminKey, setAdminKey] = useState("");
   const [remoteBusy, setRemoteBusy] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -161,23 +160,6 @@ export function TrainingAdmin() {
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const storedKey = window.localStorage.getItem("enov_academy_admin_key");
-    if (storedKey) {
-      setAdminKey(storedKey);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (adminKey.trim()) {
-      window.localStorage.setItem("enov_academy_admin_key", adminKey.trim());
-    } else {
-      window.localStorage.removeItem("enov_academy_admin_key");
-    }
-  }, [adminKey]);
 
   useEffect(() => {
     if (!selectedId && drafts.length > 0) {
@@ -373,19 +355,11 @@ export function TrainingAdmin() {
   };
 
   const callAdminApi = async (method: "GET" | "PUT", body?: unknown) => {
-    const key = adminKey.trim();
-    if (!key) {
-      showFeedback("Cle admin requise.");
-      return null;
-    }
     setRemoteBusy(true);
     try {
       const response = await fetch("/api/admin/academy/trainings", {
         method,
-        headers: {
-          "Content-Type": "application/json",
-          "x-admin-key": key,
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: body ? JSON.stringify(body) : undefined,
       });
@@ -443,11 +417,6 @@ export function TrainingAdmin() {
   };
 
   const uploadMedia = async (file: File, kind: "image" | "pdf") => {
-    const key = adminKey.trim();
-    if (!key) {
-      showFeedback("Cle admin requise.");
-      return;
-    }
     if (!selected?.slug.trim()) {
       showFeedback("Slug requis avant upload.");
       return;
@@ -461,9 +430,6 @@ export function TrainingAdmin() {
 
       const response = await fetch("/api/admin/academy/upload", {
         method: "POST",
-        headers: {
-          "x-admin-key": key,
-        },
         credentials: "include",
         body: formData,
       });
@@ -539,9 +505,8 @@ export function TrainingAdmin() {
     !selected?.title.trim() ||
     !selected?.category.trim();
 
-  const remoteDisabled = remoteBusy || !adminKey.trim();
-  const uploadDisabled =
-    uploading || !adminKey.trim() || !selected?.slug.trim();
+  const remoteDisabled = remoteBusy;
+  const uploadDisabled = uploading || !selected?.slug.trim();
 
   return (
     <div className="space-y-8">
@@ -641,15 +606,6 @@ export function TrainingAdmin() {
             </p>
           </div>
           <div className="space-y-3">
-            <label className="flex flex-col gap-2 text-sm text-slate-300">
-              Cle admin (ACADEMY_ADMIN_KEY)
-              <input
-                value={adminKey}
-                onChange={(event) => setAdminKey(event.target.value)}
-                placeholder="Saisir la cle admin"
-                className={inputClass}
-              />
-            </label>
             <label className="flex items-center gap-2 text-xs text-slate-400">
               <input
                 type="checkbox"
@@ -685,9 +641,6 @@ export function TrainingAdmin() {
                 Publier vers Supabase
               </button>
             </div>
-            <p className="text-xs text-slate-500">
-              La cle est stockee en local dans votre navigateur.
-            </p>
           </div>
         </div>
         {showImport ? (
