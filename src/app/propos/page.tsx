@@ -7,10 +7,14 @@ import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type AboutCopy = {
   hero: { kicker: string; title: string; highlight: string; sub: string; cta: string };
+  statsTitle: string;
+  stats: Array<{ value: string; label: string }>;
   pillarsTitle: string;
   pillars: Array<{ num: string; title: string; tags: string; href: string }>;
   valuesTitle: string;
   values: Array<{ num: string; title: string }>;
+  promiseTitle: string;
+  promise: string;
   cta: { title: string; button: string };
 };
 
@@ -29,12 +33,21 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
       { num: "02", title: "Apps & Sites web", tags: "Android, iOS, web. Un seul interlocuteur. Livré en 3 mois.", href: "/web-mobile" },
       { num: "03", title: "Formation", tags: "8 participants max. Projet concret à rendre. Certificat Enov à la clé.", href: "/academy" },
     ],
+    statsTitle: "En chiffres.",
+    stats: [
+      { value: "3", label: "Domaines maîtrisés" },
+      { value: "< 3 mois", label: "De l'idée à la livraison" },
+      { value: "8 max", label: "Participants par formation" },
+      { value: "24h", label: "Délai de réponse garanti" },
+    ],
     valuesTitle: "La façon dont on travaille.",
     values: [
       { num: "01", title: "On accepte un projet, on le livre" },
       { num: "02", title: "Vous parlez à la personne qui fait le travail" },
       { num: "03", title: "On reste disponible après la livraison" },
     ],
+    promiseTitle: "Notre engagement.",
+    promise: "Pas de sous-traitance. Pas de commercial entre vous et les techniciens. Quand on accepte un projet, on en prend la responsabilité du début à la fin — conception, développement, installation, formation et suivi.",
     cta: { title: "Un projet en tête. On vous répond en 24h.", button: "Nous contacter" },
   },
   en: {
@@ -51,12 +64,21 @@ const copy: Record<SupportedLanguage, AboutCopy> = {
       { num: "02", title: "Apps & Websites", tags: "Android, iOS, web. One point of contact. Delivered in 3 months.", href: "/web-mobile" },
       { num: "03", title: "Training", tags: "Max 8 participants. Real project to complete. Enov certificate included.", href: "/academy" },
     ],
+    statsTitle: "By the numbers.",
+    stats: [
+      { value: "3", label: "Domains mastered" },
+      { value: "< 3 mo.", label: "From idea to delivery" },
+      { value: "8 max", label: "Participants per training" },
+      { value: "24h", label: "Guaranteed response time" },
+    ],
     valuesTitle: "How we work.",
     values: [
       { num: "01", title: "We accept a project, we deliver it" },
       { num: "02", title: "You talk to the person doing the work" },
       { num: "03", title: "We stay available after delivery" },
     ],
+    promiseTitle: "Our commitment.",
+    promise: "No subcontracting. No sales reps between you and the engineers. When we take on a project, we own it from start to finish — design, development, installation, training and ongoing support.",
     cta: { title: "A project in mind. We reply within 24h.", button: "Contact us" },
   },
 };
@@ -130,6 +152,18 @@ export default function AProposPage() {
           </div>
         </section>
 
+        {/* ── STATS ────────────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {t.stats.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-white/8 bg-slate-900/40 p-5 text-center">
+                <p className="text-2xl font-black sm:text-3xl" style={{ background: "linear-gradient(to right, #fbbf24, #f87171, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{s.value}</p>
+                <p className="mt-1 text-xs text-slate-500">{s.label}</p>
+              </div>
+            ))}
+          </section>
+        </FadeUp>
+
         {/* ── PILLARS ──────────────────────────────────────────────────── */}
         <FadeUp>
           <section className="space-y-10">
@@ -174,6 +208,17 @@ export default function AProposPage() {
                   <p className={`bg-linear-to-r ${VALUE_COLORS[i]} bg-clip-text text-2xl font-black text-transparent`}>{v.title}</p>
                 </motion.div>
               ))}
+            </div>
+          </section>
+        </FadeUp>
+
+        {/* ── PROMISE ──────────────────────────────────────────────────── */}
+        <FadeUp>
+          <section className="relative overflow-hidden rounded-3xl border border-amber-500/15 bg-amber-500/5 p-8 sm:p-12">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="relative space-y-4 max-w-2xl">
+              <p className="text-[0.65rem] uppercase tracking-[0.5em] text-amber-400">{t.promiseTitle}</p>
+              <p className="text-xl font-semibold leading-relaxed text-white sm:text-2xl">{t.promise}</p>
             </div>
           </section>
         </FadeUp>
