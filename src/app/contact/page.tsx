@@ -84,43 +84,65 @@ export default function ContactPage() {
             <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-emerald-500/8 blur-[80px]" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
-            className="max-w-3xl space-y-8"
-          >
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-fuchsia-500/25 bg-fuchsia-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-fuchsia-300">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
-              {t.hero.kicker}
-            </div>
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
+              className="flex-1 space-y-8"
+            >
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-fuchsia-500/25 bg-fuchsia-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-fuchsia-300">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
+                {t.hero.kicker}
+              </div>
 
-            <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              {t.hero.title}
-              <br />
-              <span className="bg-linear-to-r from-fuchsia-400 via-pink-400 to-emerald-400 bg-clip-text text-transparent">
-                {t.hero.highlight}
-              </span>
-            </h1>
+              <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+                {t.hero.title}
+                <br />
+                <span className="bg-linear-to-r from-fuchsia-400 via-pink-400 to-emerald-400 bg-clip-text text-transparent">
+                  {t.hero.highlight}
+                </span>
+              </h1>
 
-            <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
+              <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              {t.channels.map((c) => (
-                <Link
-                  key={c.label}
-                  href={c.href}
-                  className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-slate-900/40 px-6 py-4 transition hover:border-white/20 hover:bg-slate-900/70"
-                >
-                  <div>
-                    <p className="text-[0.6rem] uppercase tracking-[0.4em] text-fuchsia-300">{c.label}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{c.value}</p>
-                  </div>
-                  <span className="ml-auto text-slate-600 transition group-hover:translate-x-1 group-hover:text-white">→</span>
-                </Link>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                {t.channels.map((c) => (
+                  <Link
+                    key={c.label}
+                    href={c.href}
+                    className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-slate-900/40 px-6 py-4 transition hover:border-white/20 hover:bg-slate-900/70"
+                  >
+                    <div>
+                      <p className="text-[0.6rem] uppercase tracking-[0.4em] text-fuchsia-300">{c.label}</p>
+                      <p className="mt-1 text-sm font-semibold text-white">{c.value}</p>
+                    </div>
+                    <span className="ml-auto text-slate-600 transition group-hover:translate-x-1 group-hover:text-white">→</span>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+              className="flex flex-row gap-4 lg:w-64 lg:shrink-0 lg:flex-col"
+            >
+              {[
+                { value: "24h", label: language === "fr" ? "Délai de réponse garanti" : "Guaranteed response time" },
+                { value: "100%", label: language === "fr" ? "Messages lus personnellement" : "Messages read personally" },
+                { value: "0", label: language === "fr" ? "Commercial — vous parlez au tech" : "Sales reps — you talk to tech" },
+              ].map((s) => (
+                <div key={s.label} className="flex-1 rounded-2xl border border-white/8 bg-slate-900/50 p-5 lg:flex-none">
+                  <p className="text-2xl font-black lg:text-3xl" style={{ background: "linear-gradient(to right, #e879f9, #f472b6, #34d399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                    {s.value}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500 leading-relaxed">{s.label}</p>
+                </div>
               ))}
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </section>
 
         {/* ── FORM ─────────────────────────────────────────────────────── */}
