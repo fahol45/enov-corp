@@ -87,23 +87,6 @@ export function PortfolioAdmin() {
 
   return (
     <div className="space-y-10">
-      {/* SQL hint */}
-      <details className="rounded-2xl border border-white/8 bg-slate-900/40 p-4">
-        <summary className="cursor-pointer text-xs font-semibold uppercase tracking-widest text-slate-400">Table Supabase requise (cliquer pour voir le SQL)</summary>
-        <pre className="mt-3 overflow-x-auto rounded-xl bg-slate-950/80 p-4 text-xs text-fuchsia-300">{`CREATE TABLE portfolio_items (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  title text NOT NULL DEFAULT '',
-  description text DEFAULT '',
-  image_url text DEFAULT '',
-  category text DEFAULT 'web' CHECK (category IN ('hydro','web','training')),
-  tags text DEFAULT '',
-  external_url text DEFAULT '',
-  sort_order integer DEFAULT 0,
-  active boolean DEFAULT true,
-  created_at timestamptz DEFAULT now()
-);`}</pre>
-      </details>
-
       {/* Form */}
       <section className="space-y-4 rounded-3xl border border-white/10 bg-slate-900/40 p-6">
         <h2 className="text-lg font-bold">{editing ? "Modifier le projet" : "Ajouter un projet"}</h2>

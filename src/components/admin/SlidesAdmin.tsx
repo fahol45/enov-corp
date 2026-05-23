@@ -77,19 +77,6 @@ export function SlidesAdmin() {
 
   return (
     <div className="space-y-8">
-      {/* SQL hint */}
-      <details className="rounded-2xl border border-white/8 bg-slate-900/40 p-4">
-        <summary className="cursor-pointer text-xs font-semibold uppercase tracking-widest text-slate-400">Table Supabase requise (cliquer pour voir le SQL)</summary>
-        <pre className="mt-3 overflow-x-auto rounded-xl bg-slate-950/80 p-4 text-xs text-emerald-300">{`CREATE TABLE hero_slides (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  image_url text NOT NULL,
-  title text DEFAULT '',
-  sort_order integer DEFAULT 0,
-  active boolean DEFAULT true,
-  created_at timestamptz DEFAULT now()
-);`}</pre>
-      </details>
-
       {/* Add form */}
       <section className="space-y-4 rounded-3xl border border-white/10 bg-slate-900/40 p-6">
         <h2 className="text-lg font-bold">Ajouter un slide</h2>
