@@ -95,7 +95,7 @@ export default function Home() {
       <div className="relative z-10 app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative flex min-h-[92vh] flex-col items-center justify-center gap-6 py-24 text-center">
+        <section className="relative flex min-h-[75vh] flex-col items-center justify-center gap-5 py-14 text-center sm:min-h-[88vh] sm:gap-6 sm:py-24">
 
           {/* Blobs — CSS animation via Tailwind */}
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -112,7 +112,7 @@ export default function Home() {
           {/* Title */}
           <motion.h1
             {...fadeUp(0.1)}
-            className="max-w-3xl text-[2.2rem] font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.8rem]"
+            className="max-w-3xl text-[1.75rem] font-black leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.8rem]"
           >
             {t.hero.title}
             <br />
@@ -146,7 +146,7 @@ export default function Home() {
 
         {/* ── STATS ────────────────────────────────────────────────────── */}
         <FadeUp>
-          <section className="grid grid-cols-3 divide-x divide-white/8 border-y border-white/8 py-8 sm:py-10">
+          <section className="grid grid-cols-3 divide-x divide-white/8 border-y border-white/8 py-6 sm:py-10">
             {t.stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -156,10 +156,10 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="flex flex-col items-center gap-1 px-2 text-center sm:px-4"
               >
-                <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-2xl font-black text-transparent sm:text-4xl lg:text-5xl">
+                <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-xl font-black text-transparent sm:text-4xl lg:text-5xl">
                   {stat.value}
                 </span>
-                <span className="mt-1 text-[0.55rem] uppercase tracking-[0.3em] text-slate-500 sm:text-[0.6rem] sm:tracking-[0.35em]">
+                <span className="mt-1 text-[0.5rem] uppercase leading-tight tracking-[0.08em] text-slate-500 sm:text-[0.6rem] sm:tracking-[0.25em]">
                   {stat.label}
                 </span>
               </motion.div>
@@ -169,8 +169,8 @@ export default function Home() {
 
         {/* ── PILLARS ──────────────────────────────────────────────────── */}
         <FadeUp>
-          <section id="poles" className="space-y-8">
-            <h2 className="text-2xl font-black sm:text-3xl lg:text-4xl">{t.pillarsTitle}</h2>
+          <section id="poles" className="space-y-6">
+            <h2 className="text-xl font-black sm:text-3xl lg:text-4xl">{t.pillarsTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.pillars.map((pillar, i) => {
                 const accent = PILLAR_ACCENT[i];
@@ -204,8 +204,8 @@ export default function Home() {
 
         {/* ── PROCESS ──────────────────────────────────────────────────── */}
         <FadeUp>
-          <section className="space-y-10">
-            <h2 className="text-center text-2xl font-black sm:text-3xl lg:text-4xl">{t.processTitle}</h2>
+          <section className="space-y-8">
+            <h2 className="text-center text-xl font-black sm:text-3xl lg:text-4xl">{t.processTitle}</h2>
             <div className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
               {t.process.map((step, i) => (
                 <motion.div
