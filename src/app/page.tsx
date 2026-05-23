@@ -122,7 +122,7 @@ export default function Home() {
           </motion.h1>
 
           {/* Sub */}
-          <motion.p {...fadeUp(0.2)} className="max-w-md text-base text-slate-400 sm:text-lg">
+          <motion.p {...fadeUp(0.2)} className="max-w-md text-base text-white sm:text-lg">
             {t.hero.sub}
           </motion.p>
 
