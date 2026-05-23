@@ -125,36 +125,40 @@ export function WebMobileView() {
             <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-blue-500/8 blur-[80px]" />
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }} className="space-y-8">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-fuchsia-500/25 bg-fuchsia-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-fuchsia-300">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
-              {t.hero.kicker}
-            </div>
-            <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-              {t.hero.title}
-              <br />
-              <span className="bg-linear-to-r from-fuchsia-400 via-purple-400 to-sky-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
-            </h1>
-            <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href="/contact" className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-purple-500 to-sky-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-purple-500/20 transition hover:scale-105 sm:w-auto">
-                {t.hero.cta1}
-              </Link>
-              <a href="#apps" className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto">
-                {t.hero.cta2}
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 0.61, 0.36, 1] }} className="relative mt-14 flex justify-center">
-            <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-purple-500/10 blur-3xl" />
-            <div className="relative w-full max-w-2xl rounded-[2.5rem] border border-white/10 bg-linear-to-br from-slate-900/90 to-slate-950/80 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-8">
-              <Image src="/pc-portable.png" alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"} width={1536} height={1024} priority unoptimized className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]" />
-              <div className="absolute -bottom-4 -right-2 w-20 rounded-3xl border border-white/10 bg-slate-900 p-2 shadow-xl sm:-right-6 sm:w-28">
-                <Image src="/mobile.png" alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"} width={1024} height={1536} unoptimized className="w-full rounded-2xl" />
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+            {/* Text */}
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }} className="flex-1 space-y-8">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-fuchsia-500/25 bg-fuchsia-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-fuchsia-300">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
+                {t.hero.kicker}
               </div>
-            </div>
-          </motion.div>
+              <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+                {t.hero.title}
+                <br />
+                <span className="bg-linear-to-r from-fuchsia-400 via-purple-400 to-sky-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
+              </h1>
+              <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link href="/contact" className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-purple-500 to-sky-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-purple-500/20 transition hover:scale-105 sm:w-auto">
+                  {t.hero.cta1}
+                </Link>
+                <a href="#apps" className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto">
+                  {t.hero.cta2}
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Mockup */}
+            <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 0.61, 0.36, 1] }} className="relative flex-1">
+              <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-purple-500/10 blur-3xl" />
+              <div className="relative w-full rounded-[2.5rem] border border-white/10 bg-linear-to-br from-slate-900/90 to-slate-950/80 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-8">
+                <Image src="/pc-portable.png" alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"} width={1536} height={1024} priority unoptimized className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]" />
+                <div className="absolute -bottom-4 -right-2 w-20 rounded-3xl border border-white/10 bg-slate-900 p-2 shadow-xl sm:-right-6 sm:w-28">
+                  <Image src="/mobile.png" alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"} width={1024} height={1536} unoptimized className="w-full rounded-2xl" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </section>
 
         {/* ── STATS ────────────────────────────────────────────────────── */}
