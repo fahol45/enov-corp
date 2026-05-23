@@ -167,6 +167,15 @@ export function TrainingAdmin() {
     }
   }, [drafts, selectedId]);
 
+  // Auto-save to localStorage on every change (debounced 800ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof window === "undefined") return;
+      window.localStorage.setItem(storageKey, JSON.stringify({ trainings: stripDrafts(drafts) }));
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [drafts]);
+
   const selected = useMemo(
     () => drafts.find((item) => item._id === selectedId) ?? null,
     [drafts, selectedId]
@@ -510,193 +519,103 @@ export function TrainingAdmin() {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)] sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="space-y-2">
-            <p className="kicker text-slate-400">ADMIN ACADEMY</p>
-            <h2 className="text-2xl font-semibold text-white">
-              Gestion des formations et webinaires
-            </h2>
-            <p className="text-sm text-slate-300 text-pretty">
-              Modifiez les fiches, statuts, medias et liens. Sauvegarde locale,
-              export JSON ou snippet TypeScript pour mettre a jour la base.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2 text-sm">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent px-4 py-2 text-white transition hover:border-white/30 hover:bg-white/10"
-            >
-              Deconnexion
-            </button>
-            <button
-              type="button"
-              onClick={handleSaveDraft}
-              className="inline-flex items-center gap-2 rounded-full border border-[#00a3ff]/50 bg-[#00a3ff]/15 px-4 py-2 text-white transition hover:border-[#00a3ff]/80 hover:bg-[#00a3ff]/25"
-            >
-              Sauvegarder
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowImport((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:border-white/40 hover:bg-white/20"
-            >
-              Importer JSON
-            </button>
-            <button
-              type="button"
-              onClick={handleExportJson}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:border-white/40 hover:bg-white/20"
-            >
-              Export JSON
-            </button>
-            <button
-              type="button"
-              onClick={handleCopyTypescript}
-              className="inline-flex items-center gap-2 rounded-full border border-[#ec008c]/50 bg-[#ec008c]/15 px-4 py-2 text-white transition hover:border-[#ec008c]/80 hover:bg-[#ec008c]/25"
-            >
-              Copier TS
-            </button>
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent px-4 py-2 text-white transition hover:border-white/30 hover:bg-white/10"
-            >
-              Reinitialiser
-            </button>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-300">
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-            Disponibles: {statusCounts.available}
+      {/* Header bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/8 bg-slate-900/50 px-5 py-4">
+        <div className="flex items-center gap-3">
+          <h2 className="text-base font-bold text-white">Formations</h2>
+          <span className="rounded-full border border-white/8 bg-white/5 px-2.5 py-0.5 text-xs text-slate-400">
+            {statusCounts.available} dispo · {statusCounts.soon} bientôt · {statusCounts.closed} fermées
           </span>
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-            Bientot: {statusCounts.soon}
-          </span>
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-            Fermees: {statusCounts.closed}
-          </span>
-          {missingCore ? (
-            <span className="rounded-full border border-[#ec008c]/40 bg-[#ec008c]/15 px-3 py-1 text-[#ffc2e6]">
-              Champs requis manquants
-            </span>
-          ) : null}
-          {slugError ? (
-            <span className="rounded-full border border-[#ec008c]/40 bg-[#ec008c]/15 px-3 py-1 text-[#ffc2e6]">
-              Slug duplique
-            </span>
-          ) : null}
-          {feedback ? (
-            <span className="rounded-full border border-[#00a3ff]/40 bg-[#00a3ff]/10 px-3 py-1 text-[#9ad9ff]">
+          {feedback && (
+            <span className="rounded-full border border-[#00a3ff]/40 bg-[#00a3ff]/10 px-2.5 py-0.5 text-xs text-[#9ad9ff]">
               {feedback}
             </span>
-          ) : null}
+          )}
+          {missingCore && (
+            <span className="rounded-full border border-[#ec008c]/40 bg-[#ec008c]/15 px-2.5 py-0.5 text-xs text-[#ffc2e6]">
+              Champs requis manquants
+            </span>
+          )}
+          {slugError && (
+            <span className="rounded-full border border-[#ec008c]/40 bg-[#ec008c]/15 px-2.5 py-0.5 text-xs text-[#ffc2e6]">
+              Slug dupliqué
+            </span>
+          )}
         </div>
-        <div className="mt-6 grid gap-4 rounded-3xl border border-white/10 bg-slate-950/70 p-5 text-sm text-slate-300 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-              Supabase
-            </p>
-            <h3 className="text-lg font-semibold text-white">
-              Synchronisation des contenus
-            </h3>
-            <p className="text-sm text-slate-400">
-              Chargez ou publiez la base de formations vers Supabase.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <label className="flex items-center gap-2 text-xs text-slate-400">
-              <input
-                type="checkbox"
-                checked={autoPublish}
-                onChange={(event) => setAutoPublish(event.target.checked)}
-                className="h-4 w-4 rounded border border-white/20 bg-slate-950/70 accent-[#00a3ff]"
-              />
-              Publier automatiquement apres upload
-            </label>
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={handleLoadSupabase}
-                disabled={remoteDisabled}
-                className={`rounded-full border px-4 py-2 text-white transition ${
-                  remoteDisabled
-                    ? "border-white/10 bg-white/5 text-slate-500"
-                    : "border-[#00a3ff]/50 bg-[#00a3ff]/15 hover:border-[#00a3ff]/80 hover:bg-[#00a3ff]/25"
-                }`}
-              >
-                Charger depuis Supabase
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Supabase sync */}
+          <button
+            type="button"
+            onClick={handleLoadSupabase}
+            disabled={remoteDisabled}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold text-white transition ${
+              remoteDisabled
+                ? "border-white/10 bg-white/5 text-slate-500"
+                : "border-[#00a3ff]/40 bg-[#00a3ff]/10 hover:bg-[#00a3ff]/20"
+            }`}
+          >
+            {remoteBusy ? "…" : "Charger"}
+          </button>
+          <button
+            type="button"
+            onClick={handlePushSupabase}
+            disabled={remoteDisabled}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold text-white transition ${
+              remoteDisabled
+                ? "border-white/10 bg-white/5 text-slate-500"
+                : "border-fuchsia-500/40 bg-fuchsia-500/10 hover:bg-fuchsia-500/20"
+            }`}
+          >
+            {remoteBusy ? "…" : "Publier"}
+          </button>
+          {/* Advanced tools toggle */}
+          <details className="relative">
+            <summary className="cursor-pointer list-none rounded-full border border-white/10 px-3 py-2 text-xs text-slate-500 transition hover:text-white">
+              ···
+            </summary>
+            <div className="absolute right-0 top-full z-20 mt-2 min-w-[180px] rounded-2xl border border-white/10 bg-slate-900 p-2 shadow-xl">
+              <button type="button" onClick={handleExportJson} className="w-full rounded-xl px-4 py-2 text-left text-sm text-slate-300 transition hover:bg-white/8 hover:text-white">
+                Export JSON
               </button>
-              <button
-                type="button"
-                onClick={handlePushSupabase}
-                disabled={remoteDisabled}
-                className={`rounded-full border px-4 py-2 text-white transition ${
-                  remoteDisabled
-                    ? "border-white/10 bg-white/5 text-slate-500"
-                    : "border-[#ec008c]/50 bg-[#ec008c]/15 hover:border-[#ec008c]/80 hover:bg-[#ec008c]/25"
-                }`}
-              >
-                Publier vers Supabase
+              <button type="button" onClick={() => setShowImport((p) => !p)} className="w-full rounded-xl px-4 py-2 text-left text-sm text-slate-300 transition hover:bg-white/8 hover:text-white">
+                Importer JSON
+              </button>
+              <button type="button" onClick={handleCopyTypescript} className="w-full rounded-xl px-4 py-2 text-left text-sm text-slate-300 transition hover:bg-white/8 hover:text-white">
+                Copier TypeScript
+              </button>
+              <hr className="my-1 border-white/8" />
+              <button type="button" onClick={handleReset} className="w-full rounded-xl px-4 py-2 text-left text-sm text-red-400 transition hover:bg-red-500/10">
+                Réinitialiser
               </button>
             </div>
+          </details>
+        </div>
+      </div>
+
+      {/* Import panel (shown when toggled from ···) */}
+      {showImport && (
+        <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-5 text-sm text-slate-300">
+          <p className="mb-3 text-xs uppercase tracking-widest text-slate-500">Import JSON</p>
+          <textarea
+            value={importText}
+            onChange={(event) => setImportText(event.target.value)}
+            placeholder='[{"slug":"exemple","title":"Titre"}]'
+            className={`${textareaClass} mb-3`}
+          />
+          <div className="flex flex-wrap gap-2">
+            <input type="file" accept="application/json" onChange={handleImportFile}
+              className="rounded-xl border border-white/10 bg-slate-950/70 px-3 py-1.5 text-xs text-white file:mr-3 file:rounded-full file:border-0 file:bg-white/10 file:px-3 file:py-1 file:text-xs file:text-white" />
+            <button type="button" onClick={() => applyImport(importText)}
+              className="rounded-full border border-[#00a3ff]/50 bg-[#00a3ff]/15 px-4 py-1.5 text-sm text-white transition hover:bg-[#00a3ff]/25">
+              Appliquer
+            </button>
+            <button type="button" onClick={() => { setShowImport(false); setImportText(""); }}
+              className="rounded-full border border-white/15 px-4 py-1.5 text-sm text-slate-400 transition hover:text-white">
+              Annuler
+            </button>
           </div>
         </div>
-        {showImport ? (
-          <div className="mt-6 grid gap-4 rounded-3xl border border-white/10 bg-slate-950/70 p-5 text-sm text-slate-300 md:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-3">
-              <div className="space-y-1">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-                  Import JSON
-                </p>
-                <p className="text-sm text-slate-400">
-                  Collez le JSON exporte (tableau) ou chargez un fichier.
-                </p>
-              </div>
-              <textarea
-                value={importText}
-                onChange={(event) => setImportText(event.target.value)}
-                placeholder='[{"slug":"exemple","title":"Titre"}]'
-                className={textareaClass}
-              />
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => applyImport(importText)}
-                  className="rounded-full border border-[#00a3ff]/50 bg-[#00a3ff]/15 px-4 py-2 text-white transition hover:border-[#00a3ff]/80 hover:bg-[#00a3ff]/25"
-                >
-                  Appliquer l'import
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowImport(false);
-                    setImportText("");
-                  }}
-                  className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:border-white/40 hover:bg-white/20"
-                >
-                  Annuler
-                </button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <label className="flex flex-col gap-2 text-sm text-slate-300">
-                Fichier JSON
-                <input
-                  type="file"
-                  accept="application/json"
-                  onChange={handleImportFile}
-                  className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white file:mr-4 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-xs file:uppercase file:tracking-[0.2em] file:text-white"
-                />
-              </label>
-              <p className="text-xs text-slate-500">
-                L'import remplace la liste actuelle.
-              </p>
-            </div>
-          </div>
-        ) : null}
-      </section>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
         <aside className="rounded-3xl border border-white/10 bg-slate-950/60 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
