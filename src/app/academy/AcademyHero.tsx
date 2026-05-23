@@ -14,6 +14,11 @@ const heroCopy = {
     badges: ["Projet à rendre", "Certificat Enov", "Groupe réduit"],
     cta: "S'inscrire maintenant",
     ctaExternal: "Formulaire d'inscription",
+    highlights: [
+      { value: "8 max", label: "Participants par session" },
+      { value: "100%", label: "Projets réels" },
+      { value: "Certifié", label: "Certificat Enov à la clé" },
+    ],
   },
   en: {
     kicker: "Enov Academy",
@@ -23,6 +28,11 @@ const heroCopy = {
     badges: ["Project to complete", "Enov Certificate", "Small group"],
     cta: "Register now",
     ctaExternal: "Registration form",
+    highlights: [
+      { value: "8 max", label: "Participants per session" },
+      { value: "100%", label: "Real projects" },
+      { value: "Certified", label: "Enov certificate included" },
+    ],
   },
 };
 
@@ -37,54 +47,81 @@ export function AcademyHero({ registrationUrl }: Props) {
         <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-[#00a3ff]/8 blur-[80px]" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
-        className="max-w-3xl space-y-8"
-      >
-        <div className="inline-flex items-center gap-2.5 rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-pink-300">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ec008c]" />
-          {t.kicker}
-        </div>
+      <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
 
-        <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-          {t.title}
-          <br />
-          <span className="bg-linear-to-r from-[#ec008c] via-fuchsia-400 to-[#00a3ff] bg-clip-text text-transparent">
-            {t.highlight}
-          </span>
-        </h1>
+        {/* Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
+          className="flex-1 space-y-8"
+        >
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-pink-300">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ec008c]" />
+            {t.kicker}
+          </div>
 
-        <p className="max-w-md text-lg text-slate-400">{t.sub}</p>
-
-        <div className="flex flex-wrap gap-2">
-          {t.badges.map((badge) => (
-            <span key={badge} className="rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-3 py-1 text-xs text-pink-300">
-              {badge}
+          <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+            {t.title}
+            <br />
+            <span className="bg-linear-to-r from-[#ec008c] via-fuchsia-400 to-[#00a3ff] bg-clip-text text-transparent">
+              {t.highlight}
             </span>
-          ))}
-        </div>
+          </h1>
 
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="#inscription"
-            className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-[#ec008c] to-[#00a3ff] px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-[#ec008c]/20 transition hover:scale-105 sm:w-auto"
-          >
-            {t.cta}
-          </a>
-          {registrationUrl ? (
+          <p className="max-w-md text-lg text-slate-400">{t.sub}</p>
+
+          <div className="flex flex-wrap gap-2">
+            {t.badges.map((badge) => (
+              <span key={badge} className="rounded-full border border-[#ec008c]/25 bg-[#ec008c]/8 px-3 py-1 text-xs text-pink-300">
+                {badge}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-3">
             <a
-              href={registrationUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
+              href="#inscription"
+              className="inline-flex w-full items-center justify-center rounded-full bg-linear-to-r from-[#ec008c] to-[#00a3ff] px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-[#ec008c]/20 transition hover:scale-105 sm:w-auto"
             >
-              {t.ctaExternal}
+              {t.cta}
             </a>
-          ) : null}
-        </div>
-      </motion.div>
+            {registrationUrl ? (
+              <a
+                href={registrationUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto"
+              >
+                {t.ctaExternal}
+              </a>
+            ) : null}
+          </div>
+        </motion.div>
+
+        {/* Highlights */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+          className="flex flex-row gap-4 lg:flex-col lg:w-64 lg:shrink-0"
+        >
+          {t.highlights.map((h, i) => (
+            <div
+              key={h.label}
+              className="flex-1 rounded-2xl border border-white/8 bg-slate-900/50 p-5 backdrop-blur-sm lg:flex-none"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <p className="text-2xl font-black text-white lg:text-3xl"
+                style={{ background: "linear-gradient(to right, #ec008c, #00a3ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                {h.value}
+              </p>
+              <p className="mt-1 text-xs text-slate-500">{h.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
+      </div>
     </section>
   );
 }
