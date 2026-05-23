@@ -110,11 +110,11 @@ export function HydroponieView() {
               <span className="bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">{t.hero.highlight}</span>
             </h1>
             <p className="max-w-md text-lg text-slate-400">{t.hero.sub}</p>
-            <div className="flex flex-row gap-3">
-              <Link href="/contact" className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/20 transition hover:scale-105">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href="/contact" className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-emerald-400/20 transition hover:scale-105 sm:w-auto">
                 {t.hero.cta1}
               </Link>
-              <a href="#comment" className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8">
+              <a href="#comment" className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8 sm:w-auto">
                 {t.hero.cta2}
               </a>
             </div>
@@ -127,7 +127,7 @@ export function HydroponieView() {
                 <div className="grid grid-cols-2 gap-3">
                   {t.hero.metrics.map((m) => (
                     <div key={m.label} className="rounded-2xl border border-white/8 bg-slate-950/60 p-4">
-                      <p className="text-[0.6rem] uppercase tracking-[0.4em] text-emerald-300">{m.label}</p>
+                      <p className="text-[0.6rem] uppercase tracking-normal text-emerald-300 sm:tracking-[0.3em]">{m.label}</p>
                       <p className="mt-2 text-2xl font-bold text-white">{m.value}</p>
                     </div>
                   ))}
@@ -143,7 +143,7 @@ export function HydroponieView() {
             {t.stats.map((s) => (
               <div key={s.label} className="flex flex-col items-center gap-1 px-4 text-center">
                 <span className="bg-linear-to-r from-emerald-300 via-cyan-300 to-indigo-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">{s.value}</span>
-                <span className="text-[0.65rem] uppercase tracking-[0.4em] text-slate-500">{s.label}</span>
+                <span className="text-[0.65rem] uppercase tracking-normal text-slate-500 sm:tracking-[0.3em]">{s.label}</span>
               </div>
             ))}
           </section>
@@ -155,7 +155,7 @@ export function HydroponieView() {
             <h2 className="text-3xl font-black sm:text-4xl">{t.fusionTitle}</h2>
             <div className="flex flex-col gap-3">
               {t.fusion.map((item, i) => (
-                <motion.div key={item.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.12 }} className="flex items-center gap-6 rounded-2xl border border-white/8 bg-slate-900/40 p-6 sm:gap-10 sm:p-8">
+                <motion.div key={item.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.12 }} className="flex items-start gap-6 rounded-2xl border border-white/8 bg-slate-900/40 p-6 sm:gap-10 sm:p-8">
                   <span className="shrink-0 bg-linear-to-br from-emerald-300 to-cyan-300 bg-clip-text text-4xl font-black text-transparent sm:text-5xl">{item.num}</span>
                   <div>
                     <p className="text-lg font-bold text-white sm:text-xl">{item.title}</p>
