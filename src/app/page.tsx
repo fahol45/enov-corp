@@ -94,7 +94,7 @@ export default function Home() {
       <div className="relative z-10 app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative flex min-h-[75vh] flex-col items-center justify-center gap-5 py-14 text-center sm:min-h-[88vh] sm:gap-6 sm:py-24">
+        <section className="relative flex min-h-[75vh] flex-col items-center justify-center py-14 text-center sm:min-h-[88vh] sm:py-24">
           <HeroSlideshow />
 
           {/* Blobs — CSS animation via Tailwind */}
@@ -103,44 +103,49 @@ export default function Home() {
             <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-sky-500/10 blur-[80px]" />
           </div>
 
-          {/* Badge */}
-          <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.5em] text-emerald-300">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-            Enov CORP
-          </motion.div>
+          {/* z-10 ensures this content stack above the absolutely-positioned HeroSlideshow */}
+          <div className="relative z-10 flex flex-col items-center gap-5 sm:gap-6">
 
-          {/* Title */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="max-w-3xl text-[1.75rem] font-black leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.8rem]"
-          >
-            {t.hero.title}
-            <br />
-            <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">
-              {t.hero.highlight}
-            </span>
-          </motion.h1>
+            {/* Badge */}
+            <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.5em] text-emerald-300">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              Enov CORP
+            </motion.div>
 
-          {/* Sub */}
-          <motion.p {...fadeUp(0.2)} className="max-w-md text-base text-white sm:text-lg">
-            {t.hero.sub}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div {...fadeUp(0.3)} className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href="#poles"
-              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/20 transition hover:scale-105"
+            {/* Title */}
+            <motion.h1
+              {...fadeUp(0.1)}
+              className="max-w-3xl text-[1.75rem] font-black leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.8rem]"
             >
-              {t.hero.cta1}
-            </a>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8"
-            >
-              {t.hero.cta2}
-            </Link>
-          </motion.div>
+              {t.hero.title}
+              <br />
+              <span className="bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">
+                {t.hero.highlight}
+              </span>
+            </motion.h1>
+
+            {/* Sub */}
+            <motion.p {...fadeUp(0.2)} className="max-w-md text-base text-white sm:text-lg">
+              {t.hero.sub}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div {...fadeUp(0.3)} className="flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#poles"
+                className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-pink-500 via-purple-500 to-sky-500 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-pink-500/20 transition hover:scale-105"
+              >
+                {t.hero.cta1}
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/4 px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:border-white/25 hover:bg-white/8"
+              >
+                {t.hero.cta2}
+              </Link>
+            </motion.div>
+
+          </div>
 
         </section>
 
