@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { DigitalTwinCard } from "@/components/DigitalTwinCard";
 import { FadeUp } from "@/components/FadeUp";
 import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
@@ -143,14 +142,6 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* DigitalTwinCard — hidden on small screens */}
-          <motion.div
-            {...fadeUp(0.35)}
-            className="relative mt-6 hidden w-full max-w-xs sm:block"
-          >
-            <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-emerald-500/10 blur-3xl" />
-            <DigitalTwinCard />
-          </motion.div>
         </section>
 
         {/* ── STATS ────────────────────────────────────────────────────── */}
