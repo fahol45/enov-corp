@@ -91,11 +91,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-white">
-      <HeroSlideshow />
       <div className="relative z-10 app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[75vh] flex-col items-center justify-center gap-5 py-14 text-center sm:min-h-[88vh] sm:gap-6 sm:py-24">
+          <HeroSlideshow />
 
           {/* Blobs — CSS animation via Tailwind */}
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">

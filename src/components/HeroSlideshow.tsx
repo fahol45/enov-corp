@@ -40,7 +40,7 @@ export function HeroSlideshow() {
   }, [slides.length]);
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 h-screen overflow-hidden">
+    <div className="pointer-events-none absolute inset-y-0 overflow-hidden" style={{ left: "50%", transform: "translateX(-50%)", width: "100vw" }}>
       <AnimatePresence mode="sync">
         <motion.div
           key={index}
