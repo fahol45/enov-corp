@@ -149,9 +149,9 @@ export function WebMobileView() {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 0.61, 0.36, 1] }} className="relative mt-14 flex justify-center">
             <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-purple-500/10 blur-3xl" />
             <div className="relative w-full max-w-2xl rounded-[2.5rem] border border-white/10 bg-linear-to-br from-slate-900/90 to-slate-950/80 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-8">
-              <Image src="/pc-portable.png" alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"} width={1536} height={1024} priority className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]" />
+              <Image src="/pc-portable.png" alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"} width={1536} height={1024} priority unoptimized className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]" />
               <div className="absolute -bottom-4 -right-2 w-20 rounded-3xl border border-white/10 bg-slate-900 p-2 shadow-xl sm:-right-6 sm:w-28">
-                <Image src="/mobile.png" alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"} width={1024} height={1536} className="w-full rounded-2xl" />
+                <Image src="/mobile.png" alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"} width={1024} height={1536} unoptimized className="w-full rounded-2xl" />
               </div>
             </div>
           </motion.div>
