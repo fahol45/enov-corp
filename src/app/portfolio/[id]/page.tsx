@@ -125,7 +125,7 @@ export default async function PortfolioDetailPage({ params }: Props) {
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Technologies & méthodes</p>
                 <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
+                  {tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-slate-300"
