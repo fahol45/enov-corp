@@ -3,7 +3,7 @@ const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 export const siteUrl =
   rawSiteUrl && rawSiteUrl.length > 0
     ? rawSiteUrl.replace(/\/+$/, "")
-    : "http://localhost:3000";
+    : "https://www.enovcorp.com";
 
 export const siteName = "ENOV CORP";
 export const defaultTitle = "ENOV CORP | Serres connectées, apps et formations";
