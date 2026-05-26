@@ -64,9 +64,8 @@ function normalizeUrl(url: string): string {
 
 function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const isReal = UUID_RE.test(item.id);
-  const externalUrl = item.external_url ? normalizeUrl(item.external_url) : "";
-  const href = externalUrl || (isReal ? `/portfolio/${item.id}` : null);
-  const isExternal = !!externalUrl;
+  const href = isReal ? `/portfolio/${item.id}` : null;
+  const isExternal = false;
 
   const tags = item.tags ? item.tags.split("·").slice(0, 3).map((t) => t.trim()) : [];
 
@@ -102,7 +101,7 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
         {href && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <span className="rounded-full bg-white px-5 py-2 text-xs font-bold text-slate-900 shadow-lg">
-              {isExternal ? "Voir le projet ↗" : "Voir les détails →"}
+              Voir les détails →
             </span>
           </div>
         )}
