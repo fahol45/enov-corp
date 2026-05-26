@@ -6,6 +6,18 @@ import { ogImage, siteName } from "@/lib/seo";
 
 type Category = "hydro" | "web" | "training";
 
+type PortfolioItem = {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  category: Category;
+  tags: string;
+  external_url: string;
+  sort_order: number;
+  active: boolean;
+};
+
 type Props = { params: Promise<{ id: string }> };
 
 const CATEGORY_LABEL: Record<Category, string> = {
@@ -26,14 +38,15 @@ const CATEGORY_GLOW: Record<Category, string> = {
   training: "bg-sky-500/8",
 };
 
-async function getItem(id: string) {
-  const { data } = await supabaseServer
+async function getItem(id: string): Promise<PortfolioItem | null> {
+  const { data, error } = await supabaseServer
     .from("portfolio_items")
     .select("*")
     .eq("id", id)
-    .eq("active", true)
     .single();
-  return data;
+
+  if (error || !data) return null;
+  return data as PortfolioItem;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -66,12 +79,14 @@ export default async function PortfolioDetailPage({ params }: Props) {
 
   if (!item) notFound();
 
-  const tags = item.tags ? item.tags.split("·").map((t: string) => t.trim()).filter(Boolean) : [];
+  const tags = item.tags
+    ? item.tags.split("·").map((t: string) => t.trim()).filter(Boolean)
+    : [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className={`absolute left-0 top-0 h-[500px] w-[500px] rounded-full ${CATEGORY_GLOW[item.category as Category]} blur-[120px]`} />
+        <div className={`absolute left-0 top-0 h-[500px] w-[500px] rounded-full ${CATEGORY_GLOW[item.category]} blur-[120px]`} />
         <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-slate-800/50 blur-[80px]" />
       </div>
 
@@ -88,7 +103,6 @@ export default async function PortfolioDetailPage({ params }: Props) {
           {/* ── Left: main content ── */}
           <div className="space-y-8">
 
-            {/* Image */}
             {item.image_url && (
               <div className="relative overflow-hidden rounded-3xl border border-white/8">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -101,26 +115,22 @@ export default async function PortfolioDetailPage({ params }: Props) {
               </div>
             )}
 
-            {/* Category */}
             <div>
-              <span className={`inline-block text-[0.65rem] font-bold uppercase tracking-[0.5em] bg-linear-to-r ${CATEGORY_GRADIENT[item.category as Category]} bg-clip-text text-transparent`}>
-                {CATEGORY_LABEL[item.category as Category]}
+              <span className={`inline-block text-[0.65rem] font-bold uppercase tracking-[0.5em] bg-linear-to-r ${CATEGORY_GRADIENT[item.category]} bg-clip-text text-transparent`}>
+                {CATEGORY_LABEL[item.category]}
               </span>
             </div>
 
-            {/* Title */}
             <h1 className="text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
               {item.title}
             </h1>
 
-            {/* Description */}
             {item.description && (
               <p className="text-lg leading-relaxed text-slate-300">
                 {item.description}
               </p>
             )}
 
-            {/* Tags */}
             {tags.length > 0 && (
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Technologies & méthodes</p>
@@ -165,8 +175,8 @@ export default async function PortfolioDetailPage({ params }: Props) {
 
             <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-5 space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Catégorie</p>
-              <p className={`font-semibold bg-linear-to-r ${CATEGORY_GRADIENT[item.category as Category]} bg-clip-text text-transparent`}>
-                {CATEGORY_LABEL[item.category as Category]}
+              <p className={`font-semibold bg-linear-to-r ${CATEGORY_GRADIENT[item.category]} bg-clip-text text-transparent`}>
+                {CATEGORY_LABEL[item.category]}
               </p>
             </div>
           </aside>
