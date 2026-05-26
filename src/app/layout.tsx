@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 import {
+  absoluteUrl,
   defaultDescription,
   defaultTitle,
   ogImage,
@@ -66,7 +67,22 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: siteName,
   url: siteUrl,
-  logo: `${siteUrl}${ogImage}`,
+  logo: absoluteUrl(ogImage),
+  description: defaultDescription,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+212-6-45-41-08-64",
+    contactType: "customer service",
+    email: "enovcorporation@gmail.com",
+    availableLanguage: ["French", "English"],
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  url: siteUrl,
 };
 
 export default function RootLayout({
@@ -83,9 +99,11 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/icon-enov.png" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className={inter.className}>

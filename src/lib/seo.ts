@@ -6,9 +6,9 @@ export const siteUrl =
     : "http://localhost:3000";
 
 export const siteName = "ENOV CORP";
-export const defaultTitle = "ENOV CORP | Hydroponie intelligente";
+export const defaultTitle = "ENOV CORP | Serres connectées, apps et formations";
 export const defaultDescription =
-  "Plateforme ENOV CORP : IoT, Edge Computing et applications premium pour l'hydroponie autonome.";
+  "ENOV CORP conçoit et livre des serres hydroponiques connectées, des applications web & mobile, et des formations certifiantes. Un seul interlocuteur, pas de sous-traitance.";
 export const ogImage = "/logo-enov.png";
 
 export const absoluteUrl = (path = "/") => {
