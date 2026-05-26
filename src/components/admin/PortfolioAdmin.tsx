@@ -98,7 +98,11 @@ export function PortfolioAdmin() {
 
     if (!form.title.trim()) { setError("Le titre est requis."); return; }
 
-    const payload = { ...form, image_url: imageUrl };
+    let externalUrl = form.external_url.trim();
+    if (externalUrl && !externalUrl.startsWith("http://") && !externalUrl.startsWith("https://")) {
+      externalUrl = `https://${externalUrl}`;
+    }
+    const payload = { ...form, image_url: imageUrl, external_url: externalUrl };
     const r = await fetch("/api/admin/portfolio", {
       method: editing ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },

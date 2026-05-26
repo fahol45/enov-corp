@@ -50,10 +50,17 @@ const CATEGORY_LABEL: Record<Category, string> = {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+function normalizeUrl(url: string): string {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+}
+
 function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const isReal = UUID_RE.test(item.id);
-  const href = item.external_url || (isReal ? `/portfolio/${item.id}` : null);
-  const isExternal = !!item.external_url;
+  const externalUrl = item.external_url ? normalizeUrl(item.external_url) : "";
+  const href = externalUrl || (isReal ? `/portfolio/${item.id}` : null);
+  const isExternal = !!externalUrl;
 
   const inner = (
     <motion.div
