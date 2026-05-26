@@ -13,6 +13,10 @@ type PortfolioItem = {
   tags: string;
   external_url: string;
   active: boolean;
+  duration: string;
+  year: string;
+  client_name: string;
+  results: string;
 };
 
 const CATEGORY_LABEL: Record<Category, string> = {
@@ -125,15 +129,33 @@ export function PortfolioDetailView({ id }: { id: string }) {
               </div>
             )}
 
-            <div>
-              <span className={`inline-block text-[0.65rem] font-bold uppercase tracking-[0.5em] bg-linear-to-r ${CATEGORY_GRADIENT[item.category]} bg-clip-text text-transparent`}>
+            {/* Category + meta */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className={`text-[0.65rem] font-bold uppercase tracking-[0.5em] bg-linear-to-r ${CATEGORY_GRADIENT[item.category]} bg-clip-text text-transparent`}>
                 {CATEGORY_LABEL[item.category]}
               </span>
+              {item.year && (
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-0.5 text-xs text-slate-400">{item.year}</span>
+              )}
+              {item.duration && (
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-0.5 text-xs text-slate-400">{item.duration}</span>
+              )}
+              {item.client_name && (
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-0.5 text-xs text-slate-400">Client : {item.client_name}</span>
+              )}
             </div>
 
             <h1 className="text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
               {item.title}
             </h1>
+
+            {/* Résultat clé */}
+            {item.results && (
+              <div className="flex items-start gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/6 px-5 py-4">
+                <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-emerald-400" />
+                <p className="text-base font-semibold text-emerald-300">{item.results}</p>
+              </div>
+            )}
 
             {item.description && (
               <p className="text-lg leading-relaxed text-slate-300">
@@ -146,10 +168,7 @@ export function PortfolioDetailView({ id }: { id: string }) {
                 <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Technologies & méthodes</p>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-slate-300"
-                    >
+                    <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-slate-300">
                       {tag}
                     </span>
                   ))}

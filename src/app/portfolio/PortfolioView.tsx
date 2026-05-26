@@ -7,7 +7,11 @@ import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type Category = "hydro" | "web" | "training";
-type DbItem = { id: string; title: string; description: string; image_url: string; category: Category; tags: string; external_url: string; sort_order: number; active: boolean };
+type DbItem = {
+  id: string; title: string; description: string; image_url: string;
+  category: Category; tags: string; external_url: string; sort_order: number; active: boolean;
+  duration: string; year: string; client_name: string; results: string;
+};
 
 const heroCopy: Record<SupportedLanguage, { kicker: string; title: string; highlight: string; sub: string }> = {
   fr: { kicker: "Portfolio", title: "Projets livrés.", highlight: "Résultats mesurables.", sub: "Serres connectées, applications sur mesure, formations terrain. Voici ce qu'on a concrètement réalisé." },
@@ -24,16 +28,18 @@ const ctaCopy: Record<SupportedLanguage, { title: string; button: string }> = {
   en: { title: "A similar project in mind. We reply within 24h.", button: "Contact us" },
 };
 
+const EMPTY: Pick<DbItem, "duration" | "year" | "client_name" | "results"> = { duration: "", year: "", client_name: "", results: "" };
+
 const FALLBACK_ITEMS: DbItem[] = [
-  { id: "f1", title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true },
-  { id: "f2", title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true },
-  { id: "f3", title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true },
-  { id: "f4", title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true },
-  { id: "f5", title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true },
-  { id: "f6", title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true },
-  { id: "f7", title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true },
-  { id: "f8", title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true },
-  { id: "f9", title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true },
+  { id: "f1", title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true, ...EMPTY },
+  { id: "f2", title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true, ...EMPTY },
+  { id: "f3", title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true, ...EMPTY },
+  { id: "f4", title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true, ...EMPTY },
+  { id: "f5", title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true, ...EMPTY },
+  { id: "f6", title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true, ...EMPTY },
+  { id: "f7", title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true, ...EMPTY },
+  { id: "f8", title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true, ...EMPTY },
+  { id: "f9", title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true, ...EMPTY },
 ];
 
 const CATEGORY_COLOR: Record<Category, string> = {
@@ -62,6 +68,8 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const href = externalUrl || (isReal ? `/portfolio/${item.id}` : null);
   const isExternal = !!externalUrl;
 
+  const tags = item.tags ? item.tags.split("·").slice(0, 3).map((t) => t.trim()) : [];
+
   const inner = (
     <motion.div
       layout
@@ -69,22 +77,27 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.35, delay: index * 0.05 }}
-      className={`group relative overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 ${href ? "hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70 cursor-pointer" : ""}`}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 ${href ? "hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70 cursor-pointer" : ""}`}
     >
       {/* Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-slate-800">
+      <div className="relative h-48 w-full shrink-0 overflow-hidden bg-slate-800">
         {item.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={item.image_url}
-            alt={item.title}
-            loading="lazy"
+          <img src={item.image_url} alt={item.title} loading="lazy"
             className={`h-full w-full object-cover transition-transform duration-500 ${href ? "group-hover:scale-105" : ""}`}
           />
         ) : (
           <div className="h-full w-full bg-slate-800" />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
+
+        {/* Year badge */}
+        {item.year && (
+          <span className="absolute top-3 right-3 rounded-full bg-slate-950/70 px-2.5 py-1 text-[0.6rem] font-semibold text-slate-300 backdrop-blur-sm">
+            {item.year}
+          </span>
+        )}
+
         {/* Hover overlay */}
         {href && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -96,17 +109,35 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        <p className={`mb-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.35em] ${CATEGORY_COLOR[item.category]}`}>
-          {CATEGORY_LABEL[item.category]}
-        </p>
-        <p className="text-base font-bold text-white">{item.title}</p>
-        {item.description && <p className="mt-1 text-sm text-slate-400 line-clamp-2">{item.description}</p>}
-        {item.tags && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {item.tags.split("·").slice(0, 3).map((tag) => (
-              <span key={tag.trim()} className="rounded-full border border-white/8 bg-white/4 px-2 py-0.5 text-[0.6rem] text-slate-500">
-                {tag.trim()}
+      <div className="flex flex-1 flex-col p-5 gap-3">
+        <div className="flex items-start justify-between gap-2">
+          <p className={`text-[0.6rem] font-bold uppercase tracking-[0.35em] ${CATEGORY_COLOR[item.category]}`}>
+            {CATEGORY_LABEL[item.category]}
+          </p>
+          {item.duration && (
+            <span className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[0.6rem] text-slate-400">
+              {item.duration}
+            </span>
+          )}
+        </div>
+
+        <p className="text-base font-bold text-white leading-snug">{item.title}</p>
+
+        {item.client_name && (
+          <p className="text-xs text-slate-500">Client : {item.client_name}</p>
+        )}
+
+        {item.results && (
+          <p className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 px-3 py-2 text-xs font-medium text-emerald-300">
+            {item.results}
+          </p>
+        )}
+
+        {tags.length > 0 && (
+          <div className="mt-auto flex flex-wrap gap-1 pt-1">
+            {tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-white/8 bg-white/4 px-2 py-0.5 text-[0.6rem] text-slate-500">
+                {tag}
               </span>
             ))}
           </div>
@@ -116,15 +147,7 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   );
 
   if (!href) return inner;
-
-  if (isExternal) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>
-    );
-  }
-
+  if (isExternal) return <a href={href} target="_blank" rel="noopener noreferrer">{inner}</a>;
   return <Link href={href}>{inner}</Link>;
 }
 
@@ -223,14 +246,9 @@ export function PortfolioView() {
                 }`}
               >
                 {tab.label}
-                {tab.value !== "all" && (
-                  <span className="ml-1.5 text-xs opacity-50">
-                    {items.filter((i) => i.category === tab.value).length}
-                  </span>
-                )}
-                {tab.value === "all" && (
-                  <span className="ml-1.5 text-xs opacity-50">{items.length}</span>
-                )}
+                <span className="ml-1.5 text-xs opacity-50">
+                  {tab.value === "all" ? items.length : items.filter((i) => i.category === tab.value).length}
+                </span>
               </button>
             ))}
           </div>
@@ -239,7 +257,7 @@ export function PortfolioView() {
         {/* ── GRID ─────────────────────────────────────────────────────── */}
         <section>
           <AnimatePresence mode="popLayout">
-            <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((item, i) => (
                 <ProjectCard key={item.id} item={item} index={i} />
               ))}
@@ -261,10 +279,7 @@ export function PortfolioView() {
             </div>
             <div className="relative space-y-6">
               <h2 className="text-3xl font-black text-balance sm:text-4xl">{cta.title}</h2>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105"
-              >
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105">
                 {cta.button}
               </Link>
             </div>

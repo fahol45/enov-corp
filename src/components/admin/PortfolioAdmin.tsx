@@ -3,23 +3,32 @@
 import { useEffect, useRef, useState } from "react";
 
 type Category = "hydro" | "web" | "training";
-type PortfolioItem = { id: string; title: string; description: string; image_url: string; category: Category; tags: string; external_url: string; sort_order: number; active: boolean };
+type PortfolioItem = {
+  id: string; title: string; description: string; image_url: string;
+  category: Category; tags: string; external_url: string; sort_order: number;
+  active: boolean; duration: string; year: string; client_name: string; results: string;
+};
 
-const BLANK: Omit<PortfolioItem, "id"> = { title: "", description: "", image_url: "", category: "web", tags: "", external_url: "", sort_order: 0, active: true };
+const BLANK: Omit<PortfolioItem, "id"> = {
+  title: "", description: "", image_url: "", category: "web", tags: "",
+  external_url: "", sort_order: 0, active: true,
+  duration: "", year: "", client_name: "", results: "",
+};
+
 const inputClass = "rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition focus:border-fuchsia-500/60 w-full";
 const CATEGORY_LABELS: Record<Category, string> = { hydro: "Hydroponie & IoT", web: "Web & Mobile", training: "Formation" };
 const CATEGORY_COLOR: Record<Category, string> = { hydro: "text-emerald-300", web: "text-fuchsia-300", training: "text-sky-300" };
 
 const DEFAULT_ITEMS: Omit<PortfolioItem, "id">[] = [
-  { title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true },
-  { title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true },
-  { title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true },
-  { title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true },
-  { title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true },
-  { title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true },
-  { title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true },
-  { title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true },
-  { title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true },
+  { title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true, duration: "", year: "", client_name: "", results: "" },
+  { title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true, duration: "", year: "", client_name: "", results: "" },
 ];
 
 export function PortfolioAdmin() {
@@ -121,7 +130,13 @@ export function PortfolioAdmin() {
   const startEdit = (item: PortfolioItem) => {
     setEditing(item.id);
     setAdding(false);
-    setForm({ title: item.title, description: item.description, image_url: item.image_url, category: item.category, tags: item.tags, external_url: item.external_url, sort_order: item.sort_order, active: item.active });
+    setForm({
+      title: item.title, description: item.description, image_url: item.image_url,
+      category: item.category, tags: item.tags, external_url: item.external_url,
+      sort_order: item.sort_order, active: item.active,
+      duration: item.duration ?? "", year: item.year ?? "",
+      client_name: item.client_name ?? "", results: item.results ?? "",
+    });
     setError(""); setSuccess("");
   };
 
@@ -195,7 +210,10 @@ export function PortfolioAdmin() {
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-white">{item.title || "Sans titre"}</p>
                 <p className={`text-xs ${CATEGORY_COLOR[item.category]}`}>{CATEGORY_LABELS[item.category]}</p>
-                {item.tags && <p className="truncate text-xs text-slate-500">{item.tags}</p>}
+                <div className="mt-0.5 flex gap-2">
+                  {item.duration && <span className="text-xs text-slate-500">{item.duration}</span>}
+                  {item.year && <span className="text-xs text-slate-600">{item.year}</span>}
+                </div>
               </div>
             </button>
           );
@@ -221,6 +239,7 @@ export function PortfolioAdmin() {
               )}
             </div>
 
+            {/* Titre + Catégorie */}
             <div className="grid gap-4 sm:grid-cols-2">
               <input value={form.title} onChange={(e) => field("title", e.target.value)} placeholder="Titre *" className={inputClass} />
               <select value={form.category} onChange={(e) => field("category", e.target.value as Category)} className={inputClass}>
@@ -230,9 +249,23 @@ export function PortfolioAdmin() {
               </select>
             </div>
 
-            <input value={form.tags} onChange={(e) => field("tags", e.target.value)} placeholder="Tags (ex: Next.js · React · Supabase)" className={inputClass} />
-            <textarea value={form.description} onChange={(e) => field("description", e.target.value)} placeholder="Description courte" className={`${inputClass} min-h-20 resize-y`} />
+            {/* Durée + Année + Client */}
+            <div className="grid gap-4 sm:grid-cols-3">
+              <input value={form.duration} onChange={(e) => field("duration", e.target.value)} placeholder="Durée (ex: 2 mois)" className={inputClass} />
+              <input value={form.year} onChange={(e) => field("year", e.target.value)} placeholder="Année (ex: 2024)" className={inputClass} />
+              <input value={form.client_name} onChange={(e) => field("client_name", e.target.value)} placeholder="Client (optionnel)" className={inputClass} />
+            </div>
 
+            {/* Résultat mesurable */}
+            <input value={form.results} onChange={(e) => field("results", e.target.value)} placeholder="Résultat clé (ex: 90% d'eau économisée)" className={inputClass} />
+
+            {/* Tags */}
+            <input value={form.tags} onChange={(e) => field("tags", e.target.value)} placeholder="Stack / méthodes (ex: Next.js · React · Supabase)" className={inputClass} />
+
+            {/* Description */}
+            <textarea value={form.description} onChange={(e) => field("description", e.target.value)} placeholder="Description du projet" className={`${inputClass} min-h-20 resize-y`} />
+
+            {/* Image */}
             <div className="space-y-2">
               <input value={form.image_url} onChange={(e) => field("image_url", e.target.value)} placeholder="URL de l'image" className={inputClass} />
               {form.image_url && (
@@ -243,15 +276,15 @@ export function PortfolioAdmin() {
                 className="text-sm text-slate-400 file:mr-3 file:rounded-full file:border-0 file:bg-fuchsia-500/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-fuchsia-300" />
             </div>
 
+            {/* Lien externe */}
             <input value={form.external_url} onChange={(e) => field("external_url", e.target.value)} placeholder="Lien vers le projet (optionnel)" className={inputClass} />
 
-            <div className="flex items-center gap-3">
-              <label className="flex items-center gap-2 text-sm text-slate-400">
-                <input type="checkbox" checked={form.active} onChange={(e) => field("active", e.target.checked)}
-                  className="h-4 w-4 rounded border border-white/20 bg-slate-950 accent-fuchsia-500" />
-                Visible sur le site
-              </label>
-            </div>
+            {/* Visibilité */}
+            <label className="flex items-center gap-2 text-sm text-slate-400">
+              <input type="checkbox" checked={form.active} onChange={(e) => field("active", e.target.checked)}
+                className="h-4 w-4 rounded border border-white/20 bg-slate-950 accent-fuchsia-500" />
+              Visible sur le site
+            </label>
 
             <div className="flex gap-3">
               <button onClick={handleSave} disabled={uploading}

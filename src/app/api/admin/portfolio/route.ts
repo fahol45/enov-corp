@@ -12,6 +12,10 @@ export type PortfolioItem = {
   external_url: string;
   sort_order: number;
   active: boolean;
+  duration: string;
+  year: string;
+  client_name: string;
+  results: string;
 };
 
 export async function GET() {
@@ -46,6 +50,10 @@ export async function POST(request: NextRequest) {
     external_url: body.external_url?.trim() ?? "",
     sort_order: body.sort_order ?? 0,
     active: body.active !== false,
+    duration: body.duration?.trim() ?? "",
+    year: body.year?.trim() ?? "",
+    client_name: body.client_name?.trim() ?? "",
+    results: body.results?.trim() ?? "",
   }).select().single();
 
   if (error) return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
@@ -71,6 +79,10 @@ export async function PATCH(request: NextRequest) {
   if (body.external_url !== undefined) updates.external_url = body.external_url;
   if (body.sort_order !== undefined) updates.sort_order = body.sort_order;
   if (body.active !== undefined) updates.active = body.active;
+  if (body.duration !== undefined) updates.duration = body.duration;
+  if (body.year !== undefined) updates.year = body.year;
+  if (body.client_name !== undefined) updates.client_name = body.client_name;
+  if (body.results !== undefined) updates.results = body.results;
 
   const { error } = await supabaseServer.from("portfolio_items").update(updates).eq("id", body.id);
   if (error) return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
