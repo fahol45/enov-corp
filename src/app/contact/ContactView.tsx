@@ -21,7 +21,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       sub: "Envoyez le formulaire ou appelez. On lit, on analyse, on vous rappelle — pas un commercial, la personne qui fera le travail.",
     },
     channels: [
-      { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
+      { label: "Email", value: "contact@enovcorp.com", href: "mailto:contact@enovcorp.com" },
       { label: "Téléphone", value: "+212 6 45 41 08 64", href: "tel:+212645410864" },
     ],
     form: {
@@ -36,7 +36,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       },
       submitLabel: "Envoyer",
       successMessage: "Message reçu ! On revient vers vous très vite.",
-      errorMessage: "Impossible d'envoyer. Écrivez-nous à enovcorporation@gmail.com",
+      errorMessage: "Impossible d'envoyer. Écrivez-nous à contact@enovcorp.com",
       requiredLabel: "*",
     },
   },
@@ -48,7 +48,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       sub: "Send the form or call. We read, we assess, we call back — not a salesperson, the person who will do the work.",
     },
     channels: [
-      { label: "Email", value: "enovcorporation@gmail.com", href: "mailto:enovcorporation@gmail.com" },
+      { label: "Email", value: "contact@enovcorp.com", href: "mailto:contact@enovcorp.com" },
       { label: "Phone", value: "+212 6 45 41 08 64", href: "tel:+212645410864" },
     ],
     form: {
@@ -63,7 +63,7 @@ const copy: Record<SupportedLanguage, ContactCopy> = {
       },
       submitLabel: "Send",
       successMessage: "Message received! We'll get back to you very soon.",
-      errorMessage: "Couldn't send. Email us at enovcorporation@gmail.com",
+      errorMessage: "Couldn't send. Email us at contact@enovcorp.com",
       requiredLabel: "*",
     },
   },

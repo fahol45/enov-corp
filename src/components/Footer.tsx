@@ -70,8 +70,8 @@ export function Footer() {
               <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
               <ul className="space-y-2">
                 <li>
-                  <a href="mailto:enovcorporation@gmail.com" className="text-xs text-slate-400 transition hover:text-white">
-                    enovcorporation@gmail.com
+                  <a href="mailto:contact@enovcorp.com" className="text-xs text-slate-400 transition hover:text-white">
+                    contact@enovcorp.com
                   </a>
                 </li>
                 <li>

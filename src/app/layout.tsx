@@ -73,7 +73,7 @@ const organizationJsonLd = {
     "@type": "ContactPoint",
     telephone: "+212-6-45-41-08-64",
     contactType: "customer service",
-    email: "enovcorporation@gmail.com",
+    email: "contact@enovcorp.com",
     availableLanguage: ["French", "English"],
   },
 };
