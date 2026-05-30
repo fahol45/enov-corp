@@ -64,43 +64,44 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="space-y-3">
-            <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
-            <ul className="space-y-2">
-              <li>
-                <a href="mailto:contact@enovcorp.com" className="text-xs text-slate-400 transition hover:text-white">
-                  contact@enovcorp.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+212645410864" className="text-xs text-slate-400 transition hover:text-white">
-                  +212 6 45 41 08 64
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Contact + Réseaux sociaux (même colonne sur mobile) */}
+          <div className="col-span-1 flex flex-col gap-6 sm:contents">
+            <div className="space-y-3">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
+              <ul className="space-y-2">
+                <li>
+                  <a href="mailto:contact@enovcorp.com" className="text-xs text-slate-400 transition hover:text-white">
+                    contact@enovcorp.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+212645410864" className="text-xs text-slate-400 transition hover:text-white">
+                    +212 6 45 41 08 64
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          {/* Réseaux sociaux */}
-          <div className="space-y-3">
-            <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
-            <ul className="space-y-2">
-              <li>
-                <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
-                  Facebook
-                </a>
-              </li>
-            </ul>
+            <div className="space-y-3">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
+              <ul className="space-y-2">
+                <li>
+                  <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    Facebook
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
