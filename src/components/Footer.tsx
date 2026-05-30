@@ -81,6 +81,28 @@ export function Footer() {
                 </li>
               </ul>
             </div>
+
+            {/* Réseaux sociaux */}
+            <div className="space-y-3">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
+              <ul className="space-y-2">
+                <li>
+                  <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                    Facebook
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
