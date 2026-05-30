@@ -30,7 +30,9 @@ export default function SignaturePage() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(SIGNATURE_HTML);
+    const blob = new Blob([SIGNATURE_HTML], { type: "text/html" });
+    const item = new ClipboardItem({ "text/html": blob });
+    await navigator.clipboard.write([item]);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
