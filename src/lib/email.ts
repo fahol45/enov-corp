@@ -1,16 +1,32 @@
-import nodemailer from "nodemailer";
+async function sendBrevoEmail(payload: {
+  to: { email: string; name?: string }[];
+  sender?: { email: string; name: string };
+  subject: string;
+  htmlContent: string;
+  replyTo?: { email: string };
+}) {
+  const apiKey = process.env.BREVO_API_KEY;
+  if (!apiKey) throw new Error("BREVO_API_KEY is missing.");
 
-function createTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
-    throw new Error("SMTP configuration is missing.");
-  }
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT),
-    secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "api-key": apiKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sender: payload.sender ?? { email: "contact@enovcorp.com", name: "Enov Corp" },
+      to: payload.to,
+      subject: payload.subject,
+      htmlContent: payload.htmlContent,
+      replyTo: payload.replyTo,
+    }),
   });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Brevo API error: ${error}`);
+  }
 }
 
 function escapeHtml(str: string): string {
@@ -55,19 +71,17 @@ export async function sendContactNotification(payload: {
   company?: string;
   message: string;
 }) {
-  const transporter = createTransporter();
   const name = escapeHtml(payload.name);
   const email = escapeHtml(payload.email);
   const phone = escapeHtml(payload.phone ?? "-");
   const company = escapeHtml(payload.company ?? "-");
   const message = escapeHtml(payload.message).replace(/\n/g, "<br>");
 
-  await transporter.sendMail({
-    from: `"Enov Corp" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
-    replyTo: payload.email,
-    to: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com",
+  await sendBrevoEmail({
+    to: [{ email: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com", name: "Enov Corp" }],
     subject: `Nouvelle demande - ${payload.name}`,
-    html: baseTemplate(`
+    replyTo: { email: payload.email },
+    htmlContent: baseTemplate(`
       <h2 style="margin:0 0 24px;font-size:20px;font-weight:700;color:#fff;">Nouvelle demande de contact</h2>
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
@@ -101,13 +115,11 @@ export async function sendAcademyRegistrationConfirmation(payload: {
   trainingTitle: string;
   trainingSlug: string;
 }) {
-  const transporter = createTransporter();
-
-  await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
-    to: payload.email,
+  await sendBrevoEmail({
+    to: [{ email: payload.email, name: payload.firstName }],
+    sender: { email: "contact@enovcorp.com", name: "Enov Academy" },
     subject: `Inscription confirmée — ${payload.trainingTitle}`,
-    html: baseTemplate(`
+    htmlContent: baseTemplate(`
       <h2 style="margin:0 0 8px;font-size:20px;font-weight:700;color:#fff;">Inscription reçue ✓</h2>
       <p style="color:#94a3b8;font-size:14px;margin:0 0 24px;">Bonjour ${escapeHtml(payload.firstName)},</p>
       <p style="color:#cbd5e1;font-size:14px;line-height:1.7;margin:0 0 24px;">
@@ -117,7 +129,7 @@ export async function sendAcademyRegistrationConfirmation(payload: {
         <span style="color:#d946ef;font-size:16px;font-weight:700;">${escapeHtml(payload.trainingTitle)}</span>
       </div>
       <p style="color:#cbd5e1;font-size:14px;line-height:1.7;margin:0 0 24px;">
-        Notre équipe va examiner ta demande et te recontacter très prochainement avec les prochaines disponibilités et les détails de la session.
+        Notre équipe va examiner ta demande et te recontacter très prochainement.
       </p>
       <a href="https://enovcorp.com/academy/${payload.trainingSlug}"
          style="display:inline-block;background:#a855f7;color:#fff;font-weight:700;font-size:14px;text-decoration:none;border-radius:12px;padding:12px 24px;">
@@ -136,13 +148,10 @@ export async function sendAcademyRegistrationNotification(payload: {
   profile?: string;
   message?: string;
 }) {
-  const transporter = createTransporter();
-
-  await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
-    to: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com",
+  await sendBrevoEmail({
+    to: [{ email: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com", name: "Enov Academy" }],
     subject: `Nouvelle inscription Academy — ${payload.trainingSlug}`,
-    html: baseTemplate(`
+    htmlContent: baseTemplate(`
       <h2 style="margin:0 0 24px;font-size:20px;font-weight:700;color:#fff;">Nouvelle inscription Academy</h2>
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
@@ -157,17 +166,9 @@ export async function sendAcademyRegistrationNotification(payload: {
           <span style="color:#94a3b8;font-size:12px;">Formation</span><br>
           <span style="color:#d946ef;font-size:14px;font-weight:600;">${escapeHtml(payload.trainingSlug)}</span>
         </td></tr>
-        ${payload.phone ? `<tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+        ${payload.phone ? `<tr><td style="padding:8px 0;">
           <span style="color:#94a3b8;font-size:12px;">Téléphone</span><br>
           <span style="color:#fff;font-size:14px;">${escapeHtml(payload.phone)}</span>
-        </td></tr>` : ""}
-        ${payload.profile ? `<tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="color:#94a3b8;font-size:12px;">Profil</span><br>
-          <span style="color:#fff;font-size:14px;">${escapeHtml(payload.profile)}</span>
-        </td></tr>` : ""}
-        ${payload.message ? `<tr><td style="padding:8px 0 0;">
-          <span style="color:#94a3b8;font-size:12px;">Message</span><br>
-          <p style="color:#cbd5e1;font-size:14px;margin:8px 0 0;">${escapeHtml(payload.message)}</p>
         </td></tr>` : ""}
       </table>
     `),
@@ -179,13 +180,11 @@ export async function sendNotifyConfirmation(payload: {
   email: string;
   trainingSlug: string;
 }) {
-  const transporter = createTransporter();
-
-  await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
-    to: payload.email,
+  await sendBrevoEmail({
+    to: [{ email: payload.email, name: payload.name }],
+    sender: { email: "contact@enovcorp.com", name: "Enov Academy" },
     subject: `Tu seras notifié — ${payload.trainingSlug}`,
-    html: baseTemplate(`
+    htmlContent: baseTemplate(`
       <h2 style="margin:0 0 8px;font-size:20px;font-weight:700;color:#fff;">Notification enregistrée ✓</h2>
       <p style="color:#94a3b8;font-size:14px;margin:0 0 24px;">Bonjour ${escapeHtml(payload.name)},</p>
       <p style="color:#cbd5e1;font-size:14px;line-height:1.7;margin:0 0 24px;">
