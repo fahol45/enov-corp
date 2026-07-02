@@ -63,7 +63,7 @@ export async function sendContactNotification(payload: {
   const message = escapeHtml(payload.message).replace(/\n/g, "<br>");
 
   await transporter.sendMail({
-    from: `"Enov Corp" <${process.env.SMTP_USER}>`,
+    from: `"Enov Corp" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
     replyTo: payload.email,
     to: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com",
     subject: `Nouvelle demande - ${payload.name}`,
@@ -104,7 +104,7 @@ export async function sendAcademyRegistrationConfirmation(payload: {
   const transporter = createTransporter();
 
   await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_USER}>`,
+    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
     to: payload.email,
     subject: `Inscription confirmée — ${payload.trainingTitle}`,
     html: baseTemplate(`
@@ -139,7 +139,7 @@ export async function sendAcademyRegistrationNotification(payload: {
   const transporter = createTransporter();
 
   await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_USER}>`,
+    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
     to: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com",
     subject: `Nouvelle inscription Academy — ${payload.trainingSlug}`,
     html: baseTemplate(`
@@ -182,7 +182,7 @@ export async function sendNotifyConfirmation(payload: {
   const transporter = createTransporter();
 
   await transporter.sendMail({
-    from: `"Enov Academy" <${process.env.SMTP_USER}>`,
+    from: `"Enov Academy" <${process.env.SMTP_FROM ?? "contact@enovcorp.com"}>`,
     to: payload.email,
     subject: `Tu seras notifié — ${payload.trainingSlug}`,
     html: baseTemplate(`
