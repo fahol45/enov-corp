@@ -4,6 +4,7 @@ import { useState } from "react";
 import { TrainingAdmin } from "@/components/admin/academy/TrainingAdmin";
 import { PortfolioAdmin } from "@/components/admin/PortfolioAdmin";
 import { SlidesAdmin } from "@/components/admin/SlidesAdmin";
+import { SessionsAdmin } from "@/components/admin/SessionsAdmin";
 
 const TABS = [
   {
@@ -12,6 +13,13 @@ const TABS = [
     desc: "Fiches · statuts · médias",
     activeClass: "border-fuchsia-500/40 bg-fuchsia-500/10 text-white",
     dotClass: "bg-fuchsia-400",
+  },
+  {
+    id: "sessions",
+    label: "Sessions live",
+    desc: "Jitsi · inscriptions",
+    activeClass: "border-red-500/40 bg-red-500/10 text-white",
+    dotClass: "bg-red-400",
   },
   {
     id: "portfolio",
@@ -83,6 +91,7 @@ export function AdminTabs() {
 
       {/* Tab content */}
       {active === "formations" && <TrainingAdmin />}
+      {active === "sessions" && <SessionsAdmin />}
       {active === "portfolio" && <PortfolioAdmin />}
       {active === "slides" && <SlidesAdmin />}
 
