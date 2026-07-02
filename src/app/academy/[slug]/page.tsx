@@ -1,306 +1,261 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TrainingMedia } from "@/components/academy/TrainingMedia";
 import { TrainingStatusBadge } from "@/components/academy/TrainingStatusBadge";
 import { NotifyForm } from "@/components/academy/NotifyForm";
 import { RegisterForm } from "@/components/academy/RegisterForm";
-import { academyRegistrationUrl } from "@/lib/trainings";
 import { fetchAcademyTraining } from "@/lib/academy-data";
 import { absoluteUrl, ogImage, siteName, siteUrl } from "@/lib/seo";
 
-type AcademyDetailPageProps = {
-  params: Promise<{ slug: string }>;
-};
+type Props = { params: Promise<{ slug: string }> };
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({
-  params,
-}: AcademyDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const training = await fetchAcademyTraining(slug);
-
-  if (!training) {
-    return {
-      title: "Formation introuvable",
-      robots: { index: false, follow: false },
-    };
-  }
-
-  const title = training.title;
-  const description = training.summary;
-  const image = training.coverImage || ogImage;
-
+  if (!training) return { title: "Formation introuvable", robots: { index: false, follow: false } };
   return {
-    title,
-    description,
-    alternates: {
-      canonical: `/academy/${training.slug}`,
-    },
+    title: training.title,
+    description: training.summary,
+    alternates: { canonical: `/academy/${training.slug}` },
     openGraph: {
-      title,
-      description,
+      title: training.title,
+      description: training.summary,
       url: `/academy/${training.slug}`,
-      images: [
-        {
-          url: image,
-          alt: siteName,
-        },
-      ],
+      images: [{ url: training.coverImage || ogImage, alt: siteName }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
+    twitter: { card: "summary_large_image", title: training.title, description: training.summary, images: [training.coverImage || ogImage] },
   };
 }
 
-export default async function AcademyDetailPage({
-  params,
-}: AcademyDetailPageProps) {
+export default async function AcademyDetailPage({ params }: Props) {
   const { slug } = await params;
   const training = await fetchAcademyTraining(slug);
-
-  if (!training) {
-    notFound();
-  }
-
-  const registrationUrl =
-    training.registrationUrl || academyRegistrationUrl || "";
-
-  const action =
-    training.status === "available"
-      ? { href: "#inscription", label: "S'inscrire maintenant" }
-      : training.status === "soon"
-        ? { href: "#notification", label: "Être notifié à l'ouverture" }
-        : { href: "/contact", label: "Contacter l'équipe" };
+  if (!training) notFound();
 
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
     name: training.title,
     description: training.summary,
-    provider: {
-      "@type": "Organization",
-      name: siteName,
-      url: siteUrl,
-      logo: absoluteUrl(ogImage),
-    },
+    provider: { "@type": "Organization", name: siteName, url: siteUrl, logo: absoluteUrl(ogImage) },
     inLanguage: "fr",
     educationalLevel: training.details.level,
     courseMode: training.details.format,
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      name: training.title,
-      location: {
-        "@type": "Place",
-        name: training.details.location,
-      },
-    },
+  };
+
+  const levelColor: Record<string, string> = {
+    Débutant: "text-emerald-400",
+    Intermédiaire: "text-amber-400",
+    Avancé: "text-red-400",
+    "Tous niveaux": "text-sky-400",
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(courseJsonLd),
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 opacity-70">
-        <div className="absolute -top-24 right-10 h-72 w-72 rounded-full bg-[#ec008c]/25 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#00a3ff]/20 blur-3xl" />
+    <main className="min-h-screen bg-slate-950 text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
+
+      {/* Hero banner */}
+      <div className="relative bg-slate-900 border-b border-white/10">
+        {training.coverImage && (
+          <div className="absolute inset-0 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={training.coverImage} alt="" className="h-full w-full object-cover opacity-15" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900/95 to-slate-900/70" />
+
+        <div className="app-shell relative py-10">
+          {/* Breadcrumb */}
+          <nav className="mb-6 flex items-center gap-2 text-xs text-slate-500">
+            <Link href="/academy" className="hover:text-white transition">Academy</Link>
+            <span>›</span>
+            <span className="text-slate-400">{training.category}</span>
+            <span>›</span>
+            <span className="text-slate-300 line-clamp-1">{training.title}</span>
+          </nav>
+
+          <div className="max-w-3xl space-y-4">
+            <div className="flex items-center gap-3">
+              <TrainingStatusBadge status={training.status} />
+              <span className="text-xs text-fuchsia-400 font-semibold uppercase tracking-widest">{training.category}</span>
+            </div>
+            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">{training.title}</h1>
+            <p className="text-slate-300 text-base leading-relaxed">{training.summary}</p>
+
+            <div className="flex flex-wrap gap-4 text-sm text-slate-300 pt-2">
+              <span className="flex items-center gap-1.5">⏱ <strong className="text-white">{training.details.duration}</strong></span>
+              <span className="flex items-center gap-1.5">🎯 <strong className={levelColor[training.details.level] ?? "text-white"}>{training.details.level}</strong></span>
+              <span className="flex items-center gap-1.5">📅 <strong className="text-white">{training.details.nextSession}</strong></span>
+              <span className="flex items-center gap-1.5">📍 <strong className="text-white">{training.details.location}</strong></span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="app-shell section-flow relative">
-        <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="space-y-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_25px_60px_rgba(0,0,0,0.4)] sm:p-10">
-            <TrainingStatusBadge status={training.status} />
-            <div className="space-y-3">
-              <p className="kicker text-slate-400">{training.category}</p>
-              <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-                {training.title}
-              </h1>
-              <p className="text-lg text-slate-300 text-pretty">
-                {training.summary}
-              </p>
-            </div>
+      {/* Main content + sidebar */}
+      <div className="app-shell py-10">
+        <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
 
-            <div className="flex flex-wrap gap-3">
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200">
-                Prix: <span className="font-semibold">{training.details.price}</span>
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200">
-                Prochaine session:{" "}
-                <span className="font-semibold">
-                  {training.details.nextSession}
-                </span>
-              </span>
-            </div>
+          {/* Left: content */}
+          <div className="space-y-8">
 
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={action.href}
-                className="inline-flex items-center gap-2 rounded-full border border-[#ec008c]/60 bg-[#ec008c]/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-[#ec008c] hover:bg-[#ec008c]/30"
+            {/* Ce que vous apprendrez */}
+            {training.outcomes.length > 0 && (
+              <section className="border border-white/10 rounded-2xl p-6 bg-slate-900/60">
+                <h2 className="text-xl font-bold mb-5">Ce que vous apprendrez</h2>
+                <ul className="grid sm:grid-cols-2 gap-3">
+                  {training.outcomes.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
+                      <span className="mt-0.5 text-fuchsia-400 shrink-0">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Prérequis */}
+            {training.prerequisites.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold mb-4">Prérequis</h2>
+                <ul className="space-y-2">
+                  {training.prerequisites.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
+                      <span className="mt-0.5 text-slate-500 shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Description */}
+            <section>
+              <h2 className="text-xl font-bold mb-4">Description</h2>
+              <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{training.description}</p>
+            </section>
+
+            {/* Programme PDF */}
+            {training.pdfProgram && (
+              <a
+                href={training.pdfProgram}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 border border-white/10 rounded-xl px-5 py-3 text-sm text-white hover:border-white/30 transition"
               >
-                {action.label}
-                <span>→</span>
-              </Link>
-              {registrationUrl ? (
-                <a
-                  href={registrationUrl}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#00a3ff]/40 bg-[#00a3ff]/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-[#00a3ff]/70 hover:bg-[#00a3ff]/20"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Formulaire d'inscription
-                  <span className="text-[#00a3ff]">→</span>
-                </a>
-              ) : null}
-              {training.pdfProgram ? (
-                <a
-                  href={training.pdfProgram}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#00a3ff]/40 bg-[#00a3ff]/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-[#00a3ff]/70 hover:bg-[#00a3ff]/20"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Télécharger le programme PDF
-                  <span className="text-[#00a3ff]">↗</span>
-                </a>
-              ) : null}
-            </div>
+                📄 Télécharger le programme PDF
+              </a>
+            )}
 
-            <div className="grid gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-sm text-slate-300 md:grid-cols-2">
-              <div className="flex items-center justify-between gap-4">
-                <span>Durée</span>
-                <span className="text-white">{training.details.duration}</span>
-              </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Niveau</span>
-                <span className="text-white">{training.details.level}</span>
-              </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Format</span>
-                <span className="text-white">{training.details.format}</span>
-              </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Prochaine session</span>
-                <span className="text-white">
-                  {training.details.nextSession}
-                </span>
-              </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Prix</span>
-                <span className="text-white">{training.details.price}</span>
-              </div>
-              <div className="flex items-center justify-between gap-4">
-                <span>Lieu</span>
-                <span className="text-white">{training.details.location}</span>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold">Description</h2>
-                <p className="mt-3 text-base text-slate-300 text-pretty">
-                  {training.description}
-                </p>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                  <h3 className="text-lg font-semibold text-white">
-                    Objectifs clés
-                  </h3>
-                  <ul className="mt-4 space-y-3 text-sm text-slate-300">
-                    {training.outcomes.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-[#00a3ff]" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+            {/* Aperçu vidéo */}
+            {training.youtubeEmbed && (
+              <section>
+                <h2 className="text-xl font-bold mb-4">Aperçu de la formation</h2>
+                <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-800">
+                  <iframe
+                    src={training.youtubeEmbed}
+                    title={training.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                  <h3 className="text-lg font-semibold text-white">
-                    Pré-requis
-                  </h3>
-                  <ul className="mt-4 space-y-3 text-sm text-slate-300">
-                    {training.prerequisites.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-[#ec008c]" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+              </section>
+            )}
+
+            {/* Formulaire d'inscription */}
+            {training.status === "available" && (
+              <section id="inscription" className="scroll-mt-24">
+                <h2 className="text-xl font-bold mb-4">S&apos;inscrire</h2>
+                <RegisterForm slug={training.slug} />
+              </section>
+            )}
+            {training.status === "soon" && (
+              <section id="notification" className="scroll-mt-24">
+                <h2 className="text-xl font-bold mb-4">Être notifié à l&apos;ouverture</h2>
+                <NotifyForm slug={training.slug} />
+              </section>
+            )}
+          </div>
+
+          {/* Right: sticky enrollment card */}
+          <div className="lg:sticky lg:top-8 h-fit">
+            <div className="border border-white/10 rounded-2xl bg-slate-900 overflow-hidden shadow-2xl">
+              {training.coverImage && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={training.coverImage} alt={training.title} className="w-full h-40 object-cover" />
+              )}
+              <div className="p-6 space-y-5">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl font-bold text-white">{training.details.price}</span>
                 </div>
+
+                {training.status === "available" ? (
+                  <Link
+                    href="#inscription"
+                    className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"
+                  >
+                    S&apos;inscrire maintenant
+                  </Link>
+                ) : training.status === "soon" ? (
+                  <Link
+                    href="#notification"
+                    className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl py-3 transition"
+                  >
+                    Être notifié à l&apos;ouverture
+                  </Link>
+                ) : (
+                  <Link
+                    href="/contact"
+                    className="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl py-3 transition"
+                  >
+                    Contacter l&apos;équipe
+                  </Link>
+                )}
+
+                <ul className="space-y-3 text-sm text-slate-300 border-t border-white/10 pt-5">
+                  <li className="flex items-center gap-3">
+                    <span>📅</span>
+                    <span>Prochaine session : <strong className="text-white">{training.details.nextSession}</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>⏱</span>
+                    <span>Durée : <strong className="text-white">{training.details.duration}</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>🎯</span>
+                    <span>Niveau : <strong className={levelColor[training.details.level] ?? "text-white"}>{training.details.level}</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>🖥</span>
+                    <span>Format : <strong className="text-white">{training.details.format}</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>📍</span>
+                    <span>Lieu : <strong className="text-white">{training.details.location}</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>🎓</span>
+                    <span>Accompagnement personnalisé inclus</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span>📹</span>
+                    <span>Accès replay de la session</span>
+                  </li>
+                </ul>
+
+                <Link
+                  href="/contact"
+                  className="block w-full text-center border border-white/10 hover:border-white/30 text-white text-sm rounded-xl py-2.5 transition"
+                >
+                  Parler à un conseiller
+                </Link>
               </div>
             </div>
           </div>
-
-          <TrainingMedia
-            title={training.title}
-            coverImage={training.coverImage}
-            youtubeEmbed={training.youtubeEmbed}
-            pdfProgram={training.pdfProgram}
-          />
-        </section>
-
-        <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
-            <h2 className="text-2xl font-semibold text-white">Plan d'action</h2>
-            <p className="text-sm">
-              Nos conseillers vous accompagnent pour structurer votre parcours
-              et préparer votre montée en compétence.
-            </p>
-            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.25em] text-slate-400">
-              <span className="rounded-full border border-white/10 px-4 py-2">
-                Coaching
-              </span>
-              <span className="rounded-full border border-white/10 px-4 py-2">
-                Suivi personnalisé
-              </span>
-              <span className="rounded-full border border-white/10 px-4 py-2">
-                Support technique
-              </span>
-            </div>
-          </div>
-
-          {training.status === "available" ? (
-            <div id="inscription">
-              <RegisterForm slug={training.slug} />
-            </div>
-          ) : null}
-
-          {training.status === "soon" ? (
-            <div id="notification">
-              <NotifyForm slug={training.slug} />
-            </div>
-          ) : null}
-
-          {training.status === "closed" ? (
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
-              <h3 className="text-2xl font-semibold text-white">
-                Formation indisponible
-              </h3>
-              <p className="mt-3 text-sm">
-                Ce programme est actuellement fermé. Contactez-nous pour être
-                informé des prochaines ouvertures ou pour une alternative sur
-                mesure.
-              </p>
-              <Link
-                href="/contact"
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#ec008c]/60 bg-[#ec008c]/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-[#ec008c] hover:bg-[#ec008c]/30"
-              >
-                Contacter Enov Academy
-                <span>→</span>
-              </Link>
-            </div>
-          ) : null}
-        </section>
+        </div>
       </div>
     </main>
   );

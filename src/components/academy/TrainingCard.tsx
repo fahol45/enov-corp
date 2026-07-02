@@ -2,119 +2,92 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { academyRegistrationUrl, type Training } from "@/lib/trainings";
+import type { Training } from "@/lib/trainings";
 import { TrainingStatusBadge } from "./TrainingStatusBadge";
-import { useLanguage } from "@/context/LanguageContext";
 
-const cardCopy = {
-  fr: {
-    duration: "Durée",
-    format: "Format",
-    nextSession: "Prochaine session",
-    discover: "Découvrir la formation",
-    register: "S'inscrire",
-    ariaDiscover: (title: string) => `Voir la formation ${title}`,
-  },
-  en: {
-    duration: "Duration",
-    format: "Format",
-    nextSession: "Next session",
-    discover: "Discover the program",
-    register: "Register",
-    ariaDiscover: (title: string) => `View program ${title}`,
-  },
-};
-
-type TrainingCardProps = {
-  training: Training;
-};
-
-const resolveMedia = (value?: string) => (value ? value : undefined);
-
-export function TrainingCard({ training }: TrainingCardProps) {
-  const { language } = useLanguage();
-  const t = cardCopy[language];
-  const coverImage = resolveMedia(training.coverImage);
+export function TrainingCard({ training }: { training: Training }) {
   const [imageError, setImageError] = useState(false);
-  const showImage = Boolean(coverImage) && !imageError;
-  const registrationUrl =
-    training.registrationUrl || academyRegistrationUrl || "";
+  const showImage = Boolean(training.coverImage) && !imageError;
+
+  const levelColor: Record<string, string> = {
+    Débutant: "text-emerald-400",
+    Intermédiaire: "text-amber-400",
+    Avancé: "text-red-400",
+    "Tous niveaux": "text-sky-400",
+  };
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 text-left backdrop-blur transition hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_25px_60px_rgba(0,0,0,0.45)]">
-      <div className="relative h-44 w-full overflow-hidden">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900 transition hover:border-fuchsia-500/40 hover:shadow-[0_20px_60px_rgba(168,85,247,0.15)] hover:-translate-y-1">
+
+      {/* Cover */}
+      <div className="relative h-48 w-full overflow-hidden bg-slate-800 shrink-0">
         {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={coverImage}
+            src={training.coverImage}
             alt={training.title}
-            className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-slate-900 via-slate-950 to-slate-900">
-            <div className="h-16 w-16 rounded-full bg-[#00a3ff]/20 blur-2xl" />
-            <div className="absolute right-6 top-6 h-10 w-10 rounded-full bg-[#ec008c]/25 blur-xl" />
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800">
+            <span className="text-4xl opacity-30">📚</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-        <div className="absolute left-4 top-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
+        <div className="absolute left-3 top-3">
           <TrainingStatusBadge status={training.status} />
         </div>
+        <div className="absolute right-3 top-3">
+          <span className="text-xs font-bold text-white bg-black/50 backdrop-blur px-2 py-1 rounded-lg">
+            {training.details.price}
+          </span>
+        </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-5">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-            {training.category}
-          </p>
-          <h3 className="text-xl font-semibold text-white">{training.title}</h3>
-          <p className="text-sm text-slate-300">{training.summary}</p>
-        </div>
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-5 gap-3">
+        {/* Category */}
+        <span className="text-[0.65rem] font-semibold uppercase tracking-widest text-fuchsia-400">
+          {training.category}
+        </span>
 
-        <div className="mt-auto grid gap-2 text-xs text-slate-400">
-          <div className="flex items-center justify-between">
-            <span>{t.duration}</span>
-            <span className="text-slate-200">{training.details.duration}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>{t.format}</span>
-            <span className="text-slate-200">{training.details.format}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>{t.nextSession}</span>
-            <span className="text-slate-200">
-              {training.details.nextSession}
-            </span>
-          </div>
-        </div>
+        {/* Title */}
+        <h3 className="text-base font-bold text-white leading-snug line-clamp-2">
+          {training.title}
+        </h3>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-sm font-semibold text-white">
-          <span className="inline-flex items-center gap-2 text-white transition">
-            <span>{t.discover}</span>
-            <span className="text-[#00a3ff] transition group-hover:translate-x-1">
-              →
+        {/* Summary */}
+        <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+          {training.summary}
+        </p>
+
+        {/* Meta row */}
+        <div className="flex flex-wrap gap-3 text-xs text-slate-500 mt-auto pt-3 border-t border-white/5">
+          <span className="flex items-center gap-1">
+            <span>⏱</span>
+            <span>{training.details.duration}</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span>🎯</span>
+            <span className={levelColor[training.details.level] ?? "text-slate-400"}>
+              {training.details.level}
             </span>
           </span>
-          {registrationUrl ? (
-            <a
-              href={registrationUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="relative z-20 inline-flex items-center gap-2 rounded-full border border-[#ec008c]/50 bg-[#ec008c]/15 px-4 py-2 text-xs font-semibold text-white transition hover:border-[#ec008c]/70 hover:bg-[#ec008c]/25"
-            >
-              {t.register}
-              <span className="text-[#ec008c]">→</span>
-            </a>
-          ) : null}
+          <span className="flex items-center gap-1">
+            <span>📅</span>
+            <span className="text-slate-300">{training.details.nextSession}</span>
+          </span>
         </div>
-      </div>
 
-      <Link
-        href={`/academy/${training.slug}`}
-        className="absolute inset-0 z-10"
-        aria-label={t.ariaDiscover(training.title)}
-      />
+        {/* CTA */}
+        <Link
+          href={`/academy/${training.slug}`}
+          className="mt-1 block w-full text-center bg-white/5 hover:bg-fuchsia-600 border border-white/10 hover:border-fuchsia-500 text-white text-xs font-semibold rounded-xl py-2.5 transition"
+        >
+          Voir la formation →
+        </Link>
+      </div>
     </article>
   );
 }

@@ -62,6 +62,12 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
+          <Link
+            href="/mon-espace"
+            className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-widest border border-fuchsia-500/40 text-fuchsia-400 hover:bg-fuchsia-500/10 rounded-full px-4 py-1.5 transition"
+          >
+            Mon espace
+          </Link>
           <LanguageSwitcher />
           <button
             type="button"

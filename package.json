@@ -13,6 +13,7 @@
     "academy:sync": "node scripts/update-trainings.js --from-supabase"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.95.3",
     "framer-motion": "^12.40.0",
     "next": "16.0.7",
