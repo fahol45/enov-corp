@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
+import {
+  sendAcademyRegistrationConfirmation,
+  sendAcademyRegistrationNotification,
+} from "@/lib/email";
+import { fetchAcademyTraining } from "@/lib/academy-data";
 
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
@@ -37,63 +42,55 @@ export async function POST(request: NextRequest) {
       message: isNonEmptyString(body.message) ? body.message.trim() : null,
     };
 
-    const studyValue = isNonEmptyString(studyField)
-      ? studyField.trim()
-      : null;
+    const studyValue = isNonEmptyString(studyField) ? studyField.trim() : null;
 
     let { error } = await supabaseServer
       .from("academy_registrations")
-      .insert([
-        {
-          ...basePayload,
-          field_of_study: studyValue,
-        },
-      ]);
+      .insert([{ ...basePayload, field_of_study: studyValue }]);
 
-    if (
-      error &&
-      studyValue &&
-      typeof error.message === "string" &&
-      error.message.includes("field_of_study")
-    ) {
+    if (error && studyValue && typeof error.message === "string" && error.message.includes("field_of_study")) {
       const mergedMessage = basePayload.message
         ? `${basePayload.message}\nFilière: ${studyValue}`
         : `Filière: ${studyValue}`;
       const retry = await supabaseServer
         .from("academy_registrations")
-        .insert([
-          {
-            ...basePayload,
-            message: mergedMessage,
-          },
-        ]);
+        .insert([{ ...basePayload, message: mergedMessage }]);
       error = retry.error;
     }
 
     if (error) {
-      const debugMessage =
-        process.env.NODE_ENV === "development"
-          ? `Erreur serveur: ${error.message ?? "insertion failed"}`
-          : "Erreur serveur.";
       return NextResponse.json(
-        { ok: false, message: debugMessage },
+        { ok: false, message: process.env.NODE_ENV === "development" ? error.message : "Erreur serveur." },
         { status: 500 }
       );
     }
 
-    return NextResponse.json(
-      { ok: true, message: "Inscription enregistrée." },
-      { status: 200 }
-    );
+    // Send emails (non-blocking — don't fail the request if email fails)
+    const training = await fetchAcademyTraining(slug.trim()).catch(() => null);
+    const trainingTitle = training?.title ?? slug.trim();
+
+    Promise.all([
+      sendAcademyRegistrationConfirmation({
+        firstName: firstName.trim(),
+        email: email.trim(),
+        trainingTitle,
+        trainingSlug: slug.trim(),
+      }),
+      sendAcademyRegistrationNotification({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        phone: basePayload.phone ?? undefined,
+        trainingSlug: slug.trim(),
+        profile: basePayload.profile ?? undefined,
+        message: basePayload.message ?? undefined,
+      }),
+    ]).catch((err) => console.error("Email error:", err));
+
+    return NextResponse.json({ ok: true, message: "Inscription enregistrée." }, { status: 200 });
   } catch (error) {
-    const debugMessage =
-      process.env.NODE_ENV === "development"
-        ? `Erreur serveur: ${
-            error instanceof Error ? error.message : "unknown error"
-          }`
-        : "Erreur serveur.";
     return NextResponse.json(
-      { ok: false, message: debugMessage },
+      { ok: false, message: process.env.NODE_ENV === "development" ? String(error) : "Erreur serveur." },
       { status: 500 }
     );
   }
