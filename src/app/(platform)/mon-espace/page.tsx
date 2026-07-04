@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
-import LogoutButton from "./LogoutButton";
 
 export default async function MonEspacePage() {
   const supabase = await createSupabaseServerClient();
@@ -12,7 +11,6 @@ export default async function MonEspacePage() {
 
   const firstName = user.user_metadata?.first_name ?? user.email?.split("@")[0] ?? "Apprenant";
 
-  // Fetch enrollments with session info
   const { data: enrollments } = await supabaseServer
     .from("enrollments")
     .select("*, sessions(*)")
@@ -24,67 +22,54 @@ export default async function MonEspacePage() {
   const ended = enrollments?.filter((e) => e.sessions?.status === "ended") ?? [];
 
   return (
-    <main className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className="border-b border-white/5 bg-slate-950/80 backdrop-blur sticky top-0 z-10">
-        <div className="app-shell flex items-center justify-between py-4">
-          <Link href="/" className="text-lg font-black tracking-tight text-white">
-            ENOV<span className="text-fuchsia-400">.</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-slate-400">Bonjour, {firstName}</span>
-            <LogoutButton />
-          </div>
-        </div>
-      </header>
-
-      <div className="app-shell py-12">
-        <h1 className="text-3xl font-bold text-white mb-2">Mon espace</h1>
-        <p className="text-slate-400 mb-10">Retrouve tes formations et sessions à venir.</p>
-
-        {/* Sessions live */}
-        {live.length > 0 && (
-          <section className="mb-10">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-4 flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-              En direct maintenant
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {live.map((e) => (
-                <SessionCard key={e.id} enrollment={e} variant="live" />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Sessions à venir */}
-        <section className="mb-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Sessions à venir</h2>
-          {upcoming.length === 0 ? (
-            <EmptyState message="Aucune session à venir." cta />
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              {upcoming.map((e) => (
-                <SessionCard key={e.id} enrollment={e} variant="upcoming" />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* Replays */}
-        <section>
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Replays disponibles</h2>
-          {ended.length === 0 ? (
-            <EmptyState message="Aucun replay pour l'instant." />
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              {ended.map((e) => (
-                <SessionCard key={e.id} enrollment={e} variant="replay" />
-              ))}
-            </div>
-          )}
-        </section>
+    <main className="app-shell py-10">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-white mb-1">Bonjour, {firstName} 👋</h1>
+        <p className="text-slate-400">Retrouve tes formations et sessions à venir.</p>
       </div>
+
+      {/* Sessions live */}
+      {live.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-4 flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+            En direct maintenant
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {live.map((e) => (
+              <SessionCard key={e.id} enrollment={e} variant="live" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Sessions à venir */}
+      <section className="mb-10">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Sessions à venir</h2>
+        {upcoming.length === 0 ? (
+          <EmptyState message="Aucune session à venir." cta />
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {upcoming.map((e) => (
+              <SessionCard key={e.id} enrollment={e} variant="upcoming" />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Replays */}
+      <section>
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Replays disponibles</h2>
+        {ended.length === 0 ? (
+          <EmptyState message="Aucun replay pour l'instant." />
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {ended.map((e) => (
+              <SessionCard key={e.id} enrollment={e} variant="replay" />
+            ))}
+          </div>
+        )}
+      </section>
     </main>
   );
 }

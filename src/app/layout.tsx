@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 import {
   absoluteUrl,
@@ -108,11 +106,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <LanguageProvider>
-          <div className="flex min-h-screen flex-col bg-slate-950 text-white">
-            <Navbar />
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </div>
+          {children}
         </LanguageProvider>
       </body>
     </html>
