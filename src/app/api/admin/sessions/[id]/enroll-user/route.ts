@@ -30,18 +30,29 @@ export async function POST(
     return NextResponse.json({ ok: false, message: "Impossible de récupérer les utilisateurs." }, { status: 500 });
   }
 
-  const user = users.find((u) => u.email?.toLowerCase() === email);
-  if (!user) {
-    return NextResponse.json({
-      ok: false,
-      message: `Aucun compte trouvé pour ${email}. L'utilisateur doit d'abord créer un compte sur /auth/register.`,
-    }, { status: 404 });
+  let userId: string;
+  let wasInvited = false;
+
+  const existing = users.find((u) => u.email?.toLowerCase() === email);
+
+  if (existing) {
+    userId = existing.id;
+  } else {
+    // No account → invite the user (creates account + sends invitation email)
+    const { data: invited, error: inviteError } = await supabaseServer.auth.admin.inviteUserByEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://enovcorp.com"}/auth/callback`,
+    });
+    if (inviteError || !invited?.user) {
+      return NextResponse.json({ ok: false, message: `Impossible d'inviter ${email} : ${inviteError?.message ?? "erreur inconnue"}` }, { status: 500 });
+    }
+    userId = invited.user.id;
+    wasInvited = true;
   }
 
   // Create enrollment
   const { error } = await supabaseServer
     .from("enrollments")
-    .insert([{ user_id: user.id, session_id: id }]);
+    .insert([{ user_id: userId, session_id: id }]);
 
   if (error) {
     if (error.code === "23505") {
@@ -50,7 +61,11 @@ export async function POST(
     return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, message: `${email} inscrit avec succès.`, userId: user.id });
+  const message = wasInvited
+    ? `Invitation envoyée à ${email} — il recevra un email pour créer son compte. Inscription enregistrée.`
+    : `${email} inscrit avec succès.`;
+
+  return NextResponse.json({ ok: true, message, userId });
 }
 
 export async function DELETE(
