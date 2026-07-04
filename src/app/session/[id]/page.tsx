@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
 import JitsiRoom from "./JitsiRoom";
+import { EnrollButton } from "./EnrollButton";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -34,15 +35,27 @@ export default async function SessionPage({ params }: Props) {
     .single();
 
   if (!enrollment) {
+    const date = new Date(session.scheduled_at);
+    const dateStr = date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const timeStr = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+
     return (
       <main className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-        <div className="text-center max-w-md space-y-4">
-          <div className="text-6xl">🔒</div>
-          <h1 className="text-2xl font-bold text-white">Accès restreint</h1>
-          <p className="text-slate-400 text-sm">Tu n&apos;es pas inscrit à cette session. Inscris-toi d&apos;abord à la formation.</p>
-          <Link href="/academy" className="inline-block bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold rounded-xl px-6 py-3 transition">
-            Voir les formations
-          </Link>
+        <div className="max-w-md w-full space-y-6">
+          <div className="text-center space-y-2">
+            <div className="text-5xl mb-4">📋</div>
+            <h1 className="text-2xl font-bold text-white">{session.title}</h1>
+            <p className="text-slate-400 text-sm capitalize">{dateStr} à {timeStr} · {session.duration_minutes} min</p>
+          </div>
+          <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 space-y-4">
+            <p className="text-slate-300 text-sm">Tu n&apos;es pas encore inscrit à cette session.</p>
+            <EnrollButton sessionId={id} trainingSlug={session.training_slug} />
+          </div>
+          <div className="text-center">
+            <Link href="/academy" className="text-sm text-slate-500 hover:text-white transition">
+              ← Voir toutes les formations
+            </Link>
+          </div>
         </div>
       </main>
     );

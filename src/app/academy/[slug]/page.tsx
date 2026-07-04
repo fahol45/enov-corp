@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { TrainingStatusBadge } from "@/components/academy/TrainingStatusBadge";
 import { NotifyForm } from "@/components/academy/NotifyForm";
 import { RegisterForm } from "@/components/academy/RegisterForm";
+import { SessionsSection } from "@/components/academy/SessionsSection";
 import { fetchAcademyTraining } from "@/lib/academy-data";
 import { absoluteUrl, ogImage, siteName, siteUrl } from "@/lib/seo";
+import { supabaseServer } from "@/lib/supabase/server";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -33,6 +35,14 @@ export default async function AcademyDetailPage({ params }: Props) {
   const { slug } = await params;
   const training = await fetchAcademyTraining(slug);
   if (!training) notFound();
+
+  // Fetch sessions for this training
+  const { data: sessions } = await supabaseServer
+    .from("sessions")
+    .select("id, title, scheduled_at, duration_minutes, max_participants, status, enrollments(count)")
+    .eq("training_slug", slug)
+    .neq("status", "ended")
+    .order("scheduled_at", { ascending: true });
 
   const courseJsonLd = {
     "@context": "https://schema.org",
@@ -163,6 +173,11 @@ export default async function AcademyDetailPage({ params }: Props) {
                   />
                 </div>
               </section>
+            )}
+
+            {/* Sessions disponibles */}
+            {sessions && sessions.length > 0 && (
+              <SessionsSection sessions={sessions as any} trainingSlug={slug} />
             )}
 
             {/* Formulaire d'inscription */}
