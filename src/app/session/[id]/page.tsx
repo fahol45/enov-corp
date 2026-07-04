@@ -91,33 +91,57 @@ export default async function SessionPage({ params }: Props) {
 
   // status === "live"
   const roomName = session.jitsi_room_id ?? `enov-${id}`;
+  const jitsiUrl = `https://meet.jit.si/${roomName}`;
   const firstName = user.user_metadata?.first_name ?? user.email?.split("@")[0] ?? "Apprenant";
-  const lastName = user.user_metadata?.last_name ?? "";
 
   return (
-    <main className="h-screen bg-slate-950 flex flex-col">
-      {/* Top bar */}
-      <header className="shrink-0 border-b border-white/5 bg-slate-950 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 bg-red-500/10 px-2.5 py-1 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
-            LIVE
-          </span>
-          <span className="text-white font-semibold text-sm">{session.title}</span>
-        </div>
-        <Link href="/mon-espace" className="text-xs text-slate-500 hover:text-white transition">
-          Quitter ←
-        </Link>
-      </header>
+    <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-lg space-y-8 text-center">
 
-      {/* Jitsi iframe */}
-      <div className="flex-1 overflow-hidden">
-        <JitsiRoom
-          roomName={roomName}
-          password={session.jitsi_password ?? undefined}
-          displayName={`${firstName} ${lastName}`.trim()}
-          userEmail={user.email ?? ""}
-        />
+        {/* LIVE badge */}
+        <div className="flex justify-center">
+          <span className="inline-flex items-center gap-2 text-sm font-bold text-red-400 bg-red-500/10 border border-red-500/30 px-4 py-2 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+            EN DIRECT MAINTENANT
+          </span>
+        </div>
+
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold text-white">{session.title}</h1>
+          <p className="text-slate-400 text-sm">Bonjour {firstName} — la session est en cours</p>
+        </div>
+
+        {/* Join card */}
+        <div className="bg-slate-900 border border-white/10 rounded-2xl p-8 space-y-6">
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-widest text-slate-500">Salle Jitsi</p>
+            <p className="text-white font-mono text-sm">{roomName}</p>
+          </div>
+
+          {session.jitsi_password && (
+            <div className="space-y-1">
+              <p className="text-xs uppercase tracking-widest text-slate-500">Mot de passe</p>
+              <p className="text-fuchsia-300 font-mono text-sm">{session.jitsi_password}</p>
+            </div>
+          )}
+
+          <a
+            href={jitsiUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="block w-full text-center bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl py-4 text-base transition"
+          >
+            Rejoindre la session →
+          </a>
+
+          <p className="text-xs text-slate-500">
+            La session s&apos;ouvrira dans un nouvel onglet sur Jitsi Meet.
+          </p>
+        </div>
+
+        <Link href="/mon-espace" className="text-sm text-slate-500 hover:text-white transition">
+          ← Mon espace
+        </Link>
       </div>
     </main>
   );
