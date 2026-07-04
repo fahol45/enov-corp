@@ -45,22 +45,26 @@ export default async function AcademyDetailPage({ params }: Props) {
     .neq("status", "ended")
     .order("scheduled_at", { ascending: true });
 
-  // Check if current logged-in user is already enrolled in any session of this training
-  let isEnrolled = false;
+  // Check auth state and enrolled sessions
+  let userLoggedIn = false;
+  let enrolledSessionIds: string[] = [];
   try {
     const authClient = await createSupabaseServerClient();
     const { data: { user } } = await authClient.auth.getUser();
-    if (user && sessions && sessions.length > 0) {
-      const sessionIds = sessions.map((s: { id: string }) => s.id);
-      const { data: enrollment } = await supabaseServer
-        .from("enrollments")
-        .select("id")
-        .eq("user_id", user.id)
-        .in("session_id", sessionIds)
-        .maybeSingle();
-      if (enrollment) isEnrolled = true;
+    if (user) {
+      userLoggedIn = true;
+      if (sessions && sessions.length > 0) {
+        const sessionIds = sessions.map((s: { id: string }) => s.id);
+        const { data: enrollments } = await supabaseServer
+          .from("enrollments")
+          .select("session_id")
+          .eq("user_id", user.id)
+          .in("session_id", sessionIds);
+        enrolledSessionIds = (enrollments ?? []).map((e: { session_id: string }) => e.session_id);
+      }
     }
   } catch { /* not logged in */ }
+  const isEnrolled = enrolledSessionIds.length > 0;
 
   const courseJsonLd = {
     "@context": "https://schema.org",
@@ -195,10 +199,16 @@ export default async function AcademyDetailPage({ params }: Props) {
 
             {/* Sessions disponibles */}
             {sessions && sessions.length > 0 && (
-              <SessionsSection sessions={sessions as any} trainingSlug={slug} trainingStatus={training.status} />
+              <SessionsSection
+                sessions={sessions as any}
+                trainingSlug={slug}
+                trainingStatus={training.status}
+                userLoggedIn={userLoggedIn}
+                enrolledSessionIds={enrolledSessionIds}
+              />
             )}
 
-            {/* Formulaire d'inscription / état inscrit */}
+            {/* Inscription / état connecté */}
             {isEnrolled ? (
               <section className="border border-fuchsia-500/30 rounded-2xl p-8 bg-fuchsia-950/20 text-center">
                 <p className="text-2xl mb-2">✓</p>
@@ -211,7 +221,7 @@ export default async function AcademyDetailPage({ params }: Props) {
                   Accéder à ma session →
                 </Link>
               </section>
-            ) : training.status === "available" ? (
+            ) : userLoggedIn ? null : training.status === "available" ? (
               <section id="inscription" className="scroll-mt-24">
                 <h2 className="text-xl font-bold mb-4">S&apos;inscrire</h2>
                 <RegisterForm slug={training.slug} />
@@ -243,9 +253,16 @@ export default async function AcademyDetailPage({ params }: Props) {
                   >
                     ✓ Accéder à ma session
                   </Link>
+                ) : userLoggedIn && sessions && sessions.length > 0 ? (
+                  <Link
+                    href="#sessions"
+                    className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"
+                  >
+                    Voir les sessions →
+                  </Link>
                 ) : training.status === "available" ? (
                   <Link
-                    href="#inscription"
+                    href={userLoggedIn ? "#sessions" : "#inscription"}
                     className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"
                   >
                     S&apos;inscrire maintenant
