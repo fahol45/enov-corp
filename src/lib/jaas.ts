@@ -31,10 +31,11 @@ export async function generateJaasToken({
 
   const token = await new SignJWT({
     iss: "chat",
+    aud: "jitsi",
     iat: now,
     exp: now + durationMinutes * 60,
     nbf: now - 10,
-    room: "*",
+    room: roomName,
     sub: APP_ID,
     context: {
       user: {
