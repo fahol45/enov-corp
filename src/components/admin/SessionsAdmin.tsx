@@ -67,8 +67,9 @@ export function SessionsAdmin() {
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Session | null>(null);
-const [enrollEmail, setEnrollEmail] = useState("");
+  const [enrollEmail, setEnrollEmail] = useState("");
   const [enrollBusy, setEnrollBusy] = useState(false);
+  const [enrollFeedback, setEnrollFeedback] = useState<{ msg: string; ok: boolean } | null>(null);
 
   const showMsg = (msg: string, ok = true) => {
     setFeedback({ msg, ok });
@@ -138,13 +139,21 @@ const [enrollEmail, setEnrollEmail] = useState("");
         credentials: "include",
         body: JSON.stringify({ email: enrollEmail.trim() }),
       });
-      const d = await r.json() as { ok: boolean; message?: string };
-      showMsg(d.message ?? (d.ok ? "Inscrit." : "Erreur."), d.ok);
+      let d: { ok: boolean; message?: string };
+      try {
+        d = await r.json();
+      } catch {
+        setEnrollFeedback({ msg: `Erreur HTTP ${r.status} — réessaie ou vérifie la connexion admin.`, ok: false });
+        return;
+      }
+      setEnrollFeedback({ msg: d.message ?? (d.ok ? "Inscrit." : "Erreur."), ok: d.ok });
       if (d.ok) {
         setEnrollEmail("");
         await loadEnrollments(selectedId);
         await loadSessions();
       }
+    } catch (err) {
+      setEnrollFeedback({ msg: `Erreur réseau : ${String(err)}`, ok: false });
     } finally {
       setEnrollBusy(false);
     }
@@ -490,7 +499,11 @@ const [enrollEmail, setEnrollEmail] = useState("");
               {enrollBusy ? "…" : "Inscrire"}
             </button>
           </div>
-          <p className="text-xs text-slate-500">L&apos;utilisateur doit avoir un compte sur <strong className="text-slate-400">/auth/register</strong> avant d&apos;être inscrit.</p>
+          {enrollFeedback && (
+            <div className={`rounded-xl border px-4 py-2.5 text-sm ${enrollFeedback.ok ? "border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-300" : "border-red-500/30 bg-red-500/10 text-red-300"}`}>
+              {enrollFeedback.msg}
+            </div>
+          )}
 
           {/* List */}
           {enrollments.length === 0 ? (
