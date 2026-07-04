@@ -18,7 +18,22 @@ export async function GET(
     return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, enrollments: data ?? [] });
+  const enrollments = data ?? [];
+
+  // Fetch user details for all enrolled users
+  const { data: { users } } = await supabaseServer.auth.admin.listUsers({ page: 1, perPage: 1000 });
+  const userMap = new Map(users.map((u) => [u.id, u]));
+
+  const enriched = enrollments.map((e) => {
+    const u = userMap.get(e.user_id);
+    return {
+      ...e,
+      email: u?.email ?? null,
+      name: `${u?.user_metadata?.first_name ?? ""} ${u?.user_metadata?.last_name ?? ""}`.trim() || null,
+    };
+  });
+
+  return NextResponse.json({ ok: true, enrollments: enriched });
 }
 
 export async function PATCH(

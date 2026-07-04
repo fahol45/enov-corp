@@ -24,7 +24,8 @@ type Enrollment = {
   id: string;
   user_id: string;
   enrolled_at: string;
-  email?: string;
+  email?: string | null;
+  name?: string | null;
 };
 
 const STATUS_LABELS: Record<SessionStatus, string> = {
@@ -499,11 +500,14 @@ export function SessionsAdmin() {
               {enrollments.map((e, i) => (
                 <div key={e.id} className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/3 px-4 py-2.5">
                   <span className="text-xs text-slate-500">#{i + 1}</span>
-                  <span className="text-xs font-mono text-slate-300 flex-1">{e.email ?? e.user_id}</span>
-                  <span className="text-xs text-slate-500">{new Date(e.enrolled_at).toLocaleDateString("fr-FR")}</span>
+                  <div className="flex-1 min-w-0">
+                    {e.name && <p className="text-xs font-semibold text-white truncate">{e.name}</p>}
+                    <p className="text-xs text-slate-400 truncate">{e.email ?? e.user_id}</p>
+                  </div>
+                  <span className="text-xs text-slate-500 shrink-0">{new Date(e.enrolled_at).toLocaleDateString("fr-FR")}</span>
                   <button
                     onClick={() => handleRemoveEnrollment(e.user_id)}
-                    className="text-xs text-red-400 hover:text-red-300 transition"
+                    className="text-xs text-red-400 hover:text-red-300 transition shrink-0"
                   >
                     Retirer
                   </button>
