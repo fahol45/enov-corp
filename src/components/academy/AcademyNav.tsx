@@ -126,18 +126,28 @@ export function AcademyNav() {
 
           {userName ? (
             <div className="relative">
-              <button
-                onClick={() => setMenuOpen((p) => !p)}
-                className="inline-flex items-center gap-2 border border-white/10 hover:border-fuchsia-500/40 bg-white/[0.03] hover:bg-white/[0.06] rounded-full pl-1.5 pr-3 py-1 transition-all duration-200"
-              >
-                <span className="w-6 h-6 rounded-full bg-linear-to-br from-fuchsia-600 to-violet-700 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {userInitial}
-                </span>
-                <span className="text-[0.7rem] font-semibold text-white hidden sm:block">{userName}</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500">
-                  <polyline points="6 9 12 15 18 9"/>
-                </svg>
-              </button>
+              <div className="inline-flex items-center rounded-full border border-white/10 hover:border-fuchsia-500/40 bg-white/3 hover:bg-white/6 transition-all duration-200 overflow-hidden">
+                <Link
+                  href="/profil"
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex items-center gap-2 pl-1.5 pr-2 py-1"
+                  title="Modifier mon profil"
+                >
+                  <span className="w-6 h-6 rounded-full bg-linear-to-br from-fuchsia-600 to-violet-700 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                    {userInitial}
+                  </span>
+                  <span className="text-[0.7rem] font-semibold text-white hidden sm:block">{userName}</span>
+                </Link>
+                <button
+                  onClick={() => setMenuOpen((p) => !p)}
+                  className="pr-2.5 py-1 text-slate-500 hover:text-slate-300 transition"
+                  aria-label="Menu"
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+              </div>
 
               {menuOpen && (
                 <>
@@ -147,6 +157,7 @@ export function AcademyNav() {
                       <p className="text-xs font-bold text-white">{userName}</p>
                       <p className="text-[0.62rem] text-slate-600 mt-0.5">Apprenant Enov Academy</p>
                     </div>
+                    <Link href="/profil"      onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/[0.05] transition">Mon profil</Link>
                     <Link href="/mon-espace"  onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/[0.05] transition">Mon espace</Link>
                     <Link href="/academy"     onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/[0.05] transition">Formations</Link>
                     <div className="border-t border-white/[0.06]" />
@@ -187,9 +198,14 @@ export function AcademyNav() {
           ))}
           <Link href="/" onClick={() => setMenuOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-white/[0.04] transition">← Site principal</Link>
           {userName && (
-            <button onClick={handleLogout} className="w-full text-left rounded-xl px-3 py-2.5 text-sm text-red-400/80 hover:bg-red-500/[0.07] transition">
-              Déconnexion
-            </button>
+            <>
+              <Link href="/profil" onClick={() => setMenuOpen(false)} className={`block rounded-xl px-3 py-2.5 text-sm transition ${isActive("/profil") ? "text-white bg-white/5" : "text-slate-400 hover:bg-white/4"}`}>
+                Mon profil
+              </Link>
+              <button onClick={handleLogout} className="w-full text-left rounded-xl px-3 py-2.5 text-sm text-red-400/80 hover:bg-red-500/[0.07] transition">
+                Déconnexion
+              </button>
+            </>
           )}
         </div>
       )}
