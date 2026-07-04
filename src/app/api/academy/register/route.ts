@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
         email: email.trim(),
         phone: basePayload.phone ?? undefined,
         trainingSlug: slug.trim(),
+        trainingTitle,
         profile: basePayload.profile ?? undefined,
         message: basePayload.message ?? undefined,
       }),

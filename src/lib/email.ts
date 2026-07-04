@@ -145,15 +145,21 @@ export async function sendAcademyRegistrationNotification(payload: {
   email: string;
   phone?: string;
   trainingSlug: string;
+  trainingTitle?: string;
   profile?: string;
   message?: string;
 }) {
+  const title = payload.trainingTitle ?? payload.trainingSlug;
   await sendBrevoEmail({
     to: [{ email: process.env.CONTACT_RECIPIENT ?? "contact@enovcorp.com", name: "Enov Academy" }],
-    subject: `Nouvelle inscription Academy — ${payload.trainingSlug}`,
+    subject: `Nouvelle inscription Academy — ${title}`,
     htmlContent: baseTemplate(`
       <h2 style="margin:0 0 24px;font-size:20px;font-weight:700;color:#fff;">Nouvelle inscription Academy</h2>
       <table width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:#94a3b8;font-size:12px;">Formation</span><br>
+          <span style="color:#d946ef;font-size:16px;font-weight:700;">${escapeHtml(title)}</span>
+        </td></tr>
         <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
           <span style="color:#94a3b8;font-size:12px;">Nom</span><br>
           <span style="color:#fff;font-size:14px;font-weight:600;">${escapeHtml(payload.firstName)} ${escapeHtml(payload.lastName)}</span>
@@ -162,13 +168,17 @@ export async function sendAcademyRegistrationNotification(payload: {
           <span style="color:#94a3b8;font-size:12px;">Email</span><br>
           <a href="mailto:${escapeHtml(payload.email)}" style="color:#a855f7;font-size:14px;">${escapeHtml(payload.email)}</a>
         </td></tr>
-        <tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="color:#94a3b8;font-size:12px;">Formation</span><br>
-          <span style="color:#d946ef;font-size:14px;font-weight:600;">${escapeHtml(payload.trainingSlug)}</span>
-        </td></tr>
-        ${payload.phone ? `<tr><td style="padding:8px 0;">
+        ${payload.phone ? `<tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
           <span style="color:#94a3b8;font-size:12px;">Téléphone</span><br>
           <span style="color:#fff;font-size:14px;">${escapeHtml(payload.phone)}</span>
+        </td></tr>` : ""}
+        ${payload.profile ? `<tr><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span style="color:#94a3b8;font-size:12px;">Profil</span><br>
+          <span style="color:#fff;font-size:14px;">${escapeHtml(payload.profile)}</span>
+        </td></tr>` : ""}
+        ${payload.message ? `<tr><td style="padding:8px 0;">
+          <span style="color:#94a3b8;font-size:12px;">Message</span><br>
+          <p style="color:#cbd5e1;font-size:14px;line-height:1.7;margin:8px 0 0;">${escapeHtml(payload.message).replace(/\n/g, "<br>")}</p>
         </td></tr>` : ""}
       </table>
     `),
