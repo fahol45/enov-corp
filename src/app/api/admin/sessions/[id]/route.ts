@@ -10,9 +10,9 @@ export async function GET(
 
   const { data, error } = await supabaseServer
     .from("enrollments")
-    .select("id, enrolled_at, user_id")
+    .select("*")
     .eq("session_id", id)
-    .order("enrolled_at", { ascending: true });
+    .order("created_at", { ascending: true });
 
   if (error) {
     return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
@@ -20,16 +20,23 @@ export async function GET(
 
   const enrollments = data ?? [];
 
-  // Fetch user details for all enrolled users
-  const { data: { users } } = await supabaseServer.auth.admin.listUsers({ page: 1, perPage: 1000 });
-  const userMap = new Map(users.map((u) => [u.id, u]));
+  // Fetch user details — gracefully handle listUsers failure
+  let userMap = new Map<string, { email?: string; user_metadata?: Record<string, string> }>();
+  try {
+    const { data: usersData, error: usersError } = await supabaseServer.auth.admin.listUsers({ page: 1, perPage: 1000 });
+    if (!usersError && usersData?.users) {
+      userMap = new Map(usersData.users.map((u) => [u.id, u]));
+    }
+  } catch {
+    // Continue without user details — enrollments still returned
+  }
 
   const enriched = enrollments.map((e) => {
     const u = userMap.get(e.user_id);
     return {
       ...e,
       email: u?.email ?? null,
-      name: `${u?.user_metadata?.first_name ?? ""} ${u?.user_metadata?.last_name ?? ""}`.trim() || null,
+      name: `${(u?.user_metadata?.first_name ?? "")} ${(u?.user_metadata?.last_name ?? "")}`.trim() || null,
     };
   });
 
