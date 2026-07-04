@@ -302,7 +302,7 @@ const [enrollEmail, setEnrollEmail] = useState("");
                       onClick={() => loadEnrollments(selected.id)}
                       className="rounded-xl border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-300 transition hover:bg-sky-500/20"
                     >
-                      ↻ Actualiser inscrits
+                      ↻ {enrollments.length} inscrit{enrollments.length !== 1 ? "s" : ""}
                     </button>
                     <button
                       onClick={() => setConfirmDelete(selected)}
