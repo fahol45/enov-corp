@@ -2,8 +2,6 @@ import { redirect, notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
-import JitsiRoom from "./JitsiRoom";
-import { EnrollButton } from "./EnrollButton";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -48,8 +46,13 @@ export default async function SessionPage({ params }: Props) {
             <p className="text-slate-400 text-sm capitalize">{dateStr} à {timeStr} · {session.duration_minutes} min</p>
           </div>
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 space-y-4">
-            <p className="text-slate-300 text-sm">Tu n&apos;es pas encore inscrit à cette session.</p>
-            <EnrollButton sessionId={id} trainingSlug={session.training_slug} />
+            <p className="text-slate-300 text-sm">Tu n&apos;es pas inscrit à cette session. Inscris-toi à la formation pour recevoir un accès.</p>
+            <Link
+              href={`/academy/${session.training_slug}`}
+              className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"
+            >
+              Voir la formation →
+            </Link>
           </div>
           <div className="text-center">
             <Link href="/academy" className="text-sm text-slate-500 hover:text-white transition">

@@ -24,6 +24,7 @@ type Enrollment = {
   id: string;
   user_id: string;
   enrolled_at: string;
+  email?: string;
 };
 
 const STATUS_LABELS: Record<SessionStatus, string> = {
@@ -66,6 +67,8 @@ export function SessionsAdmin() {
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Session | null>(null);
   const [showEnrollments, setShowEnrollments] = useState(false);
+  const [enrollEmail, setEnrollEmail] = useState("");
+  const [enrollBusy, setEnrollBusy] = useState(false);
 
   const showMsg = (msg: string, ok = true) => {
     setFeedback({ msg, ok });
@@ -117,6 +120,41 @@ export function SessionsAdmin() {
     const d = await r.json() as { ok: boolean; enrollments?: Enrollment[] };
     if (d.ok) setEnrollments(d.enrollments ?? []);
     setShowEnrollments(true);
+  };
+
+  const handleEnrollByEmail = async () => {
+    if (!selectedId || !enrollEmail.trim()) return;
+    setEnrollBusy(true);
+    try {
+      const r = await fetch(`/api/admin/sessions/${selectedId}/enroll-user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email: enrollEmail.trim() }),
+      });
+      const d = await r.json() as { ok: boolean; message?: string };
+      showMsg(d.message ?? (d.ok ? "Inscrit." : "Erreur."), d.ok);
+      if (d.ok) {
+        setEnrollEmail("");
+        await loadEnrollments(selectedId);
+        await loadSessions();
+      }
+    } finally {
+      setEnrollBusy(false);
+    }
+  };
+
+  const handleRemoveEnrollment = async (userId: string) => {
+    if (!selectedId) return;
+    const r = await fetch(`/api/admin/sessions/${selectedId}/enroll-user?user_id=${userId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const d = await r.json() as { ok: boolean };
+    if (d.ok) {
+      setEnrollments((prev) => prev.filter((e) => e.user_id !== userId));
+      await loadSessions();
+    }
   };
 
   const handleSave = async () => {
@@ -423,18 +461,37 @@ export function SessionsAdmin() {
 
       {/* Enrollments panel */}
       {showEnrollments && selected && (
-        <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-5 space-y-4">
+          <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-white">
               Inscrits — {selected.title}
             </h3>
-            <button
-              onClick={() => setShowEnrollments(false)}
-              className="text-xs text-slate-500 hover:text-white"
-            >
+            <button onClick={() => setShowEnrollments(false)} className="text-xs text-slate-500 hover:text-white">
               Fermer ×
             </button>
           </div>
+
+          {/* Add by email */}
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={enrollEmail}
+              onChange={(e) => setEnrollEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleEnrollByEmail()}
+              placeholder="email@utilisateur.com"
+              className="flex-1 rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-sm text-white outline-none focus:border-fuchsia-500/60 placeholder:text-slate-600"
+            />
+            <button
+              onClick={handleEnrollByEmail}
+              disabled={enrollBusy || !enrollEmail.trim()}
+              className="rounded-xl border border-fuchsia-500/40 bg-fuchsia-500/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-fuchsia-500/25 disabled:opacity-50"
+            >
+              {enrollBusy ? "…" : "Inscrire"}
+            </button>
+          </div>
+          <p className="text-xs text-slate-500">L&apos;utilisateur doit avoir un compte sur <strong className="text-slate-400">/auth/register</strong> avant d&apos;être inscrit.</p>
+
+          {/* List */}
           {enrollments.length === 0 ? (
             <p className="text-sm text-slate-500">Aucun inscrit pour le moment.</p>
           ) : (
@@ -442,10 +499,14 @@ export function SessionsAdmin() {
               {enrollments.map((e, i) => (
                 <div key={e.id} className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/3 px-4 py-2.5">
                   <span className="text-xs text-slate-500">#{i + 1}</span>
-                  <span className="text-xs font-mono text-slate-300">{e.user_id}</span>
-                  <span className="ml-auto text-xs text-slate-500">
-                    {new Date(e.enrolled_at).toLocaleDateString("fr-FR")}
-                  </span>
+                  <span className="text-xs font-mono text-slate-300 flex-1">{e.email ?? e.user_id}</span>
+                  <span className="text-xs text-slate-500">{new Date(e.enrolled_at).toLocaleDateString("fr-FR")}</span>
+                  <button
+                    onClick={() => handleRemoveEnrollment(e.user_id)}
+                    className="text-xs text-red-400 hover:text-red-300 transition"
+                  >
+                    Retirer
+                  </button>
                 </div>
               ))}
             </div>
