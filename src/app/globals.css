@@ -59,6 +59,25 @@ video {
   display: block;
 }
 
+/* Academy platform shared utilities */
+.cta-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background-color: #a21caf; /* fuchsia-700 */
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.cta-primary:hover {
+  background-color: #c026d3; /* fuchsia-600 */
+  box-shadow: 0 0 40px rgba(192, 38, 211, 0.35);
+}
+
 @layer utilities {
   .kicker {
     font-size: 0.75rem;
