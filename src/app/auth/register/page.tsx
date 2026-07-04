@@ -25,12 +25,14 @@ export default function RegisterPage() {
       },
     });
     if (error) {
-      let msg = error.message;
-      try {
-        const parsed = JSON.parse(msg) as { message?: string; error_description?: string };
-        msg = parsed.message ?? parsed.error_description ?? "";
-      } catch { /* not JSON */ }
-      setError(msg || "Une erreur est survenue. Réessaie.");
+      const knownMessages: Record<string, string> = {
+        "User already registered": "Cet email est déjà utilisé. Connecte-toi ou utilise un autre email.",
+        "Invalid login credentials": "Email ou mot de passe incorrect.",
+        "Email rate limit exceeded": "Trop de tentatives. Réessaie dans quelques minutes.",
+        "Password should be at least 6 characters": "Le mot de passe doit faire au moins 6 caractères.",
+      };
+      const msg = knownMessages[error.message] ?? error.message ?? "Une erreur est survenue. Réessaie.";
+      setError(msg);
       setLoading(false);
       return;
     }
