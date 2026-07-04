@@ -56,17 +56,17 @@ export async function POST(
     userId = created.user.id;
     wasInvited = true;
 
-    // Generate password-set link and send via Brevo
+    // Generate magic link (one-click login) and send via Brevo
     try {
       const { data: linkData, error: linkError } = await supabaseServer.auth.admin.generateLink({
-        type: "recovery",
+        type: "magiclink",
         email,
-        options: { redirectTo: "https://enovcorp.com/mon-espace" },
+        options: { redirectTo: "https://enovcorp.com/auth/confirm" },
       });
       if (linkError) {
         inviteEmailError = `generateLink: ${linkError.message}`;
       } else {
-        const inviteLink = linkData?.properties?.action_link ?? "https://enovcorp.com/auth/register";
+        const inviteLink = linkData?.properties?.action_link ?? "https://enovcorp.com/auth/login";
         await sendInvitationEmail({ email, inviteLink });
       }
     } catch (err) {

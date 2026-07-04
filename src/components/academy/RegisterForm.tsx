@@ -29,7 +29,7 @@ export function RegisterForm({ slug }: RegisterFormProps) {
     message: "",
   });
 
-  const studentProfileValue = "Ã‰tudiant";
+  const studentProfileValue = "Étudiant";
   const isStudent = form.profile === studentProfileValue;
 
   const onChange = (
