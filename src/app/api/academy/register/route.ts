@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       return NextResponse.json(
-        { ok: false, message: process.env.NODE_ENV === "development" ? error.message : "Erreur serveur." },
+        { ok: false, message: error.message },
         { status: 500 }
       );
     }
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, message: "Inscription enregistrée." }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { ok: false, message: process.env.NODE_ENV === "development" ? String(error) : "Erreur serveur." },
+      { ok: false, message: String(error) },
       { status: 500 }
     );
   }
