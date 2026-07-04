@@ -161,14 +161,21 @@ export function SessionsAdmin() {
 
   const handleRemoveEnrollment = async (userId: string) => {
     if (!selectedId) return;
-    const r = await fetch(`/api/admin/sessions/${selectedId}/enroll-user?user_id=${userId}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
-    const d = await r.json() as { ok: boolean };
-    if (d.ok) {
-      setEnrollments((prev) => prev.filter((e) => e.user_id !== userId));
-      await loadSessions();
+    try {
+      const r = await fetch(`/api/admin/sessions/${selectedId}/enroll-user?user_id=${userId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const d = await r.json() as { ok: boolean; message?: string };
+      if (d.ok) {
+        setEnrollments((prev) => prev.filter((e) => e.user_id !== userId));
+        setEnrollFeedback({ msg: "Inscription supprimée.", ok: true });
+        await loadSessions();
+      } else {
+        setEnrollFeedback({ msg: d.message ?? "Erreur lors de la suppression.", ok: false });
+      }
+    } catch {
+      setEnrollFeedback({ msg: "Erreur réseau — suppression non effectuée.", ok: false });
     }
   };
 

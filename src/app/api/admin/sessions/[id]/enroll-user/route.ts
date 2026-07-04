@@ -54,13 +54,19 @@ export async function POST(
     wasInvited = true;
 
     // Generate invite link and send via Brevo
-    const { data: linkData } = await supabaseServer.auth.admin.generateLink({
-      type: "invite",
-      email,
-      options: { redirectTo: "https://enovcorp.com/mon-espace" },
-    });
-    const inviteLink = (linkData as { properties?: { action_link?: string } })?.properties?.action_link ?? "https://enovcorp.com/auth/register";
-    sendInvitationEmail({ email, inviteLink }).catch(() => null);
+    try {
+      const { data: linkData, error: linkError } = await supabaseServer.auth.admin.generateLink({
+        type: "recovery",
+        email,
+        options: { redirectTo: "https://enovcorp.com/mon-espace" },
+      });
+      const inviteLink = linkData?.properties?.action_link ?? "https://enovcorp.com/auth/register";
+      if (!linkError) {
+        await sendInvitationEmail({ email, inviteLink });
+      }
+    } catch {
+      // Email failure doesn't block enrollment
+    }
   }
 
   // Create enrollment
