@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
-import { createSupabaseBrowserClient } from "@/lib/supabase/auth-browser";
 
 const navLinks: { href: string; labels: Record<SupportedLanguage, string> }[] = [
   { href: "/hydroponie", labels: { fr: "Hydroponie", en: "Hydroponics" } },
@@ -20,8 +19,6 @@ const navLinks: { href: string; labels: Record<SupportedLanguage, string> }[] = 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [userInitial, setUserInitial] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string | null>(null);
   const pathname = usePathname();
   const { language } = useLanguage();
 
@@ -29,23 +26,6 @@ export function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const supabase = createSupabaseBrowserClient();
-    const syncUser = (u: { email?: string; user_metadata?: { first_name?: string } } | null) => {
-      if (u) {
-        const name = u.user_metadata?.first_name ?? u.email?.split("@")[0] ?? "Moi";
-        setUserName(name);
-        setUserInitial(name[0]?.toUpperCase() ?? "?");
-      } else {
-        setUserName(null);
-        setUserInitial(null);
-      }
-    };
-    supabase.auth.getUser().then(({ data }) => syncUser(data.user));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => syncUser(session?.user ?? null));
-    return () => subscription.unsubscribe();
   }, []);
 
   const linkClasses = (href: string) =>
@@ -82,26 +62,12 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          {userName ? (
-            <Link
-              href="/mon-espace"
-              className="hidden md:inline-flex items-center gap-2 border border-fuchsia-500/40 hover:bg-fuchsia-500/10 rounded-full pl-1.5 pr-4 py-1 transition"
-            >
-              <span className="w-6 h-6 rounded-full bg-fuchsia-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
-                {userInitial}
-              </span>
-              <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-fuchsia-400">
-                {userName}
-              </span>
-            </Link>
-          ) : (
-            <Link
-              href="/auth/login"
-              className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-widest border border-fuchsia-500/40 text-fuchsia-400 hover:bg-fuchsia-500/10 rounded-full px-4 py-1.5 transition"
-            >
-              Mon espace
-            </Link>
-          )}
+          <Link
+            href="/mon-espace"
+            className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-widest border border-fuchsia-500/40 text-fuchsia-400 hover:bg-fuchsia-500/10 rounded-full px-4 py-1.5 transition"
+          >
+            Mon espace
+          </Link>
           <LanguageSwitcher />
           <button
             type="button"
