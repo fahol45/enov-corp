@@ -1,29 +1,55 @@
 @import "tailwindcss";
 
-html,
-body {
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
   margin: 0;
   padding: 0;
-  background-color: #020617;
-  color: #e5e7eb;
-  font-family: system-ui, sans-serif;
   min-height: 100%;
   overflow-x: clip;
 }
 
+body {
+  /* font-family is applied via next/font Inter class on <body> */
+  background-color: #080810;
+  color: #dcdcf0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar          { width: 5px; background: #080810; }
+::-webkit-scrollbar-track    { background: #080810; }
+::-webkit-scrollbar-thumb    { background: #232336; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #323350; }
+* { scrollbar-color: #232336 #080810; scrollbar-width: thin; }
+
+/* ── CSS design tokens ── */
 :root {
+  /* Accent: used ONLY on primary CTAs */
+  --accent:       #c026d3;
+  --accent-glow:  rgba(192, 38, 211, 0.35);
+  /* Live / interactive indicator */
+  --live:         #22d3ee;
+  /* Ratings / social proof */
+  --rating:       #f59e0b;
+  /* Layout */
   --shell-max-width: 1200px;
   --shell-padding: clamp(1rem, 4vw, 3.5rem);
-  --section-gap: clamp(2rem, 6vw, 4.25rem);
+  --section-gap:   clamp(2rem, 6vw, 4.25rem);
 }
 
 @media (max-width: 600px) {
   :root {
     --shell-padding: max(0.85rem, 5vw);
-    --section-gap: clamp(1.6rem, 10vw, 3rem);
+    --section-gap:   clamp(1.6rem, 10vw, 3rem);
   }
 }
 
+/* ── Layout utilities ── */
 .app-shell {
   width: 100%;
   max-width: var(--shell-max-width);
@@ -38,70 +64,69 @@ body {
   padding-block: var(--section-gap);
 }
 
-@media (max-width: 600px) {
-  .section-flow {
-    gap: calc(var(--section-gap) * 0.9);
-    padding-block: calc(var(--section-gap) * 0.9);
-  }
+/* ── Aurora keyframes ── */
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(0,   0)   scale(1);    }
+  33%       { transform: translate(40px, -25px) scale(1.07); }
+  66%       { transform: translate(-20px, 35px) scale(0.93); }
+}
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(0,    0)   scale(1);    }
+  50%       { transform: translate(-35px, 22px) scale(1.1);  }
+}
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(0,    0)   scale(1);    }
+  40%       { transform: translate(22px, 28px) scale(0.9);   }
+  80%       { transform: translate(-12px, -18px) scale(1.06); }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* ── Hero float / terminal ── */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0px)   rotate(2.5deg); }
+  50%       { transform: translateY(-14px) rotate(2.5deg); }
+}
+@keyframes terminal-line {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
-img,
-svg,
-video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Academy platform shared utilities */
+/* ── CTA shared button ── */
 .cta-primary {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  background-color: #a21caf; /* fuchsia-700 */
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
   font-size: 0.875rem;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  box-shadow: 0 0 28px var(--accent-glow);
 }
 .cta-primary:hover {
-  background-color: #c026d3; /* fuchsia-600 */
-  box-shadow: 0 0 40px rgba(192, 38, 211, 0.35);
+  background: #d946ef;
+  box-shadow: 0 0 48px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
+/* ── Tailwind utilities ── */
 @layer utilities {
   .kicker {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.25em;
+    font-weight: 600;
   }
-
-  .text-justify {
-    text-align: justify;
-    text-justify: inter-word;
-  }
-
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-
+  .text-balance  { text-wrap: balance; }
+  .text-pretty   { text-wrap: pretty;  }
   @media (min-width: 768px) {
-    .kicker {
-      letter-spacing: 0.4em;
-    }
+    .kicker { letter-spacing: 0.4em; }
   }
 }
-

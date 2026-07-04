@@ -4,6 +4,7 @@ import { fetchAcademyTrainings } from "@/lib/academy-data";
 import { academyRegistrationUrl } from "@/lib/trainings";
 import { ogImage, siteName } from "@/lib/seo";
 import { AcademyHero } from "./AcademyHero";
+import { WhyEnov } from "./WhyEnov";
 
 export const metadata: Metadata = {
   title: "Enov Academy",
@@ -29,11 +30,11 @@ export default async function AcademyPage({
   const categories = Array.from(new Set(trainings.map((t) => t.category)));
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen text-white">
       <div className="app-shell">
         <AcademyHero registrationUrl={academyRegistrationUrl} />
-
-        <div id="formations" className="scroll-mt-16 pb-24">
+        <WhyEnov />
+        <div id="formations" className="scroll-mt-16 pb-24 pt-10">
           <TrainingFilters
             trainings={trainings}
             categories={categories}
