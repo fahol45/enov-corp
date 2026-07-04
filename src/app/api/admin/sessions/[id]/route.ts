@@ -12,7 +12,7 @@ export async function GET(
     .from("enrollments")
     .select("*")
     .eq("session_id", id)
-    .order("created_at", { ascending: true });
+    .order("enrolled_at", { ascending: true });
 
   if (error) {
     return NextResponse.json({ ok: false, message: error.message }, { status: 500 });

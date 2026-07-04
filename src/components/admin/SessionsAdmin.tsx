@@ -23,8 +23,7 @@ type Session = {
 type Enrollment = {
   id: string;
   user_id: string;
-  enrolled_at?: string;
-  created_at?: string;
+  enrolled_at: string;
   email?: string | null;
   name?: string | null;
 };
@@ -505,7 +504,7 @@ const [enrollEmail, setEnrollEmail] = useState("");
                     {e.name && <p className="text-xs font-semibold text-white truncate">{e.name}</p>}
                     <p className="text-xs text-slate-400 truncate">{e.email ?? e.user_id}</p>
                   </div>
-                  <span className="text-xs text-slate-500 shrink-0">{(e.enrolled_at ?? e.created_at) ? new Date((e.enrolled_at ?? e.created_at)!).toLocaleDateString("fr-FR") : "—"}</span>
+                  <span className="text-xs text-slate-500 shrink-0">{new Date(e.enrolled_at).toLocaleDateString("fr-FR")}</span>
                   <button
                     onClick={() => handleRemoveEnrollment(e.user_id)}
                     className="text-xs text-red-400 hover:text-red-300 transition shrink-0"
