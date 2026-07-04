@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
+import { sendInvitationEmail } from "@/lib/email";
 
 export async function POST(
   request: NextRequest,
@@ -38,28 +39,28 @@ export async function POST(
   if (existing) {
     userId = existing.id;
   } else {
-    // No account → invite the user (creates account + sends invitation email)
-    const { data: invited, error: inviteError } = await supabaseServer.auth.admin.inviteUserByEmail(email, {
-      redirectTo: "https://enovcorp.com/auth/callback",
+    // No account → create user + generate invite link + send via Brevo
+    const { data: created, error: createError } = await supabaseServer.auth.admin.createUser({
+      email,
+      email_confirm: false,
     });
-    if (inviteError || !invited?.user) {
-      // Maybe user exists but listUsers missed them — try to find by creating
-      const { data: created, error: createError } = await supabaseServer.auth.admin.createUser({
-        email,
-        email_confirm: true,
-      });
-      if (createError || !created?.user) {
-        return NextResponse.json({
-          ok: false,
-          message: `Impossible de créer le compte pour ${email}. Demandez à l'utilisateur de s'inscrire sur /auth/register puis réessayez.`,
-        }, { status: 500 });
-      }
-      userId = created.user.id;
-      wasInvited = true;
-    } else {
-      userId = invited.user.id;
-      wasInvited = true;
+    if (createError || !created?.user) {
+      return NextResponse.json({
+        ok: false,
+        message: `Impossible de créer le compte pour ${email} : ${createError?.message ?? "erreur inconnue"}`,
+      }, { status: 500 });
     }
+    userId = created.user.id;
+    wasInvited = true;
+
+    // Generate invite link and send via Brevo
+    const { data: linkData } = await supabaseServer.auth.admin.generateLink({
+      type: "invite",
+      email,
+      options: { redirectTo: "https://enovcorp.com/mon-espace" },
+    });
+    const inviteLink = (linkData as { properties?: { action_link?: string } })?.properties?.action_link ?? "https://enovcorp.com/auth/register";
+    sendInvitationEmail({ email, inviteLink }).catch(() => null);
   }
 
   // Create enrollment
