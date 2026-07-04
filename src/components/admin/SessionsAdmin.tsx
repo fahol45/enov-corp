@@ -67,8 +67,7 @@ export function SessionsAdmin() {
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Session | null>(null);
-  const [showEnrollments, setShowEnrollments] = useState(false);
-  const [enrollEmail, setEnrollEmail] = useState("");
+const [enrollEmail, setEnrollEmail] = useState("");
   const [enrollBusy, setEnrollBusy] = useState(false);
 
   const showMsg = (msg: string, ok = true) => {
@@ -94,7 +93,6 @@ export function SessionsAdmin() {
   const selectSession = (session: Session) => {
     setSelectedId(session.id);
     setIsCreating(false);
-    setShowEnrollments(false);
     setForm({
       title: session.title,
       training_slug: session.training_slug,
@@ -107,6 +105,7 @@ export function SessionsAdmin() {
       youtube_replay_url: session.youtube_replay_url ?? "",
       status: session.status,
     });
+    loadEnrollments(session.id);
   };
 
   const startCreate = () => {
@@ -120,7 +119,6 @@ export function SessionsAdmin() {
     const r = await fetch(`/api/admin/sessions/${sessionId}`, { credentials: "include" });
     const d = await r.json() as { ok: boolean; enrollments?: Enrollment[] };
     if (d.ok) setEnrollments(d.enrollments ?? []);
-    setShowEnrollments(true);
   };
 
   const handleEnrollByEmail = async () => {
@@ -305,7 +303,7 @@ export function SessionsAdmin() {
                       onClick={() => loadEnrollments(selected.id)}
                       className="rounded-xl border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-300 transition hover:bg-sky-500/20"
                     >
-                      {enrollCount(selected)} inscrits
+                      ↻ Actualiser inscrits
                     </button>
                     <button
                       onClick={() => setConfirmDelete(selected)}
@@ -461,16 +459,11 @@ export function SessionsAdmin() {
       </div>
 
       {/* Enrollments panel */}
-      {showEnrollments && selected && (
+      {selected && (
         <div className="rounded-2xl border border-white/8 bg-slate-900/40 p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white">
-              Inscrits — {selected.title}
-            </h3>
-            <button onClick={() => setShowEnrollments(false)} className="text-xs text-slate-500 hover:text-white">
-              Fermer ×
-            </button>
-          </div>
+          <h3 className="text-sm font-bold text-white">
+            Inscrits — {selected.title}
+          </h3>
 
           {/* Add by email */}
           <div className="flex gap-2">
