@@ -8,6 +8,7 @@ import { SessionsSection } from "@/components/academy/SessionsSection";
 import { fetchAcademyTraining } from "@/lib/academy-data";
 import { absoluteUrl, ogImage, siteName, siteUrl } from "@/lib/seo";
 import { supabaseServer } from "@/lib/supabase/server";
+import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,6 +44,23 @@ export default async function AcademyDetailPage({ params }: Props) {
     .eq("training_slug", slug)
     .neq("status", "ended")
     .order("scheduled_at", { ascending: true });
+
+  // Check if current logged-in user is already enrolled in any session of this training
+  let isEnrolled = false;
+  try {
+    const authClient = await createSupabaseServerClient();
+    const { data: { user } } = await authClient.auth.getUser();
+    if (user && sessions && sessions.length > 0) {
+      const sessionIds = sessions.map((s: { id: string }) => s.id);
+      const { data: enrollment } = await supabaseServer
+        .from("enrollments")
+        .select("id")
+        .eq("user_id", user.id)
+        .in("session_id", sessionIds)
+        .maybeSingle();
+      if (enrollment) isEnrolled = true;
+    }
+  } catch { /* not logged in */ }
 
   const courseJsonLd = {
     "@context": "https://schema.org",
@@ -180,19 +198,30 @@ export default async function AcademyDetailPage({ params }: Props) {
               <SessionsSection sessions={sessions as any} trainingSlug={slug} trainingStatus={training.status} />
             )}
 
-            {/* Formulaire d'inscription */}
-            {training.status === "available" && (
+            {/* Formulaire d'inscription / état inscrit */}
+            {isEnrolled ? (
+              <section className="border border-fuchsia-500/30 rounded-2xl p-8 bg-fuchsia-950/20 text-center">
+                <p className="text-2xl mb-2">✓</p>
+                <p className="text-fuchsia-300 font-bold text-lg mb-1">Tu es inscrit à cette formation</p>
+                <p className="text-slate-400 text-sm mb-6">Retrouve ta session dans ton espace personnel.</p>
+                <Link
+                  href="/mon-espace"
+                  className="inline-block bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl px-6 py-3 transition"
+                >
+                  Accéder à ma session →
+                </Link>
+              </section>
+            ) : training.status === "available" ? (
               <section id="inscription" className="scroll-mt-24">
                 <h2 className="text-xl font-bold mb-4">S&apos;inscrire</h2>
                 <RegisterForm slug={training.slug} />
               </section>
-            )}
-            {training.status === "soon" && (
+            ) : training.status === "soon" ? (
               <section id="notification" className="scroll-mt-24">
                 <h2 className="text-xl font-bold mb-4">Être notifié à l&apos;ouverture</h2>
                 <NotifyForm slug={training.slug} />
               </section>
-            )}
+            ) : null}
           </div>
 
           {/* Right: sticky enrollment card */}
@@ -207,7 +236,14 @@ export default async function AcademyDetailPage({ params }: Props) {
                   <span className="text-3xl font-bold text-white">{training.details.price}</span>
                 </div>
 
-                {training.status === "available" ? (
+                {isEnrolled ? (
+                  <Link
+                    href="/mon-espace"
+                    className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"
+                  >
+                    ✓ Accéder à ma session
+                  </Link>
+                ) : training.status === "available" ? (
                   <Link
                     href="#inscription"
                     className="block w-full text-center bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl py-3 transition"

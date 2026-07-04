@@ -185,6 +185,28 @@ export async function sendAcademyRegistrationNotification(payload: {
   });
 }
 
+export async function sendEnrollmentEmail(payload: { email: string }) {
+  await sendBrevoEmail({
+    to: [{ email: payload.email }],
+    sender: { email: "contact@enovcorp.com", name: "Enov Academy" },
+    subject: "Tu as été inscrit à une session Enov Academy",
+    htmlContent: baseTemplate(`
+      <h2 style="margin:0 0 8px;font-size:20px;font-weight:700;color:#fff;">Inscription confirmée ✓</h2>
+      <p style="color:#94a3b8;font-size:14px;margin:0 0 24px;">Tu as été inscrit à une session de formation Enov Academy par notre équipe.</p>
+      <p style="color:#cbd5e1;font-size:14px;line-height:1.7;margin:0 0 24px;">
+        Connecte-toi à ton espace personnel pour rejoindre ta session au moment voulu.
+      </p>
+      <a href="https://enovcorp.com/mon-espace"
+         style="display:inline-block;background:#a855f7;color:#fff;font-weight:700;font-size:14px;text-decoration:none;border-radius:12px;padding:12px 24px;margin:0 0 24px;">
+        Accéder à Mon Espace →
+      </a>
+      <p style="color:#64748b;font-size:12px;margin:0;">
+        Si tu as des questions, réponds à cet email ou contacte-nous sur <a href="https://enovcorp.com/contact" style="color:#a855f7;">enovcorp.com</a>.
+      </p>
+    `),
+  });
+}
+
 export async function sendInvitationEmail(payload: {
   email: string;
   inviteLink: string;

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
-import { sendInvitationEmail } from "@/lib/email";
+import { sendEnrollmentEmail, sendInvitationEmail } from "@/lib/email";
 
 export async function POST(
   request: NextRequest,
@@ -39,6 +39,8 @@ export async function POST(
 
   if (existing) {
     userId = existing.id;
+    // Notify existing user of their enrollment
+    sendEnrollmentEmail({ email }).catch(() => {});
   } else {
     // No account → create user (email pre-confirmed so recovery link works) + send via Brevo
     const { data: created, error: createError } = await supabaseServer.auth.admin.createUser({
