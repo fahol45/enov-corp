@@ -33,16 +33,17 @@ export async function POST(
 
   let userId: string;
   let wasInvited = false;
+  let inviteEmailError = "";
 
   const existing = users.find((u) => u.email?.toLowerCase() === email);
 
   if (existing) {
     userId = existing.id;
   } else {
-    // No account → create user + generate invite link + send via Brevo
+    // No account → create user (email pre-confirmed so recovery link works) + send via Brevo
     const { data: created, error: createError } = await supabaseServer.auth.admin.createUser({
       email,
-      email_confirm: false,
+      email_confirm: true,
     });
     if (createError || !created?.user) {
       return NextResponse.json({
@@ -53,19 +54,21 @@ export async function POST(
     userId = created.user.id;
     wasInvited = true;
 
-    // Generate invite link and send via Brevo
+    // Generate password-set link and send via Brevo
     try {
       const { data: linkData, error: linkError } = await supabaseServer.auth.admin.generateLink({
         type: "recovery",
         email,
         options: { redirectTo: "https://enovcorp.com/mon-espace" },
       });
-      const inviteLink = linkData?.properties?.action_link ?? "https://enovcorp.com/auth/register";
-      if (!linkError) {
+      if (linkError) {
+        inviteEmailError = `generateLink: ${linkError.message}`;
+      } else {
+        const inviteLink = linkData?.properties?.action_link ?? "https://enovcorp.com/auth/register";
         await sendInvitationEmail({ email, inviteLink });
       }
-    } catch {
-      // Email failure doesn't block enrollment
+    } catch (err) {
+      inviteEmailError = String(err);
     }
   }
 
@@ -81,9 +84,14 @@ export async function POST(
     return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
   }
 
-  const message = wasInvited
-    ? `Invitation envoyée à ${email} — il recevra un email pour créer son compte. Inscription enregistrée.`
-    : `${email} inscrit avec succès.`;
+  let message: string;
+  if (wasInvited) {
+    message = inviteEmailError
+      ? `Inscrit, mais l'email d'invitation a échoué : ${inviteEmailError}`
+      : `Invitation envoyée à ${email} — il recevra un email pour créer son compte. Inscription enregistrée.`;
+  } else {
+    message = `${email} inscrit avec succès.`;
+  }
 
   return NextResponse.json({ ok: true, message, userId });
 }
