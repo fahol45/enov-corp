@@ -35,12 +35,27 @@ export async function POST(request: NextRequest) {
       training_slug: slug.trim(),
       first_name: firstName.trim(),
       last_name: lastName.trim(),
-      email: email.trim(),
+      email: email.trim().toLowerCase(),
       phone: isNonEmptyString(body.phone) ? body.phone.trim() : null,
       city: isNonEmptyString(body.city) ? body.city.trim() : null,
       profile: isNonEmptyString(body.profile) ? body.profile.trim() : null,
       message: isNonEmptyString(body.message) ? body.message.trim() : null,
     };
+
+    // Block duplicate registrations for the same training
+    const { data: existing } = await supabaseServer
+      .from("academy_registrations")
+      .select("id")
+      .eq("email", basePayload.email)
+      .eq("training_slug", basePayload.training_slug)
+      .maybeSingle();
+
+    if (existing) {
+      return NextResponse.json(
+        { ok: false, message: "Tu es déjà inscrit à cette formation. Notre équipe te recontactera prochainement." },
+        { status: 409 }
+      );
+    }
 
     const studyValue = isNonEmptyString(studyField) ? studyField.trim() : null;
 
