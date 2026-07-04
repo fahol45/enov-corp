@@ -177,7 +177,7 @@ export default async function AcademyDetailPage({ params }: Props) {
 
             {/* Sessions disponibles */}
             {sessions && sessions.length > 0 && (
-              <SessionsSection sessions={sessions as any} trainingSlug={slug} />
+              <SessionsSection sessions={sessions as any} trainingSlug={slug} trainingStatus={training.status} />
             )}
 
             {/* Formulaire d'inscription */}

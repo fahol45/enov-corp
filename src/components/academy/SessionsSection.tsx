@@ -15,11 +15,14 @@ type Session = {
 type Props = {
   sessions: Session[];
   trainingSlug: string;
+  trainingStatus?: string;
 };
 
-export function SessionsSection({ sessions, trainingSlug }: Props) {
+export function SessionsSection({ sessions, trainingStatus }: Props) {
   const upcoming = sessions.filter((s) => s.status !== "ended");
   if (upcoming.length === 0) return null;
+
+  const enrollAnchor = trainingStatus === "soon" ? "#notification" : trainingStatus === "available" ? "#inscription" : "/contact";
 
   return (
     <section id="sessions" className="scroll-mt-24 border border-white/10 rounded-2xl p-6 bg-slate-900/60">
@@ -60,7 +63,7 @@ export function SessionsSection({ sessions, trainingSlug }: Props) {
               </div>
 
               <Link
-                href={`#inscription`}
+                href={enrollAnchor}
                 className="shrink-0 rounded-xl border border-fuchsia-500/40 bg-fuchsia-500/10 px-5 py-2 text-sm font-semibold text-fuchsia-300 hover:bg-fuchsia-500/20 transition text-center"
               >
                 S&apos;inscrire à la formation →
