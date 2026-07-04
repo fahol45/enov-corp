@@ -40,13 +40,26 @@ export async function POST(
   } else {
     // No account → invite the user (creates account + sends invitation email)
     const { data: invited, error: inviteError } = await supabaseServer.auth.admin.inviteUserByEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://enovcorp.com"}/auth/callback`,
+      redirectTo: "https://enovcorp.com/auth/callback",
     });
     if (inviteError || !invited?.user) {
-      return NextResponse.json({ ok: false, message: `Impossible d'inviter ${email} : ${inviteError?.message ?? "erreur inconnue"}` }, { status: 500 });
+      // Maybe user exists but listUsers missed them — try to find by creating
+      const { data: created, error: createError } = await supabaseServer.auth.admin.createUser({
+        email,
+        email_confirm: true,
+      });
+      if (createError || !created?.user) {
+        return NextResponse.json({
+          ok: false,
+          message: `Impossible de créer le compte pour ${email}. Demandez à l'utilisateur de s'inscrire sur /auth/register puis réessayez.`,
+        }, { status: 500 });
+      }
+      userId = created.user.id;
+      wasInvited = true;
+    } else {
+      userId = invited.user.id;
+      wasInvited = true;
     }
-    userId = invited.user.id;
-    wasInvited = true;
   }
 
   // Create enrollment
