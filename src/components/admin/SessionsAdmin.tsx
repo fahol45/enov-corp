@@ -111,7 +111,6 @@ const [enrollEmail, setEnrollEmail] = useState("");
   const startCreate = () => {
     setSelectedId(null);
     setIsCreating(true);
-    setShowEnrollments(false);
     setForm(emptyForm);
   };
 
