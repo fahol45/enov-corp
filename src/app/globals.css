@@ -397,3 +397,67 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .academy-site .academy-search input { border: none; background: transparent; }
 .academy-site main aside { align-self: start; }
 @media (max-width: 800px) { .service-hero-visual { height: 320px; } .service-phone { width: 70px; bottom: 55px; } }
+
+/* Homepage: clear editorial hierarchy with distinct activity destinations. */
+.welcome-page { background: white; }
+.welcome-page h1, .welcome-page h2, .welcome-page h3, .welcome-page p { margin: 0; }
+.welcome-hero { text-align: center; padding-block: 76px 64px; }
+.marketing-site .welcome-page h1 { font-size: clamp(44px, 6.2vw, 88px); font-weight: 900; line-height: 1.02; letter-spacing: -.05em; margin-block: 28px; }
+.welcome-hero h1 span { color: var(--brand-magenta); }
+.welcome-intro { max-width: 640px; margin-inline: auto !important; font-size: 18px; line-height: 1.75; color: #606c80; }
+.welcome-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+.welcome-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 16px 24px; border: 1px solid #dce1e9; border-radius: 100px; font-size: 14px; font-weight: 700; }
+.welcome-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.welcome-paths > a { display: flex; gap: 16px; align-items: start; padding: 28px 20px; border-block: 1px solid #e1e5ec; }
+.welcome-paths > a + a { border-left: 1px solid #e1e5ec; }
+.welcome-index { font-size: 11px; color: var(--brand-dark-magenta); padding-top: 4px; }
+.welcome-paths strong { font-size: 19px; font-weight: 700; }
+.welcome-paths p { font-size: 13px; color: #606c80; margin-top: 8px; line-height: 1.5; }
+.welcome-paths a > span:last-child { margin-left: auto; }
+.welcome-expertise { padding-block: 76px 84px; }
+.welcome-section-heading { margin-bottom: 44px; }
+.welcome-page h2 { font-size: clamp(30px, 3.7vw, 46px); font-weight: 900; line-height: 1.12; letter-spacing: -.035em; }
+.welcome-section-heading h2 { margin-top: 16px; max-width: 600px; }
+.welcome-service { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+.welcome-service + .welcome-service { margin-top: 64px; }
+.welcome-service-visual { position: relative; height: 370px; border-radius: 16px; background: var(--brand-paper); overflow: hidden; }
+.welcome-service-visual img.welcome-product-image { object-fit: contain; padding: 24px; }
+.welcome-service-visual img.welcome-field-image { object-fit: cover; }
+.welcome-image-label { position: absolute; bottom: 16px; left: 16px; background: white; padding: 10px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+.welcome-service-copy h3 { margin-block: 20px; font-size: clamp(28px, 3vw, 38px); font-weight: 700; line-height: 1.15; letter-spacing: -.03em; }
+.welcome-service-copy > p:not(.brand-eyebrow) { font-size: 16px; line-height: 1.75; color: #606c80; }
+.welcome-service-copy p.welcome-service-tags { margin-top: 20px; font-size: 12px; }
+.welcome-service-copy .brand-text-link { margin-top: 26px; color: var(--brand-dark-magenta); }
+.welcome-service-1 .welcome-service-visual { order: 2; }
+.welcome-academy { background: var(--brand-graphite); padding-block: 64px; color: white; }
+.welcome-academy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.welcome-academy .brand-eyebrow { color: var(--brand-blush); }
+.welcome-academy h2 { margin-block: 20px; }
+.welcome-academy-description { color: #d5dae3; font-size: 16px; line-height: 1.75; margin-bottom: 28px !important; }
+.welcome-academy-visual { position: relative; height: 350px; border-radius: 16px; overflow: hidden; }
+.welcome-academy-visual > img { object-fit: cover; }
+.welcome-academy-visual > span { position: absolute; bottom: 0; inset-inline: 0; display: flex; justify-content: space-between; gap: 16px; padding: 18px; background: white; color: var(--brand-graphite); font-size: 11px; font-weight: 700; }
+.welcome-about { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding-block: 72px; }
+.welcome-about h2 { max-width: 450px; }
+.welcome-about p { color: #606c80; font-size: 17px; line-height: 1.75; margin-bottom: 24px; }
+.welcome-contact { border-top: 1px solid #e1e5ec; display: flex; gap: 32px; justify-content: space-between; align-items: center; padding-block: 56px 72px; }
+.welcome-contact h2 { margin-block: 16px; max-width: 650px; }
+.welcome-contact div > p:last-child { color: #606c80; font-size: 16px; line-height: 1.7; }
+.welcome-contact .brand-button { flex-shrink: 0; }
+@media (max-width: 800px) {
+  .welcome-hero { padding-block: 40px; text-align: left; }
+  .welcome-intro { margin-inline: 0 !important; font-size: 16px; }
+  .welcome-actions { justify-content: flex-start; }
+  .welcome-paths { grid-template-columns: 1fr; }
+  .welcome-paths > a { padding: 18px 0; border-top: 0; }
+  .welcome-paths > a:first-child { border-top: 1px solid #e1e5ec; }
+  .welcome-paths > a + a { border-left: 0; }
+  .welcome-service, .welcome-academy-inner, .welcome-about { grid-template-columns: 1fr; gap: 28px; }
+  .welcome-service-1 .welcome-service-visual { order: 0; }
+  .welcome-service-visual { height: 280px; }
+  .welcome-expertise { padding-block: 48px; }
+  .welcome-service + .welcome-service { margin-top: 48px; }
+  .welcome-academy, .welcome-about { padding-block: 48px; }
+  .welcome-academy-visual { height: 280px; }
+  .welcome-contact { flex-direction: column; align-items: flex-start; padding-block: 40px 48px; }
+}
