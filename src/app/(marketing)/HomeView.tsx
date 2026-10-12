@@ -46,25 +46,25 @@ export function HomeView() {
             <Link href="/portfolio" className="brand-text-link">{t.projects} <span aria-hidden="true">→</span></Link>
           </div>
         </div>
-        <div className="home-hero-photo">
+        <div className="home-visual"><div className="home-hero-photo">
           <Image src="/Academy_images/Hydroponie intelligente & data.jpg" alt={t.services[0].alt} fill priority sizes="(max-width: 800px) 100vw, 45vw" />
-          <div className="home-photo-caption"><span>ENOV CORP</span><span>{t.services[0].title}</span></div>
-        </div>
+          <div className="home-photo-caption"><span>01 / {t.services[0].title}</span><span aria-hidden="true">↗</span></div>
+        </div><Link href="/web-mobile" className="home-visual-secondary"><Image src="/Academy_images/Web Fullstack.jpg" alt={t.services[1].alt} fill sizes="(max-width: 800px) 45vw, 20vw" /><span>02 / {t.services[1].title} ↗</span></Link><div className="home-visual-note"><span className="home-note-mark" aria-hidden="true">e.</span><p>{language === "fr" ? "Concevoir. Développer. Transmettre." : "Design. Build. Share."}</p></div></div>
       </section>
       <section id="poles" className="home-services app-shell">
-        <div className="home-section-heading"><h2>{t.activities}</h2><p>{t.servicesIntro}</p></div>
+        <div className="home-section-heading"><div><p className="brand-eyebrow">{language === "fr" ? "CE QUE NOUS FAISONS" : "WHAT WE DO"}</p><h2>{t.activities}</h2></div><p>{t.servicesIntro}</p></div>
         <div className="home-service-grid">
           {t.services.map((service, index) => (
             <Link href={service.href} key={service.href} className="home-service">
               <div className="home-service-image"><Image src={service.image} alt={service.alt} fill sizes="(max-width: 800px) 100vw, 33vw" /></div>
               <p className="home-service-number">0{index + 1}</p>
               <h3>{service.title}</h3><p>{service.text}</p>
-              <span className="brand-text-link">{t.more} <span aria-hidden="true">→</span></span>
+              <span className="brand-text-link">{t.more} <span className="home-circle-arrow" aria-hidden="true">↗</span></span>
             </Link>
           ))}
         </div>
       </section>
-      <section className="home-approach"><div className="app-shell home-approach-inner"><h2>{t.approach}</h2><div><p>{t.approachText}</p><Link href="/propos" className="brand-text-link">{t.about} <span aria-hidden="true">→</span></Link></div></div></section>
+      <section className="home-approach"><div className="app-shell home-approach-inner"><div><p className="brand-eyebrow">{language === "fr" ? "NOTRE APPROCHE" : "OUR APPROACH"}</p><h2>{t.approach}</h2></div><div><p>{t.approachText}</p><Link href="/propos" className="brand-text-link">{t.about} <span aria-hidden="true">→</span></Link></div></div><ol className="app-shell home-steps">{(language === "fr" ? ["Comprendre votre besoin", "Concevoir la solution", "Déployer et accompagner"] : ["Understand your needs", "Design the solution", "Launch and support"]).map((step, i) => <li key={step}><span>0{i + 1}</span><h3>{step}</h3></li>)}</ol></section>
       <section className="app-shell home-contact"><div><h2>{t.cta}</h2><p>{t.ctaText}</p></div><Link href="/contact" className="brand-button">{t.contact} <span aria-hidden="true">↗</span></Link></section>
     </main>
   );
