@@ -173,7 +173,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .home-visual-secondary { position: relative; height: 168px; overflow: hidden; border-radius: 18px; }
 .home-visual-secondary > span { position: absolute; bottom: 0; inset-inline: 0; padding: 14px; background: var(--brand-graphite); color: white; font-size: 12px; }
 .home-visual-note { padding: 22px; border-radius: 18px; background: var(--brand-blush); display: flex; flex-direction: column; justify-content: space-between; }
-.home-note-mark { color: var(--brand-magenta); font-size: 64px; line-height: .8; font-weight: 900; letter-spacing: -.09em; }
+.home-note-logo { width: 88px; height: auto; object-fit: contain; margin-bottom: 12px; }
 .home-visual-note p { font-size: 14px; font-weight: 700; line-height: 1.5; max-width: 160px; }
 .home-services { padding-block: 0 90px; }
 .home-section-heading { border-top: 1px solid #e1e5ec; padding-top: 48px; display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 38px; }

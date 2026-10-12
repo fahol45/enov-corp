@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: "/icon-enov.png",
+    shortcut: "/icon-enov.png",
+    apple: "/icon-enov.png",
   },
 };
 
@@ -66,7 +66,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: siteName,
   url: siteUrl,
-  logo: absoluteUrl(ogImage),
+  logo: absoluteUrl("/icon-enov.png"),
   description: defaultDescription,
   contactPoint: {
     "@type": "ContactPoint",

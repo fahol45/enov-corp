@@ -49,7 +49,7 @@ export function HomeView() {
         <div className="home-visual"><div className="home-hero-photo">
           <Image src="/Academy_images/Hydroponie intelligente & data.jpg" alt={t.services[0].alt} fill priority sizes="(max-width: 800px) 100vw, 45vw" />
           <div className="home-photo-caption"><span>01 / {t.services[0].title}</span><span aria-hidden="true">↗</span></div>
-        </div><Link href="/web-mobile" className="home-visual-secondary"><Image src="/Academy_images/Web Fullstack.jpg" alt={t.services[1].alt} fill sizes="(max-width: 800px) 45vw, 20vw" /><span>02 / {t.services[1].title} ↗</span></Link><div className="home-visual-note"><span className="home-note-mark" aria-hidden="true">e.</span><p>{language === "fr" ? "Concevoir. Développer. Transmettre." : "Design. Build. Share."}</p></div></div>
+        </div><Link href="/web-mobile" className="home-visual-secondary"><Image src="/Academy_images/Web Fullstack.jpg" alt={t.services[1].alt} fill sizes="(max-width: 800px) 45vw, 20vw" /><span>02 / {t.services[1].title} ↗</span></Link><div className="home-visual-note"><Image className="home-note-logo" src="/icon-enov.png" alt="ENOV CORP" width={100} height={82} /><p>{language === "fr" ? "Concevoir. Développer. Transmettre." : "Design. Build. Share."}</p></div></div>
       </section>
       <section id="poles" className="home-services app-shell">
         <div className="home-section-heading"><div><p className="brand-eyebrow">{language === "fr" ? "CE QUE NOUS FAISONS" : "WHAT WE DO"}</p><h2>{t.activities}</h2></div><p>{t.servicesIntro}</p></div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 const copy = {
@@ -44,7 +45,8 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 space-y-2 sm:col-span-1">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-flex items-center gap-3">
+              <Image src="/icon-enov.png" alt="" width={46} height={38} />
               <span className="text-lg font-black tracking-tight text-white">ENOV <span className="font-normal">CORP</span></span>
             </Link>
             <p className="text-sm text-slate-500">{t.tagline}</p>

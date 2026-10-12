@@ -31,7 +31,7 @@ export function Navbar() {
     <header className="site-header sticky top-0 z-50 w-full">
       <div className="app-shell site-header-row">
         <Link href="/" className="brand-logo flex shrink-0 items-center gap-2">
-          <Image src="/logo-enov.png" alt="Enov CORP" width={38} height={38} className="object-contain" priority />
+          <Image src="/icon-enov.png" alt="Enov CORP" width={48} height={40} className="object-contain" priority />
           <span><strong>ENOV</strong> CORP</span>
         </Link>
         <nav className="site-desktop-nav" aria-label={language === "fr" ? "Navigation principale" : "Main navigation"}>{links}</nav>

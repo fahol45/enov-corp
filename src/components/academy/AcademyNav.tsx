@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/auth-browser";
@@ -83,9 +84,7 @@ export function AcademyNav() {
 
         {/* Logo */}
         <Link href="/academy" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="w-7 h-7 rounded-lg bg-linear-to-br from-fuchsia-600 to-violet-700 flex items-center justify-center shadow-[0_0_16px_rgba(192,38,211,0.3)] group-hover:shadow-[0_0_24px_rgba(192,38,211,0.45)] transition-shadow">
-            <span className="text-[10px] font-black text-white tracking-tight">EA</span>
-          </div>
+          <Image src="/icon-enov.png" alt="ENOV CORP" width={38} height={32} priority />
           <span className="font-black text-sm tracking-tight text-white hidden sm:block">
             ENOV <span className="text-fuchsia-400">Academy</span>
           </span>
