@@ -4,6 +4,7 @@ import { fetchAcademyTrainings } from "@/lib/academy-data";
 import { academyRegistrationUrl } from "@/lib/trainings";
 import { ogImage, siteName } from "@/lib/seo";
 import { AcademyHero } from "./AcademyHero";
+import { UpcomingSessions } from "@/components/academy/UpcomingSessions";
 import { WhyEnov } from "./WhyEnov";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default async function AcademyPage({
     <main className="academy-catalogue-page">
       <AcademyHero registrationUrl={academyRegistrationUrl} />
       <div className="app-shell">
+        <UpcomingSessions trainings={trainings} />
         <WhyEnov />
         <div id="formations" className="scroll-mt-16 pb-24 pt-10">
           <TrainingFilters

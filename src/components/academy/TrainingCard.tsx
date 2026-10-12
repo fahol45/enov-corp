@@ -19,7 +19,7 @@ export function TrainingCard({ training }: { training: Training }) {
         <div className="academy-course-category"><span>{training.category}</span><TrainingStatusBadge status={training.status} /></div>
         <h3><Link href={`/academy/${training.slug}`}>{training.title}</Link></h3>
         <p>{training.summary}</p>
-        <dl className="academy-course-specs"><div><dt>Niveau</dt><dd>{training.details.level || "À préciser"}</dd></div><div><dt>Durée</dt><dd>{training.details.duration || "À préciser"}</dd></div></dl>
+        <dl className="academy-course-specs"><div><dt>Niveau</dt><dd>{training.details.level || "À préciser"}</dd></div><div><dt>Durée</dt><dd>{training.details.duration || "À préciser"}</dd></div>{training.details.format && <div><dt>Format</dt><dd>{training.details.format}</dd></div>}{training.details.location && <div><dt>Lieu</dt><dd>{training.details.location}</dd></div>}</dl>
         {training.outcomes.length > 0 && <ul>{training.outcomes.slice(0, 2).map(outcome => <li key={outcome}>{outcome}</li>)}</ul>}
         <div className="academy-course-bottom"><strong>{training.details.price || "Tarif sur demande"}</strong><Link href={`/academy/${training.slug}`} className="brand-text-link">Programme <span aria-hidden="true">↗</span></Link></div>
       </div>

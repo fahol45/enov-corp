@@ -71,9 +71,9 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
       <div className="space-y-3">
         {upcoming.map((s) => {
           const date       = new Date(s.scheduled_at);
-          const dayStr     = date.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short" });
-          const yearStr    = date.getFullYear();
-          const timeStr    = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+          const dayStr     = date.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short", timeZone: "Africa/Abidjan" });
+          const yearStr    = date.toLocaleDateString("fr-FR", { year: "numeric", timeZone: "Africa/Abidjan" });
+          const timeStr    = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Abidjan" });
           const spotsUsed  = s.enrollments?.[0]?.count ?? 0;
           const spotsLeft  = Math.max(0, s.max_participants - spotsUsed);
           const isFull     = spotsLeft <= 0;
@@ -102,8 +102,8 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
 
                   {/* Date block */}
                   <div className="shrink-0 w-16 text-center rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 px-1 hidden sm:flex flex-col items-center">
-                    <p className="text-[0.55rem] uppercase tracking-widest text-slate-600">{date.toLocaleDateString("fr-FR", { month: "short" })}</p>
-                    <p className="text-2xl font-black text-white leading-none">{date.getDate()}</p>
+                    <p className="text-[0.55rem] uppercase tracking-widest text-slate-600">{date.toLocaleDateString("fr-FR", { month: "short", timeZone: "Africa/Abidjan" })}</p>
+                    <p className="text-2xl font-black text-white leading-none">{date.toLocaleDateString("fr-FR", { day: "numeric", timeZone: "Africa/Abidjan" })}</p>
                     <p className="text-[0.55rem] text-slate-600">{yearStr}</p>
                   </div>
 
@@ -126,7 +126,7 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
 
                     <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
                       <span className="sm:hidden capitalize">{dayStr} {yearStr}</span>
-                      <span>{timeStr}</span>
+                      <span>{timeStr} UTC</span>
                       <span className="text-slate-700">·</span>
                       <span>{s.duration_minutes} min</span>
                       <span className="text-slate-700">·</span>

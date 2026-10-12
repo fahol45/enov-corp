@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import styles from "./PortfolioView.module.css";
 import { PageHero, PageCTA } from "@/components/SiteSections";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -149,6 +150,7 @@ export function PortfolioView() {
   const filters = filterCopy[language];
   const cta = ctaCopy[language];
 
+  const featured = items.find(item => item.client_name?.trim() && (item.description?.trim() || item.results?.trim()));
   const filtered = activeFilter === "all" ? items : items.filter((i) => i.category === activeFilter);
 
   const filterTabs: { value: FilterValue; label: string }[] = [
@@ -162,6 +164,9 @@ export function PortfolioView() {
     <main className="portfolio-page">
       <PageHero eyebrow="PORTFOLIO / ENOV CORP" title={language === "fr" ? "Des solutions concrètes." : "Practical solutions."} highlight={language === "fr" ? "Des projets à explorer." : "Projects to explore."} description={language === "fr" ? "Découvrez les projets publiés par notre équipe et des exemples de solutions dans nos domaines d’intervention." : "Explore projects published by our team and examples of solutions across our areas of expertise."} />
       <div className="app-shell portfolio-content">
+      {featured && activeFilter === "all" && <section className={styles.featured} aria-labelledby="featured-project-title"><div className={styles.visual}>{featured.image_url && (
+// eslint-disable-next-line @next/next/no-img-element
+<img src={featured.image_url} alt={featured.title} loading="lazy" />)}</div><div className={styles.body}><p className="brand-eyebrow">{language === "fr" ? "PROJET À DÉCOUVRIR" : "FEATURED PROJECT"}</p><h2 id="featured-project-title">{featured.title}</h2><p className={styles.client}>{language === "fr" ? "Client" : "Client"} · {featured.client_name}</p>{featured.description && <p>{featured.description}</p>}{featured.results && <p className={styles.result}>{featured.results}</p>}<Link href={`/portfolio/${featured.id}`}>{language === "fr" ? "Explorer le projet" : "Explore the project"} <span aria-hidden="true">↗</span></Link></div></section>}
       <div className="portfolio-filters" role="group" aria-label={language === "fr" ? "Filtrer les projets" : "Filter projects"}>{filterTabs.map(tab => <button key={tab.value} type="button" aria-pressed={activeFilter === tab.value} onClick={() => setActiveFilter(tab.value)}>{tab.label}<span>{tab.value === "all" ? items.length : items.filter(i => i.category === tab.value).length}</span></button>)}</div>
       <section aria-busy={loading} aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}>{loading && <p role="status" className="py-16 text-center">{language === "fr" ? "Chargement des réalisations…" : "Loading projects…"}</p>}{failed && <div role="alert" className="py-16 text-center"><p>{language === "fr" ? "Les réalisations sont momentanément indisponibles." : "Projects are temporarily unavailable."}</p><button type="button" onClick={() => window.location.reload()} className="mt-4 underline">{language === "fr" ? "Réessayer" : "Try again"}</button></div>}<AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!loading && !failed && !filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette catégorie." : "No projects in this category."}</p>}</section>
       </div><PageCTA title={language === "fr" ? "Et si votre projet était le prochain ?" : "Could your project be next?"} label={cta.button} />
