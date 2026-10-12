@@ -214,3 +214,22 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .home-actions .brand-text-link { padding-block: 8px; }
 }
 @media (max-width: 400px) { .brand-site .language-label { display: none; } }
+
+/* Navigation remains visible on every screen size. */
+.site-header-row { display: flex; min-height: 80px; align-items: center; gap: 24px; }
+.site-desktop-nav { display: flex; flex: 1; align-items: center; justify-content: center; gap: 20px; }
+.site-header-tools { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.brand-site .site-nav-link { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; color: var(--brand-graphite); font-size: 14px; font-weight: 700; }
+.brand-site .site-nav-link:hover, .brand-site .site-nav-link[aria-current="page"] { color: var(--brand-dark-magenta); }
+.site-account-link { font-size: 12px; font-weight: 700; white-space: nowrap; }
+.site-small-nav { display: none; }
+@media (max-width: 1199px) {
+  .site-desktop-nav { display: none; }
+  .site-small-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 24px; padding-block: 4px 8px; border-top: 1px solid #e1e5ec; }
+}
+@media (max-width: 600px) {
+  .site-header-row { min-height: 68px; gap: 12px; }
+  .site-account-link { display: none; }
+  .site-small-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 8px; }
+  .brand-site .site-small-nav .site-nav-link { justify-content: center; font-size: 13px; min-height: 40px; }
+}
