@@ -45,18 +45,18 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 space-y-2 sm:col-span-1">
             <Link href="/" className="inline-block">
-              <span className="text-lg font-black tracking-tight text-white">ENOV<span className="text-fuchsia-400">.</span></span>
+              <span className="text-lg font-black tracking-tight text-white">ENOV <span className="font-normal">CORP</span></span>
             </Link>
-            <p className="text-xs text-slate-500">{t.tagline}</p>
+            <p className="text-sm text-slate-500">{t.tagline}</p>
           </div>
 
           {/* Navigation */}
           <div className="space-y-3">
-            <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Pages</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">Pages</p>
             <ul className="space-y-2">
               {t.nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-xs text-slate-400 transition hover:text-white">
+                  <Link href={item.href} className="text-sm text-slate-400 transition hover:text-white">
                     {item.label}
                   </Link>
                 </li>
@@ -67,15 +67,15 @@ export function Footer() {
           {/* Contact + Réseaux sociaux (même colonne sur mobile) */}
           <div className="col-span-1 flex flex-col gap-6 sm:contents">
             <div className="space-y-3">
-              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
               <ul className="space-y-2">
                 <li>
-                  <a href="mailto:contact@enovcorp.com" className="text-xs text-slate-400 transition hover:text-white">
+                  <a href="mailto:contact@enovcorp.com" className="text-sm text-slate-400 transition hover:text-white">
                     contact@enovcorp.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+212645410864" className="text-xs text-slate-400 transition hover:text-white">
+                  <a href="tel:+212645410864" className="text-sm text-slate-400 transition hover:text-white">
                     +212 6 45 41 08 64
                   </a>
                 </li>
@@ -83,20 +83,20 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                  <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
                     LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                  <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
                     Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 transition hover:text-white">
+                  <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
                     Facebook
                   </a>
                 </li>
@@ -105,7 +105,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-8 border-t border-white/5 pt-5 text-xs text-slate-600">
+        <p className="mt-8 border-t border-white/5 pt-5 text-sm text-slate-600">
           &copy; {year} ENOV CORP — {t.rights}
         </p>
       </div>

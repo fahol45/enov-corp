@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import {
@@ -11,7 +11,8 @@ import {
   siteUrl,
 } from "@/lib/seo";
 
-const inter = Inter({
+const lato = Lato({
+  weight: ["400", "700", "900"],
   subsets: ["latin"],
 });
 
@@ -104,7 +105,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={lato.className}>
         <LanguageProvider>
           {children}
         </LanguageProvider>

@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
         {labelByLanguage[language]}
       </label>
       <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-slate-50 shadow-lg shadow-fuchsia-500/10">
-        <span className="text-slate-400">
+        <span className="language-label text-slate-400">
           {language === "fr" ? "Langue" : "Language"}
         </span>
         <select

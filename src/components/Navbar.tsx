@@ -30,7 +30,7 @@ export function Navbar() {
 
   const linkClasses = (href: string) =>
     `text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200 ${
-      pathname === href ? "text-white" : "text-slate-400 hover:text-white"
+      (pathname === href || pathname.startsWith(`${href}/`)) ? "text-white" : "text-slate-400 hover:text-white"
     }`;
 
   return (
@@ -41,19 +41,20 @@ export function Navbar() {
           : "bg-slate-950/50"
       } backdrop-blur-md`}
     >
-      <div className="app-shell flex h-14 items-center gap-6">
-        <Link href="/" className="flex shrink-0 items-center">
+      <div className="app-shell flex h-20 items-center gap-6">
+        <Link href="/" className="brand-logo flex shrink-0 items-center gap-2">
           <Image
             src="/logo-enov.png"
             alt="Enov CORP"
             width={38}
             height={38}
-            className="rounded-xl border border-white/10 bg-white/5 p-1.5 shadow-md shadow-fuchsia-500/10"
+            className="object-contain"
             priority
           />
+          <span><strong>ENOV</strong> CORP</span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-7 md:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-7 xl:flex">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className={linkClasses(link.href)}>
               {link.labels[language]}
@@ -64,9 +65,9 @@ export function Navbar() {
         <div className="ml-auto flex items-center gap-3">
           <Link
             href="/mon-espace"
-            className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-widest border border-fuchsia-500/40 text-fuchsia-400 hover:bg-fuchsia-500/10 rounded-full px-4 py-1.5 transition"
+            className="hidden xl:inline-flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-widest border border-fuchsia-500/40 text-fuchsia-400 hover:bg-fuchsia-500/10 rounded-full px-4 py-1.5 transition"
           >
-            Mon espace
+            {language === "fr" ? "Mon espace" : "My account"}
           </Link>
           <LanguageSwitcher />
           <button
@@ -74,19 +75,19 @@ export function Navbar() {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={language === "fr" ? "Menu principal" : "Main menu"}
             aria-expanded={menuOpen}
-            className="relative h-9 w-9 rounded-full border border-white/10 text-white transition hover:border-fuchsia-400 hover:text-fuchsia-200 md:hidden"
+            className="relative h-9 w-9 rounded-full border border-white/10 text-white transition hover:border-fuchsia-400 hover:text-fuchsia-200 xl:hidden"
           >
             <span className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
-              <span className={`h-px w-5 bg-current transition-transform duration-300 ${menuOpen ? "translate-y-[3px] rotate-45" : ""}`} />
+              <span className={`h-px w-5 bg-current transition-transform duration-300 ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
               <span className={`h-px w-5 bg-current transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`h-px w-5 bg-current transition-transform duration-300 ${menuOpen ? "-translate-y-[3px] -rotate-45" : ""}`} />
+              <span className={`h-px w-5 bg-current transition-transform duration-300 ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
             </span>
           </button>
         </div>
       </div>
 
       <div
-        className={`grid transition-all duration-200 ease-out md:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`grid transition-all duration-200 ease-out xl:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
         aria-hidden={!menuOpen}
       >
         <div className="overflow-hidden">
