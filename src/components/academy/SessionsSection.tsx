@@ -64,7 +64,7 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
           <Link href={`/auth/login?next=/academy/${trainingSlug}`} className="text-fuchsia-400 hover:text-fuchsia-300 font-semibold transition">
             Connecte-toi
           </Link>
-          {" "}pour t&apos;inscrire en un clic, ou laisse tes coordonnées ci-dessous.
+          {" "}pour réserver une place dans une session. Le formulaire ci-dessous permet de demander des informations.
         </p>
       )}
 
@@ -75,13 +75,13 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
           const yearStr    = date.getFullYear();
           const timeStr    = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
           const spotsUsed  = s.enrollments?.[0]?.count ?? 0;
-          const spotsLeft  = s.max_participants - spotsUsed;
+          const spotsLeft  = Math.max(0, s.max_participants - spotsUsed);
           const isFull     = spotsLeft <= 0;
           const isLive     = s.status === "live";
           const isEnrolled = localEnrolled.has(s.id);
           const isLoading  = loadingId === s.id;
           const feedback   = feedbackId?.id === s.id ? feedbackId : null;
-          const fillPct    = Math.min(100, Math.round((spotsUsed / s.max_participants) * 100));
+          const fillPct    = Math.min(100, Math.round((spotsUsed / Math.max(1, s.max_participants)) * 100));
 
           return (
             <div
@@ -126,7 +126,7 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
 
                     <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
                       <span className="sm:hidden capitalize">{dayStr} {yearStr}</span>
-                      <span className="hidden sm:inline">{timeStr}</span>
+                      <span>{timeStr}</span>
                       <span className="text-slate-700">·</span>
                       <span>{s.duration_minutes} min</span>
                       <span className="text-slate-700">·</span>
@@ -159,7 +159,7 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
                     ) : userLoggedIn ? (
                       <button
                         onClick={() => !isFull && !isLoading && handleEnroll(s.id)}
-                        disabled={isFull || isLoading}
+                        disabled={isFull || loadingId !== null}
                         className={`rounded-xl border px-5 py-2.5 text-xs font-bold transition whitespace-nowrap ${
                           isFull
                             ? "border-white/10 text-slate-600 cursor-not-allowed"
@@ -180,7 +180,7 @@ export function SessionsSection({ sessions, trainingSlug, userLoggedIn = false, 
                 </div>
 
                 {feedback && (
-                  <div className={`mt-3 rounded-xl px-4 py-2.5 text-xs ${feedback.ok ? "bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20" : "bg-red-500/10 text-red-300 border border-red-500/20"}`}>
+                  <div role={feedback.ok ? "status" : "alert"} className={`mt-3 rounded-xl px-4 py-2.5 text-xs ${feedback.ok ? "bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20" : "bg-red-500/10 text-red-300 border border-red-500/20"}`}>
                     {feedback.msg}
                   </div>
                 )}

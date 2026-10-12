@@ -13,11 +13,6 @@ type DbItem = {
   duration: string; year: string; client_name: string; results: string;
 };
 
-const heroCopy: Record<SupportedLanguage, { kicker: string; title: string; highlight: string; sub: string }> = {
-  fr: { kicker: "Portfolio", title: "Projets livrés.", highlight: "Résultats mesurables.", sub: "Serres connectées, applications sur mesure, formations terrain. Voici ce qu'on a concrètement réalisé." },
-  en: { kicker: "Portfolio", title: "Projects delivered.", highlight: "Measurable results.", sub: "Connected greenhouses, custom applications, hands-on training. Here's what we've actually built." },
-};
-
 const filterCopy: Record<SupportedLanguage, { all: string; hydro: string; web: string; training: string }> = {
   fr: { all: "Tous", hydro: "Hydroponie & IoT", web: "Web & Mobile", training: "Formations" },
   en: { all: "All", hydro: "Hydroponics & IoT", web: "Web & Mobile", training: "Training" },
@@ -27,20 +22,6 @@ const ctaCopy: Record<SupportedLanguage, { title: string; button: string }> = {
   fr: { title: "Un projet similaire en tête. On vous répond en 24h.", button: "Nous contacter" },
   en: { title: "A similar project in mind. We reply within 24h.", button: "Contact us" },
 };
-
-const EMPTY: Pick<DbItem, "duration" | "year" | "client_name" | "results"> = { duration: "", year: "", client_name: "", results: "" };
-
-const FALLBACK_ITEMS: DbItem[] = [
-  { id: "f1", title: "Serre hydroponique intelligente", description: "", image_url: "/Academy_images/Hydroponie%20intelligente%20%26%20data.jpg", category: "hydro", tags: "Capteurs pH & EC · Arrosage automatique · Dashboard mobile", external_url: "", sort_order: 0, active: true, ...EMPTY },
-  { id: "f2", title: "Digital Twin industriel", description: "", image_url: "/Academy_images/Digital%20Twin%20Industrie.webp", category: "hydro", tags: "Jumelage numérique · Monitoring temps réel · Alertes SMS", external_url: "", sort_order: 1, active: true, ...EMPTY },
-  { id: "f3", title: "Lab IoT & Robotique", description: "", image_url: "/Academy_images/IoT%20%26%20Robotics%20Lab.webp", category: "hydro", tags: "Automatisation · Capteurs embarqués · Interface de contrôle", external_url: "", sort_order: 2, active: true, ...EMPTY },
-  { id: "f4", title: "Interface de gestion web", description: "", image_url: "/pc-portable.png", category: "web", tags: "Next.js · Dashboard · Exports automatiques", external_url: "", sort_order: 3, active: true, ...EMPTY },
-  { id: "f5", title: "Application mobile terrain", description: "", image_url: "/mobile.png", category: "web", tags: "React Native · Android & iOS · Mode hors ligne", external_url: "", sort_order: 4, active: true, ...EMPTY },
-  { id: "f6", title: "Automatisation & Data", description: "", image_url: "/Academy_images/Data_Automation_Power.jpg", category: "web", tags: "Pipelines de données · Reporting · Intégration API", external_url: "", sort_order: 5, active: true, ...EMPTY },
-  { id: "f7", title: "Web Fullstack", description: "", image_url: "/Academy_images/Web%20Fullstack.jpg", category: "training", tags: "React · Node.js · Déploiement · Projet à rendre", external_url: "", sort_order: 6, active: true, ...EMPTY },
-  { id: "f8", title: "AI Product Roadmap", description: "", image_url: "/Academy_images/Webinaire%20AI%20Product%20Roadmap.webp", category: "training", tags: "LLM · Prompting · Intégration IA dans produit", external_url: "", sort_order: 7, active: true, ...EMPTY },
-  { id: "f9", title: "UX/UI & Design Ops", description: "", image_url: "/Academy_images/UXUI%20Mapping%20%26%20Design%20Ops.webp", category: "training", tags: "Figma · Parcours utilisateur · Systèmes de design", external_url: "", sort_order: 8, active: true, ...EMPTY },
-];
 
 const CATEGORY_COLOR: Record<Category, string> = {
   hydro: "text-emerald-400",
@@ -62,7 +43,7 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const isReal = UUID_RE.test(item.id);
   const href = isReal ? `/portfolio/${item.id}` : null;
 
-  const tags = item.tags ? item.tags.split("·").slice(0, 3).map((t) => t.trim()) : [];
+  const tags = item.tags ? item.tags.split("·").slice(0, 3).map((t) => t.trim()).filter(Boolean) : [];
 
   const inner = (
     <motion.div
@@ -150,14 +131,19 @@ type FilterValue = "all" | Category;
 
 export function PortfolioView() {
   const { language } = useLanguage();
-  const [items, setItems] = useState<DbItem[]>(FALLBACK_ITEMS);
+  const [items, setItems] = useState<DbItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   useEffect(() => {
-    fetch("/api/portfolio")
-      .then((r) => r.json())
-      .then((d) => { if (d.ok && d.items.length > 0) setItems(d.items); })
-      .catch(() => {});
+    const controller = new AbortController();
+    fetch("/api/portfolio", { signal: controller.signal })
+      .then((r) => { if (!r.ok) throw new Error("Portfolio unavailable"); return r.json(); })
+      .then((d) => { if (!d.ok || !Array.isArray(d.items)) throw new Error("Invalid portfolio"); setItems(d.items); })
+      .catch(() => { if (!controller.signal.aborted) setFailed(true); })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
   }, []);
 
   const filters = filterCopy[language];
@@ -177,7 +163,7 @@ export function PortfolioView() {
       <PageHero eyebrow="PORTFOLIO / ENOV CORP" title={language === "fr" ? "Des solutions concrètes." : "Practical solutions."} highlight={language === "fr" ? "Des projets à explorer." : "Projects to explore."} description={language === "fr" ? "Découvrez les projets publiés par notre équipe et des exemples de solutions dans nos domaines d’intervention." : "Explore projects published by our team and examples of solutions across our areas of expertise."} />
       <div className="app-shell portfolio-content">
       <div className="portfolio-filters" role="group" aria-label={language === "fr" ? "Filtrer les projets" : "Filter projects"}>{filterTabs.map(tab => <button key={tab.value} type="button" aria-pressed={activeFilter === tab.value} onClick={() => setActiveFilter(tab.value)}>{tab.label}<span>{tab.value === "all" ? items.length : items.filter(i => i.category === tab.value).length}</span></button>)}</div>
-      <section aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}><AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette catégorie." : "No projects in this category."}</p>}</section>
+      <section aria-busy={loading} aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}>{loading && <p role="status" className="py-16 text-center">{language === "fr" ? "Chargement des réalisations…" : "Loading projects…"}</p>}{failed && <div role="alert" className="py-16 text-center"><p>{language === "fr" ? "Les réalisations sont momentanément indisponibles." : "Projects are temporarily unavailable."}</p><button type="button" onClick={() => window.location.reload()} className="mt-4 underline">{language === "fr" ? "Réessayer" : "Try again"}</button></div>}<AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!loading && !failed && !filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette catégorie." : "No projects in this category."}</p>}</section>
       </div><PageCTA title={language === "fr" ? "Et si votre projet était le prochain ?" : "Could your project be next?"} label={cta.button} />
     </main>
   );

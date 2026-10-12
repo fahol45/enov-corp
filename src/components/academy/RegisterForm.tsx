@@ -97,10 +97,10 @@ export function RegisterForm({ slug }: RegisterFormProps) {
     >
       <div className="space-y-2">
         <h3 className="text-2xl font-semibold text-white">
-          Inscription à la formation
+          Demande d’information
         </h3>
         <p className="text-sm text-slate-300">
-          Laissez vos informations, notre équipe vous recontacte rapidement.
+          Laissez vos coordonnées pour échanger avec notre équipe. Cette demande ne réserve pas une place dans une session.
         </p>
       </div>
 
@@ -108,17 +108,19 @@ export function RegisterForm({ slug }: RegisterFormProps) {
         <label className="flex flex-col gap-2 text-sm text-slate-300">
           Prénom *
           <input
+            autoComplete="given-name"
             name="firstName"
             value={form.firstName}
             onChange={onChange}
             required
-            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-[#00a3ff]/60"
+            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-[#E01078]"
             placeholder="Votre prénom"
           />
         </label>
         <label className="flex flex-col gap-2 text-sm text-slate-300">
           Nom *
           <input
+            autoComplete="family-name"
             name="lastName"
             value={form.lastName}
             onChange={onChange}
@@ -134,6 +136,7 @@ export function RegisterForm({ slug }: RegisterFormProps) {
           Email *
           <input
             type="email"
+            autoComplete="email"
             name="email"
             value={form.email}
             onChange={onChange}
@@ -145,6 +148,8 @@ export function RegisterForm({ slug }: RegisterFormProps) {
         <label className="flex flex-col gap-2 text-sm text-slate-300">
           Téléphone
           <input
+            type="tel"
+            autoComplete="tel"
             name="phone"
             value={form.phone}
             onChange={onChange}
@@ -209,13 +214,13 @@ export function RegisterForm({ slug }: RegisterFormProps) {
       </label>
 
       {state.error ? (
-        <div className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+        <div role="alert" className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
           {state.error}
         </div>
       ) : null}
 
       {state.success ? (
-        <div className="rounded-2xl border border-emerald-400/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+        <div role="status" className="rounded-2xl border border-emerald-400/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
           {state.success}
         </div>
       ) : null}

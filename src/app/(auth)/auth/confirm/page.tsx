@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/auth-browser";
 import { AuthShell, authStyles as styles } from "@/components/AuthShell";
 import Link from "next/link";
+import { learnerReturnPath } from "@/lib/auth-redirect";
 
 export default function AuthConfirmPage() {
   const router = useRouter(); const [error, setError] = useState("");
@@ -22,7 +23,8 @@ export default function AuthConfirmPage() {
       if (!active) return;
       if (!result) { router.replace("/auth/login"); return; }
       if (result.error) { setError("Ce lien n’a pas permis de confirmer votre compte. Il est peut-être expiré."); return; }
-      window.history.replaceState(null, "", window.location.pathname); router.replace("/mon-espace");
+      const destination = learnerReturnPath(new URLSearchParams(window.location.search).get("next"));
+      window.history.replaceState(null, "", window.location.pathname); router.replace(destination);
     }).catch(() => { if (active) setError("La confirmation a échoué. Veuillez réessayer depuis votre email."); });
     return () => { active = false; };
   }, [router]);
