@@ -461,3 +461,122 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .welcome-academy-visual { height: 280px; }
   .welcome-contact { flex-direction: column; align-items: flex-start; padding-block: 40px 48px; }
 }
+
+/* Mobile layout: compact navigation, readable hierarchy, consistent touch targets. */
+@media (max-width: 600px) {
+  .brand-site { --shell-padding: 20px; }
+  .brand-site .site-header-row { min-height: 60px; gap: 12px; }
+  .brand-site .brand-logo { font-size: 16px; gap: 8px; }
+  .brand-site .brand-logo img { width: 38px; height: auto; }
+  .brand-site .language-label { display: none; }
+  .brand-site .site-header-tools select { min-height: 36px; }
+  .brand-site .site-small-nav { display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 22px; overflow-x: auto; padding-block: 0; scrollbar-width: thin; scrollbar-color: #d5dae3 transparent; scroll-padding-inline: 20px; }
+  .brand-site .site-small-nav::-webkit-scrollbar { height: 2px; background: transparent; }
+  .brand-site .site-small-nav::-webkit-scrollbar-thumb { background: #d5dae3; }
+  .brand-site .site-small-nav .site-nav-link { flex-shrink: 0; min-height: 44px; font-size: 13px; border-bottom: 2px solid transparent; }
+  .brand-site .site-small-nav .site-nav-link[aria-current="page"] { border-bottom-color: var(--brand-magenta); }
+  .brand-site .academy-login { font-size: 12px; }
+  .brand-site .academy-account summary { max-width: 140px; overflow: hidden; white-space: nowrap; }
+  .marketing-site .welcome-page h1 { font-size: clamp(32px, 9vw, 48px); line-height: 1.08; letter-spacing: -.035em; margin-block: 18px; }
+  .welcome-hero { padding-block: 32px 28px; }
+  .welcome-hero .brand-eyebrow { font-size: 10px; letter-spacing: .07em; }
+  .welcome-intro { font-size: 15px; line-height: 1.7; }
+  .welcome-actions { flex-direction: column; align-items: stretch; gap: 10px; margin-top: 24px; }
+  .welcome-actions .brand-button, .welcome-actions .welcome-secondary { min-height: 48px; padding: 13px 20px; font-size: 14px; justify-content: space-between; border-radius: 10px; }
+  .welcome-paths > a { gap: 14px; padding-block: 16px; align-items: center; }
+  .welcome-paths strong { font-size: 17px; }
+  .welcome-paths p { font-size: 12px; margin-top: 4px; }
+  .welcome-index { padding-top: 0; }
+  .welcome-page h2 { font-size: 28px; line-height: 1.18; letter-spacing: -.025em; }
+  .welcome-section-heading { margin-bottom: 24px; }
+  .welcome-section-heading h2 { margin-top: 12px; }
+  .welcome-expertise { padding-block: 36px; }
+  .welcome-service { gap: 22px; }
+  .welcome-service-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 12px; }
+  .welcome-service-visual img.welcome-product-image { padding: 16px; }
+  .welcome-image-label { bottom: 12px; left: 12px; padding: 7px 12px; font-size: 11px; }
+  .welcome-service-copy h3 { font-size: 26px; line-height: 1.2; margin-block: 12px; }
+  .welcome-service-copy > p:not(.brand-eyebrow) { font-size: 15px; line-height: 1.7; }
+  .welcome-service-copy p.welcome-service-tags { font-size: 11px; margin-top: 14px; }
+  .welcome-service-copy .brand-text-link { margin-top: 16px; min-height: 44px; }
+  .welcome-service + .welcome-service { margin-top: 36px; padding-top: 32px; border-top: 1px solid #e1e5ec; }
+  .welcome-academy { padding-block: 36px; }
+  .welcome-academy-inner { gap: 26px; }
+  .welcome-academy h2 { margin-block: 14px; }
+  .welcome-academy-description { font-size: 15px; margin-bottom: 20px !important; }
+  .welcome-academy .brand-button, .welcome-contact .brand-button { width: 100%; min-height: 48px; justify-content: space-between; border-radius: 10px; padding: 13px 20px; }
+  .welcome-academy-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 12px; }
+  .welcome-academy-visual > span { font-size: 10px; padding: 14px; }
+  .welcome-about { padding-block: 36px; gap: 18px; }
+  .welcome-about p { font-size: 15px; line-height: 1.7; margin-bottom: 14px; }
+  .welcome-about .brand-text-link { min-height: 44px; }
+  .welcome-contact { padding-block: 32px 40px; gap: 22px; }
+  .welcome-contact > div { width: 100%; }
+  .welcome-contact div > p:last-child { font-size: 15px; }
+  .academy-hero { padding-block: 32px; gap: 24px; }
+  .academy-hero h1 { font-size: clamp(32px, 9vw, 44px); line-height: 1.1; margin-block: 18px; }
+  .academy-intro { font-size: 15px; line-height: 1.7; }
+  .academy-search { border-radius: 10px; padding: 6px 6px 6px 12px; margin-block: 22px 14px; gap: 4px; }
+  .academy-search input { font-size: 16px; }
+  .academy-search .brand-button { border-radius: 6px; min-height: 44px; padding: 12px; }
+  .academy-search .brand-button > span { display: none; }
+  .academy-hero-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 12px; }
+  .academy-visual-caption { bottom: 12px; inset-inline: 12px; padding: 12px; gap: 12px; border-radius: 10px; }
+  .academy-visual-caption strong { font-size: 15px; }
+  .academy-visual-caption p { font-size: 12px; }
+  .academy-benefits { padding-block: 24px; gap: 20px; }
+  .academy-benefits h2 { font-size: 17px; margin-block: 8px; }
+  .academy-benefits p { font-size: 14px; }
+  .academy-catalogue-heading h2 { font-size: 28px; }
+  .academy-filter-panel { gap: 14px; border-radius: 12px; }
+  .academy-filter-panel input, .academy-filter-panel select { font-size: 16px; min-height: 46px; }
+  .academy-course-card { border-radius: 12px; }
+  .academy-course-cover { height: auto; aspect-ratio: 16 / 10; }
+  .academy-course-body { padding: 18px; gap: 14px; }
+  .academy-course-body h3 { font-size: 21px; }
+  .academy-course-bottom .brand-text-link { min-height: 44px; }
+  .academy-course-sticky { top: 106px; }
+  .academy-course-sticky > .app-shell { flex-wrap: wrap; gap: 8px; padding-block: 8px; }
+  .academy-course-sticky a { min-height: 40px; }
+  #formations, #sessions, #inscription, #notification { scroll-margin-top: 180px; }
+  .interior-page { padding-block: 32px 40px; }
+  .marketing-site main:not(.home-redesign) h1, .contact-intro h1 { font-size: clamp(32px, 9vw, 44px); line-height: 1.12; }
+  .marketing-site .welcome-page h1 { font-size: clamp(32px, 9vw, 48px); line-height: 1.08; }
+  .interior-heading { margin-bottom: 32px; }
+  .interior-heading > p:not(.brand-eyebrow), .contact-intro > p:not(.brand-eyebrow) { font-size: 15px; }
+  .interior-cta { padding: 22px; border-radius: 12px; }
+  .interior-cta .brand-button { width: 100%; justify-content: space-between; border-radius: 10px; }
+  .contact-layout { gap: 28px; }
+  .contact-channels { margin-top: 24px; }
+  .contact-channels strong { font-size: 16px; }
+  .contact-form-panel { padding: 0; border-radius: 12px; }
+  .brand-site input, .brand-site textarea, .brand-site select { font-size: 16px; }
+  .service-hero-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 12px; }
+  .service-visual-caption { font-size: 13px; padding: 12px; }
+  .service-web-visual { padding: 16px 12px; border-radius: 12px; }
+  .service-web-visual p { font-size: 12px; }
+  .brand-site footer { padding-block: 0; }
+  .brand-site footer .grid-cols-2 { grid-template-columns: 1fr; gap: 28px; }
+  .brand-site footer .col-span-2 { grid-column: auto; }
+  .brand-site footer li a { display: inline-block; min-height: 36px; padding-block: 6px; overflow-wrap: anywhere; }
+  .brand-site footer .space-y-2 > :not(:last-child) { margin-bottom: 0; }
+}
+@media (max-width: 360px) {
+  .brand-site { --shell-padding: 16px; }
+  .brand-site .brand-logo { font-size: 14px; }
+  .brand-site .brand-logo img { width: 32px; }
+  .brand-site .academy-login { font-size: 11px; }
+  .academy-course-category { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .brand-site header .site-small-nav { gap: 20px; scrollbar-width: none; }
+  .brand-site .site-small-nav::-webkit-scrollbar { display: none; }
+  .brand-site header .site-small-nav { padding-right: 20px; }
+}
+@media (max-width: 600px) {
+  .academy-filter-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .academy-filter-panel label:first-child, .academy-filter-panel label:last-child { grid-column: 1 / -1; }
+  .academy-filter-panel select { padding-inline: 8px; }
+  .brand-site .contact-form-panel input, .brand-site .contact-form-panel textarea { border-radius: 8px; border: 1px solid #dce1e9; }
+  .brand-site .contact-form-panel input { min-height: 48px; }
+}

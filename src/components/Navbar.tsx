@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,6 +18,12 @@ const navLinks: { href: string; labels: Record<SupportedLanguage, string> }[] = 
 
 export function Navbar() {
   const pathname = usePathname();
+  const mobileNav = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = mobileNav.current;
+    const active = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (nav) nav.scrollLeft = active ? Math.max(0, active.offsetLeft - nav.offsetLeft - 20) : 0;
+  }, [pathname]);
   const { language } = useLanguage();
   const links = navLinks.map((link) => {
     const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
@@ -40,7 +47,7 @@ export function Navbar() {
           <LanguageSwitcher />
         </div>
       </div>
-      <nav className="site-small-nav app-shell" aria-label={language === "fr" ? "Navigation principale" : "Main navigation"}>{links}</nav>
+      <nav ref={mobileNav} className="site-small-nav app-shell" aria-label={language === "fr" ? "Navigation principale" : "Main navigation"}>{links}</nav>
     </header>
   );
 }

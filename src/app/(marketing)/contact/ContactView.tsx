@@ -78,7 +78,7 @@ export function ContactView() {
           <p className="brand-eyebrow">{t.hero.kicker}</p>
           <h1>{t.hero.title}<br /><span>{t.hero.highlight}</span></h1>
           <p>{t.hero.sub}</p>
-          <div className="contact-channels">{t.channels.map(channel => <Link key={channel.label} href={channel.href}><span>{channel.label}</span><strong>{channel.value}</strong><span aria-hidden="true">?</span></Link>)}</div>
+          <div className="contact-channels">{t.channels.map(channel => <Link key={channel.label} href={channel.href}><span>{channel.label}</span><strong>{channel.value}</strong><span aria-hidden="true">&#8599;</span></Link>)}</div>
         </section>
         <section className="contact-form-panel"><ContactForm copy={t.form} /></section>
       </div>

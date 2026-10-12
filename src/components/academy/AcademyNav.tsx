@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/auth-browser";
 
@@ -14,6 +14,12 @@ const links = [
 export function AcademyNav() {
   const [name, setName] = useState<string | null>(null);
   const pathname = usePathname();
+  const mobileNav = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = mobileNav.current;
+    const active = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (nav) nav.scrollLeft = active ? Math.max(0, active.offsetLeft - nav.offsetLeft - 20) : 0;
+  }, [pathname]);
   const router = useRouter();
   useEffect(() => {
     const client = createSupabaseBrowserClient();
@@ -36,7 +42,7 @@ export function AcademyNav() {
           {name ? <details className="academy-account"><summary>{name} <span aria-hidden="true">⌄</span></summary><div><Link href="/mon-espace">Mon espace</Link><Link href="/profil">Mon profil</Link><button type="button" onClick={logout}>Déconnexion</button></div></details> : <Link href="/auth/login" className="academy-login">Se connecter <span aria-hidden="true">↗</span></Link>}
         </div>
       </div>
-      <nav className="site-small-nav app-shell" aria-label="Navigation principale">{navigation}</nav>
+      <nav ref={mobileNav} className="site-small-nav app-shell" aria-label="Navigation principale">{navigation}</nav>
     </header>
   );
 }
