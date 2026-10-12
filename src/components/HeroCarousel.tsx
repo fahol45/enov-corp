@@ -29,7 +29,7 @@ export function HeroCarousel() {
   const [focused, setFocused] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
-  const touchStart = useRef<number | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const active = items[index];
   const running = !paused && !hovered && !focused && !hidden && !reducedMotion;
 
@@ -54,9 +54,9 @@ export function HeroCarousel() {
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
       onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); choose(index + 1); } if (event.key === "ArrowLeft") { event.preventDefault(); choose(index - 1); } }}
-      onPointerDown={event => { if (event.pointerType === "touch") touchStart.current = event.clientX; }}
+      onPointerDown={event => { if (event.pointerType === "touch") touchStart.current = { x: event.clientX, y: event.clientY }; }}
       onPointerCancel={() => { touchStart.current = null; }}
-      onPointerUp={event => { if (event.pointerType === "touch" && touchStart.current !== null) { const delta = event.clientX - touchStart.current; if (Math.abs(delta) > 60) choose(index + (delta < 0 ? 1 : -1)); touchStart.current = null; } }}>
+      onPointerUp={event => { if (event.pointerType === "touch" && touchStart.current !== null) { const delta = event.clientX - touchStart.current.x; const vertical = event.clientY - touchStart.current.y; if (Math.abs(delta) > 60 && Math.abs(delta) > Math.abs(vertical)) choose(index + (delta < 0 ? 1 : -1)); touchStart.current = null; } }}>
       <div className={styles.frame}>
         <div className={styles.grid} aria-hidden="true" />
         <div className={styles.visual} aria-hidden="true">

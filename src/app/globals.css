@@ -580,3 +580,11 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .brand-site .contact-form-panel input, .brand-site .contact-form-panel textarea { border-radius: 8px; border: 1px solid #dce1e9; }
   .brand-site .contact-form-panel input { min-height: 48px; }
 }
+@media (max-width: 950px) and (orientation: landscape) and (max-height: 500px) {
+  .brand-site .site-header-row { min-height: 54px; gap: 16px; }
+  .brand-site .brand-logo { font-size: 16px; }
+  .brand-site .brand-logo img { width: 36px; height: auto; }
+  .brand-site .site-account-link, .brand-site .language-label { display: none; }
+  .brand-site header .site-small-nav { padding-block: 0; flex-wrap: nowrap; justify-content: center; gap: 20px; overflow-x: auto; scrollbar-width: none; }
+  .brand-site header .site-small-nav .site-nav-link { min-height: 40px; font-size: 13px; flex-shrink: 0; }
+}

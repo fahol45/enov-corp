@@ -41,25 +41,50 @@
 @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (max-width: 1050px) { .frame { padding-inline: 32px; } .visualLabel { display: none; } .content { max-width: 640px; } .product img { padding-left: 40px; } }
 @media (max-width: 700px) {
- .frame { padding: 20px; min-height: 0; }
- .topline { font-size: 9px; padding-bottom: 14px; }
+ .frame { padding: 16px 20px 20px; min-height: 0; }
+ .topline { font-size: 9px; padding-bottom: 12px; gap: 16px; }
  .topline span:last-child { max-width: 160px; text-align: right; font-size: 8px; line-height: 1.5; }
+ .grid { background-size: 48px 48px; }
  .visual { inset: 0; }
  .imageLayer img { object-position: 65% center; }
- .product img { object-fit: contain; padding: 230px 16px 100px; object-position: center bottom; }
- .veil { background: linear-gradient(180deg, #101722ed 0%, #101722c7 44%, #10172275 66%, #101722 95%); }
- .content { height: 510px; padding-block: 34px 0; }
- .root .frame .content h1.title { font-size: clamp(32px, 8.8vw, 46px); margin-block: 18px; line-height: 1.08; }
- .root .frame .content p.description { font-size: 15px; line-height: 1.65; max-width: 400px; }
+ .product img { object-fit: contain; padding: 235px 8px 80px; object-position: center bottom; }
+ .veil { background: linear-gradient(180deg, #101722f5 0%, #101722dd 40%, #10172290 68%, #101722f5 96%); }
+ .content { height: auto; min-height: 430px; padding-block: 24px 0; }
+ .root .frame .content h1.title { font-size: clamp(32px, 8.6vw, 44px); margin-block: 16px; line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }
+ .root .frame .content p.description { font-size: 15px; line-height: 1.6; max-width: 420px; }
  .eyebrow { font-size: 10px; }
- .actions { margin-top: 22px; gap: 10px; }
- .root a.primary { width: 100%; padding: 14px 18px; min-height: 48px; }
- .root a.secondary { font-size: 13px; min-height: 44px; }
- .controls { gap: 14px; padding-top: 16px; flex-wrap: wrap; }
+ .actions { margin-top: 20px; gap: 4px; }
+ .root a.primary { width: 100%; padding: 14px 18px; min-height: 48px; border-radius: 8px; }
+ .root a.secondary { font-size: 13px; min-height: 44px; padding-block: 10px; }
+ .controls { gap: 12px; padding-top: 12px; flex-wrap: wrap; }
  .selectors { width: 100%; flex-basis: 100%; gap: 14px; }
- .selectors button { flex-direction: column; gap: 6px; padding-block: 0 14px; font-size: 10px; letter-spacing: 0; min-height: 50px; }
- .arrows { margin-left: auto; }
- .arrows button { width: 38px; height: 38px; }
+ .selectors button { flex-direction: column; gap: 5px; padding-block: 2px 12px; font-size: 10px; letter-spacing: 0; min-height: 44px; }
+ .arrows { margin-left: auto; gap: 10px; }
+ .arrows button { width: 44px; height: 44px; }
 }
-@media (max-width: 360px) { .frame { padding-inline: 16px; } .content { height: 530px; } .selectors { gap: 10px; } }
+@media (max-width: 360px) {
+ .frame { padding-inline: 16px; }
+ .content { min-height: 450px; }
+ .root .frame .content h1.title { font-size: 31px; }
+ .selectors { gap: 10px; }
+}
+@media (max-width: 700px) and (max-height: 700px) {
+ .content { min-height: 400px; }
+ .topline span:last-child { display: none; }
+ .product img { padding-top: 220px; }
+}
+@media (max-width: 950px) and (orientation: landscape) and (max-height: 500px) {
+ .frame { min-height: 0; padding: 16px 24px; }
+ .topline { padding-bottom: 10px; }
+ .content { height: auto; min-height: 270px; padding-block: 20px; max-width: 65%; }
+ .root .frame .content h1.title { font-size: 32px; margin-block: 12px; }
+ .root .frame .content p.description { font-size: 14px; line-height: 1.5; }
+ .actions { margin-top: 16px; }
+ .visual { left: 35%; }
+ .product img { padding: 20px 0 50px; }
+ .controls { flex-wrap: nowrap; gap: 20px; padding-top: 12px; }
+ .selectors { flex-basis: auto; gap: 14px; }
+ .selectors button { font-size: 9px; }
+ .arrows button { width: 44px; height: 44px; }
+}
 @media (prefers-reduced-motion: reduce) { .imageLayer, .primary { transition: none; } .progress { animation: none !important; } }
