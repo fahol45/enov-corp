@@ -1,0 +1,18 @@
+.layout { display: grid; grid-template-columns: 1fr 300px; gap: 36px; align-items: start; }
+.cover { overflow: hidden; border-radius: 16px; border: 1px solid #e1e5ec; background: #f8f9fb; }
+.cover img { width: 100%; max-height: 550px; object-fit: cover; }
+.description { margin-top: 32px; }
+.description h2, .summary h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+.description p { font-size: 16px; color: #606c80; line-height: 1.8; white-space: pre-line; }
+.results { padding: 24px; border-left: 3px solid #e01078; background: #fdf7fa; margin-top: 28px; border-radius: 0 12px 12px 0; }
+.results > p:last-child { margin-top: 12px; font-size: 18px; line-height: 1.7; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.tags li { font-size: 12px; color: #606c80; border: 1px solid #e1e5ec; border-radius: 100px; padding: 8px 12px; }
+.summary { border: 1px solid #e1e5ec; border-radius: 16px; padding: 24px; background: #f8f9fb; }
+.summary dl > div { border-bottom: 1px solid #e1e5ec; padding-block: 14px; }
+.summary dt { font-size: 12px; color: #606c80; margin-bottom: 6px; }
+.summary dd { font-size: 15px; font-weight: 700; }
+.summary > a { display: flex; min-height: 44px; align-items: center; font-size: 13px; font-weight: 700; color: #b1065e; margin-top: 12px; }
+.loading { padding-block: 64px; color: #606c80; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .summary { order: -1; } .description p { font-size: 15px; } }
+.summary dd, .description p { overflow-wrap: anywhere; }

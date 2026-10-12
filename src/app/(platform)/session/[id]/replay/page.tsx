@@ -43,17 +43,9 @@ export default async function ReplayPage({ params }: Props) {
   const dateStr = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <header className="border-b border-white/5 bg-slate-950/80 backdrop-blur sticky top-0 z-10">
-        <div className="app-shell flex items-center justify-between py-4">
-          <Link href="/" className="text-lg font-black tracking-tight text-white">
-            ENOV<span className="text-fuchsia-400">.</span>
-          </Link>
-          <Link href="/mon-espace" className="text-sm text-slate-400 hover:text-white transition">
-            ← Mon espace
-          </Link>
-        </div>
-      </header>
+    <main className="learner-page replay-page min-h-screen bg-slate-950 text-white">
+      <nav className="app-shell replay-toolbar" aria-label="Navigation du replay"><Link href="/mon-espace">← Retour à mon espace</Link></nav>
+
 
       <div className="app-shell py-10 max-w-4xl">
         <div className="mb-6 space-y-2">

@@ -6,6 +6,7 @@ import { PortfolioAdmin } from "@/components/admin/PortfolioAdmin";
 import { SlidesAdmin } from "@/components/admin/SlidesAdmin";
 import { SessionsAdmin } from "@/components/admin/SessionsAdmin";
 import Link from "next/link";
+import Image from "next/image";
 
 const NAV = [
   {
@@ -95,9 +96,8 @@ export function AdminTabs() {
       `}>
         {/* Brand */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-white/8">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-fuchsia-500 to-sky-500 shadow-lg">
-            <span className="text-xs font-black text-white">E</span>
-          </div>
+          <Image src="/icon-enov.png" alt="ENOV CORP" width={36} height={30} />
+
           <div>
             <p className="text-sm font-bold tracking-tight text-white">Enov CORP</p>
             <p className="text-[10px] text-slate-500 uppercase tracking-widest">Admin</p>

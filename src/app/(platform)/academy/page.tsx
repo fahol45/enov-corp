@@ -30,9 +30,9 @@ export default async function AcademyPage({
   const categories = Array.from(new Set(trainings.map((t) => t.category)));
 
   return (
-    <main className="min-h-screen text-white">
+    <main className="academy-catalogue-page">
+      <AcademyHero registrationUrl={academyRegistrationUrl} />
       <div className="app-shell">
-        <AcademyHero registrationUrl={academyRegistrationUrl} />
         <WhyEnov />
         <div id="formations" className="scroll-mt-16 pb-24 pt-10">
           <TrainingFilters

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import styles from "./ContactForm.module.css";
 
 export type ContactFormCopy = {
   title: string;
@@ -86,14 +87,15 @@ export function ContactForm({ copy }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-inner shadow-black/40 sm:p-8"
+      aria-label={copy.title}
+      className={styles.form}
     >
-      <div className="space-y-3">
-        <p className="text-sm uppercase tracking-[0.5em] text-slate-400">{copy.title}</p>
-        <p className="text-base text-slate-300">{copy.description}</p>
+      <div className={styles.heading}>
+        <p className={styles.title}>{copy.title}</p>
+        <p className={styles.description}>{copy.description}</p>
       </div>
-      <div className="mt-8 grid gap-5">
-        <div className="grid gap-5 lg:grid-cols-2">
+      <div className={styles.fields}>
+        <div className={styles.row}>
           <Field
             id="contact-name"
             name="name"
@@ -117,7 +119,7 @@ export function ContactForm({ copy }: Props) {
             requiredLabel={copy.requiredLabel}
           />
         </div>
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className={styles.row}>
           <Field
             id="contact-phone"
             name="phone"
@@ -140,7 +142,7 @@ export function ContactForm({ copy }: Props) {
         <div>
           <label
             htmlFor="contact-message"
-            className="text-sm font-medium uppercase tracking-[0.3em] text-slate-300"
+            className={styles.label}
           >
             {copy.fields.message.label}{" "}
             <span className="text-fuchsia-300">{copy.requiredLabel}</span>
@@ -151,26 +153,26 @@ export function ContactForm({ copy }: Props) {
             required
             rows={5}
             placeholder={copy.fields.message.placeholder}
-            className="mt-3 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-fuchsia-400 focus:bg-white/10"
+            className={styles.input}
             value={formData.message}
             onChange={handleChange}
           />
         </div>
       </div>
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className={styles.submitRow}>
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-fuchsia-500 via-emerald-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white shadow-lg shadow-fuchsia-500/30 transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
+          className={styles.submit}
         >
           {disabled ? `${copy.submitLabel}...` : copy.submitLabel}
         </button>
-        <div className="min-h-5 text-sm" aria-live="polite">
+        <div className={styles.feedback} aria-live="polite">
           {status === "success" && (
-            <span className="text-emerald-300">{copy.successMessage}</span>
+            <span className={styles.success}>{copy.successMessage}</span>
           )}
           {status === "error" && (
-            <span className="text-pink-300">{error ?? copy.errorMessage}</span>
+            <span className={styles.error}>{error ?? copy.errorMessage}</span>
           )}
         </div>
       </div>
@@ -205,7 +207,7 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="text-sm font-medium uppercase tracking-[0.3em] text-slate-300"
+        className={styles.label}
       >
         {label} {required ? <span className="text-fuchsia-300">{requiredLabel}</span> : null}
       </label>
@@ -213,11 +215,12 @@ function Field({
         id={id}
         name={name}
         type={type}
+        autoComplete={name === "name" ? "name" : name === "email" ? "email" : name === "phone" ? "tel" : name === "company" ? "organization" : undefined}
         required={required}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="mt-3 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-fuchsia-400 focus:bg-white/10"
+        className={styles.input}
       />
     </div>
   );

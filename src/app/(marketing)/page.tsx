@@ -3,7 +3,7 @@ import { HomeView } from "./HomeView";
 import { defaultDescription, defaultTitle, ogImage, siteName } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: defaultTitle,
+  title: { absolute: defaultTitle },
   description: defaultDescription,
   alternates: { canonical: "/" },
   openGraph: {

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
+import { PageHero } from "@/components/SiteSections";
 
 export const dynamic = "force-dynamic";
 
@@ -25,38 +26,10 @@ export default async function MonEspacePage() {
   const total    = (enrollments ?? []).length;
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="learner-page min-h-screen bg-slate-950 text-white">
 
-      {/* ── Welcome banner ── */}
-      <div className="border-b border-white/[0.05] bg-[#0a0f1a]">
-        <div className="app-shell py-8">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
-            {/* Avatar */}
-            <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-fuchsia-600 to-violet-700 flex items-center justify-center text-2xl font-black text-white shadow-[0_0_40px_rgba(168,85,247,0.3)] shrink-0">
-              {initial}
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-400 mb-1">Mon Espace</p>
-              <h1 className="text-2xl font-black text-white tracking-tight">Bonjour, {firstName} 👋</h1>
-              <p className="text-sm text-slate-500 mt-0.5">{user.email}</p>
-            </div>
-            {/* Stats */}
-            <div className="flex items-center gap-6 sm:gap-8">
-              {[
-                { value: String(total),    label: "Formations" },
-                { value: String(upcoming.length + live.length), label: "À venir" },
-                { value: String(ended.length), label: "Replays" },
-              ].map((s) => (
-                <div key={s.label} className="text-center">
-                  <p className="text-2xl font-black text-white">{s.value}</p>
-                  <p className="text-[0.6rem] uppercase tracking-widest text-slate-600">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <PageHero eyebrow="MON ESPACE / ENOV ACADEMY" title={`Bonjour, ${firstName}.`} description="Retrouvez vos sessions, les prochains rendez-vous et les replays disponibles dans votre parcours." action={{ href: "/academy", label: "Explorer les formations" }} secondary={{ href: "/profil", label: "Gérer mon profil" }} />
+      <div className="app-shell learner-counts">{[{ value: total, label: "Inscriptions" }, { value: upcoming.length + live.length, label: "Sessions à venir ou en direct" }, { value: ended.length, label: "Sessions terminées" }].map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
       <div className="app-shell py-10 space-y-12">
 
         {/* ── LIVE ── */}

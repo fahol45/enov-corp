@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { HydroponieView } from "./HydroponieView";
 import { ogImage, siteName } from "@/lib/seo";
 
-const title = "Hydroponie x IoT & Edge";
-const description =
-  "Hydroponie intelligente augmentée par l'IoT et l'edge computing pour booster la production et économiser l'eau avec ENOV CORP.";
+const title = "Hydroponie & IoT — Agriculture connectée";
+const description = "Hydroponie, capteurs, automatisation et suivi des cultures : des installations connectées adaptées à votre terrain.";
 
 export const metadata: Metadata = {
   title,

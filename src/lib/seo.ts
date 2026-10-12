@@ -6,10 +6,9 @@ export const siteUrl =
     : "https://www.enovcorp.com";
 
 export const siteName = "ENOV CORP";
-export const defaultTitle = "ENOV CORP | Serres connectées, apps et formations";
-export const defaultDescription =
-  "ENOV CORP conçoit et livre des serres hydroponiques connectées, des applications web & mobile, et des formations certifiantes. Un seul interlocuteur, pas de sous-traitance.";
-export const ogImage = "/logo-enov.png";
+export const defaultTitle = "ENOV CORP | Solutions numériques, IoT et formations";
+export const defaultDescription = "ENOV CORP conçoit des solutions numériques et des installations agricoles connectées, et accompagne vos équipes avec ENOV Academy.";
+export const ogImage = "/icon-enov.png";
 
 export const absoluteUrl = (path = "/") => {
   if (!path || path === "/") {

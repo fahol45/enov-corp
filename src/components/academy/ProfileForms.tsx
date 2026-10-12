@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/auth-browser";
 import type { User } from "@supabase/supabase-js";
@@ -18,7 +18,7 @@ function FormCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d1a] overflow-hidden">
+    <div className="profile-form-card rounded-2xl border border-white/[0.07] bg-[#0d0d1a] overflow-hidden">
       <div className="flex items-center gap-3 px-6 py-4 border-b border-white/[0.06]">
         <span className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center text-slate-400">
           {icon}
@@ -63,13 +63,16 @@ function Input({
   label,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+  const generatedId = useId();
+  const inputId = props.id ?? generatedId;
   return (
     <div className="space-y-1.5">
-      <label className="text-[0.7rem] font-semibold text-slate-500 uppercase tracking-widest">
+      <label htmlFor={inputId} className="text-[0.7rem] font-semibold text-slate-500 uppercase tracking-widest">
         {label}
       </label>
       <input
         {...props}
+        id={inputId}
         className="w-full bg-[#09090f] border border-white/[0.08] focus:border-fuchsia-500/50 rounded-xl text-sm text-white placeholder:text-slate-700 px-4 py-2.5 outline-none transition-colors"
       />
     </div>

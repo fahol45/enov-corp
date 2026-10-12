@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { PortfolioView } from "./PortfolioView";
 import { ogImage, siteName } from "@/lib/seo";
 
-const title = "Portfolio — Projets livrés";
-const description =
-  "Serres connectées, applications web & mobile, formations certifiantes : découvrez les projets concrètement réalisés par ENOV CORP.";
+const title = "Portfolio — Projets et solutions";
+const description = "Explorez les projets publiés par ENOV CORP et des exemples de solutions numériques, agricoles et pédagogiques.";
 
 export const metadata: Metadata = {
   title,

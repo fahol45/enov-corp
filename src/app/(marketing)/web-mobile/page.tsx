@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { WebMobileView } from "./WebMobileView";
 import { ogImage, siteName } from "@/lib/seo";
 
-const title = "Développement Web & Mobile";
-const description =
-  "Applications mobiles et sites web multi-secteurs : finance, e-commerce, opérations, service client, santé et logistique.";
+const title = "Web & Mobile — Solutions numériques";
+const description = "Sites web, applications mobiles, plateformes métier et intégration IA : des outils numériques adaptés à votre activité.";
 
 export const metadata: Metadata = {
   title,

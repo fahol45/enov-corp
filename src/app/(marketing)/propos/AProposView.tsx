@@ -1,97 +1,33 @@
 "use client";
 
-import Link from "next/link";
-import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { FeatureGrid, PageCTA, PageHero, PageSection, ProcessSteps } from "@/components/SiteSections";
 
-type AboutCopy = {
-  hero: { kicker: string; title: string; highlight: string; sub: string; cta: string };
-  statsTitle: string;
-  stats: Array<{ value: string; label: string }>;
-  pillarsTitle: string;
-  pillars: Array<{ num: string; title: string; tags: string; href: string }>;
-  valuesTitle: string;
-  values: Array<{ num: string; title: string }>;
-  promiseTitle: string;
-  promise: string;
-  cta: { title: string; button: string };
+const copy = {
+  fr: { title: "La technologie utile.", highlight: "Des idées qui prennent forme.", description: "ENOV CORP réunit le développement numérique, les systèmes agricoles connectés et la formation autour d’une même démarche : partir de votre besoin et construire une solution concrète.", action: "Échanger avec notre équipe", expertise: "Trois expertises complémentaires.", features: [
+    { title: "Web & Mobile", text: "Concevoir des sites, des applications et des plateformes pour les usages de votre activité.", href: "/web-mobile" },
+    { title: "Hydroponie & IoT", text: "Relier les installations, les mesures et les outils de pilotage sur le terrain.", href: "/hydroponie" },
+    { title: "ENOV Academy", text: "Transmettre les compétences nécessaires pour comprendre et utiliser les technologies.", href: "/academy" },
+  ], approach: "Comprendre avant de construire.", approachText: "Nous définissons avec vous les objectifs, le périmètre et les contraintes du projet. Les choix techniques suivent les usages, et la prise en main fait partie du parcours.", steps: [
+    { title: "Un besoin clair", text: "Les utilisateurs, les objectifs et les priorités sont identifiés dès le départ." },
+    { title: "Des étapes lisibles", text: "La conception, la réalisation et la mise en service suivent un parcours défini ensemble." },
+    { title: "Une solution adoptée", text: "Les équipes disposent des repères utiles pour utiliser et suivre leurs nouveaux outils." },
+  ], cta: "Construisons la prochaine étape de votre activité.", ctaText: "Un projet numérique, une installation connectée ou un besoin de formation : parlons-en.", },
+  en: { title: "Technology with purpose.", highlight: "Ideas taking shape.", description: "ENOV CORP brings digital development, connected agriculture and training together with one approach: start with your needs and build a practical solution.", action: "Talk to our team", expertise: "Three complementary areas of expertise.", features: [
+    { title: "Web & Mobile", text: "Design websites, applications and platforms around your business needs.", href: "/web-mobile" },
+    { title: "Hydroponics & IoT", text: "Connect installations, measurements and monitoring tools in the field.", href: "/hydroponie" },
+    { title: "ENOV Academy", text: "Share the skills needed to understand and use technology.", href: "/academy" },
+  ], approach: "Understand before building.", approachText: "We define goals, scope and constraints together. Technical choices follow real uses, and adoption is part of the process.", steps: [
+    { title: "A clear need", text: "Users, goals and priorities are identified from the start." },
+    { title: "Visible steps", text: "Design, delivery and launch follow a process defined together." },
+    { title: "Practical adoption", text: "Teams have the guidance they need to use and monitor their new tools." },
+  ], cta: "Build the next step for your business.", ctaText: "A digital project, connected installation or training need: let’s talk.", },
 };
-
-const copy: Record<SupportedLanguage, AboutCopy> = {
-  fr: {
-    hero: {
-      kicker: "À propos",
-      title: "Serres, apps",
-      highlight: "et formations.",
-      sub: "On prend en charge le projet de A à Z — sans sous-traitance. Un seul interlocuteur du premier appel jusqu'à la mise en service.",
-      cta: "Nous contacter",
-    },
-    pillarsTitle: "Ce qu'on fait concrètement.",
-    pillars: [
-      { num: "01", title: "Serres connectées", tags: "Capteurs installés. Arrosage automatisé. Données en temps réel sur votre téléphone.", href: "/hydroponie" },
-      { num: "02", title: "Apps & Sites web", tags: "Android, iOS, web. Un seul interlocuteur. Livré en 3 mois.", href: "/web-mobile" },
-      { num: "03", title: "Formation", tags: "8 participants max. Projet concret à rendre. Certificat Enov à la clé.", href: "/academy" },
-    ],
-    statsTitle: "En chiffres.",
-    stats: [
-      { value: "3", label: "Domaines maîtrisés" },
-      { value: "< 3 mois", label: "De l'idée à la livraison" },
-      { value: "8 max", label: "Participants par formation" },
-      { value: "24h", label: "Délai de réponse garanti" },
-    ],
-    valuesTitle: "La façon dont on travaille.",
-    values: [
-      { num: "01", title: "On accepte un projet, on le livre" },
-      { num: "02", title: "Vous parlez à la personne qui fait le travail" },
-      { num: "03", title: "On reste disponible après la livraison" },
-    ],
-    promiseTitle: "Notre engagement.",
-    promise: "Pas de sous-traitance. Pas de commercial entre vous et les techniciens. Quand on accepte un projet, on en prend la responsabilité du début à la fin — conception, développement, installation, formation et suivi.",
-    cta: { title: "Un projet en tête. On vous répond en 24h.", button: "Nous contacter" },
-  },
-  en: {
-    hero: {
-      kicker: "About",
-      title: "Greenhouses, apps",
-      highlight: "and training.",
-      sub: "We own the project end to end — no subcontracting. One contact from first call to deployment.",
-      cta: "Contact us",
-    },
-    pillarsTitle: "What we concretely do.",
-    pillars: [
-      { num: "01", title: "Connected greenhouses", tags: "Sensors installed. Watering automated. Live data on your phone.", href: "/hydroponie" },
-      { num: "02", title: "Apps & Websites", tags: "Android, iOS, web. One point of contact. Delivered in 3 months.", href: "/web-mobile" },
-      { num: "03", title: "Training", tags: "Max 8 participants. Real project to complete. Enov certificate included.", href: "/academy" },
-    ],
-    statsTitle: "By the numbers.",
-    stats: [
-      { value: "3", label: "Domains mastered" },
-      { value: "< 3 mo.", label: "From idea to delivery" },
-      { value: "8 max", label: "Participants per training" },
-      { value: "24h", label: "Guaranteed response time" },
-    ],
-    valuesTitle: "How we work.",
-    values: [
-      { num: "01", title: "We accept a project, we deliver it" },
-      { num: "02", title: "You talk to the person doing the work" },
-      { num: "03", title: "We stay available after delivery" },
-    ],
-    promiseTitle: "Our commitment.",
-    promise: "No subcontracting. No sales reps between you and the engineers. When we take on a project, we own it from start to finish — design, development, installation, training and ongoing support.",
-    cta: { title: "A project in mind. We reply within 24h.", button: "Contact us" },
-  },
-};
-
 export function AProposView() {
-  const { language } = useLanguage();
-  const t = copy[language];
-
-  return (
-    <main className="interior-page app-shell about-page">
-      <section className="interior-heading"><p className="brand-eyebrow">{t.hero.kicker} / ENOV CORP</p><h1>{t.hero.title}<br /><span>{t.hero.highlight}</span></h1><p>{t.hero.sub}</p><Link href="/contact" className="brand-button">{t.hero.cta} ?</Link></section>
-      <section className="about-expertise"><h2>{t.pillarsTitle}</h2><div>{t.pillars.map(pillar => <Link key={pillar.num} href={pillar.href}><span>{pillar.num}</span><div><h3>{pillar.title}</h3><p>{pillar.tags}</p></div><span aria-hidden="true">?</span></Link>)}</div></section>
-      <section className="about-values"><p className="brand-eyebrow">ENOV CORP</p><h2>{t.valuesTitle}</h2><div>{t.values.map(value => <article key={value.num}><span>{value.num}</span><h3>{value.title}</h3></article>)}</div></section>
-      <section className="about-promise"><p className="brand-eyebrow">{t.promiseTitle}</p><p>{t.promise}</p></section>
-      <section className="interior-cta"><h2>{language === "fr" ? "Parlons de votre projet." : "Let?s discuss your project."}</h2><Link href="/contact" className="brand-button">{t.cta.button} ?</Link></section>
-    </main>
-  );
+  const { language } = useLanguage(); const t = copy[language];
+  return <main><PageHero eyebrow={language === "fr" ? "À PROPOS / ENOV CORP" : "ABOUT / ENOV CORP"} title={t.title} highlight={t.highlight} description={t.description} action={{ href: "/contact", label: t.action }} />
+    <PageSection eyebrow={language === "fr" ? "01 / NOS DOMAINES" : "01 / OUR EXPERTISE"} title={t.expertise}><FeatureGrid items={t.features} /></PageSection>
+    <PageSection eyebrow={language === "fr" ? "02 / NOTRE ENGAGEMENT" : "02 / OUR APPROACH"} title={t.approach} description={t.approachText}><ProcessSteps items={t.steps} /></PageSection>
+    <PageCTA title={t.cta} text={t.ctaText} label={t.action} />
+  </main>;
 }

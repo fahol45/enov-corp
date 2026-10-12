@@ -1,0 +1,17 @@
+.form { padding: 32px; }
+.heading { display: flex; flex-direction: column; gap: 10px; }
+.title { font-size: 22px; font-weight: 700; color: #1b2230; }
+.description { font-size: 13px; line-height: 1.7; color: #606c80; }
+.fields { display: grid; gap: 20px; margin-top: 28px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.label { font-size: 13px; font-weight: 700; color: #1b2230; }
+.input { display: block; width: 100%; min-width: 0; border: 1px solid #dce1e9; border-radius: 8px; background: white; margin-top: 8px; padding: 12px 14px; min-height: 48px; color: #1b2230; font-size: 16px; }
+.input:focus-visible { outline: 2px solid #e01078; outline-offset: 2px; }
+.submitRow { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 24px; }
+.form .submit { min-height: 48px; padding: 14px 22px; border: 0; border-radius: 8px; background: #e01078; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+.form .submit:hover { background: #b1065e; }
+.form .submit:disabled { opacity: .6; cursor: wait; }
+.feedback { font-size: 13px; line-height: 1.6; }
+.success { color: #166534; }
+.error { color: #9f1239; }
+@media (max-width: 800px) { .form { padding: 22px; } .row { grid-template-columns: 1fr; gap: 20px; } .form .submit { width: 100%; } }

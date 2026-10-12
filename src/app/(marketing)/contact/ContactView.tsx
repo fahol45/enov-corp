@@ -2,86 +2,29 @@
 
 import Link from "next/link";
 import { ContactForm, type ContactFormCopy } from "@/components/ContactForm";
-import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
+import { PageHero } from "@/components/SiteSections";
+import { useLanguage } from "@/context/LanguageContext";
+import styles from "./ContactView.module.css";
 
-type ContactCopy = {
-  hero: { kicker: string; title: string; highlight: string; sub: string };
-  channels: Array<{ label: string; value: string; href: string }>;
-  form: ContactFormCopy;
+const copy = {
+  fr: { title: "Parlons de votre projet.", highlight: "Donnons-lui une direction.", description: "Partagez votre besoin, votre contexte et vos objectifs. Nous définirons ensemble les prochaines étapes.", label: "UN ÉCHANGE DIRECT", heading: "Le bon point de départ.", text: "Un site ou une application, une installation connectée, une formation : indiquez ce que vous souhaitez construire et les contraintes à prendre en compte.", email: "Par email", phone: "Par téléphone", form: {
+    title: "Votre projet", description: "Les champs marqués d’un astérisque sont obligatoires.", fields: {
+      name: { label: "Votre nom", placeholder: "Nom et prénom" }, email: { label: "Adresse email", placeholder: "vous@entreprise.com" },
+      phone: { label: "Téléphone (optionnel)", placeholder: "+212 6 00 00 00 00" }, company: { label: "Entreprise (optionnel)", placeholder: "Votre organisation" },
+      message: { label: "Votre besoin", placeholder: "Votre objectif, les utilisateurs concernés, le contexte et le calendrier envisagé…" },
+    }, submitLabel: "Envoyer mon message", successMessage: "Votre message a été reçu. Notre équipe reviendra vers vous.", errorMessage: "L’envoi a échoué. Vous pouvez nous écrire à contact@enovcorp.com.", requiredLabel: "*",
+  } satisfies ContactFormCopy },
+  en: { title: "Let’s discuss your project.", highlight: "Give it a direction.", description: "Share your needs, context and goals. Let’s define the next steps together.", label: "A DIRECT CONVERSATION", heading: "The right starting point.", text: "A website or app, connected installation or training programme: tell us what you want to build and the constraints to consider.", email: "By email", phone: "By phone", form: {
+    title: "Your project", description: "Fields marked with an asterisk are required.", fields: {
+      name: { label: "Your name", placeholder: "Full name" }, email: { label: "Email address", placeholder: "you@company.com" },
+      phone: { label: "Phone (optional)", placeholder: "+212 6 00 00 00 00" }, company: { label: "Company (optional)", placeholder: "Your organisation" },
+      message: { label: "Your needs", placeholder: "Your goals, intended users, context and proposed timeline…" },
+    }, submitLabel: "Send my message", successMessage: "Your message has been received. Our team will get back to you.", errorMessage: "Sending failed. You can email contact@enovcorp.com.", requiredLabel: "*",
+  } satisfies ContactFormCopy },
 };
-
-const copy: Record<SupportedLanguage, ContactCopy> = {
-  fr: {
-    hero: {
-      kicker: "Contact",
-      title: "Décrivez ce que vous voulez.",
-      highlight: "On vous répond en 24h.",
-      sub: "Envoyez le formulaire ou appelez. On lit, on analyse, on vous rappelle — pas un commercial, la personne qui fera le travail.",
-    },
-    channels: [
-      { label: "Email", value: "contact@enovcorp.com", href: "mailto:contact@enovcorp.com" },
-      { label: "Téléphone", value: "+212 6 45 41 08 64", href: "tel:+212645410864" },
-    ],
-    form: {
-      title: "Décrivez votre projet",
-      description: "On lit chaque message et on répond vite.",
-      fields: {
-        name: { label: "Votre nom", placeholder: "Fatima Zahra" },
-        email: { label: "Votre email", placeholder: "vous@exemple.com" },
-        phone: { label: "Téléphone (optionnel)", placeholder: "+212 6 00 00 00 00" },
-        company: { label: "Entreprise ou site", placeholder: "Mon entreprise" },
-        message: { label: "Votre besoin", placeholder: "Ex. : je cherche une app de suivi pour mes équipes terrain, ou je veux connecter ma serre..." },
-      },
-      submitLabel: "Envoyer",
-      successMessage: "Message reçu ! On revient vers vous très vite.",
-      errorMessage: "Impossible d'envoyer. Écrivez-nous à contact@enovcorp.com",
-      requiredLabel: "*",
-    },
-  },
-  en: {
-    hero: {
-      kicker: "Contact",
-      title: "Let?s talk about your project.",
-      highlight: "Build what comes next.",
-      sub: "Send the form or call. We read, we assess, we call back — not a salesperson, the person who will do the work.",
-    },
-    channels: [
-      { label: "Email", value: "contact@enovcorp.com", href: "mailto:contact@enovcorp.com" },
-      { label: "Phone", value: "+212 6 45 41 08 64", href: "tel:+212645410864" },
-    ],
-    form: {
-      title: "Describe your project",
-      description: "We read every message and reply fast.",
-      fields: {
-        name: { label: "Your name", placeholder: "John Doe" },
-        email: { label: "Your email", placeholder: "you@example.com" },
-        phone: { label: "Phone (optional)", placeholder: "+212 6 00 00 00 00" },
-        company: { label: "Company or site", placeholder: "My company" },
-        message: { label: "Your need", placeholder: "E.g.: I need a field team tracking app, or I want to connect my greenhouse..." },
-      },
-      submitLabel: "Send",
-      successMessage: "Message received! We'll get back to you very soon.",
-      errorMessage: "Couldn't send. Email us at contact@enovcorp.com",
-      requiredLabel: "*",
-    },
-  },
-};
-
 export function ContactView() {
-  const { language } = useLanguage();
-  const t = copy[language];
-
-  return (
-    <main className="interior-page app-shell">
-      <div className="contact-layout">
-        <section className="contact-intro">
-          <p className="brand-eyebrow">{t.hero.kicker}</p>
-          <h1>{t.hero.title}<br /><span>{t.hero.highlight}</span></h1>
-          <p>{t.hero.sub}</p>
-          <div className="contact-channels">{t.channels.map(channel => <Link key={channel.label} href={channel.href}><span>{channel.label}</span><strong>{channel.value}</strong><span aria-hidden="true">&#8599;</span></Link>)}</div>
-        </section>
-        <section className="contact-form-panel"><ContactForm copy={t.form} /></section>
-      </div>
-    </main>
-  );
+  const { language } = useLanguage(); const t = copy[language];
+  return <main><PageHero eyebrow="CONTACT / ENOV CORP" title={t.title} highlight={t.highlight} description={t.description} />
+    <div className={`app-shell ${styles.layout}`}><section className={styles.info}><p className="brand-eyebrow">{t.label}</p><h2>{t.heading}</h2><p>{t.text}</p><div className={styles.channels}><Link href="mailto:contact@enovcorp.com"><span>{t.email}</span><strong>contact@enovcorp.com</strong><span aria-hidden="true">↗</span></Link><Link href="tel:+212645410864"><span>{t.phone}</span><strong>+212 6 45 41 08 64</strong><span aria-hidden="true">↗</span></Link></div></section><section className={styles.formPanel}><ContactForm copy={t.form} /></section></div>
+  </main>;
 }

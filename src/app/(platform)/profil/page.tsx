@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/auth-server";
 import { supabaseServer } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { PageHero } from "@/components/SiteSections";
 import { ProfileForms } from "@/components/academy/ProfileForms";
 import type { Metadata } from "next";
 
@@ -22,7 +23,8 @@ export default async function ProfilPage() {
     .eq("user_id", user.id);
 
   return (
-    <main className="min-h-screen text-white">
+    <main className="learner-page profile-page min-h-screen text-white">
+      <PageHero eyebrow="MON PROFIL / ENOV ACADEMY" title="Votre compte, vos repères." description="Gérez vos informations personnelles et les paramètres de votre compte." secondary={{ href: "/mon-espace", label: "Retour à mon espace" }} />
       <div className="app-shell py-10">
         <ProfileForms user={user} enrollmentCount={count ?? 0} />
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PageHero, PageCTA } from "@/components/SiteSections";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
@@ -159,7 +160,6 @@ export function PortfolioView() {
       .catch(() => {});
   }, []);
 
-  const hero = heroCopy[language];
   const filters = filterCopy[language];
   const cta = ctaCopy[language];
 
@@ -173,11 +173,12 @@ export function PortfolioView() {
   ];
 
   return (
-    <main className="interior-page app-shell portfolio-page">
-      <section className="interior-heading"><p className="brand-eyebrow">{hero.kicker} / ENOV CORP</p><h1>{language === "fr" ? "Des solutions" : "Solutions"}<br /><span>{language === "fr" ? "qui prennent forme." : "taking shape."}</span></h1><p>{language === "fr" ? "D?couvrez nos domaines d?intervention et les projets publi?s par notre ?quipe." : "Explore our areas of expertise and projects published by our team."}</p></section>
+    <main className="portfolio-page">
+      <PageHero eyebrow="PORTFOLIO / ENOV CORP" title={language === "fr" ? "Des solutions concrètes." : "Practical solutions."} highlight={language === "fr" ? "Des projets à explorer." : "Projects to explore."} description={language === "fr" ? "Découvrez les projets publiés par notre équipe et des exemples de solutions dans nos domaines d’intervention." : "Explore projects published by our team and examples of solutions across our areas of expertise."} />
+      <div className="app-shell portfolio-content">
       <div className="portfolio-filters" role="group" aria-label={language === "fr" ? "Filtrer les projets" : "Filter projects"}>{filterTabs.map(tab => <button key={tab.value} type="button" aria-pressed={activeFilter === tab.value} onClick={() => setActiveFilter(tab.value)}>{tab.label}<span>{tab.value === "all" ? items.length : items.filter(i => i.category === tab.value).length}</span></button>)}</div>
-      <section aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}><AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette cat?gorie." : "No projects in this category."}</p>}</section>
-      <section className="interior-cta"><h2>{language === "fr" ? "Et si votre projet ?tait le prochain ?" : "Could your project be next?"}</h2><Link href="/contact" className="brand-button">{cta.button} ?</Link></section>
+      <section aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}><AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette catégorie." : "No projects in this category."}</p>}</section>
+      </div><PageCTA title={language === "fr" ? "Et si votre projet était le prochain ?" : "Could your project be next?"} label={cta.button} />
     </main>
   );
 }

@@ -262,13 +262,6 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 }
 
 /* Shared page system and Academy catalogue */
-.marketing-site main:not(.home-redesign) h1 { font-size: clamp(36px, 4.8vw, 66px); letter-spacing: -.045em; line-height: 1.08; }
-.marketing-site main:not(.home-redesign) h2 { letter-spacing: -.025em; }
-.marketing-site main:not(.home-redesign) .section-flow { gap: 64px; padding-bottom: 72px; }
-.marketing-site main:not(.home-redesign) [class*="rounded-3xl"], .marketing-site main:not(.home-redesign) [class*="rounded-2xl"] { border-radius: 18px; }
-.marketing-site main:not(.home-redesign) p { line-height: 1.65; }
-.marketing-site main:not(.home-redesign) a[class*="bg-white"][class*="px-10"] { background: var(--brand-magenta); color: white; }
-.marketing-site main:not(.home-redesign) section:last-child[class*="text-center"] { background: var(--brand-paper); }
 .academy-site { background: white; }
 .academy-site [class*="bg-[#0"], .academy-site [class*="bg-slate-7"] { background-color: var(--brand-paper); }
 .academy-site [class*="text-slate-700"], .academy-site [class*="text-white/"] { color: #606c80; }
@@ -588,3 +581,58 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .brand-site header .site-small-nav { padding-block: 0; flex-wrap: nowrap; justify-content: center; gap: 20px; overflow-x: auto; scrollbar-width: none; }
   .brand-site header .site-small-nav .site-nav-link { min-height: 40px; font-size: 13px; flex-shrink: 0; }
 }
+
+/* Consistent application surfaces: learner accounts, course details and administration. */
+.portfolio-content { padding-block: 48px 56px; }
+.auth-site [class*="bg-slate-9"], .auth-site [class*="bg-slate-8"] { background-color: var(--brand-paper); }
+.auth-site main { color: var(--brand-graphite); }
+.learner-counts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; padding-top: 32px; }
+.learner-counts > div { padding: 24px; border: 1px solid #e1e5ec; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; }
+.learner-counts strong { color: var(--brand-dark-magenta); font-size: 30px; font-weight: 900; }
+.learner-counts span { color: #606c80; font-size: 13px; }
+.learner-page main, .learner-page section { scroll-margin-top: 180px; }
+.learner-page [class*="rounded-2xl"] { border-radius: 16px; }
+.learner-page input, .learner-page textarea { min-height: 46px; font-size: 16px; background: white; border: 1px solid #dce1e9; border-radius: 8px; }
+.learner-page label { text-transform: none; letter-spacing: 0; font-size: 13px; }
+.profile-form-card { background: white !important; }
+.profile-form-card > div:first-child { background: var(--brand-paper); }
+.replay-toolbar { padding-top: 24px; }
+.replay-toolbar a { display: inline-flex; min-height: 44px; align-items: center; font-size: 14px; color: var(--brand-dark-magenta); }
+.course-detail-page aside { align-self: start; }
+.course-detail-page aside > div { border-radius: 16px; }
+.course-detail-page input, .course-detail-page select { min-height: 46px; font-size: 16px; border-radius: 8px; }
+.course-detail-page aside a { min-height: 44px; }
+.academy-catalogue-page .academy-benefits { border-top: none; }
+.academy-course-card { transition: border-color .2s, transform .2s; }
+.academy-course-card:hover { border-color: #d2aac0; transform: translateY(-2px); }
+.admin-site { background: var(--brand-paper); }
+.admin-site [class*="bg-[#0"], .admin-site [class*="bg-slate-7"] { background-color: white; }
+.admin-site [class*="text-[#"], .admin-site [class*="text-slate-700"] { color: #606c80; }
+.admin-site [class*="border-[#"] { border-color: #dce1e9; }
+.admin-site input, .admin-site textarea, .admin-site select { background: white; color: var(--brand-graphite); border: 1px solid #dce1e9; border-radius: 8px; font-size: 14px; min-height: 42px; }
+.admin-site button[type=submit] { background: var(--brand-magenta); color: white; border-color: var(--brand-magenta); min-height: 46px; }
+.admin-site aside { background: #101722; }
+.admin-site aside [class*="text-white"], .admin-site aside [class*="text-slate-300"] { color: #e1e5ec; }
+.admin-site aside [class*="text-slate-500"], .admin-site aside [class*="text-slate-400"] { color: #a7b0c0; }
+.admin-site aside [class*="border-white"] { border-color: #ffffff20; }
+.admin-site aside button { min-height: 48px; }
+.admin-site aside button[class*="bg-fuchsia"] { color: #ff69af; background: #e010781f; }
+.admin-login-panel { max-width: 560px; padding-block: 48px 64px; }
+.admin-login-panel h2 { font-size: 26px; font-weight: 700; margin-bottom: 24px; }
+.admin-site table { font-size: 14px; }
+.admin-site td, .admin-site th { padding: 14px; border-color: #e1e5ec; }
+@media (max-width: 600px) {
+ .portfolio-content { padding-block: 32px 40px; }
+ .portfolio-filters { gap: 8px; }
+ .portfolio-filters button { font-size: 12px; padding: 10px 14px; min-height: 44px; }
+ .learner-counts { gap: 10px; padding-top: 24px; }
+ .learner-counts > div { padding: 14px 10px; }
+ .learner-counts strong { font-size: 24px; }
+ .learner-counts span { font-size: 11px; line-height: 1.5; }
+ .course-detail-page .app-shell > .grid { gap: 28px; }
+ .admin-site input, .admin-site select, .admin-site textarea { font-size: 16px; }
+ .admin-site button { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .academy-course-card { transition: none; } }
+.learner-page p, .learner-page h1 { overflow-wrap: anywhere; }
+.admin-site aside [class*="text-fuchsia"] { color: #ff69af; }

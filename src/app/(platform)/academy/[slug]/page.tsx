@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHero } from "@/components/SiteSections";
 import { notFound } from "next/navigation";
 import { TrainingStatusBadge } from "@/components/academy/TrainingStatusBadge";
 import { NotifyForm } from "@/components/academy/NotifyForm";
@@ -89,7 +90,7 @@ export default async function AcademyDetailPage({ params }: Props) {
     "@type": "Course",
     name: training.title,
     description: training.summary,
-    provider: { "@type": "Organization", name: siteName, url: siteUrl, logo: absoluteUrl(ogImage) },
+    provider: { "@type": "Organization", name: siteName, url: siteUrl, logo: absoluteUrl("/icon-enov.png") },
     inLanguage: "fr",
     educationalLevel: training.details.level,
     courseMode: training.details.format,
@@ -98,7 +99,7 @@ export default async function AcademyDetailPage({ params }: Props) {
   const levelColor = LEVEL_COLOR[training.details.level] ?? "text-slate-400";
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="course-detail-page min-h-screen bg-slate-950 text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
 
       {/* ── Sticky floating header (client, appears after hero scrolls out) ── */}
@@ -113,62 +114,7 @@ export default async function AcademyDetailPage({ params }: Props) {
       />
 
       {/* ── HERO ── */}
-      <div id="course-hero" className="relative overflow-hidden border-b border-white/[0.05]">
-        {training.coverImage && (
-          <div className="absolute inset-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={training.coverImage} alt="" className="h-full w-full object-cover opacity-8 scale-105 blur-[2px]" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-linear-to-b from-slate-950/70 via-slate-950/85 to-slate-950" />
-        <div className="absolute inset-0 bg-linear-to-r from-slate-950 via-transparent to-slate-950/80" />
-        <div className="pointer-events-none absolute -top-10 left-1/3 w-[400px] h-[300px] bg-fuchsia-700/8 blur-[100px] rounded-full" />
-
-        <div className="app-shell relative py-12 lg:py-16">
-          {/* Breadcrumb */}
-          <nav className="mb-8 flex items-center gap-2 text-[0.68rem] text-slate-600">
-            <Link href="/academy" className="hover:text-slate-400 transition">Academy</Link>
-            <span>/</span>
-            <span className="text-fuchsia-500/80">{training.category}</span>
-            <span>/</span>
-            <span className="text-slate-500 truncate max-w-[180px]">{training.title}</span>
-          </nav>
-
-          <div className="max-w-3xl space-y-5">
-            {/* Badges */}
-            <div className="flex items-center flex-wrap gap-2">
-              <TrainingStatusBadge status={training.status} />
-              <span className="text-[0.6rem] font-semibold text-fuchsia-400/70 uppercase tracking-widest">
-                {training.category}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-[clamp(1.7rem,5vw,3rem)] font-black leading-[1.08] tracking-tight text-white">
-              {training.title}
-            </h1>
-
-            {/* Summary */}
-            <p className="text-base text-slate-400 leading-relaxed max-w-2xl">{training.summary}</p>
-
-            <p className="text-sm text-slate-500">?quipe ENOV ? {training.details.level}</p>
-
-            {/* Quick specs */}
-            <div className="flex flex-wrap gap-3 pt-1">
-              {[
-                { emoji: "⏱", label: training.details.duration },
-                { emoji: "📅", label: training.details.nextSession },
-                { emoji: "📍", label: training.details.location },
-                { emoji: "🖥",  label: training.details.format },
-              ].filter(s => s.label).map(({ emoji, label }) => (
-                <span key={label} className="flex items-center gap-1.5 text-xs text-slate-500 bg-white/[0.03] border border-white/[0.06] rounded-full px-3 py-1">
-                  <span>{emoji}</span>{label}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="course-hero"><PageHero eyebrow={training.category + " / ENOV ACADEMY"} title={training.title} description={training.summary} image={training.coverImage ? { src: training.coverImage, alt: training.title } : undefined} secondary={{ href: "/academy", label: "Retour au catalogue" }} /></div>
 
       {/* ── MAIN LAYOUT ── */}
       <div className="app-shell py-12">
@@ -352,11 +298,6 @@ export default async function AcademyDetailPage({ params }: Props) {
                   </Link>
                 )}
 
-                {/* Guarantee */}
-                <p className="text-center text-[0.6rem] text-slate-600">
-                  ✓ Satisfaction garantie · Accès replay inclus
-                </p>
-
                 {/* Specs */}
                 <ul className="space-y-2.5 border-t border-white/[0.05] pt-4">
                   {[
@@ -380,19 +321,6 @@ export default async function AcademyDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { icon: "🔒", label: "Paiement sécurisé" },
-                { icon: "🎓", label: "Certifié Enov"     },
-                { icon: "🔁", label: "Suivi inclus"      },
-              ].map((b) => (
-                <div key={b.label} className="flex flex-col items-center text-center rounded-xl border border-white/[0.05] bg-white/[0.02] py-3 px-2 gap-1.5">
-                  <span className="text-lg">{b.icon}</span>
-                  <span className="text-[0.55rem] text-slate-600 leading-tight">{b.label}</span>
-                </div>
-              ))}
-            </div>
           </aside>
         </div>
       </div>
@@ -406,7 +334,7 @@ function Card({ title, children, glow, id }: { title: string; children: React.Re
   return (
     <section id={id} className={`scroll-mt-24 rounded-2xl border overflow-hidden ${glow ? "border-fuchsia-500/12 bg-fuchsia-950/[0.05]" : "border-white/[0.06] bg-[#0c1018]"}`}>
       <div className={`px-6 py-4 border-b ${glow ? "border-fuchsia-500/10" : "border-white/[0.05]"}`}>
-        <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{title}</h2>
+        <h2 className="text-lg font-bold text-slate-900">{title}</h2>
       </div>
       <div className="p-6">{children}</div>
     </section>

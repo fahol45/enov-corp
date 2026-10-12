@@ -32,20 +32,20 @@ export default function SignaturePage() {
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-sm">
           <p className="text-xs text-gray-400 uppercase tracking-widest mb-4 font-semibold">Aperçu</p>
           <div ref={previewRef}>
-            <table cellPadding={0} cellSpacing={0} style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "#1a1a1a" }}>
+            <table cellPadding={0} cellSpacing={0} style={{ fontFamily: "Lato, Arial, sans-serif", fontSize: 13, color: "#1a1a1a" }}>
               <tbody>
                 <tr>
                   <td style={{ paddingRight: 16, verticalAlign: "middle", borderRight: "2px solid #e5e7eb" }}>
-                    <Image src="/logo-enov.png" alt="Enov Corp" width={80} height={40} style={{ display: "block" }} />
+                    <Image src="/icon-enov.png" alt="Enov Corp" width={56} height={46} style={{ display: "block" }} />
                   </td>
                   <td style={{ paddingLeft: 16, verticalAlign: "middle" }}>
                     <p style={{ margin: "0 0 2px 0", fontWeight: 700, fontSize: 14, color: "#111827" }}>Enov Corp</p>
                     <p style={{ margin: "0 0 6px 0", fontSize: 12, color: "#6b7280" }}>Innovation & Technologie</p>
                     <p style={{ margin: "0 0 2px 0" }}>
-                      <a href="mailto:contact@enovcorp.com" style={{ color: "#2563eb", textDecoration: "none" }}>contact@enovcorp.com</a>
+                      <a href="mailto:contact@enovcorp.com" style={{ color: "#E01078", textDecoration: "none" }}>contact@enovcorp.com</a>
                     </p>
                     <p style={{ margin: "0 0 8px 0" }}>
-                      <a href="https://enovcorp.com" style={{ color: "#2563eb", textDecoration: "none" }}>enovcorp.com</a>
+                      <a href="https://enovcorp.com" style={{ color: "#E01078", textDecoration: "none" }}>enovcorp.com</a>
                     </p>
                     <p style={{ margin: 0 }}>
                       <a href="https://www.linkedin.com/company/enovcorp/" style={{ color: "#6b7280", textDecoration: "none", marginRight: 8, fontSize: 12 }}>LinkedIn</a>
@@ -63,7 +63,7 @@ export default function SignaturePage() {
         <button
           onClick={handleCopy}
           className="w-full py-3 px-6 rounded-xl font-semibold text-white transition-colors"
-          style={{ backgroundColor: copied ? "#16a34a" : "#2563eb" }}
+          style={{ backgroundColor: copied ? "#16a34a" : "#E01078" }}
         >
           {copied ? "Copié !" : "Copier la signature"}
         </button>
