@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Image from "next/image";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -34,12 +35,7 @@ export function HomeView() {
   const t = content[language];
   return (
     <main className="welcome-page">
-      <section className="welcome-hero app-shell">
-        <p className="brand-eyebrow">{t.eyebrow}</p>
-        <h1>{t.title}<br /><span>{t.highlight}</span></h1>
-        <p className="welcome-intro">{t.intro}</p>
-        <div className="welcome-actions"><Link href="/contact" className="brand-button">{t.contact}<span aria-hidden="true">↗</span></Link><Link href="/academy" className="welcome-secondary">{t.academyLink}<span aria-hidden="true">→</span></Link></div>
-      </section>
+      <HeroCarousel />
       <nav className="welcome-paths app-shell" aria-label={language === "fr" ? "Nos activités" : "Our services"}>
         {t.services.map((service, index) => <Link href={service.href} key={service.href}><span className="welcome-index">0{index + 1}</span><div><strong>{service.title}</strong><p>{service.short}</p></div><span aria-hidden="true">↗</span></Link>)}
         <Link href="/academy"><span className="welcome-index">03</span><div><strong>ENOV Academy</strong><p>{t.academyShort}</p></div><span aria-hidden="true">↗</span></Link>

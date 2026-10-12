@@ -1,0 +1,65 @@
+﻿.root { background: #101722; color: #fff; position: relative; touch-action: pan-y; }
+.frame { position: relative; isolation: isolate; max-width: 1600px; margin-inline: auto; min-height: 680px; padding: 32px max(32px, calc((100vw - 1100px) / 2)); overflow: hidden; }
+.grid { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px); background-size: 76px 76px; }
+.visual { position: absolute; inset: 0 0 0 30%; z-index: -3; }
+.imageLayer { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+.imageLayer img { object-fit: cover; }
+.visible { opacity: 1; }
+.product { background: radial-gradient(ellipse at 65% 40%, #b1065e45, transparent 65%); }
+.product img { object-fit: contain; padding: 60px 20px 100px 120px; }
+.veil { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, #101722 0%, #101722f2 28%, #101722b0 48%, #10172220 85%), linear-gradient(0deg, #101722 0%, transparent 40%, #10172255 100%); }
+.topline { display: flex; justify-content: space-between; gap: 24px; color: #d5dae3; font-size: 10px; letter-spacing: .13em; font-weight: 700; padding-bottom: 22px; border-bottom: 1px solid #ffffff20; }
+.topline span:first-child { color: white; }
+.content { position: relative; padding-block: 65px 72px; max-width: 740px; height: 520px; }
+.eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #f5dce9; }
+.eyebrow > span { width: 6px; height: 6px; background: #e01078; box-shadow: 0 0 16px #e0107890; }
+.root .frame .content h1.title { color: white; font-size: clamp(42px, 4.8vw, 70px); font-weight: 900; line-height: 1.06; letter-spacing: -.04em; margin-block: 24px; }
+.title > span { color: #ff69af; }
+.root .frame .content p.description { color: #d5dae3; font-size: 17px; line-height: 1.75; max-width: 480px; }
+.actions { display: flex; flex-wrap: wrap; gap: 22px; align-items: center; margin-top: 30px; }
+.root a.primary { background: #e01078; color: white; padding: 16px 22px; display: inline-flex; justify-content: space-between; gap: 24px; align-items: center; font-size: 14px; font-weight: 700; border-radius: 5px; transition: background .2s; }
+.root a.primary:hover { background: #b1065e; color: white; }
+.root a.secondary { color: white; display: inline-flex; gap: 16px; align-items: center; font-size: 14px; padding-block: 14px; }
+.root a.secondary:hover { color: #ff69af; }
+.visualLabel { position: absolute; right: 6%; bottom: 138px; display: flex; gap: 14px; align-items: center; max-width: 340px; border: 1px solid #ffffff30; padding: 14px; background: #101722b0; color: #e1e5ec; font-size: 9px; letter-spacing: .08em; }
+.cross { font-size: 22px; color: #ff69af; }
+.controls { display: flex; gap: 32px; align-items: center; border-top: 1px solid #ffffff25; padding-top: 22px; }
+.selectors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; flex: 1; }
+.selectors button { position: relative; display: flex; gap: 12px; padding-block: 10px 20px; color: #a7b0c0; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .05em; cursor: pointer; }
+.selectors button.selected { color: white; }
+.number { font-size: 10px; color: #8b95a8; }
+.selected .number { color: #ff69af; }
+.track { position: absolute; bottom: 0; inset-inline: 0; height: 2px; background: #ffffff20; overflow: hidden; }
+.track > span { display: block; height: 100%; background: #e01078; width: 0; }
+.selected .track > span { width: 100%; }
+.selected .track > span.progress { animation: progress 7s linear forwards; transform-origin: left; }
+.arrows { display: flex; gap: 8px; }
+.arrows button { border: 1px solid #ffffff30; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; font-size: 16px; }
+.arrows button:hover { background: #ffffff12; border-color: #e01078; }
+.arrows button:disabled { opacity: .4; cursor: default; }
+.root :focus-visible { outline: 2px solid #ff69af; outline-offset: 4px; }
+@keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (max-width: 1050px) { .frame { padding-inline: 32px; } .visualLabel { display: none; } .content { max-width: 640px; } .product img { padding-left: 40px; } }
+@media (max-width: 700px) {
+ .frame { padding: 20px; min-height: 0; }
+ .topline { font-size: 9px; padding-bottom: 14px; }
+ .topline span:last-child { max-width: 160px; text-align: right; font-size: 8px; line-height: 1.5; }
+ .visual { inset: 0; }
+ .imageLayer img { object-position: 65% center; }
+ .product img { object-fit: contain; padding: 230px 16px 100px; object-position: center bottom; }
+ .veil { background: linear-gradient(180deg, #101722ed 0%, #101722c7 44%, #10172275 66%, #101722 95%); }
+ .content { height: 510px; padding-block: 34px 0; }
+ .root .frame .content h1.title { font-size: clamp(32px, 8.8vw, 46px); margin-block: 18px; line-height: 1.08; }
+ .root .frame .content p.description { font-size: 15px; line-height: 1.65; max-width: 400px; }
+ .eyebrow { font-size: 10px; }
+ .actions { margin-top: 22px; gap: 10px; }
+ .root a.primary { width: 100%; padding: 14px 18px; min-height: 48px; }
+ .root a.secondary { font-size: 13px; min-height: 44px; }
+ .controls { gap: 14px; padding-top: 16px; flex-wrap: wrap; }
+ .selectors { width: 100%; flex-basis: 100%; gap: 14px; }
+ .selectors button { flex-direction: column; gap: 6px; padding-block: 0 14px; font-size: 10px; letter-spacing: 0; min-height: 50px; }
+ .arrows { margin-left: auto; }
+ .arrows button { width: 38px; height: 38px; }
+}
+@media (max-width: 360px) { .frame { padding-inline: 16px; } .content { height: 530px; } .selectors { gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { .imageLayer, .primary { transition: none; } .progress { animation: none !important; } }
