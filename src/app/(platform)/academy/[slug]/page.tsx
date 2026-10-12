@@ -49,11 +49,6 @@ const INCLUDES = [
   { icon: "🔁", text: "Accompagnement personnalisé post-formation" },
 ];
 
-const TESTIMONIALS = [
-  { name: "Kouamé A.",   role: "Développeur web",        text: "La qualité des cours dépasse ce que j'ai vu ailleurs. Petit groupe, vrai suivi, on va vite en profondeur.",   rating: 5 },
-  { name: "Fatou D.",    role: "Data analyst",            text: "J'ai pu mettre en pratique dès le lendemain. Le formateur répond aux questions au-delà des heures de cours.", rating: 5 },
-  { name: "Ibrahim S.",  role: "Chef de projet digital",  text: "Très bonne structure. On sent qu'Enov connait ce qu'il faut vraiment pour le marché africain.",              rating: 5 },
-];
 
 export default async function AcademyDetailPage({ params }: Props) {
   const { slug } = await params;
@@ -88,11 +83,6 @@ export default async function AcademyDetailPage({ params }: Props) {
 
   const isEnrolled  = enrolledSessionIds.length > 0;
   const hasSessions = (sessions ?? []).length > 0;
-
-  // Deterministic social proof
-  const n        = training.slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-  const students  = 24 + (n % 76);
-  const ratingVal = `${4}.${3 + (n % 7)}`;
 
   const courseJsonLd = {
     "@context": "https://schema.org",
@@ -148,11 +138,6 @@ export default async function AcademyDetailPage({ params }: Props) {
             {/* Badges */}
             <div className="flex items-center flex-wrap gap-2">
               <TrainingStatusBadge status={training.status} />
-              {training.status === "available" && (
-                <span className="text-[0.58rem] font-black uppercase tracking-[0.15em] bg-amber-400 text-black px-2.5 py-1 rounded-full">
-                  Bestseller
-                </span>
-              )}
               <span className="text-[0.6rem] font-semibold text-fuchsia-400/70 uppercase tracking-widest">
                 {training.category}
               </span>
@@ -166,18 +151,7 @@ export default async function AcademyDetailPage({ params }: Props) {
             {/* Summary */}
             <p className="text-base text-slate-400 leading-relaxed max-w-2xl">{training.summary}</p>
 
-            {/* Social proof row */}
-            <div className="flex items-center flex-wrap gap-4 text-xs">
-              <div className="flex items-center gap-1.5">
-                <span className="text-amber-400 font-bold">{ratingVal}</span>
-                <Stars rating={parseFloat(ratingVal)} />
-                <span className="text-slate-600">({students} apprenants)</span>
-              </div>
-              <span className="text-slate-700">·</span>
-              <span className="text-slate-500">Créé par <span className="text-white font-semibold">Équipe Enov</span></span>
-              <span className="text-slate-700">·</span>
-              <span className={`font-semibold ${levelColor}`}>{training.details.level}</span>
-            </div>
+            <p className="text-sm text-slate-500">?quipe ENOV ? {training.details.level}</p>
 
             {/* Quick specs */}
             <div className="flex flex-wrap gap-3 pt-1">
@@ -276,13 +250,7 @@ export default async function AcademyDetailPage({ params }: Props) {
                 <div className="min-w-0">
                   <p className="font-bold text-white">Équipe Enov</p>
                   <p className="text-xs text-fuchsia-400 mb-2">Expert en Technologies Innovantes</p>
-                  <div className="flex items-center gap-4 text-xs text-slate-500 mb-3">
-                    <span>★ {ratingVal} Note formateur</span>
-                    <span>·</span>
-                    <span>{students} apprenants</span>
-                    <span>·</span>
-                    <span>8+ formations</span>
-                  </div>
+
                   <p className="text-sm text-slate-500 leading-relaxed">
                     Enov réunit des experts terrain en développement, data, design et technologies industrielles.
                     Notre approche combine projets réels, feedback continu et petit groupe pour une progression rapide et durable.
@@ -303,52 +271,7 @@ export default async function AcademyDetailPage({ params }: Props) {
             )}
 
             {/* Témoignages */}
-            <Card title="Ce qu'en disent les apprenants">
-              <div className="space-y-4">
-                {/* Aggregate */}
-                <div className="flex items-center gap-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                  <div className="text-center shrink-0">
-                    <p className="text-4xl font-black text-white">{ratingVal}</p>
-                    <Stars rating={parseFloat(ratingVal)} size={14} />
-                    <p className="text-[0.6rem] text-slate-600 mt-1">Note globale</p>
-                  </div>
-                  {/* Rating bars */}
-                  <div className="flex-1 space-y-1.5">
-                    {[5,4,3,2,1].map((star) => {
-                      const pct = star === 5 ? 78 : star === 4 ? 16 : star === 3 ? 4 : 2;
-                      return (
-                        <div key={star} className="flex items-center gap-2">
-                          <span className="text-[0.6rem] text-slate-600 w-2 shrink-0">{star}</span>
-                          <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                            <div className="h-full rounded-full bg-amber-500/60" style={{ width: `${pct}%` }} />
-                          </div>
-                          <span className="text-[0.6rem] text-slate-700 w-6 shrink-0">{pct}%</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
 
-                {/* Individual reviews */}
-                {TESTIMONIALS.map((t) => (
-                  <div key={t.name} className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4 space-y-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-linear-to-br from-fuchsia-700/60 to-violet-700/60 flex items-center justify-center text-xs font-bold text-white shrink-0">
-                        {t.name[0]}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-white">{t.name}</p>
-                        <p className="text-[0.6rem] text-slate-600">{t.role}</p>
-                      </div>
-                      <div className="ml-auto">
-                        <Stars rating={t.rating} />
-                      </div>
-                    </div>
-                    <p className="text-xs text-slate-400 leading-relaxed">&ldquo;{t.text}&rdquo;</p>
-                  </div>
-                ))}
-              </div>
-            </Card>
 
             {/* Enrollment / form sections */}
             {isEnrolled ? (
@@ -491,23 +414,6 @@ function Card({ title, children, glow, id }: { title: string; children: React.Re
 }
 
 /* ─── Stars ────────────────────────────────────────────────────────────────── */
-
-function Stars({ rating, size = 11 }: { rating: number; size?: number }) {
-  return (
-    <span className="inline-flex items-center gap-0.5">
-      {[1,2,3,4,5].map((i) => (
-        <svg key={i} width={size} height={size} viewBox="0 0 24 24"
-          fill={i <= Math.floor(rating) ? "#f59e0b" : "none"}
-          stroke="#f59e0b" strokeWidth="2"
-        >
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-      ))}
-    </span>
-  );
-}
-
-/* ─── Icons ────────────────────────────────────────────────────────────────── */
 
 function CheckIcon({ size = 9, color = "text-fuchsia-400" }: { size?: number; color?: string }) {
   return (

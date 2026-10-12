@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
 
 type Category = "hydro" | "web" | "training";
@@ -56,16 +55,11 @@ const CATEGORY_LABEL: Record<Category, string> = {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function normalizeUrl(url: string): string {
-  if (!url) return "";
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
-  return `https://${url}`;
-}
+function languageLabel(category: Category) { return category === "training" ? "Programme de formation" : "Exemple de solution"; }
 
 function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   const isReal = UUID_RE.test(item.id);
   const href = isReal ? `/portfolio/${item.id}` : null;
-  const isExternal = false;
 
   const tags = item.tags ? item.tags.split("·").slice(0, 3).map((t) => t.trim()) : [];
 
@@ -76,7 +70,7 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.35, delay: index * 0.05 }}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 ${href ? "hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70 cursor-pointer" : ""}`}
+      className={`portfolio-project group relative flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-slate-900/40 transition-all duration-300 ${href ? "hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/70 cursor-pointer" : ""}`}
     >
       {/* Image */}
       <div className="relative h-48 w-full shrink-0 overflow-hidden bg-slate-800">
@@ -120,7 +114,9 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
           )}
         </div>
 
-        <p className="text-base font-bold text-white leading-snug">{item.title}</p>
+        <h3 className="text-xl font-bold text-white leading-snug">{item.title}</h3>
+        {item.description && <p className="text-sm text-slate-400 leading-relaxed">{item.description}</p>}
+        {!isReal && <p className="text-xs text-slate-500">{languageLabel(item.category)}</p>}
 
         {item.client_name && (
           <p className="text-xs text-slate-500">Client : {item.client_name}</p>
@@ -146,7 +142,6 @@ function ProjectCard({ item, index }: { item: DbItem; index: number }) {
   );
 
   if (!href) return inner;
-  if (isExternal) return <a href={href} target="_blank" rel="noopener noreferrer">{inner}</a>;
   return <Link href={href}>{inner}</Link>;
 }
 
@@ -178,114 +173,11 @@ export function PortfolioView() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <div className="app-shell section-flow">
-
-        {/* ── HERO ─────────────────────────────────────────────────────── */}
-        <section className="relative pt-4 pb-6 lg:pt-10">
-          <div className="pointer-events-none absolute -inset-x-(--shell-padding) inset-y-0 -z-10 overflow-hidden">
-            <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-sky-500/8 blur-[100px]" />
-            <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-fuchsia-500/8 blur-[80px]" />
-          </div>
-
-          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
-              className="flex-1 space-y-6"
-            >
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-sky-500/25 bg-sky-500/8 px-4 py-2 text-[0.65rem] uppercase tracking-[0.55em] text-sky-300">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-400" />
-                {hero.kicker}
-              </div>
-              <h1 className="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-                {hero.title}
-                <br />
-                <span className="bg-linear-to-r from-sky-400 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent">
-                  {hero.highlight}
-                </span>
-              </h1>
-              <p className="max-w-md text-lg text-slate-400">{hero.sub}</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-              className="flex flex-row gap-4 lg:w-64 lg:shrink-0 lg:flex-col"
-            >
-              {[
-                { value: `${items.filter(i => i.category === "hydro").length}`, label: language === "fr" ? "Projets Hydroponie & IoT" : "Hydroponics & IoT projects" },
-                { value: `${items.filter(i => i.category === "web").length}`, label: language === "fr" ? "Apps & Sites web" : "Apps & Websites" },
-                { value: `${items.filter(i => i.category === "training").length}`, label: language === "fr" ? "Formations réalisées" : "Training programmes" },
-              ].map((s) => (
-                <div key={s.label} className="flex-1 rounded-2xl border border-white/8 bg-slate-900/50 p-5 lg:flex-none">
-                  <p className="text-2xl font-black lg:text-3xl" style={{ background: "linear-gradient(to right, #38bdf8, #a78bfa, #34d399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                    {s.value}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ── FILTERS ──────────────────────────────────────────────────── */}
-        <FadeUp>
-          <div className="flex flex-wrap gap-2">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveFilter(tab.value)}
-                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                  activeFilter === tab.value
-                    ? "border-fuchsia-500/50 bg-fuchsia-500/15 text-fuchsia-300"
-                    : "border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-white"
-                }`}
-              >
-                {tab.label}
-                <span className="ml-1.5 text-xs opacity-50">
-                  {tab.value === "all" ? items.length : items.filter((i) => i.category === tab.value).length}
-                </span>
-              </button>
-            ))}
-          </div>
-        </FadeUp>
-
-        {/* ── GRID ─────────────────────────────────────────────────────── */}
-        <section>
-          <AnimatePresence mode="popLayout">
-            <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((item, i) => (
-                <ProjectCard key={item.id} item={item} index={i} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-          {filtered.length === 0 && (
-            <p className="py-16 text-center text-slate-500">Aucun projet dans cette catégorie.</p>
-          )}
-        </section>
-
-        {/* ── CTA ──────────────────────────────────────────────────────── */}
-        <FadeUp>
-          <section className="relative overflow-hidden rounded-3xl p-10 text-center sm:p-16">
-            <div className="absolute inset-0 bg-linear-to-br from-sky-500/12 via-fuchsia-500/8 to-emerald-500/12" />
-            <div className="absolute inset-0 rounded-3xl border border-white/10" />
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-sky-500/15 blur-3xl" />
-              <div className="absolute -bottom-20 -right-10 h-80 w-80 rounded-full bg-fuchsia-500/15 blur-3xl" />
-            </div>
-            <div className="relative space-y-6">
-              <h2 className="text-3xl font-black text-balance sm:text-4xl">{cta.title}</h2>
-              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-sm font-semibold uppercase tracking-widest text-slate-900 shadow-2xl transition hover:scale-105">
-                {cta.button}
-              </Link>
-            </div>
-          </section>
-        </FadeUp>
-
-      </div>
+    <main className="interior-page app-shell portfolio-page">
+      <section className="interior-heading"><p className="brand-eyebrow">{hero.kicker} / ENOV CORP</p><h1>{language === "fr" ? "Des solutions" : "Solutions"}<br /><span>{language === "fr" ? "qui prennent forme." : "taking shape."}</span></h1><p>{language === "fr" ? "D?couvrez nos domaines d?intervention et les projets publi?s par notre ?quipe." : "Explore our areas of expertise and projects published by our team."}</p></section>
+      <div className="portfolio-filters" role="group" aria-label={language === "fr" ? "Filtrer les projets" : "Filter projects"}>{filterTabs.map(tab => <button key={tab.value} type="button" aria-pressed={activeFilter === tab.value} onClick={() => setActiveFilter(tab.value)}>{tab.label}<span>{tab.value === "all" ? items.length : items.filter(i => i.category === tab.value).length}</span></button>)}</div>
+      <section aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}><AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette cat?gorie." : "No projects in this category."}</p>}</section>
+      <section className="interior-cta"><h2>{language === "fr" ? "Et si votre projet ?tait le prochain ?" : "Could your project be next?"}</h2><Link href="/contact" className="brand-button">{cta.button} ?</Link></section>
     </main>
   );
 }

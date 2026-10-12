@@ -49,7 +49,7 @@ export function StickyHeader({ title, price, status, isEnrolled, userLoggedIn, h
     : "Contacter l'équipe";
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-[#080d14]/95 backdrop-blur-xl border-b border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)] animate-in slide-in-from-top-2 duration-200">
+    <div className="academy-course-sticky fixed left-0 right-0 z-40 bg-[#080d14]/95 backdrop-blur-xl border-b border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)] animate-in slide-in-from-top-2 duration-200">
       <div className="app-shell flex items-center gap-4 py-3">
         <p className="flex-1 text-sm font-bold text-white line-clamp-1 min-w-0">{title}</p>
         <div className="flex items-center gap-3 shrink-0">

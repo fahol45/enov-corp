@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeUp } from "@/components/FadeUp";
 import { useLanguage, type SupportedLanguage } from "@/context/LanguageContext";
@@ -89,7 +90,7 @@ export function HydroponieView() {
   const t = copy[language];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="service-page min-h-screen bg-slate-950 text-white">
       <div className="app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -120,21 +121,7 @@ export function HydroponieView() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.36, 1] }} className="flex justify-center">
-            <div className="relative w-full max-w-sm">
-              <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-emerald-500/15 blur-3xl" />
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 p-6">
-                <div className="grid grid-cols-2 gap-3">
-                  {t.hero.metrics.map((m) => (
-                    <div key={m.label} className="rounded-2xl border border-white/8 bg-slate-950/60 p-4">
-                      <p className="text-[0.6rem] uppercase tracking-normal text-emerald-300 sm:tracking-[0.3em]">{m.label}</p>
-                      <p className="mt-2 text-2xl font-bold text-white">{m.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="service-hero-visual"><Image src="/Academy_images/Hydroponie intelligente & data.jpg" alt={language === "fr" ? "Culture hydroponique et suivi connect?" : "Hydroponic crops and connected monitoring"} fill priority sizes="(max-width: 800px) 100vw, 45vw" /><div className="service-visual-caption">{language === "fr" ? "Cultiver. Mesurer. Optimiser." : "Grow. Measure. Optimize."}</div></div>
         </section>
 
         {/* ── STATS ────────────────────────────────────────────────────── */}

@@ -115,7 +115,7 @@ export function WebMobileView() {
   const t = copy[language];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="service-page min-h-screen bg-slate-950 text-white">
       <div className="app-shell section-flow">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -148,16 +148,7 @@ export function WebMobileView() {
               </div>
             </motion.div>
 
-            {/* Mockup */}
-            <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 0.61, 0.36, 1] }} className="relative flex-1">
-              <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-purple-500/10 blur-3xl" />
-              <div className="relative w-full rounded-[2.5rem] border border-white/10 bg-linear-to-br from-slate-900/90 to-slate-950/80 p-6 shadow-[0_25px_65px_rgba(3,4,15,0.75)] sm:p-8">
-                <Image src="/pc-portable.png" alt={language === "fr" ? "Interface web Enov CORP" : "Enov CORP web interface"} width={1536} height={1024} priority unoptimized className="w-full drop-shadow-[0_20px_50px_rgba(10,12,40,0.8)]" />
-                <div className="absolute -bottom-4 -right-2 w-20 rounded-3xl border border-white/10 bg-slate-900 p-2 shadow-xl sm:-right-6 sm:w-28">
-                  <Image src="/mobile.png" alt={language === "fr" ? "App mobile Enov CORP" : "Enov CORP mobile app"} width={1024} height={1536} unoptimized className="w-full rounded-2xl" />
-                </div>
-              </div>
-            </motion.div>
+            <div className="service-web-visual"><Image src="/pc-portable.png" alt={language === "fr" ? "Exemple d?interface web ENOV" : "ENOV web interface example"} width={1536} height={1024} priority className="service-desktop-image" /><div className="service-phone"><Image src="/mobile.png" alt={language === "fr" ? "Exemple d?application mobile ENOV" : "ENOV mobile application example"} width={1024} height={1536} /></div><p>{language === "fr" ? "Web & mobile. Une exp?rience coh?rente." : "Web & mobile. One consistent experience."}</p></div>
           </div>
         </section>
 
