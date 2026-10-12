@@ -1,0 +1,31 @@
+﻿:global(.brand-site) footer.root { background: #101722; color: white; padding-block: 0; border-top: 1px solid #ffffff15; }
+.inner { padding-block: 56px 24px; }
+.grid { display: grid; grid-template-columns: 1.25fr .8fr .8fr 1.15fr; gap: 40px; }
+.root .inner .logo { display: inline-flex; gap: 12px; align-items: center; color: white; font-size: 21px; white-space: nowrap; }
+.logo strong { font-weight: 900; }
+.brand p { font-size: 13px; line-height: 1.7; color: #a7b0c0; max-width: 240px; }
+.brand p.tagline { font-size: 16px; color: #e1e5ec; margin-block: 20px 10px; }
+.root .grid h2 { font-size: 11px; font-weight: 700; letter-spacing: .07em; color: #f5dce9; margin-bottom: 18px; }
+.grid ul { list-style: none; }
+.root .inner li a, .root .inner .contact > a { color: #d5dae3; display: inline-flex; align-items: center; gap: 12px; min-height: 38px; font-size: 13px; overflow-wrap: anywhere; }
+.root .inner a:hover { color: #ff69af; }
+.contact { display: flex; flex-direction: column; align-items: start; }
+.socialLabel { color: #a7b0c0; font-size: 11px; margin-block: 16px 10px; }
+.social { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.root .inner .social a { color: #d5dae3; display: inline-flex; gap: 6px; align-items: center; font-size: 11px; min-height: 36px; }
+.bottom { border-top: 1px solid #ffffff20; margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+.bottom p { color: #a7b0c0; font-size: 11px; line-height: 1.6; }
+.bottom button { display: inline-flex; gap: 14px; align-items: center; min-height: 44px; color: #d5dae3; font-size: 12px; cursor: pointer; }
+.bottom button:hover { color: #ff69af; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; gap: 32px; } .brand { grid-column: 1 / -1; } .brand p { max-width: 400px; } .contact { grid-column: 1 / -1; } }
+@media (max-width: 600px) {
+ .inner { padding-block: 36px 20px; }
+ .grid { gap: 28px 24px; }
+ .root .inner .logo { font-size: 19px; }
+ .brand p.tagline { margin-top: 14px; font-size: 15px; }
+ .root .grid h2 { margin-bottom: 12px; }
+ .root .inner li a { min-height: 44px; }
+ .root .inner .contact > a { min-height: 44px; font-size: 14px; }
+ .root .inner .social a { min-height: 44px; font-size: 12px; }
+ .bottom { margin-top: 28px; flex-direction: column; align-items: start; gap: 8px; }
+}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { HeroCarousel } from "@/components/HeroCarousel";
+import styles from "./HomeSections.module.css";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -33,23 +34,35 @@ const content = {
 export function HomeView() {
   const { language } = useLanguage();
   const t = content[language];
+  const steps = language === "fr" ? [
+    { title: "Comprendre", text: "Votre besoin, vos utilisateurs, vos contraintes." },
+    { title: "Concevoir", text: "Une solution adaptée, un périmètre défini ensemble." },
+    { title: "Accompagner", text: "La mise en service et la prise en main de vos outils." },
+  ] : [
+    { title: "Understand", text: "Your needs, your users and your constraints." },
+    { title: "Design", text: "The right solution, with a scope defined together." },
+    { title: "Support", text: "Launch and adoption of your new tools." },
+  ];
   return (
-    <main className="welcome-page">
+    <main className={`welcome-page ${styles.root}`}>
       <HeroCarousel />
-      <nav className="welcome-paths app-shell" aria-label={language === "fr" ? "Nos activités" : "Our services"}>
-        {t.services.map((service, index) => <Link href={service.href} key={service.href}><span className="welcome-index">0{index + 1}</span><div><strong>{service.title}</strong><p>{service.short}</p></div><span aria-hidden="true">↗</span></Link>)}
-        <Link href="/academy"><span className="welcome-index">03</span><div><strong>ENOV Academy</strong><p>{t.academyShort}</p></div><span aria-hidden="true">↗</span></Link>
+      <nav className={`app-shell ${styles.paths}`} aria-label={language === "fr" ? "Nos activités" : "Our services"}>
+        {t.services.map((service, index) => <Link href={service.href} key={service.href}><span>0{index + 1}</span><div><strong>{service.title}</strong><p>{service.short}</p></div><span aria-hidden="true">&#8599;</span></Link>)}
+        <Link href="/academy"><span>03</span><div><strong>ENOV Academy</strong><p>{t.academyShort}</p></div><span aria-hidden="true">&#8599;</span></Link>
       </nav>
-      <section id="poles" className="welcome-expertise app-shell">
-        <div className="welcome-section-heading"><p className="brand-eyebrow">{t.expertise}</p><h2>{t.expertiseIntro}</h2></div>
-        {t.services.map((service, index) => <article className={`welcome-service welcome-service-${index}`} key={service.href}>
-          <div className="welcome-service-visual"><Image src={service.image} alt={service.alt} fill sizes="(max-width: 800px) 100vw, 50vw" className={index === 0 ? "welcome-product-image" : "welcome-field-image"} /><span className="welcome-image-label">{service.title}</span></div>
-          <div className="welcome-service-copy"><p className="brand-eyebrow">0{index + 1} / {service.title}</p><h3>{service.heading}</h3><p>{service.description}</p><p className="welcome-service-tags">{service.tags}</p><Link href={service.href} className="brand-text-link">{service.link}<span aria-hidden="true">↗</span></Link></div>
-        </article>)}
+      <section id="poles" className={`app-shell ${styles.expertise}`}>
+        <div className={styles.sectionHeading}><div><p className="brand-eyebrow">01 / {t.expertise}</p><h2>{t.expertiseIntro}</h2></div><Link href="/portfolio" className={styles.textLink}>{language === "fr" ? "Explorer nos réalisations" : "Explore our work"}<span aria-hidden="true">&#8599;</span></Link></div>
+        <div className={styles.serviceGrid}>{t.services.map((service, index) => <article className={styles.service} key={service.href}>
+          <Link href={service.href} className={`${styles.serviceVisual} ${index === 0 ? styles.product : ""}`} aria-label={service.link}><Image src={service.image} alt={service.alt} fill sizes="(max-width: 800px) 100vw, 50vw" /><span className={styles.imageLabel}>{service.title}</span><span className={styles.imageArrow} aria-hidden="true">&#8599;</span></Link>
+          <div className={styles.serviceCopy}><p className="brand-eyebrow">0{index + 1} / {service.title}</p><h3>{service.heading}</h3><p>{service.description}</p><ul className={styles.tags}>{service.tags.split("·").map(tag => <li key={tag}>{tag.trim()}</li>)}</ul><Link href={service.href} className={styles.textLink}>{service.link}<span aria-hidden="true">&#8599;</span></Link></div>
+        </article>)}</div>
       </section>
-      <section className="welcome-academy"><div className="app-shell welcome-academy-inner"><div><p className="brand-eyebrow">ENOV ACADEMY</p><h2>{t.academyTitle}</h2><p className="welcome-academy-description">{t.academyText}</p><Link href="/academy" className="brand-button">{t.catalogue}<span aria-hidden="true">↗</span></Link></div><Link href="/academy" className="welcome-academy-visual"><Image src="/Academy_images/IoT & Robotics Lab.webp" alt={language === "fr" ? "Équipements de formation IoT et robotique" : "IoT and robotics training equipment"} fill sizes="(max-width: 800px) 100vw, 45vw" /><span>{t.academyCaption}<span aria-hidden="true">↗</span></span></Link></div></section>
-      <section className="welcome-about app-shell"><h2>{t.about}</h2><div><p>{t.aboutText}</p><Link href="/propos" className="brand-text-link">{t.aboutLink}<span aria-hidden="true">→</span></Link></div></section>
-      <section className="welcome-contact app-shell"><div><p className="brand-eyebrow">ENOV CORP</p><h2>{t.closing}</h2><p>{t.closingText}</p></div><Link href="/contact" className="brand-button">{t.contact}<span aria-hidden="true">↗</span></Link></section>
+      <section className={styles.academy}><div className={`app-shell ${styles.academyInner}`}>
+        <div className={styles.academyCopy}><p className="brand-eyebrow">02 / ENOV ACADEMY</p><h2>{t.academyTitle}</h2><p>{t.academyText}</p><ul className={styles.academyTopics}>{["Web & Mobile", "Data", "IoT & Robotique"].map(topic => <li key={topic}>{topic}</li>)}</ul><Link href="/academy" className={styles.primary}>{t.catalogue}<span aria-hidden="true">&#8599;</span></Link></div>
+        <Link href="/academy" className={styles.academyVisual}><Image src="/Academy_images/IoT & Robotics Lab.webp" alt={language === "fr" ? "Technologies IoT et robotique" : "IoT and robotics technologies"} fill sizes="(max-width: 800px) 100vw, 45vw" /><span><Image src="/icon-enov.png" alt="" width={42} height={34} /><span>{t.academyCaption}</span><span aria-hidden="true">&#8599;</span></span></Link>
+      </div></section>
+      <section className={`app-shell ${styles.approach}`}><div className={styles.sectionHeading}><div><p className="brand-eyebrow">03 / {language === "fr" ? "NOTRE APPROCHE" : "OUR APPROACH"}</p><h2>{t.about}</h2></div><div className={styles.aboutCopy}><p>{t.aboutText}</p><Link href="/propos" className={styles.textLink}>{t.aboutLink}<span aria-hidden="true">&#8599;</span></Link></div></div><ol className={styles.steps}>{steps.map((step, index) => <li key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol></section>
+      <section className={`app-shell ${styles.contactSection}`}><div className={styles.contactPanel}><div><p className="brand-eyebrow">{language === "fr" ? "CONSTRUISONS LA SUITE / ENOV CORP" : "BUILD WHAT COMES NEXT / ENOV CORP"}</p><h2>{t.closing}</h2><p>{t.closingText}</p></div><div className={styles.contactActions}><Link href="/contact" className={styles.primary}>{t.contact}<span aria-hidden="true">&#8599;</span></Link><a href="mailto:contact@enovcorp.com">contact@enovcorp.com</a></div></div></section>
     </main>
   );
 }

@@ -1,115 +1,33 @@
-"use client";
+﻿"use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import styles from "./Footer.module.css";
 
 const copy = {
-  fr: {
-    tagline: "Hydroponie connectée, apps sur mesure, formations tech.",
-    nav: [
-      { label: "Hydroponie & IoT", href: "/hydroponie" },
-      { label: "Web & Mobile", href: "/web-mobile" },
-      { label: "Academy", href: "/academy" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "À propos", href: "/propos" },
-      { label: "Contact", href: "/contact" },
-    ],
-    contactTitle: "Contact",
-    rights: "Tous droits réservés.",
-  },
-  en: {
-    tagline: "Connected hydroponics, custom apps, tech training.",
-    nav: [
-      { label: "Hydroponics & IoT", href: "/hydroponie" },
-      { label: "Web & Mobile", href: "/web-mobile" },
-      { label: "Academy", href: "/academy" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "About", href: "/propos" },
-      { label: "Contact", href: "/contact" },
-    ],
-    contactTitle: "Contact",
-    rights: "All rights reserved.",
-  },
+  fr: { tagline: "Des idées aux solutions concrètes.", description: "Solutions numériques, agriculture connectée et formation.", expertise: "Expertises", company: "ENOV CORP", contact: "Restons en contact", rights: "Tous droits réservés.", top: "Retour en haut", links: ["Hydroponie & IoT", "Web & Mobile", "ENOV Academy", "Nos réalisations", "À propos", "Contact"], social: "Retrouvez-nous" },
+  en: { tagline: "From ideas to practical solutions.", description: "Digital solutions, connected agriculture and training.", expertise: "Expertise", company: "ENOV CORP", contact: "Let’s stay in touch", rights: "All rights reserved.", top: "Back to top", links: ["Hydroponics & IoT", "Web & Mobile", "ENOV Academy", "Our work", "About", "Contact"], social: "Follow us" },
 };
-
+const destinations = ["/hydroponie", "/web-mobile", "/academy", "/portfolio", "/propos", "/contact"];
+const socialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/enovcorp/" },
+  { label: "Instagram", href: "https://www.instagram.com/enovcorp/" },
+  { label: "Facebook", href: "https://web.facebook.com/profile.php?id=61590093913760" },
+];
 export function Footer() {
   const { language } = useLanguage();
   const t = copy[language];
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="border-t border-white/5 bg-slate-950">
-      <div className="app-shell py-8">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-
-          {/* Brand */}
-          <div className="col-span-2 space-y-2 sm:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <Image src="/icon-enov.png" alt="" width={46} height={38} />
-              <span className="text-lg font-black tracking-tight text-white">ENOV <span className="font-normal">CORP</span></span>
-            </Link>
-            <p className="text-sm text-slate-500">{t.tagline}</p>
-          </div>
-
-          {/* Navigation */}
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">Pages</p>
-            <ul className="space-y-2">
-              {t.nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-slate-400 transition hover:text-white">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact + Réseaux sociaux (même colonne sur mobile) */}
-          <div className="col-span-1 flex flex-col gap-6 sm:contents">
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">{t.contactTitle}</p>
-              <ul className="space-y-2">
-                <li>
-                  <a href="mailto:contact@enovcorp.com" className="text-sm text-slate-400 transition hover:text-white">
-                    contact@enovcorp.com
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:+212645410864" className="text-sm text-slate-400 transition hover:text-white">
-                    +212 6 45 41 08 64
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">Suivez-nous</p>
-              <ul className="space-y-2">
-                <li>
-                  <a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
-                    LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 transition hover:text-white">
-                    Facebook
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <footer className={styles.root}>
+      <div className={`app-shell ${styles.inner}`}>
+        <div className={styles.grid}>
+          <div className={styles.brand}><Link href="/" className={styles.logo}><Image src="/icon-enov.png" alt="" width={52} height={43} /><span><strong>ENOV</strong> CORP</span></Link><p className={styles.tagline}>{t.tagline}</p><p>{t.description}</p></div>
+          <nav aria-label={t.expertise}><h2>{t.expertise}</h2><ul>{destinations.slice(0, 3).map((href, index) => <li key={href}><Link href={href}>{t.links[index]}</Link></li>)}</ul></nav>
+          <nav aria-label={t.company}><h2>{t.company}</h2><ul>{destinations.slice(3).map((href, index) => <li key={href}><Link href={href}>{t.links[index + 3]}</Link></li>)}<li><Link href="/mon-espace">{language === "fr" ? "Mon espace" : "My account"}</Link></li></ul></nav>
+          <div className={styles.contact}><h2>{t.contact}</h2><a href="mailto:contact@enovcorp.com">contact@enovcorp.com <span aria-hidden="true">↗</span></a><a href="tel:+212645410864">+212 6 45 41 08 64</a><p className={styles.socialLabel}>{t.social}</p><div className={styles.social}>{socialLinks.map(link => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<span aria-hidden="true">↗</span></a>)}</div></div>
         </div>
-
-        <p className="mt-8 border-t border-white/5 pt-5 text-sm text-slate-600">
-          &copy; {year} ENOV CORP — {t.rights}
-        </p>
+        <div className={styles.bottom}><p>© {new Date().getFullYear()} ENOV CORP. {t.rights}</p><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" })}>{t.top}<span aria-hidden="true">↑</span></button></div>
       </div>
     </footer>
   );
