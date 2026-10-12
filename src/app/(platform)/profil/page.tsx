@@ -15,7 +15,7 @@ export default async function ProfilPage() {
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) redirect("/auth/login");
+  if (!user) redirect("/auth/login?next=/profil");
 
   const { count } = await supabaseServer
     .from("enrollments")
@@ -24,7 +24,7 @@ export default async function ProfilPage() {
 
   return (
     <main className="learner-page profile-page min-h-screen text-white">
-      <PageHero eyebrow="MON PROFIL / ENOV ACADEMY" title="Votre compte, vos repères." description="Gérez vos informations personnelles et les paramètres de votre compte." secondary={{ href: "/mon-espace", label: "Retour à mon espace" }} />
+      <PageHero eyebrow="MON PROFIL / ENOV ACADEMY" title="Mon profil." description="Informations personnelles et mot de passe." secondary={{ href: "/mon-espace", label: "Retour à mon espace" }} />
       <div className="app-shell py-10">
         <ProfileForms user={user} enrollmentCount={count ?? 0} />
       </div>

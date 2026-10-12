@@ -1,3 +1,4 @@
+import { learnerReturnPath } from "@/lib/auth-redirect";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -50,11 +51,17 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (pathname.startsWith("/mon-espace") && !user) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    const loginUrl = new URL("/auth/login", request.url);
+    loginUrl.searchParams.set("next", pathname + request.nextUrl.search);
+    const response = NextResponse.redirect(loginUrl);
+    supabaseResponse.cookies.getAll().forEach(cookie => response.cookies.set(cookie));
+    return response;
   }
 
   if (user && (pathname === "/auth/login" || pathname === "/auth/register")) {
-    return NextResponse.redirect(new URL("/mon-espace", request.url));
+    const response = NextResponse.redirect(new URL(learnerReturnPath(request.nextUrl.searchParams.get("next")), request.url));
+    supabaseResponse.cookies.getAll().forEach(cookie => response.cookies.set(cookie));
+    return response;
   }
 
   return supabaseResponse;

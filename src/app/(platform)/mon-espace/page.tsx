@@ -12,9 +12,9 @@ export default async function MonEspacePage() {
   if (!user) redirect("/auth/login");
 
   const firstName = user.user_metadata?.first_name ?? user.email?.split("@")[0] ?? "Apprenant";
-  const initial = firstName[0]?.toUpperCase() ?? "?";
 
-  const { data: enrollments } = await supabaseServer
+
+  const { data: enrollments, error: enrollmentError } = await supabaseServer
     .from("enrollments")
     .select("*, sessions(*)")
     .eq("user_id", user.id)
@@ -25,11 +25,13 @@ export default async function MonEspacePage() {
   const ended    = enrollments?.filter((e) => e.sessions?.status === "ended")    ?? [];
   const total    = (enrollments ?? []).length;
 
+  if (enrollmentError) return <main className="learner-page"><PageHero eyebrow="MON ESPACE" title="Sessions indisponibles." description="Réessayez dans quelques instants." action={{ href: "/mon-espace", label: "Réessayer" }} secondary={{ href: "/contact", label: "Nous contacter" }} /></main>;
+
   return (
     <main className="learner-page min-h-screen bg-slate-950 text-white">
 
-      <PageHero eyebrow="MON ESPACE / ENOV ACADEMY" title={`Bonjour, ${firstName}.`} description="Retrouvez vos sessions, les prochains rendez-vous et les replays disponibles dans votre parcours." action={{ href: "/academy", label: "Explorer les formations" }} secondary={{ href: "/profil", label: "Gérer mon profil" }} />
-      <div className="app-shell learner-counts">{[{ value: total, label: "Inscriptions" }, { value: upcoming.length + live.length, label: "Sessions à venir ou en direct" }, { value: ended.length, label: "Sessions terminées" }].map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
+      <PageHero eyebrow="MON ESPACE / ENOV ACADEMY" title={`Bonjour, ${firstName}.`} description="Vos sessions et replays." action={{ href: "/academy", label: "Explorer les formations" }} secondary={{ href: "/profil", label: "Gérer mon profil" }} />
+      <div className="app-shell learner-counts">{[{ value: total, label: "Inscriptions" }, { value: upcoming.length + live.length, label: "À venir / en direct" }, { value: ended.length, label: "Sessions terminées" }].map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
       <div className="app-shell py-10 space-y-12">
 
         {/* ── LIVE ── */}
@@ -70,12 +72,12 @@ export default async function MonEspacePage() {
 
         {/* ── REPLAYS ── */}
         <section>
-          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500 mb-5">Replays disponibles</h2>
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500 mb-5">Sessions terminées</h2>
           {ended.length === 0 ? (
             <EmptyState
               icon={<PlayIcon />}
-              title="Aucun replay pour l'instant"
-              desc="Tes sessions terminées apparaîtront ici avec le lien replay."
+              title="Aucune session terminée"
+              desc="Les replays seront accessibles ici lorsqu’ils seront publiés."
             />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
@@ -94,8 +96,8 @@ function SessionCard({ enrollment, variant }: { enrollment: any; variant: "live"
   const s = enrollment.sessions;
   if (!s) return null;
   const date = new Date(s.scheduled_at);
-  const dateStr = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-  const timeStr = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+  const dateStr = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Abidjan" });
+  const timeStr = date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Abidjan" });
 
   return (
     <div className={`relative flex flex-col rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-0.5 ${
@@ -117,7 +119,7 @@ function SessionCard({ enrollment, variant }: { enrollment: any; variant: "live"
           )}
           {variant === "replay" && (
             <span className="shrink-0 text-[0.6rem] font-bold uppercase tracking-widest text-fuchsia-400 bg-fuchsia-500/10 border border-fuchsia-500/20 px-2 py-0.5 rounded-full">
-              REPLAY
+              TERMINÉE
             </span>
           )}
           {variant === "upcoming" && (
@@ -127,9 +129,9 @@ function SessionCard({ enrollment, variant }: { enrollment: any; variant: "live"
           )}
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
           <CalendarIcon size={12} />
-          <span>{dateStr} · {timeStr}</span>
+          <span>{dateStr} · {timeStr} UTC</span>
           <span className="text-slate-700">·</span>
           <span>{s.duration_minutes} min</span>
         </div>
@@ -146,7 +148,7 @@ function SessionCard({ enrollment, variant }: { enrollment: any; variant: "live"
         {variant === "upcoming" && (
           <div className="mt-auto flex items-center gap-2 text-xs text-slate-600 font-medium">
             <CalendarIcon size={12} />
-            Tu seras notifié au démarrage
+            Session programmée
           </div>
         )}
         {variant === "replay" && s.youtube_replay_url && (
@@ -159,7 +161,7 @@ function SessionCard({ enrollment, variant }: { enrollment: any; variant: "live"
           </Link>
         )}
         {variant === "replay" && !s.youtube_replay_url && (
-          <div className="mt-auto text-xs text-slate-600 font-medium">Replay bientôt disponible</div>
+          <div className="mt-auto text-xs text-slate-600 font-medium">Replay non publié</div>
         )}
       </div>
     </div>

@@ -100,7 +100,7 @@ export function RegisterForm({ slug }: RegisterFormProps) {
           Demande d’information
         </h3>
         <p className="text-sm text-slate-300">
-          Laissez vos coordonnées pour échanger avec notre équipe. Cette demande ne réserve pas une place dans une session.
+          Une question ? Écrivez-nous. Ce formulaire ne réserve pas de place.
         </p>
       </div>
 

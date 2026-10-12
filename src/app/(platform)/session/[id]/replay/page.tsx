@@ -40,7 +40,7 @@ export default async function ReplayPage({ params }: Props) {
 
   const videoId = session.youtube_replay_url ? getYouTubeId(session.youtube_replay_url) : null;
   const date = new Date(session.scheduled_at);
-  const dateStr = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  const dateStr = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Abidjan" });
 
   return (
     <main className="learner-page replay-page min-h-screen bg-slate-950 text-white">
@@ -68,7 +68,7 @@ export default async function ReplayPage({ params }: Props) {
           <div className="aspect-video rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center">
             <div className="text-center space-y-3">
               <div className="text-5xl">🎬</div>
-              <p className="text-slate-400 text-sm">Le replay sera disponible très prochainement.</p>
+              <p className="text-slate-400 text-sm">Replay non publié.</p>
             </div>
           </div>
         )}
