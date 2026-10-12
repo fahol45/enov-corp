@@ -29,7 +29,7 @@ export function Navbar() {
   }, []);
 
   const linkClasses = (href: string) =>
-    `text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200 ${
+    `whitespace-nowrap text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200 ${
       (pathname === href || pathname.startsWith(`${href}/`)) ? "text-white" : "text-slate-400 hover:text-white"
     }`;
 
@@ -54,7 +54,7 @@ export function Navbar() {
           <span><strong>ENOV</strong> CORP</span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-7 xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-4 lg:flex xl:gap-6">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className={linkClasses(link.href)}>
               {link.labels[language]}
@@ -75,7 +75,7 @@ export function Navbar() {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={language === "fr" ? "Menu principal" : "Main menu"}
             aria-expanded={menuOpen}
-            className="relative h-9 w-9 rounded-full border border-white/10 text-white transition hover:border-fuchsia-400 hover:text-fuchsia-200 xl:hidden"
+            className="relative h-9 w-9 rounded-full border border-white/10 text-white transition hover:border-fuchsia-400 hover:text-fuchsia-200 lg:hidden"
           >
             <span className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
               <span className={`h-px w-5 bg-current transition-transform duration-300 ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
@@ -87,7 +87,7 @@ export function Navbar() {
       </div>
 
       <div
-        className={`grid transition-all duration-200 ease-out xl:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`grid transition-all duration-200 ease-out lg:hidden ${menuOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
         aria-hidden={!menuOpen}
       >
         <div className="overflow-hidden">
