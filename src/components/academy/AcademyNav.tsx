@@ -187,6 +187,23 @@ export function AcademyNav() {
         </div>
       </div>
 
+      <nav aria-label="Navigation ENOV CORP" className="app-shell flex flex-wrap justify-center gap-x-5 gap-y-1 border-t border-white/10 py-2">
+        {[
+          { href: "/", label: "Accueil" },
+          { href: "/hydroponie", label: "Hydroponie" },
+          { href: "/web-mobile", label: "Web & Mobile" },
+          { href: "/academy", label: "Academy" },
+          { href: "/portfolio", label: "Portfolio" },
+          { href: "/propos", label: "? propos" },
+          { href: "/contact", label: "Contact" },
+        ].map(link => (
+          <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}
+            className="inline-flex min-h-10 items-center whitespace-nowrap text-sm font-semibold text-slate-200 hover:text-fuchsia-300">
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden border-t border-white/[0.06] bg-[#080810]/98 px-4 py-2 space-y-0.5">
