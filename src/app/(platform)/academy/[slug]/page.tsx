@@ -187,24 +187,6 @@ export default async function AcademyDetailPage({ params }: Props) {
               </Card>
             )}
 
-            {/* Instructeur */}
-            <Card title="Votre formateur">
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-fuchsia-700 to-violet-700 flex items-center justify-center text-xl font-black text-white shrink-0 shadow-[0_0_24px_rgba(168,85,247,0.25)]">
-                  E
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-white">Équipe Enov</p>
-                  <p className="text-xs text-fuchsia-400 mb-2">Expert en Technologies Innovantes</p>
-
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    Enov réunit des experts terrain en développement, data, design et technologies industrielles.
-                    Notre approche combine projets réels, feedback continu et petit groupe pour une progression rapide et durable.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
             {/* Sessions */}
             {hasSessions && (
               <SessionsSection
@@ -225,8 +207,8 @@ export default async function AcademyDetailPage({ params }: Props) {
                 <div className="w-12 h-12 rounded-2xl bg-fuchsia-600/15 border border-fuchsia-500/25 flex items-center justify-center mx-auto mb-4">
                   <CheckIcon size={20} color="text-fuchsia-400" />
                 </div>
-                <p className="text-lg font-black text-fuchsia-300 mb-1">Tu es inscrit !</p>
-                <p className="text-sm text-slate-500 mb-6">Retrouve ta session dans ton espace personnel.</p>
+                <p className="text-lg font-black text-fuchsia-300 mb-1">Inscription confirmée.</p>
+                <p className="text-sm text-slate-500 mb-6">Votre session est dans Mon espace.</p>
                 <Link
                   href="/mon-espace"
                   className="inline-flex items-center gap-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold text-sm rounded-xl px-6 py-3 transition shadow-[0_0_30px_rgba(168,85,247,0.25)]"

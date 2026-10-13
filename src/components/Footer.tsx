@@ -6,8 +6,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import styles from "./Footer.module.css";
 
 const copy = {
-  fr: { tagline: "Des idées aux solutions concrètes.", description: "Solutions numériques, agriculture connectée et formation.", expertise: "Expertises", company: "ENOV CORP", contact: "Restons en contact", rights: "Tous droits réservés.", top: "Retour en haut", links: ["Hydroponie & IoT", "Web & Mobile", "ENOV Academy", "Nos réalisations", "À propos", "Contact"], social: "Retrouvez-nous" },
-  en: { tagline: "From ideas to practical solutions.", description: "Digital solutions, connected agriculture and training.", expertise: "Expertise", company: "ENOV CORP", contact: "Let’s stay in touch", rights: "All rights reserved.", top: "Back to top", links: ["Hydroponics & IoT", "Web & Mobile", "ENOV Academy", "Our work", "About", "Contact"], social: "Follow us" },
+  fr: { tagline: "Des idées aux solutions concrètes.", description: "Solutions numériques, agriculture connectée et formation.", expertise: "Expertises", company: "ENOV CORP", contact: "Contact", rights: "Tous droits réservés.", top: "Retour en haut", links: ["Hydroponie & IoT", "Web & Mobile", "ENOV Academy", "Nos réalisations", "À propos", "Contact"], social: "Retrouvez-nous" },
+  en: { tagline: "From ideas to practical solutions.", description: "Digital solutions, connected agriculture and training.", expertise: "Expertise", company: "ENOV CORP", contact: "Contact", rights: "All rights reserved.", top: "Back to top", links: ["Hydroponics & IoT", "Web & Mobile", "ENOV Academy", "Our work", "About", "Contact"], social: "Follow us" },
 };
 const destinations = ["/hydroponie", "/web-mobile", "/academy", "/portfolio", "/propos", "/contact"];
 const socialLinks = [

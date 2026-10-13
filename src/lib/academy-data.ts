@@ -1,3 +1,4 @@
+import { trainingCopy } from "@/lib/training-copy";
 import { supabaseServer } from "@/lib/supabase/server";
 import {
   trainings as fallbackTrainings,
@@ -54,8 +55,8 @@ const toTraining = (row: TrainingRow): Training => ({
   title: normalizeText(row.title),
   category: normalizeText(row.category),
   status: normalizeStatus(row.status),
-  summary: normalizeText(row.summary),
-  description: normalizeText(row.description),
+  summary: trainingCopy(normalizeText(row.summary)),
+  description: trainingCopy(normalizeText(row.description)),
   outcomes: normalizeStringArray(row.outcomes),
   prerequisites: normalizeStringArray(row.prerequisites),
   details: normalizeDetails(row.details),

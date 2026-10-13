@@ -4,7 +4,7 @@ import { ogImage, siteName } from "@/lib/seo";
 
 const title = "À propos";
 const description =
-  "ENOV CORP : une équipe technique qui conçoit et livre des serres connectées, des apps web & mobile, et des formations — sans sous-traitance, un seul interlocuteur de A à Z.";
+  "ENOV CORP développe des applications, installe des systèmes agricoles connectés et propose des formations techniques.";
 
 export const metadata: Metadata = {
   title,

@@ -28,5 +28,5 @@ export default function AuthConfirmPage() {
     }).catch(() => { if (active) setError("La confirmation a échoué. Veuillez réessayer depuis votre email."); });
     return () => { active = false; };
   }, [router]);
-  return <AuthShell title={error ? "Vérifions votre accès." : "Confirmation du compte."} description="Nous préparons l’accès à votre espace personnel."><div className={styles.success} role="status">{error ? <><p>{error}</p><Link href="/auth/login">Retour à la connexion →</Link></> : <p>Vérification en cours…</p>}</div></AuthShell>;
+  return <AuthShell title={error ? "Lien de confirmation invalide." : "Confirmation du compte."} description="Confirmation de votre adresse email."><div className={styles.success} role="status">{error ? <><p>{error}</p><Link href="/auth/login">Retour à la connexion →</Link></> : <p>Vérification en cours…</p>}</div></AuthShell>;
 }

@@ -5,29 +5,29 @@ import { FeatureGrid, PageCTA, PageHero, PageSection, ProcessSteps } from "@/com
 
 const copy = {
   fr: {
-    title: "Des outils numériques", highlight: "à la mesure de votre activité.", description: "Sites web, applications mobiles et plateformes métier : nous concevons des interfaces utiles, fiables et adaptées à vos utilisateurs.", action: "Présenter mon projet", secondary: "Explorer les solutions", section: "Du site vitrine à la plateforme métier.",
+    title: "Sites web.", highlight: "Applications mobiles.", description: "Nous développons des sites, des applications et des logiciels de gestion.", action: "Nous contacter", secondary: "Voir les services", section: "Nos services.",
     features: [
-      { title: "Sites web", text: "Présenter votre activité, vos offres et vos réalisations avec une expérience claire sur ordinateur et mobile." },
-      { title: "Applications mobiles", text: "Accompagner vos utilisateurs et vos équipes sur le terrain, avec des parcours adaptés à leurs usages." },
-      { title: "Gestion & opérations", text: "Réunir les stocks, les équipes, les commandes et les rapports dans un outil adapté à votre organisation." },
-      { title: "Commerce en ligne", text: "Structurer le catalogue, les commandes et le parcours d’achat de votre boutique." },
-      { title: "Portails clients", text: "Proposer un espace dédié pour suivre les demandes, partager des documents et simplifier les échanges." },
-      { title: "Tableaux de bord", text: "Rassembler les données utiles à votre activité pour suivre les indicateurs et préparer vos décisions." },
+      { title: "Sites web", text: "Sites vitrines pour présenter votre activité, vos offres et vos coordonnées." },
+      { title: "Applications mobiles", text: "Applications pour vos clients ou vos équipes, sur Android et iOS." },
+      { title: "Gestion & opérations", text: "Gestion des stocks, commandes, équipes et rapports." },
+      { title: "Commerce en ligne", text: "Boutiques en ligne avec catalogue et suivi des commandes." },
+      { title: "Portails clients", text: "Espaces clients pour les demandes et le partage de documents." },
+      { title: "Tableaux de bord", text: "Tableaux de bord pour consulter vos données et suivre vos indicateurs." },
     ],
-    aiTitle: "L’intelligence artificielle, là où elle est utile.", aiText: "Nous étudions vos données et vos processus pour intégrer des fonctions d’analyse, de recherche et d’automatisation dans vos outils.", ai: [
-      { title: "Recherche documentaire", text: "Retrouver et synthétiser les informations de vos documents, avec un périmètre de données défini." },
-      { title: "Assistants métier", text: "Aider vos utilisateurs à naviguer dans vos contenus et à préparer des réponses adaptées à leur contexte." },
-      { title: "Automatisation", text: "Relier les étapes répétitives de vos processus avec des validations adaptées à votre organisation." },
+    aiTitle: "IA et automatisation.", aiText: "Nous intégrons des fonctions de recherche et d’analyse dans vos logiciels.", ai: [
+      { title: "Recherche documentaire", text: "Recherche et résumé dans vos documents." },
+      { title: "Assistants métier", text: "Assistants pour consulter vos contenus et préparer des réponses." },
+      { title: "Automatisation", text: "Automatisation des tâches répétitives, avec validation humaine si nécessaire." },
     ],
-    processTitle: "Un projet structuré, de l’idée au lancement.", steps: [
+    processTitle: "Les étapes du projet.", steps: [
       { title: "Cadrer", text: "Comprendre les utilisateurs, définir le périmètre et les priorités." },
       { title: "Concevoir", text: "Dessiner les parcours et valider les écrans essentiels." },
       { title: "Développer", text: "Construire, intégrer et vérifier le fonctionnement." },
       { title: "Déployer", text: "Mettre en ligne et accompagner la prise en main." },
-    ], cta: "Votre prochain outil commence par un échange.", ctaText: "Décrivez votre contexte et vos objectifs. Nous définirons ensemble les prochaines étapes.",
+    ], cta: "Parlez-nous de votre projet.", ctaText: "Indiquez ce que vous souhaitez développer.",
   },
   en: {
-    title: "Digital tools", highlight: "built around your business.", description: "Websites, mobile apps and business platforms: we design useful, reliable interfaces around your users.", action: "Discuss my project", secondary: "Explore the solutions", section: "From websites to business platforms.",
+    title: "Websites.", highlight: "Mobile apps.", description: "We develop websites, apps and business software.", action: "Contact us", secondary: "View services", section: "From websites to business platforms.",
     features: [
       { title: "Websites", text: "Present your business, services and work with a clear experience on desktop and mobile." },
       { title: "Mobile apps", text: "Support your users and field teams with workflows designed around their needs." },
@@ -36,17 +36,17 @@ const copy = {
       { title: "Client portals", text: "Provide a dedicated space to track requests, share documents and simplify communication." },
       { title: "Dashboards", text: "Bring the data that matters together to monitor performance and support decisions." },
     ],
-    aiTitle: "Artificial intelligence where it adds value.", aiText: "We assess your data and workflows to add analysis, search and automation to your tools.", ai: [
+    aiTitle: "AI and automation.", aiText: "We assess your data and workflows to add analysis, search and automation to your tools.", ai: [
       { title: "Document search", text: "Retrieve and summarise information within a defined set of documents." },
       { title: "Business assistants", text: "Help users navigate your content and prepare context-aware responses." },
       { title: "Automation", text: "Connect repetitive steps with checks designed around your organisation." },
     ],
-    processTitle: "A structured project, from idea to launch.", steps: [
+    processTitle: "Project stages.", steps: [
       { title: "Define", text: "Understand users, scope and priorities." },
       { title: "Design", text: "Map journeys and validate the essential screens." },
       { title: "Build", text: "Develop, integrate and verify the solution." },
       { title: "Launch", text: "Deploy and support adoption." },
-    ], cta: "Your next tool starts with a conversation.", ctaText: "Share your context and goals. Let’s define the next steps together.",
+    ], cta: "Tell us about your project.", ctaText: "Tell us what you need to develop.",
   },
 };
 export function WebMobileView() {

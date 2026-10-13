@@ -9,11 +9,11 @@ import { WhyEnov } from "./WhyEnov";
 
 export const metadata: Metadata = {
   title: "Enov Academy",
-  description: "Formations intensives en technologies innovantes. Projets réels, petits groupes, certification incluse.",
+  description: "Formations en développement web, data, design et IoT. Consultez les programmes et les sessions ENOV Academy.",
   alternates: { canonical: "/academy" },
   openGraph: {
     title: "Enov Academy",
-    description: "Formations intensives en technologies innovantes.",
+    description: "Formations en développement web, data, design et IoT.",
     url: "/academy",
     images: [{ url: ogImage, alt: siteName }],
   },

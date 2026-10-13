@@ -21,7 +21,7 @@ export default function LoginPage() {
       router.push(learnerReturnPath(new URLSearchParams(window.location.search).get("next"))); router.refresh();
     } catch { setError("La connexion a échoué. Veuillez réessayer."); } finally { setLoading(false); }
   }
-  return <AuthShell title="Bienvenue dans votre espace." description="Connectez-vous pour retrouver vos formations et vos sessions."><form onSubmit={handleSubmit} className={styles.form}>
+  return <AuthShell title="Connexion." description="Accédez à vos sessions et replays."><form onSubmit={handleSubmit} className={styles.form}>
     {error && <p className={styles.error} role="alert">{error}</p>}
     <label htmlFor="login-email">Adresse email<input id="login-email" type="email" autoComplete="email" value={email} onChange={event => setEmail(event.target.value)} required placeholder="vous@exemple.com" /></label>
     <label htmlFor="login-password">Mot de passe<input id="login-password" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} required /></label>

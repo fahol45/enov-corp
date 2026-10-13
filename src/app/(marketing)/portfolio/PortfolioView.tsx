@@ -19,9 +19,9 @@ const filterCopy: Record<SupportedLanguage, { all: string; hydro: string; web: s
   en: { all: "All", hydro: "Hydroponics & IoT", web: "Web & Mobile", training: "Training" },
 };
 
-const ctaCopy: Record<SupportedLanguage, { title: string; button: string }> = {
-  fr: { title: "Un projet similaire en tête. On vous répond en 24h.", button: "Nous contacter" },
-  en: { title: "A similar project in mind. We reply within 24h.", button: "Contact us" },
+const ctaCopy: Record<SupportedLanguage, { button: string }> = {
+  fr: { button: "Nous contacter" },
+  en: { button: "Contact us" },
 };
 
 const CATEGORY_COLOR: Record<Category, string> = {
@@ -162,14 +162,14 @@ export function PortfolioView() {
 
   return (
     <main className="portfolio-page">
-      <PageHero eyebrow="PORTFOLIO / ENOV CORP" title={language === "fr" ? "Des solutions concrètes." : "Practical solutions."} highlight={language === "fr" ? "Des projets à explorer." : "Projects to explore."} description={language === "fr" ? "Découvrez les projets publiés par notre équipe et des exemples de solutions dans nos domaines d’intervention." : "Explore projects published by our team and examples of solutions across our areas of expertise."} />
+      <PageHero eyebrow="PORTFOLIO / ENOV CORP" title={language === "fr" ? "Projets" : "ENOV CORP"} highlight={language === "fr" ? "ENOV CORP." : "projects."} description={language === "fr" ? "Sites, applications, installations connectées et formations." : "Websites, applications, connected installations and training."} />
       <div className="app-shell portfolio-content">
       {featured && activeFilter === "all" && <section className={styles.featured} aria-labelledby="featured-project-title"><div className={styles.visual}>{featured.image_url && (
 // eslint-disable-next-line @next/next/no-img-element
 <img src={featured.image_url} alt={featured.title} loading="lazy" />)}</div><div className={styles.body}><p className="brand-eyebrow">{language === "fr" ? "PROJET À DÉCOUVRIR" : "FEATURED PROJECT"}</p><h2 id="featured-project-title">{featured.title}</h2><p className={styles.client}>{language === "fr" ? "Client" : "Client"} · {featured.client_name}</p>{featured.description && <p>{featured.description}</p>}{featured.results && <p className={styles.result}>{featured.results}</p>}<Link href={`/portfolio/${featured.id}`}>{language === "fr" ? "Explorer le projet" : "Explore the project"} <span aria-hidden="true">↗</span></Link></div></section>}
       <div className="portfolio-filters" role="group" aria-label={language === "fr" ? "Filtrer les projets" : "Filter projects"}>{filterTabs.map(tab => <button key={tab.value} type="button" aria-pressed={activeFilter === tab.value} onClick={() => setActiveFilter(tab.value)}>{tab.label}<span>{tab.value === "all" ? items.length : items.filter(i => i.category === tab.value).length}</span></button>)}</div>
       <section aria-busy={loading} aria-label={language === "fr" ? "Projets et solutions" : "Projects and solutions"}>{loading && <p role="status" className="py-16 text-center">{language === "fr" ? "Chargement des réalisations…" : "Loading projects…"}</p>}{failed && <div role="alert" className="py-16 text-center"><p>{language === "fr" ? "Les réalisations sont momentanément indisponibles." : "Projects are temporarily unavailable."}</p><button type="button" onClick={() => window.location.reload()} className="mt-4 underline">{language === "fr" ? "Réessayer" : "Try again"}</button></div>}<AnimatePresence mode="popLayout"><motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((item, index) => <ProjectCard key={item.id} item={item} index={index} />)}</motion.div></AnimatePresence>{!loading && !failed && !filtered.length && <p className="py-16 text-center text-slate-500">{language === "fr" ? "Aucun projet dans cette catégorie." : "No projects in this category."}</p>}</section>
-      </div><PageCTA title={language === "fr" ? "Et si votre projet était le prochain ?" : "Could your project be next?"} label={cta.button} />
+      </div><PageCTA title={language === "fr" ? "Vous avez un projet ?" : "Have a project in mind?"} label={cta.button} />
     </main>
   );
 }
