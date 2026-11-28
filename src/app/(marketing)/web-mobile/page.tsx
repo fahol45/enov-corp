@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { WebMobileView } from "./WebMobileView";
 import { ogImage, siteName } from "@/lib/seo";
 
-const title = "Web & Mobile — Solutions numériques";
-const description = "Sites web, applications mobiles, plateformes métier et intégration IA : des outils numériques adaptés à votre activité.";
+const title = "Ingénierie logicielle — Web, mobile & plateformes";
+const description = "Applications web et mobiles, plateformes SaaS, logiciels métier et intégrations API. Conception, développement et mise en service par ENOV CORP.";
 
 export const metadata: Metadata = {
   title,

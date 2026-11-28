@@ -1,26 +1,15 @@
-"use client";
-
-import { useEffect, useState } from "react";
+﻿"use client";
 import Link from "next/link";
-import { PageCTA, PageHero, PageSection } from "@/components/SiteSections";
+import Image from "next/image";
+import { mediaSource } from "@/lib/media";
+import { useLanguage } from "@/context/LanguageContext";
+import { PageHero, PageSection, PageCTA } from "@/components/SiteSections";
+import type { PortfolioItem } from "@/lib/portfolio";
 import styles from "./PortfolioDetailView.module.css";
-
-type PortfolioItem = { id: string; title: string; description: string; image_url: string; category: "hydro" | "web" | "training"; tags: string; external_url: string; active: boolean; duration: string; year: string; client_name: string; results: string };
-const categories = { hydro: "Hydroponie & IoT", web: "Web & Mobile", training: "ENOV Academy" };
-export function PortfolioDetailView({ id }: { id: string }) {
-  const [item, setItem] = useState<PortfolioItem | null>(null); const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true); setItem(null);
-    fetch(`/api/portfolio/${id}`, { signal: controller.signal }).then(r => r.ok ? r.json() : null).then(data => { if (data?.ok) setItem(data.item); }).catch(() => {}).finally(() => { if (!controller.signal.aborted) setLoading(false); });
-    return () => controller.abort();
-  }, [id]);
-  if (loading) return <main><PageHero eyebrow="PORTFOLIO / ENOV CORP" title="Projet" description="Chargement de la réalisation…" /><div className={`app-shell ${styles.loading}`} role="status">Chargement du projet…</div></main>;
-  if (!item) return <main><PageHero eyebrow="PORTFOLIO / ENOV CORP" title="Projet introuvable." description="Ce projet n’est plus disponible ou son adresse est incorrecte." action={{ href: "/portfolio", label: "Retour aux réalisations" }} /></main>;
-  const tags = item.tags.split("·").map(tag => tag.trim()).filter(Boolean);
-  const external = /^https?:\/\//.test(item.external_url);
-  return <main><PageHero eyebrow={`${categories[item.category]} / RÉALISATION`} title={item.title} description={item.description ? item.description.length > 180 ? item.description.slice(0, 180) + "…" : item.description : "Fiche projet ENOV CORP."} image={item.image_url ? { src: item.image_url, alt: item.title } : undefined} secondary={{ href: "/portfolio", label: "Toutes les réalisations" }} />
-    <PageSection eyebrow="01 / LE PROJET"><div className={styles.layout}><div>{item.image_url && <div className={styles.cover}>{/* eslint-disable-next-line @next/next/no-img-element */}<img src={item.image_url} alt={item.title} /></div>}{item.description && <section className={styles.description}><h2>Contexte et solution</h2><p>{item.description}</p></section>}{item.results && <section className={styles.results}><p className="brand-eyebrow">RÉSULTATS</p><p>{item.results}</p></section>}{tags.length > 0 && <section className={styles.description}><h2>Technologies & méthodes</h2><ul className={styles.tags}>{tags.map(tag => <li key={tag}>{tag}</li>)}</ul></section>}</div><aside className={styles.summary}><h2>Repères du projet</h2><dl>{[{ label: "Domaine", value: categories[item.category] }, { label: "Client", value: item.client_name }, { label: "Année", value: item.year }, { label: "Durée", value: item.duration }].filter(detail => detail.value).map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.value}</dd></div>)}</dl>{external && <a href={item.external_url} target="_blank" rel="noopener noreferrer">Voir le projet en ligne ↗</a>}<Link href="/contact">Nous contacter →</Link></aside></div></PageSection>
-    <PageCTA title="Vous avez un projet ?" label="Nous contacter" />
-  </main>;
+export function PortfolioDetailView({item}:{item:PortfolioItem}){
+ const {language}=useLanguage();const fr=language==="fr";
+ const kind=item.category==="training"?(fr?"Programme de formation":"Training programme"):item.client_name?(fr?"Projet client":"Client project"):(fr?"Exemple de solution":"Solution example");
+ const categories={web:fr?"Logiciel & applications":"Software & apps",hydro:fr?"Systèmes connectés":"Connected systems",training:"ENOV Academy"};
+ const tags=item.tags.split("·").map(tag=>tag.trim()).filter(Boolean);
+ return <main id="main-content"><PageHero eyebrow={`${categories[item.category]} / ${kind}`} title={item.title} description={item.description || (fr?"Les informations publiées par ENOV CORP sur cette fiche.":"Information published by ENOV CORP about this entry.")} secondary={{href:"/portfolio",label:fr?"Toutes les publications":"All entries"}} /><PageSection><div className={styles.layout}><div>{item.image_url&&<div className={styles.cover}><Image src={mediaSource(item.image_url)} alt={item.title} fill sizes="(max-width:800px) 100vw, 60vw" unoptimized={item.image_url.startsWith("http")}/></div>}{item.description&&<section className={styles.description}><h2>{fr?"Le projet":"Project overview"}</h2><p>{item.description}</p></section>}{item.results&&<section className={styles.results}><h2>{fr?"Résultat publié":"Published result"}</h2><p>{item.results}</p></section>}{tags.length>0&&<section className={styles.description}><h2>{fr?"Domaines & technologies":"Areas & technologies"}</h2><ul className={styles.tags}>{tags.map(tag=><li key={tag}>{tag}</li>)}</ul></section>}</div><aside className={styles.summary}><h2>{fr?"En bref":"At a glance"}</h2><dl>{[{label:fr?"Nature":"Type",value:kind},{label:fr?"Domaine":"Area",value:categories[item.category]},{label:"Client",value:item.client_name},{label:fr?"Année":"Year",value:item.year},{label:fr?"Durée":"Duration",value:item.duration}].filter(detail=>detail.value).map(detail=><div key={detail.label}><dt>{detail.label}</dt><dd>{detail.value}</dd></div>)}</dl>{/^https?:\/\//i.test(item.external_url)&&<a href={item.external_url} target="_blank" rel="noopener noreferrer">{fr?"Consulter le site du projet":"Visit the project website"}</a>}<Link href="/contact">{fr?"Discuter d’un besoin similaire":"Discuss a similar project"}</Link></aside></div></PageSection><PageCTA title={fr?"Un besoin similaire ?":"A similar requirement?"} label={fr?"Nous contacter":"Contact us"}/></main>;
 }

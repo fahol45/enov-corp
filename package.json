@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "eslint",
     "academy:update": "node scripts/update-trainings.js",
-    "academy:sync": "node scripts/update-trainings.js --from-supabase"
+    "academy:sync": "node scripts/update-trainings.js --from-supabase",
+    "test": "node --test tests/refonte.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

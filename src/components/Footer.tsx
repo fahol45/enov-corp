@@ -1,34 +1,11 @@
 ﻿"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./Footer.module.css";
-
-const copy = {
-  fr: { tagline: "Des idées aux solutions concrètes.", description: "Solutions numériques, agriculture connectée et formation.", expertise: "Expertises", company: "ENOV CORP", contact: "Contact", rights: "Tous droits réservés.", top: "Retour en haut", links: ["Hydroponie & IoT", "Web & Mobile", "ENOV Academy", "Nos réalisations", "À propos", "Contact"], social: "Retrouvez-nous" },
-  en: { tagline: "From ideas to practical solutions.", description: "Digital solutions, connected agriculture and training.", expertise: "Expertise", company: "ENOV CORP", contact: "Contact", rights: "All rights reserved.", top: "Back to top", links: ["Hydroponics & IoT", "Web & Mobile", "ENOV Academy", "Our work", "About", "Contact"], social: "Follow us" },
-};
-const destinations = ["/hydroponie", "/web-mobile", "/academy", "/portfolio", "/propos", "/contact"];
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/enovcorp/" },
-  { label: "Instagram", href: "https://www.instagram.com/enovcorp/" },
-  { label: "Facebook", href: "https://web.facebook.com/profile.php?id=61590093913760" },
-];
-export function Footer() {
-  const { language } = useLanguage();
-  const t = copy[language];
-  return (
-    <footer className={styles.root}>
-      <div className={`app-shell ${styles.inner}`}>
-        <div className={styles.grid}>
-          <div className={styles.brand}><Link href="/" className={styles.logo}><Image src="/icon-enov.png" alt="" width={52} height={43} /><span><strong>ENOV</strong> CORP</span></Link><p className={styles.tagline}>{t.tagline}</p><p>{t.description}</p></div>
-          <nav aria-label={t.expertise}><h2>{t.expertise}</h2><ul>{destinations.slice(0, 3).map((href, index) => <li key={href}><Link href={href}>{t.links[index]}</Link></li>)}</ul></nav>
-          <nav aria-label={t.company}><h2>{t.company}</h2><ul>{destinations.slice(3).map((href, index) => <li key={href}><Link href={href}>{t.links[index + 3]}</Link></li>)}<li><Link href="/mon-espace">{language === "fr" ? "Mon espace" : "My account"}</Link></li></ul></nav>
-          <div className={styles.contact}><h2>{t.contact}</h2><a href="mailto:contact@enovcorp.com">contact@enovcorp.com <span aria-hidden="true">↗</span></a><a href="tel:+212645410864">+212 6 45 41 08 64</a><p className={styles.socialLabel}>{t.social}</p><div className={styles.social}>{socialLinks.map(link => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<span aria-hidden="true">↗</span></a>)}</div></div>
-        </div>
-        <div className={styles.bottom}><p>© {new Date().getFullYear()} ENOV CORP. {t.rights}</p><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" })}>{t.top}<span aria-hidden="true">↑</span></button></div>
-      </div>
-    </footer>
-  );
+export function Footer(){
+ const {language}=useLanguage();const fr=language==="fr";
+ const domains=[{href:"/web-mobile",label:fr?"Ingénierie logicielle":"Software engineering"},{href:"/intelligence-artificielle",label:fr?"IA & automatisation":"AI & automation"},{href:"/systemes-connectes",label:fr?"Systèmes connectés":"Connected systems"}];
+ const company=[{href:"/portfolio",label:fr?"Solutions & réalisations":"Solutions & work"},{href:"/innovation",label:"Innovation Lab"},{href:"/propos",label:fr?"À propos":"About"},{href:"/academy",label:"ENOV Academy"},{href:"/mon-espace",label:fr?"Mon espace Academy":"My Academy account"}];
+ return <footer className={styles.root}><div className="app-shell"><div className={styles.grid}><div className={styles.brand}><Link href="/" className={styles.logo}><Image src="/icon-enov.png" alt="" width={48} height={40}/><span><strong>ENOV</strong> CORP</span></Link><p>{fr?"Des idées aux solutions concrètes.":"From ideas to practical solutions."}</p><p>{fr?"Ingénierie logicielle, intelligence artificielle et systèmes connectés.":"Software engineering, artificial intelligence and connected systems."}</p></div><nav aria-label={fr?"Expertises":"Expertise"}><h2>{fr?"Expertises":"Expertise"}</h2>{domains.map(item=><Link key={item.href} href={item.href}>{item.label}</Link>)}</nav><nav aria-label="ENOV CORP"><h2>ENOV CORP</h2>{company.map(item=><Link key={item.href} href={item.href}>{item.label}</Link>)}</nav><div className={styles.contact}><h2>Contact</h2><a href="mailto:contact@enovcorp.com">contact@enovcorp.com</a><a href="tel:+212645410864">+212 6 45 41 08 64</a><div className={styles.social}><a href="https://www.linkedin.com/company/enovcorp/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.instagram.com/enovcorp/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://web.facebook.com/profile.php?id=61590093913760" target="_blank" rel="noopener noreferrer">Facebook</a></div></div></div><div className={styles.bottom}><p>© {new Date().getFullYear()} ENOV CORP</p><button type="button" onClick={()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})}>{fr?"Retour en haut":"Back to top"}</button></div></div></footer>;
 }

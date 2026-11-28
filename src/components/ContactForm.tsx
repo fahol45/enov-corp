@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import styles from "./ContactForm.module.css";
 
 export type ContactFormCopy = {
@@ -40,6 +41,8 @@ type Props = {
 };
 
 export function ContactForm({ copy }: Props) {
+  const { language } = useLanguage();
+  const [need, setNeed] = useState("");
   const [formData, setFormData] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -55,6 +58,7 @@ export function ContactForm({ copy }: Props) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (status === "loading") return;
     setStatus("loading");
     setError(null);
 
@@ -64,7 +68,8 @@ export function ContactForm({ copy }: Props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        signal: AbortSignal.timeout(15000),
+        body: JSON.stringify({ ...formData, message: need ? `[${need}]\n\n${formData.message}` : formData.message }),
       });
 
       if (!response.ok) {
@@ -74,6 +79,7 @@ export function ContactForm({ copy }: Props) {
 
       setStatus("success");
       setFormData(initialState);
+      setNeed("");
     } catch (submitError) {
       setStatus("error");
       setError(
@@ -88,13 +94,14 @@ export function ContactForm({ copy }: Props) {
     <form
       onSubmit={handleSubmit}
       aria-label={copy.title}
+      aria-busy={status === "loading"}
       className={styles.form}
     >
       <div className={styles.heading}>
         <p className={styles.title}>{copy.title}</p>
         <p className={styles.description}>{copy.description}</p>
       </div>
-      <div className={styles.fields}>
+      <fieldset disabled={disabled} className={styles.fields}>
         <div className={styles.row}>
           <Field
             id="contact-name"
@@ -139,6 +146,7 @@ export function ContactForm({ copy }: Props) {
             onChange={handleChange}
           />
         </div>
+        <div><label htmlFor="contact-need" className={styles.label}>{language === "fr" ? "Type de besoin (optionnel)" : "Type of project (optional)"}</label><select id="contact-need" value={need} onChange={event => setNeed(event.target.value)} className={styles.input}><option value="">{language === "fr" ? "Sélectionner" : "Select"}</option>{(language === "fr" ? ["Logiciel & applications", "IA & automatisation", "Systèmes connectés", "Formation", "Autre demande"] : ["Software & applications", "AI & automation", "Connected systems", "Training", "Other enquiry"]).map(value => <option key={value} value={value}>{value}</option>)}</select></div>
         <div>
           <label
             htmlFor="contact-message"
@@ -158,7 +166,7 @@ export function ContactForm({ copy }: Props) {
             onChange={handleChange}
           />
         </div>
-      </div>
+      </fieldset>
       <div className={styles.submitRow}>
         <button
           type="submit"

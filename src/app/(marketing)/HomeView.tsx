@@ -1,62 +1,45 @@
 ﻿"use client";
-
-import Image from "next/image";
-import { HeroCarousel } from "@/components/HeroCarousel";
-import styles from "./HomeSections.module.css";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { expertise, deliverySteps } from "@/lib/site-content";
+import { HomeWork } from "./HomeWork";
+import { EngineeringVisual } from "@/components/EngineeringVisual";
+import { Reveal } from "@/components/Reveal";
+import { ProcessSteps } from "@/components/SiteSections";
+import styles from "./HomeSections.module.css";
 
-const content = {
-  fr: {
-    contact: "Nous contacter", academyLink: "Découvrir Academy", expertise: "Nos services", expertiseIntro: "Ce que nous faisons.",
-    services: [
-      { title: "Web & Mobile", short: "Sites, applications et logiciels.", heading: "Sites web et applications.", description: "Nous réalisons des sites, des boutiques en ligne et des outils de gestion. Nous assurons aussi leur mise en ligne.", tags: "Sites web · Applications mobiles · Plateformes métier", href: "/web-mobile", image: "/pc-portable.png", alt: "Exemple d’interface web ENOV CORP", link: "Nos solutions numériques" },
-      { title: "Hydroponie & IoT", short: "Des cultures et des systèmes connectés.", heading: "Hydroponie et suivi des cultures.", description: "Nous équipons les installations de capteurs pour mesurer le pH, la température et l’humidité, et automatiser l’irrigation.", tags: "Hydroponie · Capteurs · Automatisation", href: "/hydroponie", image: "/Academy_images/Hydroponie intelligente & data.jpg", alt: "Installation hydroponique et suivi des cultures", link: "L’hydroponie connectée" },
-    ],
-    academyShort: "Formations web, data et IoT.", academyTitle: "Les formations ENOV Academy.", academyText: "Consultez les programmes, les niveaux requis, les tarifs et les dates des sessions.", catalogue: "Voir les formations", academyCaption: "ENOV ACADEMY / FORMATIONS PRATIQUES", about: "Comment se passe un projet ?", aboutText: "Nous précisons le besoin, réalisons le projet et vous montrons comment utiliser les outils livrés.", aboutLink: "À propos d’ENOV CORP", closing: "Vous avez un projet ?", closingText: "Écrivez-nous pour en discuter.",
-  },
-  en: {
-    contact: "Contact us", academyLink: "Discover Academy", expertise: "Our services", expertiseIntro: "What we do.",
-    services: [
-      { title: "Web & Mobile", short: "Websites, apps and software.", heading: "Websites and applications.", description: "We develop websites, online stores and business software, and handle deployment.", tags: "Websites · Mobile applications · Business platforms", href: "/web-mobile", image: "/pc-portable.png", alt: "ENOV CORP web interface example", link: "Our digital solutions" },
-      { title: "Hydroponics & IoT", short: "Connected crops and systems.", heading: "Hydroponics and crop monitoring.", description: "We install sensors to measure pH, temperature and humidity, and automate irrigation.", tags: "Hydroponics · Sensors · Automation", href: "/hydroponie", image: "/Academy_images/Hydroponie intelligente & data.jpg", alt: "Hydroponic installation and crop monitoring", link: "Connected hydroponics" },
-    ],
-    academyShort: "Web, data and IoT courses.", academyTitle: "ENOV Academy courses.", academyText: "Check programmes, entry requirements, fees and session dates.", catalogue: "View courses", academyCaption: "ENOV ACADEMY / PRACTICAL TRAINING", about: "How does a project work?", aboutText: "We define the requirements, build the project and show you how to use the delivered tools.", aboutLink: "About ENOV CORP", closing: "Have a project in mind?", closingText: "Contact us to discuss it.",
-  },
-};
-
-export function HomeView() {
-  const { language } = useLanguage();
-  const t = content[language];
-  const steps = language === "fr" ? [
-    { title: "Comprendre", text: "Votre besoin, vos utilisateurs, vos contraintes." },
-    { title: "Concevoir", text: "Une solution adaptée, un périmètre défini ensemble." },
-    { title: "Accompagner", text: "La mise en service et la prise en main de vos outils." },
+export function HomeView({ work }: { work?: ReactNode }) {
+  const { language } = useLanguage(); const fr = language === "fr";
+  const domains = expertise[language];
+  const needs = fr ? [
+    { title: "Vos opérations reposent sur des fichiers dispersés.", text: "Une application métier réunit les données, les validations et les équipes.", href: "/web-mobile" },
+    { title: "Les mêmes tâches mobilisent vos équipes chaque jour.", text: "Nous identifions les étapes automatisables et les contrôles à conserver.", href: "/intelligence-artificielle" },
+    { title: "Vous avez des données, mais peu de visibilité.", text: "Nous organisons leur collecte et leur lecture dans un tableau de bord.", href: "/systemes-connectes" },
+    { title: "Vous souhaitez lancer une plateforme.", text: "Nous cadrons les fonctionnalités, concevons l’architecture et développons le produit.", href: "/web-mobile" },
   ] : [
-    { title: "Understand", text: "Your needs, your users and your constraints." },
-    { title: "Design", text: "The right solution, with a scope defined together." },
-    { title: "Support", text: "Launch and adoption of your new tools." },
+    { title: "Your operations rely on scattered files.", text: "A business application brings data, approvals and teams together.", href: "/web-mobile" },
+    { title: "The same tasks take up your team’s time every day.", text: "We identify what can be automated and which checks must remain.", href: "/intelligence-artificielle" },
+    { title: "You have data, but limited visibility.", text: "We organise collection and reporting in a dashboard.", href: "/systemes-connectes" },
+    { title: "You want to launch a platform.", text: "We scope the features, design the architecture and develop the product.", href: "/web-mobile" },
   ];
-  return (
-    <main className={`welcome-page ${styles.root}`}>
-      <HeroCarousel />
-      <nav className={`app-shell ${styles.paths}`} aria-label={language === "fr" ? "Nos activités" : "Our services"}>
-        {t.services.map((service, index) => <Link href={service.href} key={service.href}><span>0{index + 1}</span><div><strong>{service.title}</strong><p>{service.short}</p></div><span aria-hidden="true">&#8599;</span></Link>)}
-        <Link href="/academy"><span>03</span><div><strong>ENOV Academy</strong><p>{t.academyShort}</p></div><span aria-hidden="true">&#8599;</span></Link>
-      </nav>
-      <section id="poles" className={`app-shell ${styles.expertise}`}>
-        <div className={styles.sectionHeading}><div><p className="brand-eyebrow">01 / {t.expertise}</p><h2>{t.expertiseIntro}</h2></div><Link href="/portfolio" className={styles.textLink}>{language === "fr" ? "Voir les projets" : "View projects"}<span aria-hidden="true">&#8599;</span></Link></div>
-        <div className={styles.serviceGrid}>{t.services.map((service, index) => <article className={styles.service} key={service.href}>
-          <Link href={service.href} className={`${styles.serviceVisual} ${index === 0 ? styles.product : ""}`} aria-label={service.link}><Image src={service.image} alt={service.alt} fill sizes="(max-width: 800px) 100vw, 50vw" /><span className={styles.imageLabel}>{service.title}</span><span className={styles.imageArrow} aria-hidden="true">&#8599;</span></Link>
-          <div className={styles.serviceCopy}><p className="brand-eyebrow">0{index + 1} / {service.title}</p><h3>{service.heading}</h3><p>{service.description}</p><ul className={styles.tags}>{service.tags.split("·").map(tag => <li key={tag}>{tag.trim()}</li>)}</ul><Link href={service.href} className={styles.textLink}>{service.link}<span aria-hidden="true">&#8599;</span></Link></div>
-        </article>)}</div>
-      </section>
-      <section className={styles.academy}><div className={`app-shell ${styles.academyInner}`}>
-        <div className={styles.academyCopy}><p className="brand-eyebrow">02 / ENOV ACADEMY</p><h2>{t.academyTitle}</h2><p>{t.academyText}</p><ul className={styles.academyTopics}>{["Web & Mobile", "Data", "IoT & Robotique"].map(topic => <li key={topic}>{topic}</li>)}</ul><Link href="/academy" className={styles.primary}>{t.catalogue}<span aria-hidden="true">&#8599;</span></Link></div>
-        <Link href="/academy" className={styles.academyVisual}><Image src="/Academy_images/IoT & Robotics Lab.webp" alt={language === "fr" ? "Technologies IoT et robotique" : "IoT and robotics technologies"} fill sizes="(max-width: 800px) 100vw, 45vw" /><span><Image src="/icon-enov.png" alt="" width={42} height={34} /><span>{t.academyCaption}</span><span aria-hidden="true">&#8599;</span></span></Link>
-      </div></section>
-      <section className={`app-shell ${styles.approach}`}><div className={styles.sectionHeading}><div><p className="brand-eyebrow">03 / {language === "fr" ? "NOTRE APPROCHE" : "OUR APPROACH"}</p><h2>{t.about}</h2></div><div className={styles.aboutCopy}><p>{t.aboutText}</p><Link href="/propos" className={styles.textLink}>{t.aboutLink}<span aria-hidden="true">&#8599;</span></Link></div></div><ol className={styles.steps}>{steps.map((step, index) => <li key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol></section>
-      <section className={`app-shell ${styles.contactSection}`}><div className={styles.contactPanel}><div><p className="brand-eyebrow">{language === "fr" ? "CONTACT / ENOV CORP" : "CONTACT / ENOV CORP"}</p><h2>{t.closing}</h2><p>{t.closingText}</p></div><div className={styles.contactActions}><Link href="/contact" className={styles.primary}>{t.contact}<span aria-hidden="true">&#8599;</span></Link><a href="mailto:contact@enovcorp.com">contact@enovcorp.com</a></div></div></section>
-    </main>
-  );
+  return <main className={styles.root} id="main-content">
+    <section className={styles.hero} aria-labelledby="home-title">
+      <div className={styles.heroLines} aria-hidden="true" />
+      <div className={`app-shell ${styles.heroInner}`}>
+        <div className={styles.heroCopy}><p className={styles.eyebrow}>{fr ? "INGÉNIERIE LOGICIELLE · IA · SYSTÈMES CONNECTÉS" : "SOFTWARE ENGINEERING · AI · CONNECTED SYSTEMS"}</p><h1 id="home-title">{fr ? "Votre activité évolue." : "Your business is changing."}<br /><span>{fr ? "Vos technologies aussi." : "Your technology should too."}</span></h1><p className={styles.intro}>{fr ? "ENOV CORP conçoit des logiciels, intègre l’intelligence artificielle et connecte vos systèmes pour faire évoluer vos opérations." : "ENOV CORP develops software, integrates artificial intelligence and connects systems to support your operations."}</p><div className={styles.actions}><Link className={styles.primary} href="/contact">{fr ? "Discuter de votre projet" : "Discuss your project"}</Link><Link className={styles.secondary} href="/expertises">{fr ? "Nos expertises" : "Our expertise"}</Link></div></div>
+        <div className={styles.heroVisual}><EngineeringVisual /><div className={styles.visualCaption}><span>ENOV / ENGINEERING</span><span>{fr ? "Logiciel. Données. Terrain." : "Software. Data. Operations."}</span></div></div>
+      </div>
+      <div className={`app-shell ${styles.heroFoot}`}>{domains.map(domain => <Link href={domain.href} key={domain.key}>{domain.name}</Link>)}</div>
+    </section>
+    <section className={`app-shell ${styles.expertise}`} id="expertises"><Reveal><div className={styles.heading}><p className="brand-eyebrow">{fr ? "NOS EXPERTISES" : "OUR EXPERTISE"}</p><h2>{fr ? "Du logiciel au système connecté." : "From software to connected systems."}</h2><p>{fr ? "Trois domaines qui se complètent, selon les besoins de votre projet." : "Three complementary disciplines, brought together around your project."}</p></div></Reveal>
+      {domains.map(domain => <Reveal key={domain.key}><article className={styles.domain}><div className={`${styles.domainVisual} ${styles[domain.key]}`}><EngineeringVisual variant={domain.key} /></div><div className={styles.domainBody}><p className={styles.domainLabel}>{domain.label}</p><h3>{domain.title}</h3><p>{domain.text}</p><ul>{domain.tags.map(tag => <li key={tag}>{tag}</li>)}</ul><Link href={domain.href} className={styles.textLink}>{fr ? "Découvrir cette expertise" : "Explore this expertise"}</Link></div></article></Reveal>)}
+    </section>
+    <section className={styles.needs}><div className="app-shell"><Reveal><div className={styles.heading}><p className="brand-eyebrow">{fr ? "VOS ENJEUX" : "YOUR CHALLENGES"}</p><h2>{fr ? "Partons du problème à résoudre." : "Start with the problem to solve."}</h2></div><div className={styles.needsGrid}>{needs.map(need => <article key={need.href+need.title}><h3><Link href={need.href}>{need.title}</Link></h3><p>{need.text}</p></article>)}</div></Reveal></div></section>
+    <section className={`app-shell ${styles.method}`}><Reveal><div className={styles.heading}><p className="brand-eyebrow">{fr ? "NOTRE DÉMARCHE" : "OUR APPROACH"}</p><h2>{fr ? "Un cadre clair, jusqu’à la mise en service." : "A clear process, through to delivery."}</h2></div><ProcessSteps items={deliverySteps[language]} /></Reveal></section>
+    <section className={`app-shell ${styles.work}`}><Reveal>{work ?? <HomeWork />}</Reveal></section>
+    <section className={styles.lab}><div className={`app-shell ${styles.labInner}`}><div className={styles.labMark} aria-hidden="true"><span /><span /><span /></div><Reveal><p className={styles.eyebrow}>ENOV / INNOVATION LAB</p><h2>{fr ? "Expérimenter avant de promettre." : "Test before making promises."}</h2><p>{fr ? "Notre démarche de R&D explore les usages de l’IA, de l’IoT et des systèmes embarqués. Les prototypes servent à vérifier la faisabilité. Ils ne sont pas présentés comme des produits disponibles." : "Our R&D approach explores AI, IoT and embedded systems. Prototypes establish feasibility; they are not presented as available products."}</p><Link href="/innovation" className={styles.secondary}>{fr ? "Notre démarche d’innovation" : "Our approach to innovation"}</Link></Reveal></div></section>
+    <section className={`app-shell ${styles.academy}`}><Reveal><div><p className="brand-eyebrow">ENOV ACADEMY</p><h2>{fr ? "Transmettre les compétences." : "Sharing technical skills."}</h2><p>{fr ? "Des formations en développement, data, design et systèmes connectés, en complément de nos activités d’ingénierie." : "Training in development, data, design and connected systems, alongside our engineering work."}</p></div><Link href="/academy" className={styles.textLink}>{fr ? "Voir les programmes" : "View programmes"}</Link></Reveal></section>
+    <section className={styles.final}><div className={`app-shell ${styles.finalInner}`}><div><p className="brand-eyebrow">{fr ? "PARLONS DE VOTRE PROJET" : "LET’S DISCUSS YOUR PROJECT"}</p><h2>{fr ? "Quel problème souhaitez-vous résoudre ?" : "What problem would you like to solve?"}</h2></div><div><Link href="/contact" className={styles.primary}>{fr ? "Discuter de votre projet" : "Discuss your project"}</Link><a href="mailto:contact@enovcorp.com">contact@enovcorp.com</a></div></div></section>
+  </main>;
 }

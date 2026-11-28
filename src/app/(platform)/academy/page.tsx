@@ -31,13 +31,14 @@ export default async function AcademyPage({
   const categories = Array.from(new Set(trainings.map((t) => t.category)));
 
   return (
-    <main className="academy-catalogue-page">
+    <main id="main-content" className="academy-catalogue-page">
       <AcademyHero registrationUrl={academyRegistrationUrl} />
       <div className="app-shell">
         <UpcomingSessions trainings={trainings} />
         <WhyEnov />
         <div id="formations" className="scroll-mt-16 pb-24 pt-10">
           <TrainingFilters
+            key={`${q ?? ""}:${cat ?? ""}`}
             trainings={trainings}
             categories={categories}
             initialSearch={q ?? ""}

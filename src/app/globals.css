@@ -134,8 +134,8 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 /* ENOV CORP — 2026 brand. Scoped to the public website. */
 :root { --brand-magenta: #E01078; --brand-dark-magenta: #B1065E; --brand-graphite: #1B2230; --brand-paper: #F8F9FB; --brand-blush: #F5DCE9; }
 .brand-site { background: white; color: var(--brand-graphite); --accent: var(--brand-magenta); --accent-glow: transparent; }
-.brand-site header { background: white; border-bottom: 1px solid #e5e7ed; backdrop-filter: none; box-shadow: none; }
-.brand-site footer { background: var(--brand-paper); }
+.brand-site .site-header { background: white; border-bottom: 1px solid #e5e7ed; }
+
 .brand-site [class*="bg-slate-9"], .brand-site [class*="bg-slate-8"] { background-color: var(--brand-paper); }
 .brand-site [class*="text-white"], .brand-site [class*="text-slate-50"], .brand-site [class*="text-slate-200"], .brand-site [class*="text-slate-300"] { color: var(--brand-graphite); }
 .brand-site [class*="text-slate-400"], .brand-site [class*="text-slate-500"], .brand-site [class*="text-slate-600"] { color: #606c80; }
@@ -149,12 +149,12 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .brand-site [class*="rounded-3xl"], .brand-site [class*="rounded-2xl"] { border-radius: 8px; }
 .brand-site [class*="animate-pulse"] { animation: none; }
 .brand-site [class*="tracking-"] { letter-spacing: .06em; }
-.brand-site a:hover { color: var(--brand-dark-magenta); }
+
 .brand-site a[class*="bg-linear"]:hover { background: var(--brand-dark-magenta); color: white; }
 .brand-site input, .brand-site textarea, .brand-site select { color: var(--brand-graphite); }
 .brand-site :focus-visible { outline: 2px solid var(--brand-magenta); outline-offset: 4px; }
 .brand-logo { font-size: 19px; white-space: nowrap; letter-spacing: .03em; }
-.brand-site nav a { font-size: 12px; }
+
 ﻿.home-redesign { background: white; }
 .home-redesign h1, .home-redesign h2, .home-redesign h3, .home-redesign p { margin: 0; }
 .home-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; padding-block: 76px 100px; }
@@ -205,7 +205,6 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .brand-site .site-nav-link { font-weight: 400; }
 .brand-site .site-nav-link[aria-current="page"] { font-weight: 700; }
 .brand-site .section-flow { padding-top: 52px; }
-.brand-site footer { padding-block: 20px; }
 @media (max-width: 800px) {
   .brand-logo { font-size: 16px; }
   .home-hero { grid-template-columns: 1fr; gap: 44px; padding-block: 40px 64px; }
@@ -548,11 +547,6 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .service-visual-caption { font-size: 13px; padding: 12px; }
   .service-web-visual { padding: 16px 12px; border-radius: 12px; }
   .service-web-visual p { font-size: 12px; }
-  .brand-site footer { padding-block: 0; }
-  .brand-site footer .grid-cols-2 { grid-template-columns: 1fr; gap: 28px; }
-  .brand-site footer .col-span-2 { grid-column: auto; }
-  .brand-site footer li a { display: inline-block; min-height: 36px; padding-block: 6px; overflow-wrap: anywhere; }
-  .brand-site footer .space-y-2 > :not(:last-child) { margin-bottom: 0; }
 }
 @media (max-width: 360px) {
   .brand-site { --shell-padding: 16px; }
@@ -636,3 +630,15 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) { .academy-course-card { transition: none; } }
 .learner-page p, .learner-page h1 { overflow-wrap: anywhere; }
 .admin-site aside [class*="text-fuchsia"] { color: #ff69af; }
+
+/* Institutional design tokens; account and learning flows retain their existing styling. */
+:root { --shell-max-width: 1320px; --enov-space-section: clamp(3.5rem,7vw,6rem); --enov-ink: #1b2230; --enov-muted: #596476; --enov-surface: #f8f9fb; }
+.brand-eyebrow { font-size: .8125rem; line-height:1.6; }
+.marketing-site { background:#f8f9fb; }
+@media(prefers-reduced-motion:reduce) { html:focus-within { scroll-behavior:auto; } .brand-site *, .brand-site *::before, .brand-site *::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+
+/* Catalogue typography shares the institutional reading scale. */
+.academy-course-body > p, .academy-course-body ul { font-size:1rem; }
+.academy-course-specs dt { font-size:.8125rem; }
+.academy-course-specs dd, .academy-course-category { font-size:.875rem; }
+.academy-catalogue-page .academy-filter-panel label { font-size:.875rem; }

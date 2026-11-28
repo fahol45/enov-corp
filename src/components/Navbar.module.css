@@ -1,0 +1,22 @@
+﻿.header { position:sticky; top:0; z-index:50; background:#f8f9fbf5; backdrop-filter:blur(16px); color:#1b2230; border-bottom:1px solid #dfe2e9; }
+.row { display:flex; align-items:center; gap:30px; min-height:88px; }
+.logo { display:flex; align-items:center; gap:10px; flex-shrink:0; font-size:1.125rem; letter-spacing:.015em; }
+.logo img { object-fit:contain; }
+.desktop { display:flex; align-items:center; justify-content:flex-end; gap:22px; flex:1; }
+.desktop a { display:flex; align-items:center; min-height:48px; font-size:.875rem; white-space:nowrap; }
+.desktop a[aria-current=page],.quick a[aria-current=page] { color:#b1065e; text-decoration:underline; text-underline-offset:7px; }
+.desktop a:hover,.quick a:hover { color:#b1065e; }
+.tools { display:flex; align-items:center; gap:16px; margin-left:auto; }
+.toggle { display:none; align-items:center; justify-content:center; gap:12px; min-height:44px; padding:8px 12px; border:1px solid #dfe2e9; border-radius:3px; font-size:.875rem; cursor:pointer; }
+.toggle span { font-size:1.25rem; }
+.quick { display:none; }
+.panel { border-top:1px solid #dfe2e9; padding-block:20px 28px; max-height:calc(100dvh - 120px); overflow:auto; }
+.panel nav { display:grid; grid-template-columns:1fr 1fr; gap:8px 32px; }
+.panel a { display:flex; align-items:center; min-height:48px; font-size:1.0625rem; }
+.panel a[aria-current=page] { color:#b1065e; }
+.account { font-size:.875rem; } .account:empty { display:none; }
+.skip { position:fixed; top:-100px; left:16px; z-index:100; padding:16px; background:#fff; color:#1b2230; }
+.skip:focus { top:12px; }
+@media(max-width:1150px) { .desktop { gap:15px; } .desktop a { font-size:.875rem; } .row { gap:20px; } }
+@media(max-width:1000px) { .desktop { display:none; } .account { display:none; } .toggle { display:flex; } .row { min-height:72px; } .quick { display:flex; justify-content:center; gap:32px; padding-inline:20px; border-top:1px solid #e5e7ed; } .quick a { min-height:44px; display:flex; align-items:center; font-size:.875rem; } }
+@media(max-width:450px) { .row { gap:12px; } .tools { gap:8px; } .logo { font-size:1rem; gap:6px; } .logo img { width:36px; height:30px; } .quick { gap:8px; justify-content:space-between; } .quick a { font-size:.875rem; } .panel nav { grid-template-columns:1fr; gap:0; } }

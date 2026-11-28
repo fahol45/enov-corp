@@ -6,10 +6,10 @@ export async function GET() {
     .from("portfolio_items")
     .select("*")
     .eq("active", true)
-    .order("sort_order", { ascending: true });
+    .order("sort_order", { ascending: true }).abortSignal(AbortSignal.timeout(8000));
 
   if (error) {
-    return NextResponse.json({ ok: false, items: [] });
+    return NextResponse.json({ ok: false, items: [] }, { status: 503 });
   }
   return NextResponse.json({ ok: true, items: data ?? [] });
 }

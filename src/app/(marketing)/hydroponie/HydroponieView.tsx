@@ -5,7 +5,7 @@ import { FeatureGrid, PageCTA, PageHero, PageSection, ProcessSteps } from "@/com
 
 const copy = {
   fr: {
-    title: "Cultures hors-sol.", highlight: "Installations connectées.", description: "Nous concevons des installations hydroponiques et équipons les cultures de capteurs.", action: "Nous contacter", secondary: "Voir les équipements", solutionsTitle: "Culture, mesure et irrigation.", features: [
+    title: "Hydroponie.", highlight: "Une application des systèmes connectés.", description: "Nous concevons des installations hydroponiques et équipons les cultures de capteurs.", action: "Nous contacter", secondary: "Voir les équipements", solutionsTitle: "Culture, mesure et irrigation.", features: [
       { title: "Culture hydroponique", text: "Systèmes de culture hors-sol avec apport de solution nutritive." },
       { title: "Capteurs & suivi", text: "Mesure du pH, de la conductivité, de la température et de l’humidité." },
       { title: "Automatisation", text: "Déclenchement de l’irrigation selon les mesures et les seuils fixés." },
@@ -37,7 +37,7 @@ const copy = {
 };
 export function HydroponieView() {
   const { language } = useLanguage(); const t = copy[language];
-  return <main><PageHero eyebrow="HYDROPONIE & IOT / ENOV CORP" title={t.title} highlight={t.highlight} description={t.description} image={{ src: "/Academy_images/Hydroponie intelligente & data.jpg", alt: language === "fr" ? "Culture hydroponique et suivi connecté" : "Hydroponic crops and connected monitoring" }} action={{ href: "/contact", label: t.action }} secondary={{ href: "#solutions", label: t.secondary }} />
+  return <main id="main-content"><PageHero eyebrow="SYSTÈMES CONNECTÉS / HYDROPONIE" title={t.title} highlight={t.highlight} description={t.description} image={{ src: "/Academy_images/Hydroponie intelligente & data.jpg", alt: language === "fr" ? "Culture hydroponique et suivi connecté" : "Hydroponic crops and connected monitoring" }} action={{ href: "/contact", label: t.action }} secondary={{ href: "#solutions", label: t.secondary }} />
     <PageSection id="solutions" eyebrow={language === "fr" ? "01 / LE SYSTÈME" : "01 / THE SYSTEM"} title={t.solutionsTitle}><FeatureGrid items={t.features} /></PageSection>
     <PageSection eyebrow={language === "fr" ? "02 / LE PARCOURS" : "02 / THE PROCESS"} title={t.processTitle}><ProcessSteps items={t.steps} /></PageSection>
     <PageCTA title={t.cta} text={t.ctaText} label={t.action} />

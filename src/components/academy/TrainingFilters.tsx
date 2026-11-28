@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import type { Training, TrainingStatus } from "@/lib/trainings";
 import { TrainingCard } from "./TrainingCard";
 
@@ -12,7 +12,6 @@ export function TrainingFilters({ trainings, categories, initialSearch = "", ini
   const [category, setCategory] = useState(categories.includes(initialCategory) ? initialCategory : "all");
   const [status, setStatus] = useState<TrainingStatus | "all">("all");
   const [sort, setSort] = useState("availability");
-  useEffect(() => { setSearch(initialSearch); setCategory(categories.includes(initialCategory) ? initialCategory : "all"); }, [initialSearch, initialCategory, categories]);
   const filtered = useMemo(() => {
     const q = search.trim().toLocaleLowerCase("fr");
     return trainings.filter(t => (!q || [t.title, t.summary, t.category].join(" ").toLocaleLowerCase("fr").includes(q)) && (category === "all" || t.category === category) && (status === "all" || t.status === status)).sort((a, b) => sort === "title" ? a.title.localeCompare(b.title, "fr") : priority[a.status] - priority[b.status] || a.title.localeCompare(b.title, "fr"));
