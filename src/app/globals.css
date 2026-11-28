@@ -320,9 +320,9 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .academy-empty { padding: 60px 24px; text-align: center; border: 1px solid #e1e5ec; border-radius: 18px; }
 .academy-empty h3 { font-size: 22px; font-weight: 700; }
 .academy-empty p { margin-block: 14px 24px; color: #606c80; }
-.academy-course-sticky { top: 80px; }
+
 #formations, #sessions, #inscription, #notification { scroll-margin-top: 190px; }
-@media (max-width: 1199px) { .academy-course-sticky { top: 136px; } .academy-course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1199px) {  .academy-course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 800px) {
   .academy-hero { grid-template-columns: 1fr; padding-block: 40px; gap: 32px; }
   .academy-hero-visual { height: 300px; }
@@ -330,7 +330,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .academy-filter-panel { grid-template-columns: 1fr 1fr; padding: 16px; }
   .academy-catalogue-heading { flex-direction: column; align-items: start; gap: 16px; }
 }
-@media (max-width: 600px) { .academy-course-grid { grid-template-columns: 1fr; } .academy-course-sticky { top: 160px; } .academy-search .brand-button { gap: 8px; font-size: 12px; padding-inline: 12px; } .academy-filter-panel { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .academy-course-grid { grid-template-columns: 1fr; }  .academy-search .brand-button { gap: 8px; font-size: 12px; padding-inline: 12px; } .academy-filter-panel { grid-template-columns: 1fr; } }
 .interior-page { padding-block: 64px 72px; }
 .interior-heading { margin-bottom: 56px; max-width: 850px; }
 .interior-heading h1, .contact-intro h1 { margin-block: 24px; font-size: clamp(36px, 4.8vw, 66px); font-weight: 900; line-height: 1.06; letter-spacing: -.045em; }
@@ -527,9 +527,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   .academy-course-body { padding: 18px; gap: 14px; }
   .academy-course-body h3 { font-size: 21px; }
   .academy-course-bottom .brand-text-link { min-height: 44px; }
-  .academy-course-sticky { top: 106px; }
-  .academy-course-sticky > .app-shell { flex-wrap: wrap; gap: 8px; padding-block: 8px; }
-  .academy-course-sticky a { min-height: 40px; }
+
   #formations, #sessions, #inscription, #notification { scroll-margin-top: 180px; }
   .interior-page { padding-block: 32px 40px; }
   .marketing-site main:not(.home-redesign) h1, .contact-intro h1 { font-size: clamp(32px, 9vw, 44px); line-height: 1.12; }
@@ -642,3 +640,8 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .academy-course-specs dt { font-size:.8125rem; }
 .academy-course-specs dd, .academy-course-category { font-size:.875rem; }
 .academy-catalogue-page .academy-filter-panel label { font-size:.875rem; }
+
+/* Readable form controls at tablet sizes as well as on phones. */
+.academy-site main input, .academy-site main select, .academy-site main textarea { font-size:16px; }
+#sessions, #inscription, #notification { scroll-margin-top:calc(var(--enov-header-height, 118px) + 88px); }
+#formations { scroll-margin-top:calc(var(--enov-header-height, 118px) + 24px); }
